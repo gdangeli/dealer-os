@@ -2,8 +2,10 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Landing Page', () => {
   test.beforeEach(async ({ page }) => {
-    // Root redirects to /de
-    await page.goto('/');
+    // Go directly to /de to avoid redirect timing issues
+    await page.goto('/de');
+    // Wait for page to be fully loaded
+    await page.waitForLoadState('networkidle');
   });
 
   test('should load landing page successfully', async ({ page }) => {
@@ -23,11 +25,11 @@ test.describe('Landing Page', () => {
   });
 
   test('should have working register CTA button', async ({ page }) => {
-    const ctaButton = page.getByRole('link', { name: /kostenlos testen|tage.*testen|registrieren/i }).first();
+    const ctaButton = page.getByRole('link', { name: /kostenlos testen|tage.*testen|registrieren|kostenlos starten/i }).first();
     await expect(ctaButton).toBeVisible();
     
     await ctaButton.click();
-    await expect(page).toHaveURL(/\/register/);
+    await expect(page).toHaveURL(/\/de\/register/);
   });
 
   test('should have working login link in header', async ({ page }) => {
@@ -35,7 +37,7 @@ test.describe('Landing Page', () => {
     await expect(loginLink).toBeVisible();
     
     await loginLink.click();
-    await expect(page).toHaveURL(/\/login/);
+    await expect(page).toHaveURL(/\/de\/login/);
   });
 
   test('should display features section', async ({ page }) => {
@@ -89,13 +91,13 @@ test.describe('Landing Page', () => {
   test('should navigate to impressum page', async ({ page }) => {
     const footer = page.locator('footer');
     await footer.getByRole('link', { name: /impressum/i }).click();
-    await expect(page).toHaveURL(/\/impressum/);
+    await expect(page).toHaveURL(/\/de\/impressum/);
   });
 
   test('should navigate to datenschutz page', async ({ page }) => {
     const footer = page.locator('footer');
     await footer.getByRole('link', { name: /datenschutz/i }).click();
-    await expect(page).toHaveURL(/\/datenschutz/);
+    await expect(page).toHaveURL(/\/de\/datenschutz/);
   });
 
   test('should have demo video button', async ({ page }) => {
@@ -105,7 +107,8 @@ test.describe('Landing Page', () => {
 
   test('should be responsive on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto('/');
+    await page.goto('/de');
+    await page.waitForLoadState('networkidle');
     
     const header = page.locator('header');
     await expect(header).toBeVisible();
