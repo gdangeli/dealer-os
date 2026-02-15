@@ -8,7 +8,7 @@ async function login(page: Page): Promise<boolean> {
     return false;
   }
   
-  await page.goto('/login');
+  await page.goto('/de/login');
   await page.locator('#email').fill(TEST_EMAIL);
   await page.locator('#password').fill(TEST_PASSWORD);
   await page.getByRole('button', { name: /anmelden/i }).click();
@@ -17,54 +17,38 @@ async function login(page: Page): Promise<boolean> {
   return true;
 }
 
-test.describe('Onboarding', () => {
+test.describe('Onboarding Access', () => {
   test('should require authentication', async ({ page }) => {
-    await page.goto('/onboarding');
+    await page.goto('/de/onboarding');
     await expect(page).toHaveURL(/\/login/);
   });
 });
 
 test.describe('Onboarding Wizard (authenticated)', () => {
+  test.skip(!TEST_EMAIL, 'Requires TEST_USER_EMAIL env var');
+
   test('should show onboarding or dashboard after login', async ({ page }) => {
-    if (!TEST_EMAIL) {
-      test.skip();
-      return;
-    }
-    
     const loggedIn = await login(page);
     if (!loggedIn) return;
     
     const url = page.url();
-    // Should be either on onboarding or dashboard
     expect(url.includes('onboarding') || url.includes('dashboard')).toBe(true);
   });
 
   test('should display onboarding content when on onboarding page', async ({ page }) => {
-    if (!TEST_EMAIL) {
-      test.skip();
-      return;
-    }
-    
     const loggedIn = await login(page);
     if (!loggedIn) return;
     
     if (!page.url().includes('onboarding')) {
-      // User has already completed onboarding
       test.skip();
       return;
     }
     
-    // Should show some onboarding content
     const content = page.locator('main');
     await expect(content).toBeVisible();
   });
 
   test('should have navigation to skip or continue', async ({ page }) => {
-    if (!TEST_EMAIL) {
-      test.skip();
-      return;
-    }
-    
     const loggedIn = await login(page);
     if (!loggedIn) return;
     
@@ -73,7 +57,6 @@ test.describe('Onboarding Wizard (authenticated)', () => {
       return;
     }
     
-    // Should have some action button
     const actionButton = page.getByRole('button', { name: /weiter|next|überspringen|skip|dashboard/i });
     await expect(actionButton).toBeVisible();
   });

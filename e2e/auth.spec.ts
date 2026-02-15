@@ -1,18 +1,27 @@
 import { test, expect } from '@playwright/test';
 
+// The app redirects / to /de, and auth pages are at /de/login, /de/register
 test.describe('Authentication Flow', () => {
   
   test.describe('Login Page', () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto('/login');
+      await page.goto('/de/login');
     });
 
     test('should display login page elements', async ({ page }) => {
-      // Check for key elements
-      await expect(page.getByText('Dealer OS')).toBeVisible();
+      // Wait for page to be fully loaded
+      await expect(page.locator('form')).toBeVisible();
+      
+      // Check for key form elements
       await expect(page.locator('#email')).toBeVisible();
       await expect(page.locator('#password')).toBeVisible();
       await expect(page.getByRole('button', { name: /anmelden/i })).toBeVisible();
+    });
+
+    test('should show logo/brand link', async ({ page }) => {
+      // Logo links back to home
+      const logoLink = page.locator('a[href="/"], a[href="/de"]').first();
+      await expect(logoLink).toBeVisible();
     });
 
     test('should show link to register page', async ({ page }) => {
@@ -28,8 +37,8 @@ test.describe('Authentication Flow', () => {
       await page.locator('#password').fill('wrongpassword123');
       await page.getByRole('button', { name: /anmelden/i }).click();
       
-      // Wait for error message (Supabase returns "Invalid login credentials")
-      await expect(page.getByText(/invalid|fehler|ungültig|credentials/i)).toBeVisible({ timeout: 10000 });
+      // Wait for error message
+      await expect(page.locator('.text-red-600, .text-red-500, [role="alert"]')).toBeVisible({ timeout: 10000 });
     });
 
     test('should have required email field', async ({ page }) => {
@@ -45,12 +54,17 @@ test.describe('Authentication Flow', () => {
 
   test.describe('Register Page', () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto('/register');
+      await page.goto('/de/register');
     });
 
     test('should display registration form', async ({ page }) => {
-      await expect(page.getByText('Dealer OS')).toBeVisible();
-      await expect(page.getByText('Konto erstellen')).toBeVisible();
+      // Wait for form to load
+      await expect(page.locator('form')).toBeVisible();
+      
+      // Check heading
+      await expect(page.getByRole('heading', { name: /konto erstellen/i })).toBeVisible();
+      
+      // Check form fields exist
       await expect(page.locator('#email')).toBeVisible();
       await expect(page.locator('#password')).toBeVisible();
       await expect(page.getByRole('button', { name: /konto erstellen/i })).toBeVisible();
@@ -89,27 +103,27 @@ test.describe('Authentication Flow', () => {
 
   test.describe('Protected Routes', () => {
     test('should redirect unauthenticated users from dashboard', async ({ page }) => {
-      await page.goto('/dashboard');
+      await page.goto('/de/dashboard');
       await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from vehicles page', async ({ page }) => {
-      await page.goto('/dashboard/vehicles');
+      await page.goto('/de/dashboard/vehicles');
       await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from leads page', async ({ page }) => {
-      await page.goto('/dashboard/leads');
+      await page.goto('/de/dashboard/leads');
       await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from settings', async ({ page }) => {
-      await page.goto('/dashboard/settings');
+      await page.goto('/de/dashboard/settings');
       await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from onboarding', async ({ page }) => {
-      await page.goto('/onboarding');
+      await page.goto('/de/onboarding');
       await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
     });
   });

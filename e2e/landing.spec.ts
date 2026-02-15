@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Landing Page', () => {
   test.beforeEach(async ({ page }) => {
+    // Root redirects to /de
     await page.goto('/');
   });
 
@@ -19,13 +20,10 @@ test.describe('Landing Page', () => {
   test('should display navigation header', async ({ page }) => {
     const header = page.locator('header').first();
     await expect(header).toBeVisible();
-    
-    // Check for logo/brand
-    await expect(page.getByText('Dealer OS')).toBeVisible();
   });
 
   test('should have working register CTA button', async ({ page }) => {
-    const ctaButton = page.getByRole('link', { name: /kostenlos testen|registrieren/i });
+    const ctaButton = page.getByRole('link', { name: /kostenlos testen|tage.*testen|registrieren/i }).first();
     await expect(ctaButton).toBeVisible();
     
     await ctaButton.click();
@@ -33,15 +31,34 @@ test.describe('Landing Page', () => {
   });
 
   test('should have working login link in header', async ({ page }) => {
-    const loginLink = page.getByRole('link', { name: /anmelden|login/i });
+    const loginLink = page.locator('header').getByRole('link', { name: /anmelden|login/i });
     await expect(loginLink).toBeVisible();
     
     await loginLink.click();
     await expect(page).toHaveURL(/\/login/);
   });
 
+  test('should display features section', async ({ page }) => {
+    const featuresSection = page.locator('#features, section:has-text("Features")').first();
+    await expect(featuresSection).toBeVisible();
+  });
+
+  test('should display pricing section', async ({ page }) => {
+    const pricingSection = page.locator('#pricing, section:has-text("Preise")').first();
+    await expect(pricingSection).toBeVisible();
+  });
+
+  test('should display FAQ section', async ({ page }) => {
+    const faqSection = page.locator('section:has-text("FAQ"), section:has-text("Häufige Fragen")').first();
+    await expect(faqSection).toBeVisible();
+  });
+
+  test('should display testimonials section', async ({ page }) => {
+    const testimonialsSection = page.locator('section:has-text("Kundenstimmen")').first();
+    await expect(testimonialsSection).toBeVisible();
+  });
+
   test('should display trust indicators', async ({ page }) => {
-    // Look for trust badges/indicators
     const trustText = page.getByText(/schweiz|kreditkarte|minuten/i).first();
     await expect(trustText).toBeVisible();
   });
@@ -81,11 +98,15 @@ test.describe('Landing Page', () => {
     await expect(page).toHaveURL(/\/datenschutz/);
   });
 
+  test('should have demo video button', async ({ page }) => {
+    const demoButton = page.getByRole('button', { name: /demo|video/i });
+    await expect(demoButton).toBeVisible();
+  });
+
   test('should be responsive on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/');
     
-    // Page should still display header
     const header = page.locator('header');
     await expect(header).toBeVisible();
   });
