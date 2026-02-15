@@ -1,56 +1,52 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import { LogoutButton } from "./logout-button";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  if (!user) {
+    redirect('/login');
+  }
+
+  const { data: dealer } = await supabase
+    .from('dealers')
+    .select('company_name')
+    .eq('user_id', user.id)
+    .single();
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 w-64 h-screen bg-white border-r border-slate-200 p-4">
-        <div className="flex items-center gap-2 mb-8">
-          <span className="text-2xl">🚗</span>
-          <span className="text-xl font-bold">Dealer OS</span>
-          <Badge variant="secondary" className="ml-auto">Beta</Badge>
+      <aside className="fixed left-0 top-0 w-64 h-screen bg-white border-r border-slate-200 flex flex-col">
+        <div className="p-4 border-b border-slate-200">
+          <Link href="/dashboard" className="flex items-center gap-2">
+            <span className="text-2xl">🚗</span>
+            <span className="text-xl font-bold">Dealer OS</span>
+          </Link>
+          <Badge variant="secondary" className="mt-2">Beta</Badge>
         </div>
         
-        <nav className="space-y-2">
-          <Link href="/dashboard">
-            <Button variant="ghost" className="w-full justify-start">
-              📊 Dashboard
-            </Button>
-          </Link>
-          <Link href="/dashboard/vehicles">
-            <Button variant="ghost" className="w-full justify-start">
-              🚙 Fahrzeuge
-            </Button>
-          </Link>
-          <Link href="/dashboard/leads">
-            <Button variant="ghost" className="w-full justify-start">
-              💬 Anfragen
-            </Button>
-          </Link>
-          <Link href="/dashboard/publish">
-            <Button variant="ghost" className="w-full justify-start">
-              🚀 Inserieren
-            </Button>
-          </Link>
-          <Link href="/dashboard/analytics">
-            <Button variant="ghost" className="w-full justify-start">
-              📈 Analytics
-            </Button>
-          </Link>
+        <nav className="flex-1 p-4 space-y-1">
+          <NavLink href="/dashboard" icon="📊">Dashboard</NavLink>
+          <NavLink href="/dashboard/vehicles" icon="🚙">Fahrzeuge</NavLink>
+          <NavLink href="/dashboard/leads" icon="💬">Anfragen</NavLink>
+          <NavLink href="/dashboard/analytics" icon="📈">Analytics</NavLink>
         </nav>
 
-        <div className="absolute bottom-4 left-4 right-4">
-          <Link href="/dashboard/settings">
-            <Button variant="ghost" className="w-full justify-start">
-              ⚙️ Einstellungen
-            </Button>
-          </Link>
+        <div className="p-4 border-t border-slate-200">
+          <div className="text-sm text-slate-600 mb-2 truncate">
+            {dealer?.company_name || user.email}
+          </div>
+          <NavLink href="/dashboard/settings" icon="⚙️">Einstellungen</NavLink>
+          <LogoutButton />
         </div>
       </aside>
 
@@ -59,5 +55,17 @@ export default function DashboardLayout({
         {children}
       </main>
     </div>
+  );
+}
+
+function NavLink({ href, icon, children }: { href: string; icon: string; children: React.ReactNode }) {
+  return (
+    <Link 
+      href={href}
+      className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+    >
+      <span>{icon}</span>
+      <span>{children}</span>
+    </Link>
   );
 }

@@ -1,33 +1,80 @@
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default function DashboardPage() {
-  // Mock data - später aus Supabase
+export default async function DashboardPage() {
+  const supabase = await createClient();
+  
+  // Get current user
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login');
+
+  // Get dealer profile
+  const { data: dealer } = await supabase
+    .from('dealers')
+    .select('*')
+    .eq('user_id', user.id)
+    .single();
+
+  // Get vehicle stats
+  const { count: totalVehicles } = await supabase
+    .from('vehicles')
+    .select('*', { count: 'exact', head: true })
+    .eq('dealer_id', dealer?.id);
+
+  const { count: inStockVehicles } = await supabase
+    .from('vehicles')
+    .select('*', { count: 'exact', head: true })
+    .eq('dealer_id', dealer?.id)
+    .eq('status', 'in_stock');
+
+  // Get new leads count
+  const { count: newLeads } = await supabase
+    .from('leads')
+    .select('*', { count: 'exact', head: true })
+    .eq('dealer_id', dealer?.id)
+    .eq('status', 'new');
+
+  // Get recent leads
+  const { data: recentLeads } = await supabase
+    .from('leads')
+    .select(`
+      *,
+      vehicles (make, model)
+    `)
+    .eq('dealer_id', dealer?.id)
+    .order('created_at', { ascending: false })
+    .limit(5);
+
+  // Get vehicles with long standing time (>30 days)
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  
+  const { data: longStanding } = await supabase
+    .from('vehicles')
+    .select('*')
+    .eq('dealer_id', dealer?.id)
+    .eq('status', 'in_stock')
+    .lt('acquired_at', thirtyDaysAgo.toISOString().split('T')[0])
+    .order('acquired_at', { ascending: true })
+    .limit(5);
+
   const stats = {
-    totalVehicles: 24,
-    activeListings: 18,
-    newLeads: 5,
-    avgDaysOnLot: 23,
+    totalVehicles: totalVehicles || 0,
+    inStockVehicles: inStockVehicles || 0,
+    newLeads: newLeads || 0,
   };
-
-  const recentLeads = [
-    { id: 1, name: "Peter Meier", vehicle: "BMW 320d", time: "vor 2 Stunden" },
-    { id: 2, name: "Sandra Keller", vehicle: "VW Golf", time: "vor 5 Stunden" },
-    { id: 3, name: "Thomas Brunner", vehicle: "Audi A4", time: "gestern" },
-  ];
-
-  const longStanding = [
-    { id: 1, name: "Opel Astra 2019", days: 67, price: "CHF 14'900" },
-    { id: 2, name: "Fiat 500 2018", days: 45, price: "CHF 9'800" },
-  ];
 
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-slate-600">Willkommen zurück! Hier ist Ihr Überblick.</p>
+          <p className="text-slate-600">
+            Willkommen zurück{dealer?.contact_name ? `, ${dealer.contact_name}` : ''}!
+          </p>
         </div>
         <Link href="/dashboard/vehicles/new">
           <Button>+ Neues Fahrzeug</Button>
@@ -35,35 +82,42 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription>Fahrzeuge gesamt</CardDescription>
-            <CardTitle className="text-3xl">{stats.totalVehicles}</CardTitle>
+            <CardDescription>Fahrzeuge im Bestand</CardDescription>
+            <CardTitle className="text-3xl">{stats.inStockVehicles}</CardTitle>
           </CardHeader>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>Aktive Inserate</CardDescription>
-            <CardTitle className="text-3xl text-green-600">{stats.activeListings}</CardTitle>
-          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-slate-500">{stats.totalVehicles} total</p>
+          </CardContent>
         </Card>
         <Card>
           <CardHeader className="pb-2">
             <CardDescription>Neue Anfragen</CardDescription>
             <CardTitle className="text-3xl text-blue-600">{stats.newLeads}</CardTitle>
           </CardHeader>
+          <CardContent>
+            <Link href="/dashboard/leads?status=new">
+              <Button variant="link" className="p-0 h-auto text-sm">Alle anzeigen →</Button>
+            </Link>
+          </CardContent>
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription>Ø Standzeit (Tage)</CardDescription>
-            <CardTitle className="text-3xl">{stats.avgDaysOnLot}</CardTitle>
+            <CardDescription>Status</CardDescription>
+            <CardTitle className="text-xl text-green-600">
+              {dealer?.status === 'active' ? '✅ Aktiv' : '⏳ Pending'}
+            </CardTitle>
           </CardHeader>
+          <CardContent>
+            <p className="text-sm text-slate-500">Plan: {dealer?.subscription_plan || 'Beta'}</p>
+          </CardContent>
         </Card>
       </div>
 
       {/* Two Column Layout */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Leads */}
         <Card>
           <CardHeader>
@@ -71,17 +125,27 @@ export default function DashboardPage() {
             <CardDescription>Die letzten Kundenanfragen</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {recentLeads.map((lead) => (
-                <div key={lead.id} className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                  <div>
-                    <div className="font-medium">{lead.name}</div>
-                    <div className="text-sm text-slate-600">{lead.vehicle}</div>
-                  </div>
-                  <div className="text-sm text-slate-500">{lead.time}</div>
-                </div>
-              ))}
-            </div>
+            {recentLeads && recentLeads.length > 0 ? (
+              <div className="space-y-4">
+                {recentLeads.map((lead) => (
+                  <Link key={lead.id} href={`/dashboard/leads/${lead.id}`}>
+                    <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+                      <div>
+                        <div className="font-medium">{lead.name}</div>
+                        <div className="text-sm text-slate-600">
+                          {lead.vehicles ? `${lead.vehicles.make} ${lead.vehicles.model}` : 'Allgemeine Anfrage'}
+                        </div>
+                      </div>
+                      <div className="text-sm text-slate-500">
+                        {new Date(lead.created_at).toLocaleDateString('de-CH')}
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="text-slate-500 text-center py-8">Noch keine Anfragen</p>
+            )}
             <Link href="/dashboard/leads">
               <Button variant="outline" className="w-full mt-4">
                 Alle Anfragen anzeigen
@@ -94,26 +158,54 @@ export default function DashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle className="text-orange-600">⚠️ Lange Standzeit</CardTitle>
-            <CardDescription>Diese Fahrzeuge brauchen Aufmerksamkeit</CardDescription>
+            <CardDescription>Fahrzeuge über 30 Tage im Bestand</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {longStanding.map((vehicle) => (
-                <div key={vehicle.id} className="flex justify-between items-center p-3 bg-orange-50 rounded-lg border border-orange-200">
-                  <div>
-                    <div className="font-medium">{vehicle.name}</div>
-                    <div className="text-sm text-slate-600">{vehicle.price}</div>
-                  </div>
-                  <div className="text-sm font-medium text-orange-600">{vehicle.days} Tage</div>
-                </div>
-              ))}
-            </div>
-            <Button variant="outline" className="w-full mt-4">
-              Preisempfehlung anfordern
-            </Button>
+            {longStanding && longStanding.length > 0 ? (
+              <div className="space-y-4">
+                {longStanding.map((vehicle) => {
+                  const days = Math.floor((Date.now() - new Date(vehicle.acquired_at).getTime()) / (1000 * 60 * 60 * 24));
+                  return (
+                    <Link key={vehicle.id} href={`/dashboard/vehicles/${vehicle.id}`}>
+                      <div className="flex justify-between items-center p-3 bg-orange-50 rounded-lg border border-orange-200 hover:bg-orange-100 transition-colors">
+                        <div>
+                          <div className="font-medium">{vehicle.make} {vehicle.model}</div>
+                          <div className="text-sm text-slate-600">
+                            CHF {vehicle.asking_price?.toLocaleString('de-CH')}
+                          </div>
+                        </div>
+                        <div className="text-sm font-medium text-orange-600">{days} Tage</div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="text-slate-500 text-center py-8">Keine Langsteher 🎉</p>
+            )}
+            <Link href="/dashboard/vehicles">
+              <Button variant="outline" className="w-full mt-4">
+                Alle Fahrzeuge anzeigen
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>
+
+      {/* Quick Actions */}
+      {stats.totalVehicles === 0 && (
+        <Card className="mt-6 bg-blue-50 border-blue-200">
+          <CardHeader>
+            <CardTitle>🚀 Legen Sie los!</CardTitle>
+            <CardDescription>Erfassen Sie Ihr erstes Fahrzeug</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link href="/dashboard/vehicles/new">
+              <Button>Erstes Fahrzeug hinzufügen</Button>
+            </Link>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
