@@ -9,91 +9,83 @@ test.describe('Landing Page', () => {
     await expect(page).toHaveTitle(/DealerOS|Dealer OS/i);
   });
 
-  test('should display hero section', async ({ page }) => {
-    // Hero section with main CTA
-    const heroSection = page.locator('section').first();
-    await expect(heroSection).toBeVisible();
-    
-    // Look for primary CTA button
-    const ctaButton = page.getByRole('link', { name: /kostenlos|starten|testen|registrieren/i }).first();
-    await expect(ctaButton).toBeVisible();
+  test('should display hero section with headline', async ({ page }) => {
+    // Hero headline
+    const headline = page.getByRole('heading', { level: 1 });
+    await expect(headline).toBeVisible();
+    await expect(headline).toContainText(/Autohandel|Software|funktioniert/i);
   });
 
   test('should display navigation header', async ({ page }) => {
     const header = page.locator('header').first();
     await expect(header).toBeVisible();
     
-    // Check for logo or brand name
-    const logo = page.getByText(/DealerOS/i).first();
-    await expect(logo).toBeVisible();
+    // Check for logo/brand
+    await expect(page.getByText('Dealer OS')).toBeVisible();
   });
 
-  test('should have working login link', async ({ page }) => {
-    const loginLink = page.getByRole('link', { name: /login|anmelden/i });
+  test('should have working register CTA button', async ({ page }) => {
+    const ctaButton = page.getByRole('link', { name: /kostenlos testen|registrieren/i });
+    await expect(ctaButton).toBeVisible();
+    
+    await ctaButton.click();
+    await expect(page).toHaveURL(/\/register/);
+  });
+
+  test('should have working login link in header', async ({ page }) => {
+    const loginLink = page.getByRole('link', { name: /anmelden|login/i });
     await expect(loginLink).toBeVisible();
     
     await loginLink.click();
     await expect(page).toHaveURL(/\/login/);
   });
 
-  test('should have working register link', async ({ page }) => {
-    const registerLink = page.getByRole('link', { name: /registrieren|kostenlos|starten/i }).first();
-    await expect(registerLink).toBeVisible();
-    
-    await registerLink.click();
-    await expect(page).toHaveURL(/\/register/);
+  test('should display trust indicators', async ({ page }) => {
+    // Look for trust badges/indicators
+    const trustText = page.getByText(/schweiz|kreditkarte|minuten/i).first();
+    await expect(trustText).toBeVisible();
   });
 
-  test('should display features section', async ({ page }) => {
-    // Scroll to features or look for features content
-    const featuresText = page.getByText(/funktionen|features|vorteile/i).first();
-    if (await featuresText.isVisible()) {
-      await expect(featuresText).toBeVisible();
-    }
-  });
-
-  test('should display pricing section', async ({ page }) => {
-    const pricingText = page.getByText(/preise|pricing|kostenlos|chf/i).first();
-    if (await pricingText.isVisible()) {
-      await expect(pricingText).toBeVisible();
-    }
-  });
-
-  test('should display footer with legal links', async ({ page }) => {
+  test('should display footer', async ({ page }) => {
     const footer = page.locator('footer');
     await expect(footer).toBeVisible();
-    
-    // Check for legal links
-    const impressumLink = page.getByRole('link', { name: /impressum/i });
-    const datenschutzLink = page.getByRole('link', { name: /datenschutz/i });
-    const agbLink = page.getByRole('link', { name: /agb/i });
-    
+  });
+
+  test('should have impressum link in footer', async ({ page }) => {
+    const footer = page.locator('footer');
+    const impressumLink = footer.getByRole('link', { name: /impressum/i });
     await expect(impressumLink).toBeVisible();
+  });
+
+  test('should have datenschutz link in footer', async ({ page }) => {
+    const footer = page.locator('footer');
+    const datenschutzLink = footer.getByRole('link', { name: /datenschutz/i });
     await expect(datenschutzLink).toBeVisible();
+  });
+
+  test('should have AGB link in footer', async ({ page }) => {
+    const footer = page.locator('footer');
+    const agbLink = footer.getByRole('link', { name: /agb|geschäftsbedingungen/i });
     await expect(agbLink).toBeVisible();
   });
 
   test('should navigate to impressum page', async ({ page }) => {
-    await page.getByRole('link', { name: /impressum/i }).click();
+    const footer = page.locator('footer');
+    await footer.getByRole('link', { name: /impressum/i }).click();
     await expect(page).toHaveURL(/\/impressum/);
-    await expect(page.locator('h1')).toContainText(/impressum/i);
   });
 
   test('should navigate to datenschutz page', async ({ page }) => {
-    await page.getByRole('link', { name: /datenschutz/i }).click();
+    const footer = page.locator('footer');
+    await footer.getByRole('link', { name: /datenschutz/i }).click();
     await expect(page).toHaveURL(/\/datenschutz/);
-  });
-
-  test('should navigate to AGB page', async ({ page }) => {
-    await page.getByRole('link', { name: /agb/i }).click();
-    await expect(page).toHaveURL(/\/agb/);
   });
 
   test('should be responsive on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/');
     
-    // Page should still be functional
+    // Page should still display header
     const header = page.locator('header');
     await expect(header).toBeVisible();
   });

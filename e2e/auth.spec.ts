@@ -7,15 +7,16 @@ test.describe('Authentication Flow', () => {
       await page.goto('/login');
     });
 
-    test('should display login form', async ({ page }) => {
-      await expect(page.getByRole('heading', { name: /login|anmelden/i })).toBeVisible();
-      await expect(page.getByLabel(/email/i)).toBeVisible();
-      await expect(page.getByLabel(/passwort|password/i)).toBeVisible();
-      await expect(page.getByRole('button', { name: /login|anmelden/i })).toBeVisible();
+    test('should display login page elements', async ({ page }) => {
+      // Check for key elements
+      await expect(page.getByText('Dealer OS')).toBeVisible();
+      await expect(page.locator('#email')).toBeVisible();
+      await expect(page.locator('#password')).toBeVisible();
+      await expect(page.getByRole('button', { name: /anmelden/i })).toBeVisible();
     });
 
     test('should show link to register page', async ({ page }) => {
-      const registerLink = page.getByRole('link', { name: /registrieren|konto erstellen/i });
+      const registerLink = page.getByRole('link', { name: /kostenlos registrieren|registrieren/i });
       await expect(registerLink).toBeVisible();
       
       await registerLink.click();
@@ -23,21 +24,22 @@ test.describe('Authentication Flow', () => {
     });
 
     test('should show error for invalid credentials', async ({ page }) => {
-      await page.getByLabel(/email/i).fill('invalid@test.com');
-      await page.getByLabel(/passwort|password/i).fill('wrongpassword');
-      await page.getByRole('button', { name: /login|anmelden/i }).click();
+      await page.locator('#email').fill('invalid@test.com');
+      await page.locator('#password').fill('wrongpassword123');
+      await page.getByRole('button', { name: /anmelden/i }).click();
       
-      // Wait for error message
-      await expect(page.getByText(/fehler|error|ungültig|invalid/i)).toBeVisible({ timeout: 10000 });
+      // Wait for error message (Supabase returns "Invalid login credentials")
+      await expect(page.getByText(/invalid|fehler|ungültig|credentials/i)).toBeVisible({ timeout: 10000 });
     });
 
-    test('should require email field', async ({ page }) => {
-      await page.getByLabel(/passwort|password/i).fill('somepassword');
-      await page.getByRole('button', { name: /login|anmelden/i }).click();
-      
-      // Check for HTML5 validation or custom error
-      const emailInput = page.getByLabel(/email/i);
+    test('should have required email field', async ({ page }) => {
+      const emailInput = page.locator('#email');
       await expect(emailInput).toHaveAttribute('required', '');
+    });
+
+    test('should have required password field', async ({ page }) => {
+      const passwordInput = page.locator('#password');
+      await expect(passwordInput).toHaveAttribute('required', '');
     });
   });
 
@@ -47,78 +49,67 @@ test.describe('Authentication Flow', () => {
     });
 
     test('should display registration form', async ({ page }) => {
-      await expect(page.getByRole('heading', { name: /registrieren|konto erstellen/i })).toBeVisible();
-      await expect(page.getByLabel(/email/i)).toBeVisible();
-      await expect(page.getByLabel(/passwort|password/i).first()).toBeVisible();
-      await expect(page.getByRole('button', { name: /registrieren|konto erstellen/i })).toBeVisible();
+      await expect(page.getByText('Dealer OS')).toBeVisible();
+      await expect(page.getByText('Konto erstellen')).toBeVisible();
+      await expect(page.locator('#email')).toBeVisible();
+      await expect(page.locator('#password')).toBeVisible();
+      await expect(page.getByRole('button', { name: /konto erstellen/i })).toBeVisible();
+    });
+
+    test('should show all registration fields', async ({ page }) => {
+      await expect(page.locator('#companyName')).toBeVisible();
+      await expect(page.locator('#contactName')).toBeVisible();
+      await expect(page.locator('#email')).toBeVisible();
+      await expect(page.locator('#phone')).toBeVisible();
+      await expect(page.locator('#password')).toBeVisible();
     });
 
     test('should show link to login page', async ({ page }) => {
-      const loginLink = page.getByRole('link', { name: /login|anmelden|bereits.*konto/i });
+      const loginLink = page.getByRole('link', { name: /hier anmelden|anmelden/i });
       await expect(loginLink).toBeVisible();
       
       await loginLink.click();
       await expect(page).toHaveURL(/\/login/);
     });
 
-    test('should show error for invalid email format', async ({ page }) => {
-      await page.getByLabel(/email/i).fill('notanemail');
-      await page.getByLabel(/passwort|password/i).first().fill('password123');
-      await page.getByRole('button', { name: /registrieren|konto erstellen/i }).click();
+    test('should validate email format', async ({ page }) => {
+      const emailInput = page.locator('#email');
+      await emailInput.fill('notanemail');
       
-      // Check for validation error
-      const emailInput = page.getByLabel(/email/i);
       // HTML5 email validation
       const validity = await emailInput.evaluate((el: HTMLInputElement) => el.validity.valid);
       expect(validity).toBe(false);
     });
 
-    test('should validate password requirements', async ({ page }) => {
-      await page.getByLabel(/email/i).fill('test@example.com');
-      await page.getByLabel(/passwort|password/i).first().fill('123'); // Too short
-      await page.getByRole('button', { name: /registrieren|konto erstellen/i }).click();
-      
-      // Should show some form of error or not submit
-      // Either stay on page or show error message
-      await page.waitForTimeout(1000);
-      const currentUrl = page.url();
-      expect(currentUrl).toContain('register');
+    test('should require minimum password length', async ({ page }) => {
+      const passwordInput = page.locator('#password');
+      await expect(passwordInput).toHaveAttribute('minlength', '8');
     });
   });
 
   test.describe('Protected Routes', () => {
-    test('should redirect unauthenticated users from dashboard to login', async ({ page }) => {
+    test('should redirect unauthenticated users from dashboard', async ({ page }) => {
       await page.goto('/dashboard');
-      
-      // Should redirect to login
       await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from vehicles page', async ({ page }) => {
       await page.goto('/dashboard/vehicles');
-      
-      // Should redirect to login
       await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from leads page', async ({ page }) => {
       await page.goto('/dashboard/leads');
-      
-      // Should redirect to login
       await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
     });
 
-    test('should redirect unauthenticated users from settings page', async ({ page }) => {
+    test('should redirect unauthenticated users from settings', async ({ page }) => {
       await page.goto('/dashboard/settings');
-      
-      // Should redirect to login
       await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from onboarding', async ({ page }) => {
       await page.goto('/onboarding');
-      
-      // Should redirect to login
       await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
     });
   });
