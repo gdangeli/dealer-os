@@ -8,7 +8,7 @@ async function login(page: Page): Promise<boolean> {
     return false;
   }
   
-  await page.goto('/de/login');
+  await page.goto('/login');
   await page.locator('#email').fill(TEST_EMAIL);
   await page.locator('#password').fill(TEST_PASSWORD);
   await page.getByRole('button', { name: /anmelden/i }).click();
@@ -19,7 +19,7 @@ async function login(page: Page): Promise<boolean> {
 
 test.describe('Onboarding Access', () => {
   test('should require authentication', async ({ page }) => {
-    await page.goto('/de/onboarding');
+    await page.goto('/onboarding');
     await expect(page).toHaveURL(/\/login/);
   });
 });

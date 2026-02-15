@@ -8,14 +8,14 @@ async function login(page: Page): Promise<boolean> {
     return false;
   }
   
-  await page.goto('/de/login');
+  await page.goto('/login');
   await page.locator('#email').fill(TEST_EMAIL);
   await page.locator('#password').fill(TEST_PASSWORD);
   await page.getByRole('button', { name: /anmelden/i }).click();
   await expect(page).toHaveURL(/\/dashboard|\/onboarding/, { timeout: 15000 });
   
   if (page.url().includes('onboarding')) {
-    await page.goto('/de/dashboard/vehicles/new');
+    await page.goto('/dashboard/vehicles/new');
   }
   
   return true;
@@ -23,7 +23,7 @@ async function login(page: Page): Promise<boolean> {
 
 test.describe('Image Upload Access', () => {
   test('should require authentication for vehicle form', async ({ page }) => {
-    await page.goto('/de/dashboard/vehicles/new');
+    await page.goto('/dashboard/vehicles/new');
     await expect(page).toHaveURL(/\/login/);
   });
 });
@@ -34,7 +34,7 @@ test.describe('Image Upload (authenticated)', () => {
   test.beforeEach(async ({ page }) => {
     const loggedIn = await login(page);
     if (!loggedIn) test.skip();
-    await page.goto('/de/dashboard/vehicles/new');
+    await page.goto('/dashboard/vehicles/new');
   });
 
   test('should display vehicle form', async ({ page }) => {

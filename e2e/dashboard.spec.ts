@@ -8,7 +8,7 @@ async function login(page: Page): Promise<boolean> {
     return false;
   }
   
-  await page.goto('/de/login');
+  await page.goto('/login');
   await page.locator('#email').fill(TEST_EMAIL);
   await page.locator('#password').fill(TEST_PASSWORD);
   await page.getByRole('button', { name: /anmelden/i }).click();
@@ -20,17 +20,17 @@ async function login(page: Page): Promise<boolean> {
 
 test.describe('Dashboard Access', () => {
   test('should require authentication', async ({ page }) => {
-    await page.goto('/de/dashboard');
+    await page.goto('/dashboard');
     await expect(page).toHaveURL(/\/login/);
   });
 
   test('should redirect to login from analytics', async ({ page }) => {
-    await page.goto('/de/dashboard/analytics');
+    await page.goto('/dashboard/analytics');
     await expect(page).toHaveURL(/\/login/);
   });
 
   test('should redirect to login from settings', async ({ page }) => {
-    await page.goto('/de/dashboard/settings');
+    await page.goto('/dashboard/settings');
     await expect(page).toHaveURL(/\/login/);
   });
 });
@@ -55,7 +55,7 @@ test.describe('Dashboard (authenticated)', () => {
     if (!loggedIn) return;
     
     if (page.url().includes('onboarding')) {
-      await page.goto('/de/dashboard');
+      await page.goto('/dashboard');
     }
     
     await expect(page.getByRole('link', { name: /fahrzeuge/i })).toBeVisible();
@@ -67,7 +67,7 @@ test.describe('Dashboard (authenticated)', () => {
     if (!loggedIn) return;
     
     if (page.url().includes('onboarding')) {
-      await page.goto('/de/dashboard');
+      await page.goto('/dashboard');
     }
     
     await page.getByRole('link', { name: /fahrzeuge/i }).click();
@@ -79,7 +79,7 @@ test.describe('Dashboard (authenticated)', () => {
     if (!loggedIn) return;
     
     if (page.url().includes('onboarding')) {
-      await page.goto('/de/dashboard');
+      await page.goto('/dashboard');
     }
     
     await page.getByRole('link', { name: /leads/i }).click();
@@ -91,7 +91,7 @@ test.describe('Dashboard (authenticated)', () => {
     if (!loggedIn) return;
     
     if (page.url().includes('onboarding')) {
-      await page.goto('/de/dashboard');
+      await page.goto('/dashboard');
     }
     
     const analyticsLink = page.getByRole('link', { name: /analytics|statistik|auswertung/i });
@@ -106,7 +106,7 @@ test.describe('Dashboard (authenticated)', () => {
     if (!loggedIn) return;
     
     if (page.url().includes('onboarding')) {
-      await page.goto('/de/dashboard');
+      await page.goto('/dashboard');
     }
     
     const settingsLink = page.getByRole('link', { name: /einstellungen|settings/i });

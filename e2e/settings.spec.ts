@@ -8,14 +8,14 @@ async function login(page: Page): Promise<boolean> {
     return false;
   }
   
-  await page.goto('/de/login');
+  await page.goto('/login');
   await page.locator('#email').fill(TEST_EMAIL);
   await page.locator('#password').fill(TEST_PASSWORD);
   await page.getByRole('button', { name: /anmelden/i }).click();
   await expect(page).toHaveURL(/\/dashboard|\/onboarding/, { timeout: 15000 });
   
   if (page.url().includes('onboarding')) {
-    await page.goto('/de/dashboard/settings');
+    await page.goto('/dashboard/settings');
   }
   
   return true;
@@ -23,7 +23,7 @@ async function login(page: Page): Promise<boolean> {
 
 test.describe('Settings Access', () => {
   test('should require authentication for settings page', async ({ page }) => {
-    await page.goto('/de/dashboard/settings');
+    await page.goto('/dashboard/settings');
     await expect(page).toHaveURL(/\/login/);
   });
 });
@@ -34,7 +34,7 @@ test.describe('Settings Page (authenticated)', () => {
   test.beforeEach(async ({ page }) => {
     const loggedIn = await login(page);
     if (!loggedIn) test.skip();
-    await page.goto('/de/dashboard/settings');
+    await page.goto('/dashboard/settings');
   });
 
   test('should display settings page', async ({ page }) => {

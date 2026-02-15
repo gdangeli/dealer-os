@@ -8,14 +8,14 @@ async function login(page: Page): Promise<boolean> {
     return false;
   }
   
-  await page.goto('/de/login');
+  await page.goto('/login');
   await page.locator('#email').fill(TEST_EMAIL);
   await page.locator('#password').fill(TEST_PASSWORD);
   await page.getByRole('button', { name: /anmelden/i }).click();
   await expect(page).toHaveURL(/\/dashboard|\/onboarding/, { timeout: 15000 });
   
   if (page.url().includes('onboarding')) {
-    await page.goto('/de/dashboard/vehicles');
+    await page.goto('/dashboard/vehicles');
   }
   
   return true;
@@ -37,12 +37,12 @@ test.describe('CSV/Data Export (authenticated)', () => {
   });
 
   test('should have export option on vehicles page', async ({ page }) => {
-    await page.goto('/de/dashboard/vehicles');
+    await page.goto('/dashboard/vehicles');
     await expect(page.locator('main')).toBeVisible();
   });
 
   test('should trigger download on export click', async ({ page }) => {
-    await page.goto('/de/dashboard/vehicles');
+    await page.goto('/dashboard/vehicles');
     
     const exportButton = page.getByRole('button', { name: /export|csv|download/i });
     const isVisible = await exportButton.isVisible().catch(() => false);

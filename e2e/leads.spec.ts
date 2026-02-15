@@ -8,14 +8,14 @@ async function login(page: Page): Promise<boolean> {
     return false;
   }
   
-  await page.goto('/de/login');
+  await page.goto('/login');
   await page.locator('#email').fill(TEST_EMAIL);
   await page.locator('#password').fill(TEST_PASSWORD);
   await page.getByRole('button', { name: /anmelden/i }).click();
   await expect(page).toHaveURL(/\/dashboard|\/onboarding/, { timeout: 15000 });
   
   if (page.url().includes('onboarding')) {
-    await page.goto('/de/dashboard/leads');
+    await page.goto('/dashboard/leads');
   }
   
   return true;
@@ -23,17 +23,17 @@ async function login(page: Page): Promise<boolean> {
 
 test.describe('Leads Access', () => {
   test('should require authentication for leads page', async ({ page }) => {
-    await page.goto('/de/dashboard/leads');
+    await page.goto('/dashboard/leads');
     await expect(page).toHaveURL(/\/login/);
   });
 
   test('should require authentication for new lead page', async ({ page }) => {
-    await page.goto('/de/dashboard/leads/new');
+    await page.goto('/dashboard/leads/new');
     await expect(page).toHaveURL(/\/login/);
   });
 
   test('should require authentication for lead detail page', async ({ page }) => {
-    await page.goto('/de/dashboard/leads/123');
+    await page.goto('/dashboard/leads/123');
     await expect(page).toHaveURL(/\/login/);
   });
 });
@@ -44,7 +44,7 @@ test.describe('Leads CRUD (authenticated)', () => {
   test.beforeEach(async ({ page }) => {
     const loggedIn = await login(page);
     if (!loggedIn) test.skip();
-    await page.goto('/de/dashboard/leads');
+    await page.goto('/dashboard/leads');
   });
 
   test('should display leads list page', async ({ page }) => {
