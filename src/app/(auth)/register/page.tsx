@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { createClient } from "@/lib/supabase/client";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -17,12 +19,79 @@ export default function RegisterPage() {
     vehicleCount: "",
     password: "",
   });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const router = useRouter();
+  const supabase = createClient();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Supabase Auth + DB
-    console.log("Register:", formData);
+    setLoading(true);
+    setError("");
+
+    // 1. Create auth user
+    const { data: authData, error: authError } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+      options: {
+        data: {
+          company_name: formData.companyName,
+          contact_name: formData.contactName,
+        }
+      }
+    });
+
+    if (authError) {
+      setError(authError.message);
+      setLoading(false);
+      return;
+    }
+
+    // 2. Create dealer profile
+    if (authData.user) {
+      const { error: profileError } = await supabase
+        .from('dealers')
+        .insert({
+          user_id: authData.user.id,
+          company_name: formData.companyName,
+          contact_name: formData.contactName,
+          email: formData.email,
+          phone: formData.phone,
+          vehicle_count_estimate: parseInt(formData.vehicleCount) || null,
+          status: 'pending'
+        });
+
+      if (profileError) {
+        console.error('Profile error:', profileError);
+        // Don't block - user is created, profile can be fixed later
+      }
+    }
+
+    setSuccess(true);
+    setLoading(false);
   };
+
+  if (success) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <div className="text-4xl mb-4">✅</div>
+            <CardTitle>Registrierung erfolgreich!</CardTitle>
+            <CardDescription>
+              Bitte bestätigen Sie Ihre E-Mail-Adresse. Wir haben Ihnen einen Link geschickt.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link href="/login">
+              <Button className="w-full">Zum Login</Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 flex items-center justify-center p-4">
@@ -42,6 +111,11 @@ export default function RegisterPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg">
+                {error}
+              </div>
+            )}
             <div className="space-y-2">
               <Label htmlFor="companyName">Firmenname / Garage</Label>
               <Input
@@ -105,8 +179,8 @@ export default function RegisterPage() {
                 minLength={8}
               />
             </div>
-            <Button type="submit" className="w-full">
-              Beta-Zugang beantragen
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? "Wird registriert..." : "Beta-Zugang beantragen"}
             </Button>
           </form>
           <div className="mt-4 text-center text-sm text-slate-600">
