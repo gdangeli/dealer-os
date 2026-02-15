@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { DemoVideoButton } from "@/components/landing/demo-video-modal";
 import {
   Car,
   BarChart3,
@@ -67,14 +68,7 @@ export default function Home() {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  asChild 
-                  className="h-14 px-8 text-base font-medium border-slate-300 hover:bg-slate-50"
-                >
-                  <Link href="#demo">Live-Demo ansehen</Link>
-                </Button>
+                <DemoVideoButton className="h-14 px-8 text-base font-medium border-slate-300 hover:bg-slate-50" />
               </div>
               
               {/* Trust Indicators */}
