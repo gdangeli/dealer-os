@@ -279,70 +279,123 @@ export default function Home() {
             <div className="text-center max-w-2xl mx-auto mb-16">
               <Badge variant="outline" className="mb-4">Preise</Badge>
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
-                Einfache, faire Preise
+                Faire Preise für jede Grösse
               </h2>
               <p className="mt-4 text-lg text-slate-600">
-                Starten Sie kostenlos. Upgraden Sie, wenn Sie bereit sind.
+                Wählen Sie den Plan, der zu Ihrem Betrieb passt. 14 Tage kostenlos testen.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
-              {/* Free Plan */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {/* Starter Plan */}
               <Card className="border-slate-200">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-slate-900 mb-2">Starter</h3>
-                  <p className="text-sm text-slate-600 mb-4">Für den Einstieg</p>
-                  <p className="text-4xl font-bold text-slate-900 mb-6">
-                    CHF 0
-                    <span className="text-base font-normal text-slate-500">/Monat</span>
+                  <p className="text-sm text-slate-600 mb-4">Kleine Garagisten</p>
+                  <p className="text-4xl font-bold text-slate-900 mb-1">
+                    CHF 149
                   </p>
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Bis 10 Fahrzeuge
+                  <p className="text-sm text-slate-500 mb-6">pro Monat</p>
+                  <ul className="space-y-3 mb-8 text-sm">
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Bis 20 Fahrzeuge
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Standzeit-Tracking
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> 2 Benutzer
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Basis-Statistiken
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> 2 Inserate-Kanäle
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Standzeit-Tracking
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Basis-CRM
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> E-Mail Support
                     </li>
                   </ul>
                   <Button variant="outline" className="w-full" asChild>
-                    <Link href="/register">Kostenlos starten</Link>
+                    <Link href="/register">14 Tage testen</Link>
                   </Button>
                 </CardContent>
               </Card>
 
-              {/* Pro Plan */}
-              <Card className="border-blue-200 bg-blue-50/50 relative">
+              {/* Professional Plan */}
+              <Card className="border-blue-300 bg-blue-50/50 relative shadow-lg">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <Badge className="bg-blue-600">Beliebt</Badge>
                 </div>
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-slate-900 mb-2">Professional</h3>
-                  <p className="text-sm text-slate-600 mb-4">Für wachsende Garagen</p>
-                  <p className="text-4xl font-bold text-slate-900 mb-6">
-                    CHF 49
-                    <span className="text-base font-normal text-slate-500">/Monat</span>
+                  <p className="text-sm text-slate-600 mb-4">Mittlere Händler</p>
+                  <p className="text-4xl font-bold text-slate-900 mb-1">
+                    CHF 349
                   </p>
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Unbegrenzte Fahrzeuge
+                  <p className="text-sm text-slate-500 mb-6">pro Monat</p>
+                  <ul className="space-y-3 mb-8 text-sm">
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Bis 50 Fahrzeuge
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Lead-Management
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> 5 Benutzer
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Erweiterte Statistiken
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> 5 Inserate-Kanäle
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Inserate-Export
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-blue-600 shrink-0" /> <strong>AI Pricing</strong>
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> E-Mail Support
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-blue-600 shrink-0" /> <strong>WhatsApp Integration</strong>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Vollständiges CRM
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Chat + E-Mail Support
                     </li>
                   </ul>
                   <Button className="w-full" asChild>
+                    <Link href="/register">14 Tage testen</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Business Plan */}
+              <Card className="border-slate-200">
+                <CardContent className="p-6">
+                  <h3 className="font-semibold text-slate-900 mb-2">Business</h3>
+                  <p className="text-sm text-slate-600 mb-4">Grössere Händler</p>
+                  <p className="text-4xl font-bold text-slate-900 mb-1">
+                    CHF 599
+                  </p>
+                  <p className="text-sm text-slate-500 mb-6">pro Monat</p>
+                  <ul className="space-y-3 mb-8 text-sm">
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Bis 100 Fahrzeuge
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> 10 Benutzer
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Unbegrenzte Kanäle
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Multi-Standort
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Team-Auswertungen
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> API-Zugang
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Priority Support
+                    </li>
+                  </ul>
+                  <Button variant="outline" className="w-full" asChild>
                     <Link href="/register">14 Tage testen</Link>
                   </Button>
                 </CardContent>
@@ -352,33 +405,44 @@ export default function Home() {
               <Card className="border-slate-200">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-slate-900 mb-2">Enterprise</h3>
-                  <p className="text-sm text-slate-600 mb-4">Für grosse Betriebe</p>
-                  <p className="text-4xl font-bold text-slate-900 mb-6">
-                    Individuell
+                  <p className="text-sm text-slate-600 mb-4">Händlergruppen</p>
+                  <p className="text-4xl font-bold text-slate-900 mb-1">
+                    Ab CHF 999
                   </p>
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Alles aus Professional
+                  <p className="text-sm text-slate-500 mb-6">pro Monat</p>
+                  <ul className="space-y-3 mb-8 text-sm">
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> 100+ Fahrzeuge
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Multi-Standort
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Unbegrenzte Benutzer
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> API-Zugang
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Custom Integrationen
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Dedizierter Support
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> White-Label Option
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-green-500" /> Onboarding
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> SLA (99.9% Uptime)
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Dedicated Manager
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-600">
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Onboarding & Training
                     </li>
                   </ul>
                   <Button variant="outline" className="w-full" asChild>
-                    <Link href="/contact">Kontakt</Link>
+                    <Link href="mailto:enterprise@dealeros.ch">Kontakt</Link>
                   </Button>
                 </CardContent>
               </Card>
             </div>
+
+            <p className="text-center text-sm text-slate-500 mt-8">
+              Alle Preise in CHF, zzgl. MwSt. • Jährlich zahlen und 17% sparen (2 Monate gratis)
+            </p>
           </div>
         </section>
 
