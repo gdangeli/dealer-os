@@ -16,11 +16,29 @@ export default async function DashboardLayout({
     redirect('/login');
   }
 
-  const { data: dealer } = await supabase
+  // Dealer-Profil holen oder erstellen
+  let { data: dealer } = await supabase
     .from('dealers')
     .select('company_name')
     .eq('user_id', user.id)
     .single();
+
+  // Auto-create dealer if doesn't exist
+  if (!dealer) {
+    const { data: newDealer } = await supabase
+      .from('dealers')
+      .insert({
+        user_id: user.id,
+        email: user.email,
+        company_name: user.user_metadata?.company_name || user.email?.split('@')[0] || 'Meine Garage',
+        contact_name: user.user_metadata?.contact_name || '',
+        status: 'active'
+      })
+      .select('company_name')
+      .single();
+    
+    dealer = newDealer;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50">
