@@ -1,12 +1,20 @@
-import Link from 'next/link';
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
 
 export const metadata: Metadata = {
   title: 'Impressum',
   description: 'Impressum und rechtliche Informationen zu Dealer OS',
 };
 
-export default function ImpressumPage() {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function ImpressumPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="bg-white border-b sticky top-0 z-10">

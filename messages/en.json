@@ -1,1 +1,259 @@
-{}
+{
+  "metadata": {
+    "title": "Dealer OS – Car Trade, Simplified",
+    "titleTemplate": "{title} | Dealer OS",
+    "description": "The software for Swiss car dealers and garages. Vehicle management, lead management and KPIs in one platform."
+  },
+  "header": {
+    "features": "Features",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "login": "Sign In",
+    "register": "Start Free",
+    "openMenu": "Open menu"
+  },
+  "footer": {
+    "tagline": "The software for Swiss car dealers who take their business seriously.",
+    "product": "Product",
+    "features": "Features",
+    "pricing": "Pricing",
+    "roadmap": "Roadmap",
+    "resources": "Resources",
+    "blog": "Blog",
+    "help": "Help",
+    "contact": "Contact",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "imprint": "Imprint",
+    "copyright": "© {year} Dealer OS. All rights reserved.",
+    "madeIn": "Made with ❤️ in Switzerland 🇨🇭"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Beta",
+      "trustCount": "50+ Swiss garages trust us",
+      "headline1": "Car dealer software",
+      "headline2": "that actually works.",
+      "description": "Vehicle inventory, days on lot, leads – all under control. Built for Swiss car dealers who want to know where their money is.",
+      "cta": "Try 14 days free",
+      "watchDemo": "Watch demo",
+      "noCreditCard": "No credit card required",
+      "quickStart": "Ready in 5 minutes",
+      "swissHosting": "Hosted in Switzerland"
+    },
+    "dashboard": {
+      "urlBar": "app.dealeros.ch/dashboard",
+      "vehicles": "Vehicles",
+      "avgStandtime": "Avg. Days on Lot",
+      "days": "Days",
+      "openLeads": "Open Leads",
+      "avgMargin": "Avg. Margin",
+      "thisWeek": "+4 this week",
+      "vsLastMonth": "-12% vs. last month",
+      "noResponse": "2 without response",
+      "marginUp": "+8% vs. last month",
+      "recentActivity": "Recent Activity",
+      "activity1Title": "BMW 320d Touring sold",
+      "activity1Sub": "Days on lot: 23 · Margin: CHF 3,200",
+      "activity1Time": "2 hours ago",
+      "activity2Title": "New inquiry: Audi A4 Avant",
+      "activity2Sub": "Hans Meier · 079 123 45 67",
+      "activity2Time": "45 min ago",
+      "activity3Title": "VW Golf VII reaches 60 days",
+      "activity3Sub": "Price adjustment recommended",
+      "actionNeeded": "Action needed"
+    },
+    "socialProof": {
+      "garagesInBeta": "Garages in beta",
+      "vehiclesManaged": "Vehicles managed",
+      "customerRating": "Customer rating",
+      "swissHosted": "Swiss Hosted",
+      "gdprCompliant": "GDPR compliant"
+    },
+    "problems": {
+      "title": "Sound familiar?",
+      "subtitle": "Most garages struggle with the same problems.",
+      "noOverview": "No overview",
+      "noOverviewDesc": "Excel lists, notes, gut feeling – but no real numbers you can rely on.",
+      "longStanders": "Missing slow movers",
+      "longStandersDesc": "Vehicles sit too long, tie up capital and lose value. But when to intervene?",
+      "lostLeads": "Lost leads",
+      "lostLeadsDesc": "Inquiries via email, WhatsApp, phone – who responded when? Nobody knows."
+    },
+    "solution": {
+      "badge": "The Solution",
+      "title": "Dealer OS brings order",
+      "description": "One central platform for vehicles, leads and KPIs. Finally see in black and white what's working – and what's not."
+    },
+    "features": {
+      "badge": "Features",
+      "title": "Everything in one place",
+      "subtitle": "No more isolated solutions. Dealer OS combines everything you need.",
+      "vehicleManagement": "Vehicle Management",
+      "vehicleManagementDesc": "Manage all vehicles centrally. With photos, documents and complete cost history.",
+      "standtimeTracking": "Days on Lot Tracking",
+      "standtimeTrackingDesc": "See immediately which vehicles are sitting too long. With automatic alerts.",
+      "leadManagement": "Lead Management",
+      "leadManagementDesc": "All inquiries in one place. Automatic reminders so nothing gets lost.",
+      "realKpis": "Real KPIs",
+      "realKpisDesc": "Profit per vehicle, average days on lot, conversion rate – at a glance.",
+      "listingExport": "Listing Export",
+      "listingExportDesc": "Publish to AutoScout24, car4you and your website with one click.",
+      "swissHosting": "Swiss Hosting",
+      "swissHostingDesc": "Your data stays in Switzerland. GDPR compliant and securely encrypted."
+    },
+    "howItWorks": {
+      "badge": "How it works",
+      "title": "Ready in 3 steps",
+      "step1Title": "Create account",
+      "step1Desc": "Registered in 2 minutes. No credit card required.",
+      "step2Title": "Add vehicles",
+      "step2Desc": "Import existing data or start fresh.",
+      "step3Title": "Gain clarity",
+      "step3Desc": "See immediately where potential and action items are."
+    },
+    "testimonials": {
+      "badge": "Testimonials",
+      "title": "What Swiss garage owners say",
+      "quote1": "Since using Dealer OS, we've reduced our days on lot by 30%. Finally I can see at a glance where my money is.",
+      "name1": "Marco Brunner",
+      "role1": "Owner, Auto Brunner AG, Winterthur",
+      "quote2": "Easy to use and exactly what we need. The support is great – you can tell they understand how we work.",
+      "name2": "Sandra Keller",
+      "role2": "CEO, Garage Keller, Aarau",
+      "quote3": "The lead management has cut our response time in half. We no longer lose inquiries and close more sales.",
+      "name3": "Thomas Müller",
+      "role3": "Sales Manager, AutoCenter Zürich"
+    },
+    "pricing": {
+      "badge": "Pricing",
+      "title": "Transparent & fair",
+      "subtitle": "Choose the plan that fits your garage. All plans free for 14 days.",
+      "perMonth": "CHF/mo.",
+      "onRequest": "On request",
+      "freeTrial": "Try free",
+      "contact": "Contact",
+      "popular": "Popular",
+      "priceNote": "All prices excl. VAT. 2 months free with annual payment.",
+      "starter": {
+        "name": "Starter",
+        "description": "For small businesses",
+        "price": "149",
+        "features": [
+          "Up to 20 vehicles",
+          "2 users",
+          "2 listing channels",
+          "Days on lot tracking",
+          "Basic CRM",
+          "Email support"
+        ]
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "For growing dealers",
+        "price": "349",
+        "features": [
+          "Up to 50 vehicles",
+          "5 users",
+          "5 listing channels",
+          "AI price recommendation",
+          "WhatsApp integration",
+          "Full CRM",
+          "Chat + email support"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "description": "For larger businesses",
+        "price": "599",
+        "features": [
+          "Up to 100 vehicles",
+          "10 users",
+          "Unlimited channels",
+          "Multi-location",
+          "Team reports",
+          "API access",
+          "Priority support"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "For dealer groups",
+        "features": [
+          "100+ vehicles",
+          "Unlimited users",
+          "Custom integrations",
+          "White-label option",
+          "SLA 99.9% uptime",
+          "Dedicated manager"
+        ]
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "q1": "How long does setup take?",
+      "a1": "Basic setup takes about 10-15 minutes. You can start adding vehicles right away. For larger data volumes, we're happy to help with the import.",
+      "q2": "Can I import my existing data?",
+      "a2": "Yes, you can import Excel lists and data from other systems. Our support helps you free of charge.",
+      "q3": "Where is my data stored?",
+      "a3": "All data is stored exclusively in Switzerland. We use Swiss data centers and meet all GDPR requirements.",
+      "q4": "Can I cancel anytime?",
+      "a4": "Yes, you can cancel monthly. No minimum contract period, no hidden costs. You can export your data at any time.",
+      "q5": "Is there training or onboarding?",
+      "a5": "Dealer OS is intuitive and largely self-explanatory. If needed, we offer free video tutorials and personal onboarding."
+    },
+    "cta": {
+      "title": "Ready for more clarity?",
+      "description": "Try Dealer OS free for 14 days. No credit card, no commitment.",
+      "button": "Start free now",
+      "swissMade": "Swiss Made Software",
+      "swissHosting": "Hosted in Switzerland",
+      "zurichSupport": "Support from Zurich"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to continue",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "register": "Register now"
+    },
+    "register": {
+      "title": "Create account",
+      "subtitle": "Start your 14-day trial",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Register",
+      "hasAccount": "Already have an account?",
+      "login": "Sign in now",
+      "terms": "By registering, you accept our {terms} and {privacy}.",
+      "termsLink": "Terms",
+      "privacyLink": "Privacy Policy"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "back": "Back",
+    "next": "Next",
+    "yes": "Yes",
+    "no": "No",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "all": "All",
+    "none": "None"
+  }
+}

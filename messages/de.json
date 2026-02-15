@@ -1,1 +1,259 @@
-{}
+{
+  "metadata": {
+    "title": "Dealer OS – Autohandel, vereinfacht",
+    "titleTemplate": "{title} | Dealer OS",
+    "description": "Die Software für Schweizer Autohändler und Garagisten. Fahrzeugverwaltung, Lead-Management und Kennzahlen in einer Plattform."
+  },
+  "header": {
+    "features": "Features",
+    "pricing": "Preise",
+    "blog": "Blog",
+    "login": "Anmelden",
+    "register": "Kostenlos starten",
+    "openMenu": "Menü öffnen"
+  },
+  "footer": {
+    "tagline": "Die Software für Schweizer Autohändler, die ihr Geschäft ernst nehmen.",
+    "product": "Produkt",
+    "features": "Features",
+    "pricing": "Preise",
+    "roadmap": "Roadmap",
+    "resources": "Ressourcen",
+    "blog": "Blog",
+    "help": "Hilfe",
+    "contact": "Kontakt",
+    "legal": "Rechtliches",
+    "privacy": "Datenschutz",
+    "terms": "AGB",
+    "imprint": "Impressum",
+    "copyright": "© {year} Dealer OS. Alle Rechte vorbehalten.",
+    "madeIn": "Made with ❤️ in der Schweiz 🇨🇭"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Beta",
+      "trustCount": "50+ Schweizer Garagen vertrauen uns",
+      "headline1": "Autohandel-Software,",
+      "headline2": "die wirklich funktioniert.",
+      "description": "Fahrzeugbestand, Standzeiten, Leads – alles im Griff. Entwickelt für Schweizer Autohändler, die wissen wollen, wo ihr Geld liegt.",
+      "cta": "14 Tage kostenlos testen",
+      "watchDemo": "Demo ansehen",
+      "noCreditCard": "Keine Kreditkarte nötig",
+      "quickStart": "In 5 Minuten startklar",
+      "swissHosting": "Hosting in der Schweiz"
+    },
+    "dashboard": {
+      "urlBar": "app.dealeros.ch/dashboard",
+      "vehicles": "Fahrzeuge",
+      "avgStandtime": "Ø Standzeit",
+      "days": "Tage",
+      "openLeads": "Offene Leads",
+      "avgMargin": "Ø Marge",
+      "thisWeek": "+4 diese Woche",
+      "vsLastMonth": "-12% vs. Vormonat",
+      "noResponse": "2 ohne Antwort",
+      "marginUp": "+8% vs. Vormonat",
+      "recentActivity": "Letzte Aktivitäten",
+      "activity1Title": "BMW 320d Touring verkauft",
+      "activity1Sub": "Standzeit: 23 Tage · Marge: CHF 3'200",
+      "activity1Time": "vor 2 Std.",
+      "activity2Title": "Neue Anfrage: Audi A4 Avant",
+      "activity2Sub": "Hans Meier · 079 123 45 67",
+      "activity2Time": "vor 45 Min.",
+      "activity3Title": "VW Golf VII erreicht 60 Tage",
+      "activity3Sub": "Preisanpassung empfohlen",
+      "actionNeeded": "Aktion nötig"
+    },
+    "socialProof": {
+      "garagesInBeta": "Garagen in der Beta",
+      "vehiclesManaged": "Fahrzeuge verwaltet",
+      "customerRating": "Kundenbewertung",
+      "swissHosted": "Swiss Hosted",
+      "gdprCompliant": "DSGVO-konform"
+    },
+    "problems": {
+      "title": "Kennen Sie das?",
+      "subtitle": "Die meisten Garagen kämpfen mit den gleichen Problemen.",
+      "noOverview": "Kein Überblick",
+      "noOverviewDesc": "Excel-Listen, Notizen, Bauchgefühl – aber keine echten Zahlen, auf die Sie sich verlassen können.",
+      "longStanders": "Langsteher übersehen",
+      "longStandersDesc": "Fahrzeuge stehen zu lange, binden Kapital und verlieren an Wert. Aber wann eingreifen?",
+      "lostLeads": "Leads gehen verloren",
+      "lostLeadsDesc": "Anfragen per E-Mail, WhatsApp, Telefon – wer hat wann geantwortet? Niemand weiss es."
+    },
+    "solution": {
+      "badge": "Die Lösung",
+      "title": "Dealer OS bringt Ordnung",
+      "description": "Eine zentrale Plattform für Fahrzeuge, Leads und Kennzahlen. Endlich sehen Sie schwarz auf weiss, was läuft – und was nicht."
+    },
+    "features": {
+      "badge": "Features",
+      "title": "Alles an einem Ort",
+      "subtitle": "Keine Insellösungen mehr. Dealer OS vereint alles, was Sie brauchen.",
+      "vehicleManagement": "Fahrzeugverwaltung",
+      "vehicleManagementDesc": "Alle Fahrzeuge zentral verwalten. Mit Fotos, Dokumenten und kompletter Kostenhistorie.",
+      "standtimeTracking": "Standzeit-Tracking",
+      "standtimeTrackingDesc": "Sehen Sie sofort, welche Fahrzeuge zu lange stehen. Mit automatischen Warnungen.",
+      "leadManagement": "Lead-Management",
+      "leadManagementDesc": "Alle Anfragen an einem Ort. Automatische Erinnerungen, damit nichts verloren geht.",
+      "realKpis": "Echte Kennzahlen",
+      "realKpisDesc": "Gewinn pro Fahrzeug, Durchschnitts-Standzeit, Conversion-Rate – auf einen Blick.",
+      "listingExport": "Inserate-Export",
+      "listingExportDesc": "Mit einem Klick auf AutoScout24, car4you und Ihre Website veröffentlichen.",
+      "swissHosting": "Schweizer Hosting",
+      "swissHostingDesc": "Ihre Daten bleiben in der Schweiz. DSGVO-konform und sicher verschlüsselt."
+    },
+    "howItWorks": {
+      "badge": "So funktioniert's",
+      "title": "In 3 Schritten startklar",
+      "step1Title": "Konto erstellen",
+      "step1Desc": "In 2 Minuten registriert. Keine Kreditkarte nötig.",
+      "step2Title": "Fahrzeuge erfassen",
+      "step2Desc": "Importieren Sie bestehende Daten oder starten Sie frisch.",
+      "step3Title": "Durchblick gewinnen",
+      "step3Desc": "Sehen Sie sofort, wo Potenzial und Handlungsbedarf liegt."
+    },
+    "testimonials": {
+      "badge": "Kundenstimmen",
+      "title": "Das sagen Schweizer Garagisten",
+      "quote1": "Seit wir Dealer OS nutzen, haben wir unsere Standzeiten um 30% reduziert. Endlich sehe ich auf einen Blick, wo mein Geld liegt.",
+      "name1": "Marco Brunner",
+      "role1": "Inhaber, Auto Brunner AG, Winterthur",
+      "quote2": "Einfach zu bedienen und genau das, was wir brauchen. Der Support ist super – man merkt, dass die verstehen, wie wir arbeiten.",
+      "name2": "Sandra Keller",
+      "role2": "Geschäftsführerin, Garage Keller, Aarau",
+      "quote3": "Das Lead-Management hat unsere Antwortzeit halbiert. Wir verlieren keine Anfragen mehr und schliessen mehr Verkäufe ab.",
+      "name3": "Thomas Müller",
+      "role3": "Verkaufsleiter, AutoCenter Zürich"
+    },
+    "pricing": {
+      "badge": "Preise",
+      "title": "Transparent & fair",
+      "subtitle": "Wählen Sie den Plan, der zu Ihrer Garage passt. Alle Pläne 14 Tage gratis.",
+      "perMonth": "CHF/Mt.",
+      "onRequest": "Auf Anfrage",
+      "freeTrial": "Gratis testen",
+      "contact": "Kontakt",
+      "popular": "Beliebt",
+      "priceNote": "Alle Preise zzgl. MwSt. · Bei jährlicher Zahlung 2 Monate gratis.",
+      "starter": {
+        "name": "Starter",
+        "description": "Für kleine Betriebe",
+        "price": "149",
+        "features": [
+          "Bis 20 Fahrzeuge",
+          "2 Benutzer",
+          "2 Inserate-Kanäle",
+          "Standzeit-Tracking",
+          "Basis-CRM",
+          "E-Mail Support"
+        ]
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Für wachsende Händler",
+        "price": "349",
+        "features": [
+          "Bis 50 Fahrzeuge",
+          "5 Benutzer",
+          "5 Inserate-Kanäle",
+          "AI-Preisempfehlung",
+          "WhatsApp Integration",
+          "Vollständiges CRM",
+          "Chat + E-Mail Support"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "description": "Für grössere Betriebe",
+        "price": "599",
+        "features": [
+          "Bis 100 Fahrzeuge",
+          "10 Benutzer",
+          "Unbegrenzte Kanäle",
+          "Multi-Standort",
+          "Team-Auswertungen",
+          "API-Zugang",
+          "Priority Support"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Für Händlergruppen",
+        "features": [
+          "100+ Fahrzeuge",
+          "Unbegrenzte Benutzer",
+          "Custom Integrationen",
+          "White-Label Option",
+          "SLA 99.9% Uptime",
+          "Dedicated Manager"
+        ]
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Häufige Fragen",
+      "q1": "Wie lange dauert die Einrichtung?",
+      "a1": "Die Grundeinrichtung dauert etwa 10-15 Minuten. Sie können sofort mit der Erfassung Ihrer Fahrzeuge beginnen. Bei grösseren Datenmengen unterstützen wir Sie gerne beim Import.",
+      "q2": "Kann ich meine bestehenden Daten importieren?",
+      "a2": "Ja, Sie können Excel-Listen und Daten aus anderen Systemen importieren. Unser Support hilft Ihnen dabei kostenlos.",
+      "q3": "Wo werden meine Daten gespeichert?",
+      "a3": "Alle Daten werden ausschliesslich in der Schweiz gespeichert. Wir nutzen Schweizer Rechenzentren und erfüllen alle DSGVO-Anforderungen.",
+      "q4": "Kann ich jederzeit kündigen?",
+      "a4": "Ja, Sie können monatlich kündigen. Keine Mindestvertragslaufzeit, keine versteckten Kosten. Ihre Daten können Sie jederzeit exportieren.",
+      "q5": "Gibt es Schulungen oder Onboarding?",
+      "a5": "Dealer OS ist intuitiv und weitgehend selbsterklärend. Bei Bedarf bieten wir kostenlose Video-Tutorials und persönliches Onboarding an."
+    },
+    "cta": {
+      "title": "Bereit für mehr Durchblick?",
+      "description": "Testen Sie Dealer OS 14 Tage kostenlos. Keine Kreditkarte, keine Verpflichtung.",
+      "button": "Jetzt kostenlos starten",
+      "swissMade": "Swiss Made Software",
+      "swissHosting": "Hosting in der Schweiz",
+      "zurichSupport": "Support aus Zürich"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Willkommen zurück",
+      "subtitle": "Melden Sie sich an, um fortzufahren",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "submit": "Anmelden",
+      "forgotPassword": "Passwort vergessen?",
+      "noAccount": "Noch kein Konto?",
+      "register": "Jetzt registrieren"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "subtitle": "Starten Sie Ihre 14-tägige Testphase",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "submit": "Registrieren",
+      "hasAccount": "Bereits ein Konto?",
+      "login": "Jetzt anmelden",
+      "terms": "Mit der Registrierung akzeptieren Sie unsere {terms} und {privacy}.",
+      "termsLink": "AGB",
+      "privacyLink": "Datenschutzerklärung"
+    }
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "yes": "Ja",
+    "no": "Nein",
+    "search": "Suchen",
+    "filter": "Filter",
+    "sort": "Sortieren",
+    "all": "Alle",
+    "none": "Keine"
+  }
+}

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -39,6 +40,7 @@ interface VehicleData {
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const locale = useLocale();
   const supabase = createClient();
   
   const [currentStep, setCurrentStep] = useState<Step>('welcome');
@@ -66,12 +68,11 @@ export default function OnboardingPage() {
     transmission: 'manual',
   });
 
-  // Load dealer data
   useEffect(() => {
     async function loadDealer() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        router.push('/login');
+        router.push(`/${locale}/login`);
         return;
       }
 
@@ -82,13 +83,12 @@ export default function OnboardingPage() {
         .single();
 
       if (!dealerData) {
-        router.push('/login');
+        router.push(`/${locale}/login`);
         return;
       }
 
-      // If onboarding already completed, redirect to dashboard
       if (dealerData.onboarding_completed) {
-        router.push('/dashboard');
+        router.push(`/${locale}/dashboard`);
         return;
       }
 
@@ -105,11 +105,11 @@ export default function OnboardingPage() {
     }
 
     loadDealer();
-  }, [supabase, router]);
+  }, [supabase, router, locale]);
 
   const steps: Step[] = ['welcome', 'company', 'vehicle', 'complete'];
   const currentStepIndex = steps.indexOf(currentStep);
-  const totalSteps = 3; // Welcome doesn't count, complete is the end
+  const totalSteps = 3;
 
   const handleNext = () => {
     const nextIndex = currentStepIndex + 1;
@@ -190,7 +190,7 @@ export default function OnboardingPage() {
       .update({ onboarding_completed: true })
       .eq('id', dealer.id);
 
-    router.push('/dashboard');
+    router.push(`/${locale}/dashboard`);
   };
 
   if (loading) {
@@ -204,7 +204,6 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 flex items-center justify-center p-4">
       <div className="w-full max-w-lg">
-        {/* Progress Indicator */}
         {currentStep !== 'welcome' && currentStep !== 'complete' && (
           <div className="mb-6">
             <div className="flex justify-between text-sm text-slate-400 mb-2">
@@ -220,7 +219,6 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* Welcome Step */}
         {currentStep === 'welcome' && (
           <Card>
             <CardHeader className="text-center">
@@ -246,7 +244,6 @@ export default function OnboardingPage() {
           </Card>
         )}
 
-        {/* Company Step */}
         {currentStep === 'company' && (
           <Card>
             <CardHeader>
@@ -257,9 +254,7 @@ export default function OnboardingPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {error && (
-                <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg">
-                  {error}
-                </div>
+                <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg">{error}</div>
               )}
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2 space-y-2">
@@ -320,9 +315,7 @@ export default function OnboardingPage() {
                 </div>
               </div>
               <div className="flex gap-3 pt-4">
-                <Button variant="outline" onClick={handleBack} className="flex-1">
-                  ← Zurück
-                </Button>
+                <Button variant="outline" onClick={handleBack} className="flex-1">← Zurück</Button>
                 <Button 
                   onClick={saveCompanyData} 
                   className="flex-1"
@@ -335,7 +328,6 @@ export default function OnboardingPage() {
           </Card>
         )}
 
-        {/* Vehicle Step */}
         {currentStep === 'vehicle' && (
           <Card>
             <CardHeader>
@@ -346,9 +338,7 @@ export default function OnboardingPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {error && (
-                <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg">
-                  {error}
-                </div>
+                <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg">{error}</div>
               )}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
@@ -432,16 +422,8 @@ export default function OnboardingPage() {
                 </div>
               </div>
               <div className="flex gap-3 pt-4">
-                <Button variant="outline" onClick={handleBack} className="flex-1">
-                  ← Zurück
-                </Button>
-                <Button 
-                  variant="ghost"
-                  onClick={handleNext}
-                  className="flex-1"
-                >
-                  Überspringen
-                </Button>
+                <Button variant="outline" onClick={handleBack} className="flex-1">← Zurück</Button>
+                <Button variant="ghost" onClick={handleNext} className="flex-1">Überspringen</Button>
                 <Button 
                   onClick={saveVehicle} 
                   className="flex-1"
@@ -454,7 +436,6 @@ export default function OnboardingPage() {
           </Card>
         )}
 
-        {/* Complete Step */}
         {currentStep === 'complete' && (
           <Card>
             <CardHeader className="text-center">
@@ -473,12 +454,7 @@ export default function OnboardingPage() {
                   <li>📊 Anfragen & Verkäufe tracken</li>
                 </ul>
               </div>
-              <Button 
-                onClick={completeOnboarding} 
-                className="w-full" 
-                size="lg"
-                disabled={saving}
-              >
+              <Button onClick={completeOnboarding} className="w-full" size="lg" disabled={saving}>
                 {saving ? 'Wird geladen...' : 'Zum Dashboard →'}
               </Button>
             </CardContent>

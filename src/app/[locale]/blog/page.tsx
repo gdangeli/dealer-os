@@ -1,27 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { useLocale } from "next-intl";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getAllBlogPosts, getAllCategories } from "@/content/blog";
+import { Link } from "@/i18n/navigation";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 
 export default function BlogPage() {
+  const locale = useLocale();
   const allPosts = getAllBlogPosts();
   const categories = getAllCategories();
   
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   
-  // Filter posts by category
   const filteredPosts = selectedCategory
     ? allPosts.filter((post) => post.category === selectedCategory)
     : allPosts;
   
-  // Featured post is the most recent one from filtered posts
   const [featuredPost, ...restPosts] = filteredPosts;
 
   return (
@@ -84,12 +84,10 @@ export default function BlogPage() {
                 <Card className="overflow-hidden border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-0">
                     <div className="grid md:grid-cols-2 gap-0">
-                      {/* Image/Emoji Side */}
                       <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 md:p-12 flex items-center justify-center min-h-[200px] md:min-h-[300px]">
                         <span className="text-8xl md:text-9xl">{featuredPost.emoji}</span>
                       </div>
                       
-                      {/* Content Side */}
                       <div className="p-6 md:p-8 lg:p-12 flex flex-col justify-center">
                         <div className="flex items-center gap-3 mb-4">
                           <Badge variant="secondary">{featuredPost.category}</Badge>
@@ -152,14 +150,12 @@ export default function BlogPage() {
                   <Link key={post.slug} href={`/blog/${post.slug}`}>
                     <Card className="h-full border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 group">
                       <CardContent className="p-0">
-                        {/* Emoji Header */}
                         <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 flex items-center justify-center border-b border-slate-100">
                           <span className="text-5xl group-hover:scale-110 transition-transform duration-300">
                             {post.emoji}
                           </span>
                         </div>
                         
-                        {/* Content */}
                         <div className="p-5">
                           <div className="flex items-center gap-2 mb-3">
                             <Badge variant="secondary" className="text-xs">
@@ -197,32 +193,6 @@ export default function BlogPage() {
                   : "Keine weiteren Artikel in dieser Kategorie."}
               </div>
             )}
-          </div>
-        </section>
-
-        {/* Newsletter CTA */}
-        <section className="py-16 bg-white border-t border-slate-200">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
-                Keine Tipps mehr verpassen
-              </h2>
-              <p className="text-slate-600 mb-8">
-                Abonnieren Sie unseren Newsletter und erhalten Sie die neuesten Artikel 
-                direkt in Ihr Postfach – kostenlos und jederzeit abbestellbar.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="ihre@email.ch"
-                  className="flex-1 px-4 py-2.5 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all"
-                />
-                <Button>Abonnieren</Button>
-              </div>
-              <p className="text-xs text-slate-500 mt-4">
-                Mit der Anmeldung akzeptieren Sie unsere Datenschutzbestimmungen.
-              </p>
-            </div>
           </div>
         </section>
 

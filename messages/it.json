@@ -1,1 +1,259 @@
-{}
+{
+  "metadata": {
+    "title": "Dealer OS – Commercio auto, semplificato",
+    "titleTemplate": "{title} | Dealer OS",
+    "description": "Il software per concessionari e garagisti svizzeri. Gestione veicoli, lead e indicatori in un'unica piattaforma."
+  },
+  "header": {
+    "features": "Funzionalità",
+    "pricing": "Prezzi",
+    "blog": "Blog",
+    "login": "Accedi",
+    "register": "Prova gratis",
+    "openMenu": "Apri menu"
+  },
+  "footer": {
+    "tagline": "Il software per i concessionari svizzeri che prendono sul serio la loro attività.",
+    "product": "Prodotto",
+    "features": "Funzionalità",
+    "pricing": "Prezzi",
+    "roadmap": "Roadmap",
+    "resources": "Risorse",
+    "blog": "Blog",
+    "help": "Aiuto",
+    "contact": "Contatto",
+    "legal": "Legale",
+    "privacy": "Privacy",
+    "terms": "Termini",
+    "imprint": "Impressum",
+    "copyright": "© {year} Dealer OS. Tutti i diritti riservati.",
+    "madeIn": "Made with ❤️ in Svizzera 🇨🇭"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Beta",
+      "trustCount": "50+ garage svizzeri si fidano di noi",
+      "headline1": "Software per concessionari",
+      "headline2": "che funziona davvero.",
+      "description": "Stock veicoli, giorni di giacenza, lead – tutto sotto controllo. Sviluppato per i concessionari svizzeri che vogliono sapere dove sono i loro soldi.",
+      "cta": "Prova gratis 14 giorni",
+      "watchDemo": "Guarda demo",
+      "noCreditCard": "Nessuna carta di credito richiesta",
+      "quickStart": "Pronto in 5 minuti",
+      "swissHosting": "Hosting in Svizzera"
+    },
+    "dashboard": {
+      "urlBar": "app.dealeros.ch/dashboard",
+      "vehicles": "Veicoli",
+      "avgStandtime": "Giacenza media",
+      "days": "Giorni",
+      "openLeads": "Lead aperti",
+      "avgMargin": "Margine medio",
+      "thisWeek": "+4 questa settimana",
+      "vsLastMonth": "-12% vs. mese scorso",
+      "noResponse": "2 senza risposta",
+      "marginUp": "+8% vs. mese scorso",
+      "recentActivity": "Attività recenti",
+      "activity1Title": "BMW 320d Touring venduta",
+      "activity1Sub": "Giacenza: 23 giorni · Margine: CHF 3'200",
+      "activity1Time": "2 ore fa",
+      "activity2Title": "Nuova richiesta: Audi A4 Avant",
+      "activity2Sub": "Hans Meier · 079 123 45 67",
+      "activity2Time": "45 min fa",
+      "activity3Title": "VW Golf VII raggiunge 60 giorni",
+      "activity3Sub": "Adeguamento prezzo consigliato",
+      "actionNeeded": "Azione richiesta"
+    },
+    "socialProof": {
+      "garagesInBeta": "Garage in beta",
+      "vehiclesManaged": "Veicoli gestiti",
+      "customerRating": "Valutazione clienti",
+      "swissHosted": "Hosting Svizzero",
+      "gdprCompliant": "Conforme GDPR"
+    },
+    "problems": {
+      "title": "Ti suona familiare?",
+      "subtitle": "La maggior parte dei garage lotta con gli stessi problemi.",
+      "noOverview": "Nessuna panoramica",
+      "noOverviewDesc": "Liste Excel, appunti, intuito – ma nessun numero reale su cui contare.",
+      "longStanders": "Veicoli fermi dimenticati",
+      "longStandersDesc": "I veicoli restano troppo a lungo, bloccano capitale e perdono valore. Ma quando intervenire?",
+      "lostLeads": "Lead persi",
+      "lostLeadsDesc": "Richieste via email, WhatsApp, telefono – chi ha risposto quando? Nessuno lo sa."
+    },
+    "solution": {
+      "badge": "La soluzione",
+      "title": "Dealer OS porta ordine",
+      "description": "Una piattaforma centrale per veicoli, lead e indicatori. Finalmente vedere nero su bianco cosa funziona – e cosa no."
+    },
+    "features": {
+      "badge": "Funzionalità",
+      "title": "Tutto in un unico posto",
+      "subtitle": "Basta soluzioni isolate. Dealer OS unisce tutto ciò di cui hai bisogno.",
+      "vehicleManagement": "Gestione veicoli",
+      "vehicleManagementDesc": "Gestisci tutti i veicoli centralmente. Con foto, documenti e storico costi completo.",
+      "standtimeTracking": "Monitoraggio giacenza",
+      "standtimeTrackingDesc": "Vedi immediatamente quali veicoli sono fermi da troppo tempo. Con avvisi automatici.",
+      "leadManagement": "Gestione lead",
+      "leadManagementDesc": "Tutte le richieste in un unico posto. Promemoria automatici per non perdere nulla.",
+      "realKpis": "KPI reali",
+      "realKpisDesc": "Profitto per veicolo, giacenza media, tasso di conversione – a colpo d'occhio.",
+      "listingExport": "Export annunci",
+      "listingExportDesc": "Pubblica su AutoScout24, car4you e il tuo sito con un clic.",
+      "swissHosting": "Hosting Svizzero",
+      "swissHostingDesc": "I tuoi dati restano in Svizzera. Conforme GDPR e crittografato in modo sicuro."
+    },
+    "howItWorks": {
+      "badge": "Come funziona",
+      "title": "Pronto in 3 passi",
+      "step1Title": "Crea account",
+      "step1Desc": "Registrato in 2 minuti. Nessuna carta di credito richiesta.",
+      "step2Title": "Aggiungi veicoli",
+      "step2Desc": "Importa dati esistenti o inizia da zero.",
+      "step3Title": "Ottieni chiarezza",
+      "step3Desc": "Vedi immediatamente dove c'è potenziale e cosa richiede azione."
+    },
+    "testimonials": {
+      "badge": "Testimonianze",
+      "title": "Cosa dicono i garagisti svizzeri",
+      "quote1": "Da quando usiamo Dealer OS, abbiamo ridotto la giacenza del 30%. Finalmente vedo a colpo d'occhio dove sono i miei soldi.",
+      "name1": "Marco Brunner",
+      "role1": "Proprietario, Auto Brunner AG, Winterthur",
+      "quote2": "Facile da usare e esattamente ciò di cui abbiamo bisogno. Il supporto è ottimo – si capisce che capiscono come lavoriamo.",
+      "name2": "Sandra Keller",
+      "role2": "Direttrice, Garage Keller, Aarau",
+      "quote3": "La gestione lead ha dimezzato i nostri tempi di risposta. Non perdiamo più richieste e chiudiamo più vendite.",
+      "name3": "Thomas Müller",
+      "role3": "Direttore vendite, AutoCenter Zürich"
+    },
+    "pricing": {
+      "badge": "Prezzi",
+      "title": "Trasparente e corretto",
+      "subtitle": "Scegli il piano adatto al tuo garage. Tutti i piani gratis per 14 giorni.",
+      "perMonth": "CHF/mese",
+      "onRequest": "Su richiesta",
+      "freeTrial": "Prova gratis",
+      "contact": "Contatto",
+      "popular": "Popolare",
+      "priceNote": "Tutti i prezzi IVA esclusa. 2 mesi gratis con pagamento annuale.",
+      "starter": {
+        "name": "Starter",
+        "description": "Per piccole attività",
+        "price": "149",
+        "features": [
+          "Fino a 20 veicoli",
+          "2 utenti",
+          "2 canali annunci",
+          "Monitoraggio giacenza",
+          "CRM base",
+          "Supporto email"
+        ]
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Per concessionari in crescita",
+        "price": "349",
+        "features": [
+          "Fino a 50 veicoli",
+          "5 utenti",
+          "5 canali annunci",
+          "Raccomandazione prezzi IA",
+          "Integrazione WhatsApp",
+          "CRM completo",
+          "Supporto chat + email"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "description": "Per attività più grandi",
+        "price": "599",
+        "features": [
+          "Fino a 100 veicoli",
+          "10 utenti",
+          "Canali illimitati",
+          "Multi-sede",
+          "Report team",
+          "Accesso API",
+          "Supporto prioritario"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Per gruppi di concessionari",
+        "features": [
+          "100+ veicoli",
+          "Utenti illimitati",
+          "Integrazioni personalizzate",
+          "Opzione white-label",
+          "SLA 99.9% uptime",
+          "Manager dedicato"
+        ]
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Domande frequenti",
+      "q1": "Quanto tempo richiede la configurazione?",
+      "a1": "La configurazione base richiede circa 10-15 minuti. Puoi iniziare ad aggiungere veicoli subito. Per grandi volumi di dati, siamo felici di aiutarti con l'import.",
+      "q2": "Posso importare i miei dati esistenti?",
+      "a2": "Sì, puoi importare liste Excel e dati da altri sistemi. Il nostro supporto ti aiuta gratuitamente.",
+      "q3": "Dove vengono memorizzati i miei dati?",
+      "a3": "Tutti i dati sono memorizzati esclusivamente in Svizzera. Utilizziamo data center svizzeri e rispettiamo tutti i requisiti GDPR.",
+      "q4": "Posso disdire in qualsiasi momento?",
+      "a4": "Sì, puoi disdire mensilmente. Nessuna durata minima del contratto, nessun costo nascosto. Puoi esportare i tuoi dati in qualsiasi momento.",
+      "q5": "C'è formazione o onboarding?",
+      "a5": "Dealer OS è intuitivo e largamente autoesplicativo. Se necessario, offriamo tutorial video gratuiti e onboarding personale."
+    },
+    "cta": {
+      "title": "Pronto per più chiarezza?",
+      "description": "Prova Dealer OS gratis per 14 giorni. Nessuna carta di credito, nessun impegno.",
+      "button": "Inizia gratis ora",
+      "swissMade": "Swiss Made Software",
+      "swissHosting": "Hosting in Svizzera",
+      "zurichSupport": "Supporto da Zurigo"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bentornato",
+      "subtitle": "Accedi per continuare",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Accedi",
+      "forgotPassword": "Password dimenticata?",
+      "noAccount": "Non hai un account?",
+      "register": "Registrati ora"
+    },
+    "register": {
+      "title": "Crea account",
+      "subtitle": "Inizia la tua prova di 14 giorni",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Conferma password",
+      "submit": "Registrati",
+      "hasAccount": "Hai già un account?",
+      "login": "Accedi ora",
+      "terms": "Registrandoti, accetti i nostri {terms} e la nostra {privacy}.",
+      "termsLink": "Termini",
+      "privacyLink": "Privacy Policy"
+    }
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Si è verificato un errore",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "create": "Crea",
+    "back": "Indietro",
+    "next": "Avanti",
+    "yes": "Sì",
+    "no": "No",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "sort": "Ordina",
+    "all": "Tutti",
+    "none": "Nessuno"
+  }
+}

@@ -1,0 +1,259 @@
+{
+  "metadata": {
+    "title": "Dealer OS – Prodaja automobila, pojednostavljena",
+    "titleTemplate": "{title} | Dealer OS",
+    "description": "Softver za švajcarske prodavce automobila i garaže. Upravljanje vozilima, leadovima i pokazateljima na jednoj platformi."
+  },
+  "header": {
+    "features": "Funkcije",
+    "pricing": "Cene",
+    "blog": "Blog",
+    "login": "Prijava",
+    "register": "Besplatno isprobajte",
+    "openMenu": "Otvori meni"
+  },
+  "footer": {
+    "tagline": "Softver za švajcarske prodavce automobila koji ozbiljno shvataju svoj posao.",
+    "product": "Proizvod",
+    "features": "Funkcije",
+    "pricing": "Cene",
+    "roadmap": "Roadmap",
+    "resources": "Resursi",
+    "blog": "Blog",
+    "help": "Pomoć",
+    "contact": "Kontakt",
+    "legal": "Pravne informacije",
+    "privacy": "Privatnost",
+    "terms": "Uslovi",
+    "imprint": "Impressum",
+    "copyright": "© {year} Dealer OS. Sva prava zadržana.",
+    "madeIn": "Made with ❤️ u Švajcarskoj 🇨🇭"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Beta",
+      "trustCount": "50+ švajcarskih garaža nam veruje",
+      "headline1": "Softver za prodaju automobila",
+      "headline2": "koji zaista radi.",
+      "description": "Zalihe vozila, dani na lageru, leadovi – sve pod kontrolom. Razvijeno za švajcarske prodavce automobila koji žele znati gde je njihov novac.",
+      "cta": "Probajte 14 dana besplatno",
+      "watchDemo": "Pogledajte demo",
+      "noCreditCard": "Bez kreditne kartice",
+      "quickStart": "Spremno za 5 minuta",
+      "swissHosting": "Hosting u Švajcarskoj"
+    },
+    "dashboard": {
+      "urlBar": "app.dealeros.ch/dashboard",
+      "vehicles": "Vozila",
+      "avgStandtime": "Prosečno dana na lageru",
+      "days": "Dana",
+      "openLeads": "Otvoreni leadovi",
+      "avgMargin": "Prosečna marža",
+      "thisWeek": "+4 ove nedelje",
+      "vsLastMonth": "-12% u odnosu na prošli mesec",
+      "noResponse": "2 bez odgovora",
+      "marginUp": "+8% u odnosu na prošli mesec",
+      "recentActivity": "Nedavne aktivnosti",
+      "activity1Title": "BMW 320d Touring prodat",
+      "activity1Sub": "Dana na lageru: 23 · Marža: CHF 3'200",
+      "activity1Time": "pre 2 sata",
+      "activity2Title": "Nov upit: Audi A4 Avant",
+      "activity2Sub": "Hans Meier · 079 123 45 67",
+      "activity2Time": "pre 45 min",
+      "activity3Title": "VW Golf VII dostiže 60 dana",
+      "activity3Sub": "Preporučeno prilagođavanje cene",
+      "actionNeeded": "Potrebna akcija"
+    },
+    "socialProof": {
+      "garagesInBeta": "Garaža u beta verziji",
+      "vehiclesManaged": "Vozila pod upravljanjem",
+      "customerRating": "Ocena kupaca",
+      "swissHosted": "Švajcarski hosting",
+      "gdprCompliant": "GDPR usklađeno"
+    },
+    "problems": {
+      "title": "Zvuči poznato?",
+      "subtitle": "Većina garaža se bori sa istim problemima.",
+      "noOverview": "Nema pregleda",
+      "noOverviewDesc": "Excel liste, beleške, osećaj – ali nema pravih brojeva na koje se možete osloniti.",
+      "longStanders": "Zaboravljena vozila na lageru",
+      "longStandersDesc": "Vozila stoje predugo, vezuju kapital i gube vrednost. Ali kada reagovati?",
+      "lostLeads": "Izgubljeni leadovi",
+      "lostLeadsDesc": "Upiti putem emaila, WhatsApp-a, telefona – ko je kada odgovorio? Niko ne zna."
+    },
+    "solution": {
+      "badge": "Rešenje",
+      "title": "Dealer OS donosi red",
+      "description": "Jedna centralna platforma za vozila, leadove i pokazatelje. Konačno vidite crno na belo šta funkcioniše – a šta ne."
+    },
+    "features": {
+      "badge": "Funkcije",
+      "title": "Sve na jednom mestu",
+      "subtitle": "Nema više izolovanih rešenja. Dealer OS ujedinjuje sve što vam treba.",
+      "vehicleManagement": "Upravljanje vozilima",
+      "vehicleManagementDesc": "Upravljajte svim vozilima centralno. Sa fotografijama, dokumentima i kompletnom istorijom troškova.",
+      "standtimeTracking": "Praćenje dana na lageru",
+      "standtimeTrackingDesc": "Odmah vidite koja vozila stoje predugo. Sa automatskim upozorenjima.",
+      "leadManagement": "Upravljanje leadovima",
+      "leadManagementDesc": "Svi upiti na jednom mestu. Automatski podsetnici da ništa ne promakne.",
+      "realKpis": "Pravi pokazatelji",
+      "realKpisDesc": "Profit po vozilu, prosečni dani na lageru, stopa konverzije – na prvi pogled.",
+      "listingExport": "Izvoz oglasa",
+      "listingExportDesc": "Objavite na AutoScout24, car4you i vašoj web stranici jednim klikom.",
+      "swissHosting": "Švajcarski hosting",
+      "swissHostingDesc": "Vaši podaci ostaju u Švajcarskoj. GDPR usklađeno i sigurno šifrovano."
+    },
+    "howItWorks": {
+      "badge": "Kako funkcioniše",
+      "title": "Spremno u 3 koraka",
+      "step1Title": "Kreirajte nalog",
+      "step1Desc": "Registrovano za 2 minuta. Bez kreditne kartice.",
+      "step2Title": "Dodajte vozila",
+      "step2Desc": "Uvezite postojeće podatke ili krenite od nule.",
+      "step3Title": "Steknite jasnoću",
+      "step3Desc": "Odmah vidite gde je potencijal i šta zahteva akciju."
+    },
+    "testimonials": {
+      "badge": "Svedočanstva",
+      "title": "Šta kažu švajcarski vlasnici garaža",
+      "quote1": "Otkako koristimo Dealer OS, smanjili smo dane na lageru za 30%. Konačno vidim na prvi pogled gde je moj novac.",
+      "name1": "Marco Brunner",
+      "role1": "Vlasnik, Auto Brunner AG, Winterthur",
+      "quote2": "Lako za korišćenje i tačno ono što nam treba. Podrška je odlična – vidi se da razumeju kako radimo.",
+      "name2": "Sandra Keller",
+      "role2": "Direktorka, Garage Keller, Aarau",
+      "quote3": "Upravljanje leadovima je prepolovilo naše vreme odgovora. Više ne gubimo upite i zatvaramo više prodaja.",
+      "name3": "Thomas Müller",
+      "role3": "Direktor prodaje, AutoCenter Zürich"
+    },
+    "pricing": {
+      "badge": "Cene",
+      "title": "Transparentno i fer",
+      "subtitle": "Izaberite plan koji odgovara vašoj garaži. Svi planovi besplatni 14 dana.",
+      "perMonth": "CHF/mesec",
+      "onRequest": "Na upit",
+      "freeTrial": "Probajte besplatno",
+      "contact": "Kontakt",
+      "popular": "Popularno",
+      "priceNote": "Sve cene bez PDV-a. 2 meseca besplatno uz godišnje plaćanje.",
+      "starter": {
+        "name": "Starter",
+        "description": "Za male firme",
+        "price": "149",
+        "features": [
+          "Do 20 vozila",
+          "2 korisnika",
+          "2 kanala za oglase",
+          "Praćenje dana na lageru",
+          "Osnovni CRM",
+          "Email podrška"
+        ]
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Za prodavce u rastu",
+        "price": "349",
+        "features": [
+          "Do 50 vozila",
+          "5 korisnika",
+          "5 kanala za oglase",
+          "AI preporuka cene",
+          "WhatsApp integracija",
+          "Kompletan CRM",
+          "Chat + email podrška"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "description": "Za veće firme",
+        "price": "599",
+        "features": [
+          "Do 100 vozila",
+          "10 korisnika",
+          "Neograničeni kanali",
+          "Više lokacija",
+          "Timski izveštaji",
+          "API pristup",
+          "Prioritetna podrška"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Za grupe prodavaca",
+        "features": [
+          "100+ vozila",
+          "Neograničeni korisnici",
+          "Prilagođene integracije",
+          "White-label opcija",
+          "SLA 99.9% uptime",
+          "Posvećeni menadžer"
+        ]
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Često postavljana pitanja",
+      "q1": "Koliko traje podešavanje?",
+      "a1": "Osnovno podešavanje traje oko 10-15 minuta. Možete odmah početi dodavati vozila. Za veće količine podataka, rado vam pomažemo sa uvozom.",
+      "q2": "Mogu li uvesti postojeće podatke?",
+      "a2": "Da, možete uvesti Excel liste i podatke iz drugih sistema. Naša podrška vam besplatno pomaže.",
+      "q3": "Gde se čuvaju moji podaci?",
+      "a3": "Svi podaci se čuvaju isključivo u Švajcarskoj. Koristimo švajcarske data centre i ispunjavamo sve GDPR zahteve.",
+      "q4": "Mogu li otkazati bilo kada?",
+      "a4": "Da, možete otkazati mesečno. Bez minimalnog trajanja ugovora, bez skrivenih troškova. Možete izvesti svoje podatke u bilo kom trenutku.",
+      "q5": "Ima li obuke ili onboardinga?",
+      "a5": "Dealer OS je intuitivan i uglavnom samoobjašnjiv. Po potrebi, nudimo besplatne video tutorijale i lični onboarding."
+    },
+    "cta": {
+      "title": "Spremni za više jasnoće?",
+      "description": "Isprobajte Dealer OS besplatno 14 dana. Bez kreditne kartice, bez obaveza.",
+      "button": "Počnite besplatno sada",
+      "swissMade": "Swiss Made Software",
+      "swissHosting": "Hosting u Švajcarskoj",
+      "zurichSupport": "Podrška iz Ciriha"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Dobrodošli nazad",
+      "subtitle": "Prijavite se da nastavite",
+      "email": "Email",
+      "password": "Lozinka",
+      "submit": "Prijavi se",
+      "forgotPassword": "Zaboravili lozinku?",
+      "noAccount": "Nemate nalog?",
+      "register": "Registrujte se sada"
+    },
+    "register": {
+      "title": "Kreirajte nalog",
+      "subtitle": "Započnite 14-dnevni probni period",
+      "email": "Email",
+      "password": "Lozinka",
+      "confirmPassword": "Potvrdite lozinku",
+      "submit": "Registruj se",
+      "hasAccount": "Već imate nalog?",
+      "login": "Prijavite se sada",
+      "terms": "Registracijom prihvatate naše {terms} i {privacy}.",
+      "termsLink": "Uslove korišćenja",
+      "privacyLink": "Politiku privatnosti"
+    }
+  },
+  "common": {
+    "loading": "Učitavanje...",
+    "error": "Došlo je do greške",
+    "save": "Sačuvaj",
+    "cancel": "Otkaži",
+    "delete": "Obriši",
+    "edit": "Uredi",
+    "create": "Kreiraj",
+    "back": "Nazad",
+    "next": "Dalje",
+    "yes": "Da",
+    "no": "Ne",
+    "search": "Pretraži",
+    "filter": "Filter",
+    "sort": "Sortiraj",
+    "all": "Sve",
+    "none": "Ništa"
+  }
+}

@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
+import { Link } from "@/i18n/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -16,6 +17,9 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+  const t = useTranslations("auth.login");
+  const tCommon = useTranslations("common");
+  const locale = useLocale();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +35,7 @@ export default function LoginPage() {
       setError(error.message);
       setLoading(false);
     } else {
-      router.push("/dashboard");
+      router.push(`/${locale}/dashboard`);
       router.refresh();
     }
   };
@@ -44,8 +48,8 @@ export default function LoginPage() {
             <span className="text-2xl">🚗</span>
             <span className="text-xl font-bold">Dealer OS</span>
           </Link>
-          <CardTitle>Schön, Sie wiederzusehen</CardTitle>
-          <CardDescription>Melden Sie sich in Ihrem Konto an</CardDescription>
+          <CardTitle>{t("title")}</CardTitle>
+          <CardDescription>{t("subtitle")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -55,7 +59,7 @@ export default function LoginPage() {
               </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="email">E-Mail</Label>
+              <Label htmlFor="email">{t("email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -66,7 +70,7 @@ export default function LoginPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Passwort</Label>
+              <Label htmlFor="password">{t("password")}</Label>
               <Input
                 id="password"
                 type="password"
@@ -76,13 +80,13 @@ export default function LoginPage() {
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Einen Moment..." : "Anmelden"}
+              {loading ? tCommon("loading") : t("submit")}
             </Button>
           </form>
           <div className="mt-4 text-center text-sm text-slate-600">
-            Noch keinen Zugang?{" "}
+            {t("noAccount")}{" "}
             <Link href="/register" className="text-blue-600 hover:underline">
-              Kostenlos registrieren
+              {t("register")}
             </Link>
           </div>
         </CardContent>

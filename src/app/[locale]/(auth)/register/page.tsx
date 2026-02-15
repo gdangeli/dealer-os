@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/client";
+import { Link } from "@/i18n/navigation";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -22,8 +22,10 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const router = useRouter();
   const supabase = createClient();
+  const t = useTranslations("auth.register");
+  const tCommon = useTranslations("common");
+  const locale = useLocale();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,7 +66,6 @@ export default function RegisterPage() {
 
       if (profileError) {
         console.error('Profile error:', profileError);
-        // Don't block - user is created, profile can be fixed later
       }
     }
 
@@ -85,7 +86,7 @@ export default function RegisterPage() {
           </CardHeader>
           <CardContent>
             <Link href="/login">
-              <Button className="w-full">Zur Anmeldung</Button>
+              <Button className="w-full">{t("login")}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -104,10 +105,8 @@ export default function RegisterPage() {
           <div className="flex justify-center mb-2">
             <Badge>Gratis Beta</Badge>
           </div>
-          <CardTitle>Konto erstellen</CardTitle>
-          <CardDescription>
-            In 2 Minuten startklar. Keine Kreditkarte nötig.
-          </CardDescription>
+          <CardTitle>{t("title")}</CardTitle>
+          <CardDescription>{t("subtitle")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -137,7 +136,7 @@ export default function RegisterPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Geschäfts-E-Mail</Label>
+              <Label htmlFor="email">{t("email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -169,7 +168,7 @@ export default function RegisterPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Passwort (min. 8 Zeichen)</Label>
+              <Label htmlFor="password">{t("password")} (min. 8 Zeichen)</Label>
               <Input
                 id="password"
                 type="password"
@@ -180,13 +179,13 @@ export default function RegisterPage() {
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Wird erstellt..." : "Konto erstellen"}
+              {loading ? tCommon("loading") : t("submit")}
             </Button>
           </form>
           <div className="mt-4 text-center text-sm text-slate-600">
-            Schon ein Konto?{" "}
+            {t("hasAccount")}{" "}
             <Link href="/login" className="text-blue-600 hover:underline">
-              Hier anmelden
+              {t("login")}
             </Link>
           </div>
         </CardContent>

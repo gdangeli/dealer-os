@@ -1,29 +1,34 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { setRequestLocale } from "next-intl/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getBlogPostBySlug, getAllBlogPosts, getRelatedPosts } from "@/content/blog";
+import { Link } from "@/i18n/navigation";
+import { locales } from "@/i18n/config";
 import type { Metadata } from "next";
 import React from "react";
 import { ArrowLeft, ArrowRight, Clock, Calendar, User, Share2 } from "lucide-react";
 
 interface BlogPostPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 export async function generateStaticParams() {
   const posts = getAllBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  return locales.flatMap((locale) =>
+    posts.map((post) => ({
+      locale,
+      slug: post.slug,
+    }))
+  );
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const resolvedParams = await params;
-  const post = getBlogPostBySlug(resolvedParams.slug);
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
   
   if (!post) {
     return {
@@ -89,7 +94,7 @@ function renderContent(content: string) {
   const flushTable = () => {
     if (tableRows.length > 0) {
       const headerRow = tableRows[0];
-      const bodyRows = tableRows.slice(2); // Skip header and separator
+      const bodyRows = tableRows.slice(2);
       elements.push(
         <div key={key++} className="overflow-x-auto my-8 rounded-lg border border-slate-200">
           <table className="min-w-full">
@@ -122,13 +127,9 @@ function renderContent(content: string) {
   };
 
   const formatInlineText = (text: string): string => {
-    // Bold
     text = text.replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-slate-900">$1</strong>');
-    // Italic
     text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
-    // Code
     text = text.replace(/`(.+?)`/g, '<code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono text-slate-800">$1</code>');
-    // Links
     text = text.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline underline-offset-2">$1</a>');
     return text;
   };
@@ -136,7 +137,6 @@ function renderContent(content: string) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    // Table
     if (line.startsWith("|")) {
       flushList();
       flushBlockquote();
@@ -148,7 +148,6 @@ function renderContent(content: string) {
       flushTable();
     }
 
-    // Blockquote
     if (line.startsWith(">")) {
       flushList();
       inBlockquote = true;
@@ -158,7 +157,6 @@ function renderContent(content: string) {
       flushBlockquote();
     }
 
-    // Headers
     if (line.startsWith("## ")) {
       flushList();
       elements.push(
@@ -178,14 +176,12 @@ function renderContent(content: string) {
       continue;
     }
 
-    // Horizontal rule
     if (line.trim() === "---") {
       flushList();
       elements.push(<hr key={key++} className="my-10 border-slate-200" />);
       continue;
     }
 
-    // Unordered list
     if (line.startsWith("- ") || line.startsWith("* ")) {
       if (listType !== "ul") {
         flushList();
@@ -195,7 +191,6 @@ function renderContent(content: string) {
       continue;
     }
 
-    // Ordered list
     const orderedMatch = line.match(/^\d+\.\s/);
     if (orderedMatch) {
       if (listType !== "ol") {
@@ -206,26 +201,11 @@ function renderContent(content: string) {
       continue;
     }
 
-    // Checkbox list
-    if (line.startsWith("- [ ]") || line.startsWith("- [x]")) {
-      flushList();
-      const checked = line.startsWith("- [x]");
-      elements.push(
-        <div key={key++} className="flex items-center gap-3 my-2">
-          <input type="checkbox" checked={checked} disabled className="rounded border-slate-300 text-blue-600" />
-          <span className="text-slate-700">{line.substring(6)}</span>
-        </div>
-      );
-      continue;
-    }
-
-    // Empty line
     if (line.trim() === "") {
       flushList();
       continue;
     }
 
-    // Regular paragraph
     flushList();
     elements.push(
       <p key={key++} className="text-slate-700 my-5 leading-relaxed" dangerouslySetInnerHTML={{ __html: formatInlineText(line) }} />
@@ -240,25 +220,25 @@ function renderContent(content: string) {
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const resolvedParams = await params;
-  const post = getBlogPostBySlug(resolvedParams.slug);
+  const { slug, locale } = await params;
+  setRequestLocale(locale);
+  
+  const post = getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-  const relatedPosts = getRelatedPosts(resolvedParams.slug, 3);
+  const relatedPosts = getRelatedPosts(slug, 3);
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <Header />
 
       <main className="flex-1 pt-16">
-        {/* Article Header */}
         <section className="bg-gradient-to-b from-slate-50 to-white py-12 sm:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
-              {/* Back Link */}
               <Link
                 href="/blog"
                 className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900 mb-6 transition-colors"
@@ -267,7 +247,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 Zurück zum Blog
               </Link>
 
-              {/* Category & Emoji */}
               <div className="flex items-center gap-4 mb-6">
                 <span className="text-5xl">{post.emoji}</span>
                 <Badge variant="secondary" className="text-sm px-3 py-1">
@@ -275,17 +254,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </Badge>
               </div>
 
-              {/* Title */}
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight">
                 {post.title}
               </h1>
 
-              {/* Excerpt */}
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
                 {post.excerpt}
               </p>
 
-              {/* Meta */}
               <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 pb-8 border-b border-slate-200">
                 <span className="flex items-center gap-1.5">
                   <User className="h-4 w-4" />
@@ -308,7 +284,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </section>
 
-        {/* Article Content */}
         <article className="py-12">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto prose prose-slate prose-lg">
@@ -317,7 +292,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </article>
 
-        {/* Keywords */}
         <section className="pb-12">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
@@ -336,7 +310,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </section>
 
-        {/* Share Section */}
         <section className="py-8 bg-slate-50 border-y border-slate-200">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -345,21 +318,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <span className="text-slate-600">Artikel teilen</span>
               </div>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm">
-                  LinkedIn
-                </Button>
-                <Button variant="outline" size="sm">
-                  Twitter
-                </Button>
-                <Button variant="outline" size="sm">
-                  E-Mail
-                </Button>
+                <Button variant="outline" size="sm">LinkedIn</Button>
+                <Button variant="outline" size="sm">Twitter</Button>
+                <Button variant="outline" size="sm">E-Mail</Button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <section className="py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -391,7 +357,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </section>
         )}
 
-        {/* CTA Section */}
         <section className="py-16 bg-slate-900">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto">
