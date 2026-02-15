@@ -104,8 +104,8 @@ export function SalesBarChart({ data }: { data: SalesDataPoint[] }) {
             border: "1px solid #e2e8f0",
             borderRadius: "8px",
           }}
-          formatter={(value: number, name: string) => {
-            if (name === "Umsatz") {
+          formatter={(value, name) => {
+            if (name === "Umsatz" && typeof value === 'number') {
               return [`CHF ${value.toLocaleString("de-CH")}`, name];
             }
             return [value, name];

@@ -33,35 +33,35 @@ export default function Home() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <Badge variant="secondary" className="mb-6 px-4 py-1.5 text-sm font-medium">
-                🚀 Jetzt in der Beta – Kostenlos testen
+                🚀 Beta-Phase – Jetzt gratis einsteigen
               </Badge>
               
               <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-                Autohandel,{" "}
+                Weniger Excel.{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">
-                  vereinfacht.
+                  Mehr Verkäufe.
                 </span>
               </h1>
               
               <p className="mt-6 text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
-                Kennen Sie Ihren Gewinn pro Fahrzeug. Erkennen Sie Langsteher sofort. 
-                Treffen Sie datenbasierte Entscheidungen – mit der Software für Schweizer Autohändler.
+                Schluss mit 10 offenen Tabs. Fahrzeuge, Leads und Zahlen an einem Ort – 
+                damit Sie wissen, was jedes Auto wirklich bringt.
               </p>
               
               <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild className="h-12 px-8 text-base">
                   <Link href="/register">
-                    Kostenlos starten
+                    Gratis testen – in 2 Min. startklar
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild className="h-12 px-8 text-base">
-                  <Link href="#features">Features entdecken</Link>
+                  <Link href="#features">So funktioniert's</Link>
                 </Button>
               </div>
               
               <p className="mt-6 text-sm text-slate-500">
-                Keine Kreditkarte erforderlich · 14 Tage kostenlos testen
+                Keine Kreditkarte · Keine Verpflichtung · Schweizer Daten bleiben in der Schweiz
               </p>
             </div>
             
@@ -89,12 +89,12 @@ export default function Home() {
                     <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
                       <p className="text-xs text-slate-400 uppercase tracking-wide">Ø Standzeit</p>
                       <p className="text-2xl font-bold text-white mt-1">42 Tage</p>
-                      <p className="text-xs text-green-400 mt-1">-8 vs. letzter Monat</p>
+                      <p className="text-xs text-green-400 mt-1">-8 vs. Vormonat</p>
                     </div>
                     <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-                      <p className="text-xs text-slate-400 uppercase tracking-wide">Offene Leads</p>
+                      <p className="text-xs text-slate-400 uppercase tracking-wide">Offene Anfragen</p>
                       <p className="text-2xl font-bold text-white mt-1">12</p>
-                      <p className="text-xs text-yellow-400 mt-1">3 unbeantwortet</p>
+                      <p className="text-xs text-yellow-400 mt-1">3 warten auf Antwort</p>
                     </div>
                   </div>
                 </div>
@@ -109,7 +109,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16">
               <div className="text-center">
                 <p className="text-3xl font-bold text-slate-900">50+</p>
-                <p className="text-sm text-slate-600 mt-1">Garagen in der Beta</p>
+                <p className="text-sm text-slate-600 mt-1">Schweizer Garagen dabei</p>
               </div>
               <div className="hidden sm:block w-px h-12 bg-slate-300" />
               <div className="text-center">
@@ -118,8 +118,8 @@ export default function Home() {
               </div>
               <div className="hidden sm:block w-px h-12 bg-slate-300" />
               <div className="text-center">
-                <p className="text-3xl font-bold text-slate-900">4.8/5</p>
-                <p className="text-sm text-slate-600 mt-1">Kundenbewertung</p>
+                <p className="text-3xl font-bold text-slate-900">Ø 23%</p>
+                <p className="text-sm text-slate-600 mt-1">kürzere Standzeiten</p>
               </div>
             </div>
           </div>
@@ -129,12 +129,12 @@ export default function Home() {
         <section id="features" className="py-20 sm:py-28">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <Badge variant="outline" className="mb-4">Features</Badge>
+              <Badge variant="outline" className="mb-4">Das bringt's</Badge>
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
-                Alles, was Sie brauchen
+                Gebaut für den Alltag im Autohandel
               </h2>
               <p className="mt-4 text-lg text-slate-600">
-                Dealer OS vereint Fahrzeugverwaltung, Lead-Management und Kennzahlen in einer intuitiven Plattform.
+                Kein Schnickschnack. Nur das, was Sie wirklich brauchen, um schneller zu verkaufen.
               </p>
             </div>
 
@@ -165,12 +165,12 @@ export default function Home() {
               <div>
                 <Badge variant="outline" className="mb-4">Warum Dealer OS?</Badge>
                 <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">
-                  Endlich wissen, was läuft – und was nicht
+                  Weil Excel keine Autos verkauft
                 </h2>
                 <p className="text-lg text-slate-600 mb-8">
-                  Die meisten Garagen arbeiten noch mit Excel, Notizen und Bauchgefühl. 
-                  Dealer OS bringt Struktur in Ihr Geschäft und zeigt Ihnen schwarz auf weiss, 
-                  wo Sie Geld verdienen – und wo es liegt bleibt.
+                  Sie kennen das: Fahrzeuglisten in Excel, Anfragen im E-Mail-Postfach, Notizen auf Papier. 
+                  Funktioniert – bis es nicht mehr funktioniert. Dealer OS bringt alles zusammen, 
+                  damit Sie sich aufs Verkaufen konzentrieren können.
                 </p>
                 
                 <ul className="space-y-4">
@@ -187,7 +187,7 @@ export default function Home() {
                 <div className="mt-10">
                   <Button size="lg" asChild>
                     <Link href="/register">
-                      Jetzt kostenlos testen
+                      Gratis ausprobieren
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
@@ -203,7 +203,7 @@ export default function Home() {
                         <Clock className="h-5 w-5 text-red-500" />
                         <div>
                           <p className="font-medium text-slate-900">VW Golf VII</p>
-                          <p className="text-sm text-slate-500">Standzeit: 87 Tage</p>
+                          <p className="text-sm text-slate-500">87 Tage – Zeit zu handeln</p>
                         </div>
                       </div>
                       <Badge variant="destructive">Langsteher</Badge>
@@ -213,7 +213,7 @@ export default function Home() {
                         <TrendingUp className="h-5 w-5 text-green-500" />
                         <div>
                           <p className="font-medium text-slate-900">BMW 320i</p>
-                          <p className="text-sm text-slate-500">Verkauft nach 12 Tagen</p>
+                          <p className="text-sm text-slate-500">Verkauft in 12 Tagen</p>
                         </div>
                       </div>
                       <Badge className="bg-green-100 text-green-700 hover:bg-green-100">+CHF 2'400</Badge>
@@ -226,7 +226,7 @@ export default function Home() {
                           <p className="text-sm text-slate-500">Audi A4 Avant – vor 5 Min.</p>
                         </div>
                       </div>
-                      <Badge variant="outline">Offen</Badge>
+                      <Badge variant="outline">Antworten</Badge>
                     </div>
                   </div>
                 </div>
@@ -239,9 +239,9 @@ export default function Home() {
         <section className="py-20 sm:py-28">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <Badge variant="outline" className="mb-4">Testimonials</Badge>
+              <Badge variant="outline" className="mb-4">Aus der Praxis</Badge>
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
-                Das sagen unsere Kunden
+                Was Händler wie Sie sagen
               </h2>
             </div>
 
@@ -279,10 +279,10 @@ export default function Home() {
             <div className="text-center max-w-2xl mx-auto mb-16">
               <Badge variant="outline" className="mb-4">Preise</Badge>
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
-                Faire Preise für jede Grösse
+                Klare Preise. Keine Überraschungen.
               </h2>
               <p className="mt-4 text-lg text-slate-600">
-                Wählen Sie den Plan, der zu Ihrem Betrieb passt. 14 Tage kostenlos testen.
+                Wählen Sie, was zu Ihrer Garage passt. 14 Tage gratis testen, jederzeit kündbar.
               </p>
             </div>
 
@@ -291,7 +291,7 @@ export default function Home() {
               <Card className="border-slate-200">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-slate-900 mb-2">Starter</h3>
-                  <p className="text-sm text-slate-600 mb-4">Kleine Garagisten</p>
+                  <p className="text-sm text-slate-600 mb-4">Für kleine Garagen</p>
                   <p className="text-4xl font-bold text-slate-900 mb-1">
                     CHF 149
                   </p>
@@ -304,20 +304,20 @@ export default function Home() {
                       <Check className="h-4 w-4 text-green-500 shrink-0" /> 2 Benutzer
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> 2 Inserate-Kanäle
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> AutoScout24 + car4you
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Standzeit-Tracking
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Langsteher-Alarm
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Basis-CRM
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Einfaches Lead-CRM
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
                       <Check className="h-4 w-4 text-green-500 shrink-0" /> E-Mail Support
                     </li>
                   </ul>
                   <Button variant="outline" className="w-full" asChild>
-                    <Link href="/register">14 Tage testen</Link>
+                    <Link href="/register">14 Tage gratis</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -325,11 +325,11 @@ export default function Home() {
               {/* Professional Plan */}
               <Card className="border-blue-300 bg-blue-50/50 relative shadow-lg">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <Badge className="bg-blue-600">Beliebt</Badge>
+                  <Badge className="bg-blue-600">Meistgewählt</Badge>
                 </div>
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-slate-900 mb-2">Professional</h3>
-                  <p className="text-sm text-slate-600 mb-4">Mittlere Händler</p>
+                  <p className="text-sm text-slate-600 mb-4">Für wachsende Händler</p>
                   <p className="text-4xl font-bold text-slate-900 mb-1">
                     CHF 349
                   </p>
@@ -342,23 +342,23 @@ export default function Home() {
                       <Check className="h-4 w-4 text-green-500 shrink-0" /> 5 Benutzer
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> 5 Inserate-Kanäle
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> 5 Inserate-Plattformen
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-blue-600 shrink-0" /> <strong>AI Pricing</strong>
+                      <Check className="h-4 w-4 text-blue-600 shrink-0" /> <strong>KI-Preisvorschläge</strong>
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-blue-600 shrink-0" /> <strong>WhatsApp Integration</strong>
+                      <Check className="h-4 w-4 text-blue-600 shrink-0" /> <strong>WhatsApp für Leads</strong>
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Vollständiges CRM
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Volles CRM
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
                       <Check className="h-4 w-4 text-green-500 shrink-0" /> Chat + E-Mail Support
                     </li>
                   </ul>
                   <Button className="w-full" asChild>
-                    <Link href="/register">14 Tage testen</Link>
+                    <Link href="/register">14 Tage gratis</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -367,7 +367,7 @@ export default function Home() {
               <Card className="border-slate-200">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-slate-900 mb-2">Business</h3>
-                  <p className="text-sm text-slate-600 mb-4">Grössere Händler</p>
+                  <p className="text-sm text-slate-600 mb-4">Für grössere Betriebe</p>
                   <p className="text-4xl font-bold text-slate-900 mb-1">
                     CHF 599
                   </p>
@@ -380,23 +380,23 @@ export default function Home() {
                       <Check className="h-4 w-4 text-green-500 shrink-0" /> 10 Benutzer
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Unbegrenzte Kanäle
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Alle Plattformen
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Multi-Standort
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Mehrere Standorte
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Team-Auswertungen
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Verkäufer-Statistiken
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> API-Zugang
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> API für Ihr DMS
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
                       <Check className="h-4 w-4 text-green-500 shrink-0" /> Priority Support
                     </li>
                   </ul>
                   <Button variant="outline" className="w-full" asChild>
-                    <Link href="/register">14 Tage testen</Link>
+                    <Link href="/register">14 Tage gratis</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -405,43 +405,43 @@ export default function Home() {
               <Card className="border-slate-200">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-slate-900 mb-2">Enterprise</h3>
-                  <p className="text-sm text-slate-600 mb-4">Händlergruppen</p>
+                  <p className="text-sm text-slate-600 mb-4">Für Händlergruppen</p>
                   <p className="text-4xl font-bold text-slate-900 mb-1">
-                    Ab CHF 999
+                    Auf Anfrage
                   </p>
-                  <p className="text-sm text-slate-500 mb-6">pro Monat</p>
+                  <p className="text-sm text-slate-500 mb-6">individuell</p>
                   <ul className="space-y-3 mb-8 text-sm">
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> 100+ Fahrzeuge
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Unbegrenzt Fahrzeuge
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Unbegrenzte Benutzer
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Unbegrenzt Benutzer
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Custom Integrationen
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Eigene Integrationen
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> White-Label Option
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> White-Label möglich
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> SLA (99.9% Uptime)
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> SLA-Garantie
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Dedicated Manager
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Persönlicher Betreuer
                     </li>
                     <li className="flex items-center gap-2 text-slate-600">
-                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Onboarding & Training
+                      <Check className="h-4 w-4 text-green-500 shrink-0" /> Schulung vor Ort
                     </li>
                   </ul>
                   <Button variant="outline" className="w-full" asChild>
-                    <Link href="mailto:enterprise@dealeros.ch">Kontakt</Link>
+                    <Link href="mailto:enterprise@dealeros.ch">Gespräch vereinbaren</Link>
                   </Button>
                 </CardContent>
               </Card>
             </div>
 
             <p className="text-center text-sm text-slate-500 mt-8">
-              Alle Preise in CHF, zzgl. MwSt. • Jährlich zahlen und 17% sparen (2 Monate gratis)
+              Alle Preise in CHF, zzgl. MwSt. · Bei Jahreszahlung: 2 Monate geschenkt
             </p>
           </div>
         </section>
@@ -452,21 +452,21 @@ export default function Home() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-                Bereit, Ihre Garage zu digitalisieren?
+                In 2 Minuten startklar
               </h2>
               <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-                Dealer OS wurde speziell für Schweizer Autohändler entwickelt. 
-                Starten Sie noch heute – kostenlos und unverbindlich.
+                Kein IT-Projekt. Kein Installateur. Einfach anmelden, 
+                Fahrzeuge erfassen und loslegen. Von Händlern für Händler gebaut.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild className="h-12 px-8 text-base bg-white text-slate-900 hover:bg-slate-100">
                   <Link href="/register">
-                    Kostenlos starten
+                    Jetzt gratis starten
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild className="h-12 px-8 text-base border-slate-600 text-white hover:bg-slate-800">
-                  <Link href="/blog">Blog lesen</Link>
+                  <Link href="mailto:info@dealeros.ch">Fragen? Schreiben Sie uns</Link>
                 </Button>
               </div>
             </div>
@@ -482,58 +482,58 @@ export default function Home() {
 const features = [
   {
     icon: Car,
-    title: "Fahrzeugverwaltung",
-    description: "Alle Ihre Fahrzeuge an einem Ort. Mit Fotos, Dokumenten und Kaufhistorie – immer griffbereit.",
+    title: "Alle Autos auf einen Blick",
+    description: "Keine verstreuten Listen mehr. Fotos, Dokumente, Kosten – alles an einem Ort. Finden statt suchen.",
   },
   {
     icon: Clock,
-    title: "Standzeit-Tracking",
-    description: "Sehen Sie auf einen Blick, welche Fahrzeuge zu lange stehen. Nie wieder Kapital in Ladenhütern binden.",
+    title: "Langsteher sofort erkennen",
+    description: "Dealer OS warnt Sie automatisch, bevor ein Fahrzeug zum Problem wird. Weniger Kapitalbindung, schnellerer Umschlag.",
   },
   {
     icon: Users,
-    title: "Lead-Management",
-    description: "Alle Anfragen zentral verwalten. Automatische Erinnerungen, damit keine Leads verloren gehen.",
+    title: "Kein Lead geht verloren",
+    description: "Alle Anfragen zentral, mit Erinnerungen. Antworten Sie schneller als die Konkurrenz – und schliessen Sie mehr ab.",
   },
   {
     icon: BarChart3,
-    title: "Gewinn pro Fahrzeug",
-    description: "Wissen Sie genau, was jedes Fahrzeug einbringt. Mit Einkaufs-, Reparatur- und Standkosten.",
+    title: "Wissen, was wirklich bleibt",
+    description: "Einkauf, Aufbereitung, Standkosten – auf Knopfdruck sehen Sie den echten Gewinn pro Fahrzeug. Keine Überraschungen mehr.",
   },
   {
     icon: Zap,
-    title: "Inserate-Export",
-    description: "Fahrzeuge mit einem Klick auf AutoScout24, car4you und Ihre Website exportieren.",
+    title: "Einmal erfassen, überall inserieren",
+    description: "Ein Klick, und Ihr Fahrzeug ist auf AutoScout24, car4you und Ihrer Website. Schluss mit Copy-Paste.",
   },
   {
     icon: Shield,
-    title: "Schweizer Hosting",
-    description: "Ihre Daten bleiben in der Schweiz. DSGVO-konform und sicher verschlüsselt.",
+    title: "Ihre Daten bleiben hier",
+    description: "Schweizer Server, Schweizer Firma. DSGVO-konform und verschlüsselt. Punkt.",
   },
 ];
 
 const benefits = [
-  "Schluss mit Excel-Chaos und Papier-Ordnern",
-  "Langsteher frühzeitig erkennen und handeln",
-  "Mehr Zeit für Verkauf statt Verwaltung",
-  "Bessere Entscheidungen durch echte Daten",
-  "Anfragen schneller beantworten und abschliessen",
+  "Endlich Schluss mit Excel-Listen und Papier-Chaos",
+  "Langsteher erkennen, bevor sie zum Problem werden",
+  "Mehr Zeit fürs Verkaufen, weniger fürs Verwalten",
+  "Entscheidungen auf Basis von Zahlen, nicht Bauchgefühl",
+  "Anfragen schneller beantworten – und häufiger abschliessen",
 ];
 
 const testimonials = [
   {
     name: "Marco Brunner",
-    role: "Inhaber, Auto Brunner AG",
-    quote: "Seit wir Dealer OS nutzen, haben wir unsere Standzeiten um 30% reduziert. Endlich sehe ich auf einen Blick, wo mein Geld liegt.",
+    role: "Auto Brunner AG, Winterthur",
+    quote: "Früher wusste ich erst am Monatsende, wie's gelaufen ist. Jetzt seh ich jeden Tag, welche Autos Geld bringen – und welche nicht. Standzeiten runter, Marge rauf.",
   },
   {
     name: "Sandra Keller",
-    role: "Geschäftsführerin, Garage Keller",
-    quote: "Einfach zu bedienen und genau das, was wir als kleine Garage brauchen. Der Support ist super – man merkt, dass die verstehen, wie wir arbeiten.",
+    role: "Garage Keller, Aarau",
+    quote: "Endlich eine Software, die nicht aussieht wie aus den 90ern. Mein Team hat's in einer Stunde begriffen. Und der Support? Die verstehen, wie eine Garage tickt.",
   },
   {
     name: "Thomas Müller",
-    role: "Verkaufsleiter, AutoCenter Zürich",
-    quote: "Das Lead-Management hat unsere Antwortzeit halbiert. Wir verlieren keine Anfragen mehr und schliessen deutlich mehr Verkäufe ab.",
+    role: "AutoCenter Zürich",
+    quote: "Wir haben früher Anfragen verschlafen. Jetzt meldet sich Dealer OS, wenn ein Lead wartet. Resultat: Mehr Abschlüsse, weniger verpasste Chancen.",
   },
 ];
