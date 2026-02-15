@@ -18,6 +18,11 @@ export default async function DashboardPage() {
     .eq('user_id', user.id)
     .single();
 
+  // Redirect to onboarding if not completed
+  if (dealer && !dealer.onboarding_completed) {
+    redirect('/onboarding');
+  }
+
   // Get vehicle stats
   const { count: totalVehicles } = await supabase
     .from('vehicles')

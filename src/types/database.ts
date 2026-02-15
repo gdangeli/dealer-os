@@ -14,6 +14,7 @@ export interface Dealer {
   vehicle_count_estimate?: number;
   subscription_plan: 'beta' | 'starter' | 'pro' | 'business';
   status: 'pending' | 'active' | 'suspended';
+  onboarding_completed: boolean;
 }
 
 export interface Vehicle {
