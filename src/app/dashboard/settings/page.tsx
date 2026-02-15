@@ -1,55 +1,32 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import { SettingsClient } from "./settings-client";
 
-export default function SettingsPage() {
+export const metadata = {
+  title: "Einstellungen",
+};
+
+export default async function SettingsPage() {
+  const supabase = await createClient();
+  
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login');
+
+  // Get dealer profile
+  const { data: dealer } = await supabase
+    .from('dealers')
+    .select('*')
+    .eq('user_id', user.id)
+    .single();
+
+  if (!dealer) {
+    redirect('/dashboard');
+  }
+
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900">Einstellungen</h1>
-        <p className="text-slate-600">Verwalten Sie Ihr Konto und Ihre Präferenzen.</p>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            Kontoverwaltung
-            <Badge variant="secondary">Bald verfügbar</Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-slate-600">
-            Hier können Sie bald Ihre Firmendaten, Benutzer und Integrationen verwalten.
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            Inserate-Kanäle
-            <Badge variant="secondary">Bald verfügbar</Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-slate-600">
-            Verbinden Sie AutoScout24, mobile.de und andere Plattformen für automatisches Publishing.
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            Benachrichtigungen
-            <Badge variant="secondary">Bald verfügbar</Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-slate-600">
-            Konfigurieren Sie E-Mail-Benachrichtigungen für neue Anfragen und Langsteher.
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+    <SettingsClient 
+      initialDealer={dealer} 
+      userEmail={user.email || ''} 
+    />
   );
 }
