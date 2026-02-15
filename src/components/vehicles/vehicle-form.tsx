@@ -32,17 +32,18 @@ interface VehicleFormProps {
 }
 
 const initialFormData: VehicleFormData = {
-  brand: "",
+  make: "",
   model: "",
   variant: "",
   first_registration: "",
   mileage: 0,
   fuel_type: "petrol",
   transmission: "manual",
+  power_kw: null,
   color: "",
   vin: "",
   purchase_price: null,
-  selling_price: 0,
+  asking_price: 0,
   description: "",
   internal_notes: "",
   status: "in_stock",
@@ -56,17 +57,18 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
   const [formData, setFormData] = useState<VehicleFormData>(
     vehicle
       ? {
-          brand: vehicle.brand,
+          make: vehicle.make,
           model: vehicle.model,
           variant: vehicle.variant || "",
-          first_registration: vehicle.first_registration,
-          mileage: vehicle.mileage,
-          fuel_type: vehicle.fuel_type,
-          transmission: vehicle.transmission,
+          first_registration: vehicle.first_registration || "",
+          mileage: vehicle.mileage || 0,
+          fuel_type: (vehicle.fuel_type as FuelType) || "petrol",
+          transmission: (vehicle.transmission as Transmission) || "manual",
+          power_kw: vehicle.power_kw,
           color: vehicle.color || "",
           vin: vehicle.vin || "",
           purchase_price: vehicle.purchase_price,
-          selling_price: vehicle.selling_price,
+          asking_price: vehicle.asking_price || 0,
           description: vehicle.description || "",
           internal_notes: vehicle.internal_notes || "",
           status: vehicle.status,
@@ -102,17 +104,18 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
     try {
       const vehicleData = {
         dealer_id: dealerId,
-        brand: formData.brand,
+        make: formData.make,
         model: formData.model,
         variant: formData.variant || null,
-        first_registration: formData.first_registration,
+        first_registration: formData.first_registration || null,
         mileage: formData.mileage,
         fuel_type: formData.fuel_type,
         transmission: formData.transmission,
+        power_kw: formData.power_kw,
         color: formData.color || null,
         vin: formData.vin || null,
         purchase_price: formData.purchase_price,
-        selling_price: formData.selling_price,
+        asking_price: formData.asking_price,
         description: formData.description || null,
         internal_notes: formData.internal_notes || null,
         status: formData.status,
@@ -160,11 +163,11 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
         </CardHeader>
         <CardContent className="grid grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="brand">Marke *</Label>
+            <Label htmlFor="make">Marke *</Label>
             <Input
-              id="brand"
-              name="brand"
-              value={formData.brand}
+              id="make"
+              name="make"
+              value={formData.make}
               onChange={handleChange}
               placeholder="z.B. BMW"
               required
@@ -205,7 +208,7 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
             <Input
               id="first_registration"
               name="first_registration"
-              type="month"
+              type="date"
               value={formData.first_registration}
               onChange={handleChange}
               required
@@ -224,13 +227,14 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="color">Farbe</Label>
+            <Label htmlFor="power_kw">Leistung (kW)</Label>
             <Input
-              id="color"
-              name="color"
-              value={formData.color}
+              id="power_kw"
+              name="power_kw"
+              type="number"
+              value={formData.power_kw ?? ""}
               onChange={handleChange}
-              placeholder="z.B. Schwarz Metallic"
+              placeholder="z.B. 140"
             />
           </div>
           <div className="space-y-2">
@@ -272,6 +276,16 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
             </Select>
           </div>
           <div className="space-y-2">
+            <Label htmlFor="color">Farbe</Label>
+            <Input
+              id="color"
+              name="color"
+              value={formData.color}
+              onChange={handleChange}
+              placeholder="z.B. Schwarz Metallic"
+            />
+          </div>
+          <div className="space-y-2">
             <Label htmlFor="vin">Fahrgestellnummer (VIN)</Label>
             <Input
               id="vin"
@@ -302,12 +316,12 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="selling_price">Verkaufspreis (CHF) *</Label>
+            <Label htmlFor="asking_price">Verkaufspreis (CHF) *</Label>
             <Input
-              id="selling_price"
-              name="selling_price"
+              id="asking_price"
+              name="asking_price"
               type="number"
-              value={formData.selling_price || ""}
+              value={formData.asking_price || ""}
               onChange={handleChange}
               placeholder="z.B. 22900"
               required

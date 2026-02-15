@@ -16,18 +16,18 @@ export default async function NewVehiclePage() {
     redirect("/login");
   }
 
-  // Dealer-ID aus der users-Tabelle holen
-  const { data: userData } = await supabase
-    .from("users")
-    .select("dealer_id")
-    .eq("id", user.id)
+  // Dealer-ID aus der dealers-Tabelle holen
+  const { data: dealer } = await supabase
+    .from("dealers")
+    .select("id")
+    .eq("user_id", user.id)
     .single();
 
-  if (!userData?.dealer_id) {
+  if (!dealer?.id) {
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold text-red-600">
-          Kein Händler zugewiesen
+          Kein Händler-Profil gefunden
         </h2>
         <p className="text-slate-600 mt-2">
           Bitte kontaktieren Sie den Administrator.
@@ -54,7 +54,7 @@ export default async function NewVehiclePage() {
       </div>
 
       {/* Formular */}
-      <VehicleForm dealerId={userData.dealer_id} />
+      <VehicleForm dealerId={dealer.id} />
     </div>
   );
 }

@@ -9,21 +9,23 @@ export interface Vehicle {
   dealer_id: string;
   
   // Basis-Infos
-  brand: string;
+  make: string;
   model: string;
   variant: string | null;
   
   // Technische Daten
-  first_registration: string; // YYYY-MM Format
-  mileage: number;
-  fuel_type: FuelType;
-  transmission: Transmission;
+  first_registration: string | null; // DATE
+  mileage: number | null;
+  fuel_type: string | null;
+  transmission: string | null;
+  power_kw: number | null;
   color: string | null;
   vin: string | null;
   
   // Preise
   purchase_price: number | null;
-  selling_price: number;
+  asking_price: number | null;
+  ai_suggested_price: number | null;
   
   // Beschreibungen
   description: string | null;
@@ -32,8 +34,9 @@ export interface Vehicle {
   // Status
   status: VehicleStatus;
   
-  // Bild
-  image_url: string | null;
+  // Dates
+  acquired_at: string | null;
+  sold_at: string | null;
   
   // Timestamps
   created_at: string;
@@ -41,17 +44,18 @@ export interface Vehicle {
 }
 
 export interface VehicleFormData {
-  brand: string;
+  make: string;
   model: string;
   variant: string;
   first_registration: string;
   mileage: number;
   fuel_type: FuelType;
   transmission: Transmission;
+  power_kw: number | null;
   color: string;
   vin: string;
   purchase_price: number | null;
-  selling_price: number;
+  asking_price: number;
   description: string;
   internal_notes: string;
   status: VehicleStatus;

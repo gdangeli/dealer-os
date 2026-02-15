@@ -18,7 +18,7 @@ import {
   statusLabels,
   statusColors,
   fuelTypeLabels,
-  transmissionLabels,
+  FuelType,
 } from "@/types/vehicle";
 import { VehicleStatusFilter } from "./status-filter";
 
@@ -44,18 +44,18 @@ export default async function VehiclesPage({
     redirect("/login");
   }
 
-  // Dealer-ID aus der users-Tabelle holen
-  const { data: userData } = await supabase
-    .from("users")
-    .select("dealer_id")
-    .eq("id", user.id)
+  // Dealer-ID aus der dealers-Tabelle holen (user_id referenziert auth.users)
+  const { data: dealer } = await supabase
+    .from("dealers")
+    .select("id")
+    .eq("user_id", user.id)
     .single();
 
-  if (!userData?.dealer_id) {
+  if (!dealer?.id) {
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold text-red-600">
-          Kein Händler zugewiesen
+          Kein Händler-Profil gefunden
         </h2>
         <p className="text-slate-600 mt-2">
           Bitte kontaktieren Sie den Administrator.
@@ -68,7 +68,7 @@ export default async function VehiclesPage({
   let query = supabase
     .from("vehicles")
     .select("*")
-    .eq("dealer_id", userData.dealer_id);
+    .eq("dealer_id", dealer.id);
 
   // Filter nach Status
   const statusFilter = params.status as VehicleStatus | undefined;
@@ -109,6 +109,12 @@ export default async function VehiclesPage({
       currency: "CHF",
       maximumFractionDigits: 0,
     }).format(price);
+  };
+
+  // Jahr aus Erstzulassung extrahieren
+  const getYear = (dateStr: string | null): string => {
+    if (!dateStr) return "";
+    return new Date(dateStr).getFullYear().toString();
   };
 
   // Statistiken berechnen
@@ -213,35 +219,30 @@ export default async function VehiclesPage({
                 {vehicles.map((vehicle: Vehicle) => {
                   const daysOnLot = calculateDaysOnLot(vehicle.created_at);
                   const isLongStanding = daysOnLot > 45;
+                  const fuelLabel = vehicle.fuel_type 
+                    ? fuelTypeLabels[vehicle.fuel_type as FuelType] || vehicle.fuel_type
+                    : "";
 
                   return (
                     <TableRow key={vehicle.id}>
                       <TableCell>
                         <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center text-xl">
-                          {vehicle.image_url ? (
-                            <img
-                              src={vehicle.image_url}
-                              alt={`${vehicle.brand} ${vehicle.model}`}
-                              className="w-full h-full object-cover rounded-lg"
-                            />
-                          ) : (
-                            "🚗"
-                          )}
+                          🚗
                         </div>
                       </TableCell>
                       <TableCell>
                         <div className="font-medium">
-                          {vehicle.brand} {vehicle.model}
+                          {vehicle.make} {vehicle.model}
                         </div>
                         <div className="text-sm text-slate-500">
-                          {vehicle.first_registration} •{" "}
-                          {vehicle.mileage.toLocaleString("de-CH")} km •{" "}
-                          {fuelTypeLabels[vehicle.fuel_type]}
+                          {getYear(vehicle.first_registration)} •{" "}
+                          {vehicle.mileage?.toLocaleString("de-CH")} km •{" "}
+                          {fuelLabel}
                         </div>
                       </TableCell>
                       <TableCell>
                         <div className="font-semibold">
-                          {formatPrice(vehicle.selling_price)}
+                          {vehicle.asking_price ? formatPrice(vehicle.asking_price) : "-"}
                         </div>
                         {vehicle.purchase_price && (
                           <div className="text-xs text-slate-500">

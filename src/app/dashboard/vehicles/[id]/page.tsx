@@ -25,18 +25,18 @@ export default async function EditVehiclePage({
     redirect("/login");
   }
 
-  // Dealer-ID aus der users-Tabelle holen
-  const { data: userData } = await supabase
-    .from("users")
-    .select("dealer_id")
-    .eq("id", user.id)
+  // Dealer-ID aus der dealers-Tabelle holen
+  const { data: dealer } = await supabase
+    .from("dealers")
+    .select("id")
+    .eq("user_id", user.id)
     .single();
 
-  if (!userData?.dealer_id) {
+  if (!dealer?.id) {
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold text-red-600">
-          Kein Händler zugewiesen
+          Kein Händler-Profil gefunden
         </h2>
         <p className="text-slate-600 mt-2">
           Bitte kontaktieren Sie den Administrator.
@@ -50,7 +50,7 @@ export default async function EditVehiclePage({
     .from("vehicles")
     .select("*")
     .eq("id", id)
-    .eq("dealer_id", userData.dealer_id) // Sicherheitscheck
+    .eq("dealer_id", dealer.id) // Sicherheitscheck
     .single();
 
   if (error || !vehicle) {
@@ -79,7 +79,7 @@ export default async function EditVehiclePage({
           </Link>
           <div>
             <h1 className="text-3xl font-bold">
-              {vehicle.brand} {vehicle.model}
+              {vehicle.make} {vehicle.model}
             </h1>
             <p className="text-slate-600">
               {vehicle.variant && `${vehicle.variant} • `}
@@ -87,11 +87,11 @@ export default async function EditVehiclePage({
             </p>
           </div>
         </div>
-        <DeleteVehicleButton vehicleId={vehicle.id} vehicleName={`${vehicle.brand} ${vehicle.model}`} />
+        <DeleteVehicleButton vehicleId={vehicle.id} vehicleName={`${vehicle.make} ${vehicle.model}`} />
       </div>
 
       {/* Formular */}
-      <VehicleForm vehicle={vehicle as Vehicle} dealerId={userData.dealer_id} />
+      <VehicleForm vehicle={vehicle as Vehicle} dealerId={dealer.id} />
     </div>
   );
 }
