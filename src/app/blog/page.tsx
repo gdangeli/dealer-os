@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -7,17 +10,19 @@ import { Button } from "@/components/ui/button";
 import { getAllBlogPosts, getAllCategories } from "@/content/blog";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 
-export const metadata = {
-  title: "Blog für Garagisten | Dealer OS",
-  description: "Praxis-Tipps für den Schweizer Autohandel: Standzeiten reduzieren, Margen verbessern, digital verkaufen. Von Profis für Profis.",
-};
-
 export default function BlogPage() {
-  const posts = getAllBlogPosts();
+  const allPosts = getAllBlogPosts();
   const categories = getAllCategories();
   
-  // Featured post is the most recent one
-  const [featuredPost, ...restPosts] = posts;
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  
+  // Filter posts by category
+  const filteredPosts = selectedCategory
+    ? allPosts.filter((post) => post.category === selectedCategory)
+    : allPosts;
+  
+  // Featured post is the most recent one from filtered posts
+  const [featuredPost, ...restPosts] = filteredPosts;
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -43,25 +48,30 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* Categories */}
+        {/* Categories Filter */}
         <section className="py-6 border-b border-slate-200">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap gap-2 justify-center">
               <Badge 
-                variant="secondary" 
+                variant={selectedCategory === null ? "default" : "outline"}
                 className="cursor-pointer hover:bg-slate-200 transition-colors px-4 py-1.5"
+                onClick={() => setSelectedCategory(null)}
               >
-                Alle
+                Alle ({allPosts.length})
               </Badge>
-              {categories.map((category) => (
-                <Badge
-                  key={category}
-                  variant="outline"
-                  className="cursor-pointer hover:bg-slate-100 transition-colors px-4 py-1.5"
-                >
-                  {category}
-                </Badge>
-              ))}
+              {categories.map((category) => {
+                const count = allPosts.filter((p) => p.category === category).length;
+                return (
+                  <Badge
+                    key={category}
+                    variant={selectedCategory === category ? "default" : "outline"}
+                    className="cursor-pointer hover:bg-slate-100 transition-colors px-4 py-1.5"
+                    onClick={() => setSelectedCategory(category)}
+                  >
+                    {category} ({count})
+                  </Badge>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -83,9 +93,11 @@ export default function BlogPage() {
                       <div className="p-6 md:p-8 lg:p-12 flex flex-col justify-center">
                         <div className="flex items-center gap-3 mb-4">
                           <Badge variant="secondary">{featuredPost.category}</Badge>
-                          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                            Neu
-                          </Badge>
+                          {filteredPosts.indexOf(featuredPost) === 0 && !selectedCategory && (
+                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                              Neu
+                            </Badge>
+                          )}
                         </div>
                         <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">
                           {featuredPost.title}
@@ -125,51 +137,66 @@ export default function BlogPage() {
         {/* All Posts Grid */}
         <section className="py-12 bg-slate-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-8">Alle Artikel</h2>
-            
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {restPosts.map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}`}>
-                  <Card className="h-full border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 group">
-                    <CardContent className="p-0">
-                      {/* Emoji Header */}
-                      <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 flex items-center justify-center border-b border-slate-100">
-                        <span className="text-5xl group-hover:scale-110 transition-transform duration-300">
-                          {post.emoji}
-                        </span>
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="p-5">
-                        <div className="flex items-center gap-2 mb-3">
-                          <Badge variant="secondary" className="text-xs">
-                            {post.category}
-                          </Badge>
-                        </div>
-                        <h3 className="font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
-                          {post.title}
-                        </h3>
-                        <p className="text-sm text-slate-600 mb-4 line-clamp-2">
-                          {post.excerpt}
-                        </p>
-                        <div className="flex items-center justify-between text-xs text-slate-500">
-                          <span className="flex items-center gap-1">
-                            <Clock className="h-3 w-3" />
-                            {post.readTime} Min.
-                          </span>
-                          <span>
-                            {new Date(post.publishedAt).toLocaleDateString("de-CH", {
-                              day: "numeric",
-                              month: "short",
-                            })}
-                          </span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-slate-900">
+                {selectedCategory ? selectedCategory : "Alle Artikel"}
+              </h2>
+              <span className="text-slate-500 text-sm">
+                {filteredPosts.length} Artikel
+              </span>
             </div>
+            
+            {restPosts.length > 0 ? (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {restPosts.map((post) => (
+                  <Link key={post.slug} href={`/blog/${post.slug}`}>
+                    <Card className="h-full border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 group">
+                      <CardContent className="p-0">
+                        {/* Emoji Header */}
+                        <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 flex items-center justify-center border-b border-slate-100">
+                          <span className="text-5xl group-hover:scale-110 transition-transform duration-300">
+                            {post.emoji}
+                          </span>
+                        </div>
+                        
+                        {/* Content */}
+                        <div className="p-5">
+                          <div className="flex items-center gap-2 mb-3">
+                            <Badge variant="secondary" className="text-xs">
+                              {post.category}
+                            </Badge>
+                          </div>
+                          <h3 className="font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+                            {post.title}
+                          </h3>
+                          <p className="text-sm text-slate-600 mb-4 line-clamp-2">
+                            {post.excerpt}
+                          </p>
+                          <div className="flex items-center justify-between text-xs text-slate-500">
+                            <span className="flex items-center gap-1">
+                              <Clock className="h-3 w-3" />
+                              {post.readTime} Min.
+                            </span>
+                            <span>
+                              {new Date(post.publishedAt).toLocaleDateString("de-CH", {
+                                day: "numeric",
+                                month: "short",
+                              })}
+                            </span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12 text-slate-500">
+                {filteredPosts.length === 1 
+                  ? "Nur der Featured-Artikel in dieser Kategorie."
+                  : "Keine weiteren Artikel in dieser Kategorie."}
+              </div>
+            )}
           </div>
         </section>
 
