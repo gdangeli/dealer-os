@@ -2800,7 +2800,7 @@ Erfolgreiche Autohändler verlassen sich nicht auf Glück oder Talent allein. Si
 - Website-Formular
 - Telefon
 - E-Mail direkt
-- Walk-ins
+- Laufkundschaft
 
 **Sofort erfassen:**
 - Name und Kontaktdaten
@@ -3818,7 +3818,7 @@ Für jede Plattform tracken:
 > **Eckdaten:**
 > - Erstzulassung: März 2020
 > - Kilometer: 68'000 km
-> - Getriebe: 8-Gang Automatik
+> - Getriebe: 8-Gang Automat
 > - Leistung: 190 PS
 >
 > **Ausstattung (Auszug):**

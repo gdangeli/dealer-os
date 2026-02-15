@@ -31,7 +31,7 @@ export default function NewLeadPage() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [source, setSource] = useState<LeadSource>("walkin");
+  const [source, setSource] = useState<LeadSource>("vor-ort");
   const [vehicleId, setVehicleId] = useState<string>("");
   const [message, setMessage] = useState("");
   const [notes, setNotes] = useState("");
@@ -103,7 +103,7 @@ export default function NewLeadPage() {
           ← Zurück zur Übersicht
         </Link>
         <h1 className="text-3xl font-bold mt-2">Neue Anfrage erfassen</h1>
-        <p className="text-slate-600">Walk-in oder Telefonanfrage manuell erfassen</p>
+        <p className="text-slate-600">Vor Ort oder Telefonanfrage manuell erfassen</p>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -209,7 +209,7 @@ export default function NewLeadPage() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="walkin">🚶 Walk-in</SelectItem>
+                    <SelectItem value="vor-ort">🚶 Vor Ort</SelectItem>
                     <SelectItem value="phone">📞 Telefon</SelectItem>
                     <SelectItem value="website">🌐 Website</SelectItem>
                     <SelectItem value="autoscout24">🚗 AutoScout24</SelectItem>
