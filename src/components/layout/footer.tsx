@@ -13,9 +13,9 @@ const footerLinks = {
     { name: "Kontakt", href: "/contact" },
   ],
   rechtliches: [
-    { name: "Datenschutz", href: "/privacy" },
-    { name: "AGB", href: "/terms" },
-    { name: "Impressum", href: "/imprint" },
+    { name: "Datenschutz", href: "/datenschutz" },
+    { name: "AGB", href: "/agb" },
+    { name: "Impressum", href: "/impressum" },
   ],
 };
 
