@@ -1,159 +1,52 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
-      {/* Header */}
-      <header className="container mx-auto px-4 py-6">
-        <nav className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">🚗</span>
-            <span className="text-xl font-bold text-white">Dealer OS</span>
-            <Badge variant="secondary" className="ml-2">Beta</Badge>
-          </div>
-          <div className="flex gap-4">
-            <Link href="/login">
-              <Button variant="ghost" className="text-white">Login</Button>
-            </Link>
-            <Link href="/register">
-              <Button>Kostenlos testen</Button>
-            </Link>
-          </div>
-        </nav>
-      </header>
-
-      {/* Hero */}
-      <main className="container mx-auto px-4 py-20">
-        <div className="text-center max-w-3xl mx-auto">
-          <Badge className="mb-4">Für Schweizer Autohändler & Garagisten</Badge>
-          <h1 className="text-5xl font-bold text-white mb-6">
-            Weniger Admin.<br />Mehr Verkauf.
-          </h1>
-          <p className="text-xl text-slate-300 mb-8">
-            Das Betriebssystem für Ihren Autohandel. Bestand, Inserate, Kunden — alles in einem.
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Link href="/register">
-              <Button size="lg" className="text-lg px-8">
-                Jetzt Beta-Zugang sichern
-              </Button>
-            </Link>
-            <Link href="#features">
-              <Button size="lg" variant="outline" className="text-lg px-8">
-                Mehr erfahren
-              </Button>
-            </Link>
-          </div>
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col items-center justify-center px-4 py-20">
+        {/* Car Icon */}
+        <div className="mb-8">
+          <svg 
+            className="w-32 h-32 text-slate-800" 
+            viewBox="0 0 24 24" 
+            fill="currentColor"
+          >
+            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+          </svg>
         </div>
 
-        {/* Pain Points */}
-        <div className="mt-24 text-center">
-          <p className="text-slate-400 mb-8">Kommt Ihnen das bekannt vor?</p>
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-red-400">😤 Zeitfresser</CardTitle>
-              </CardHeader>
-              <CardContent className="text-slate-300">
-                Jedes Auto auf 5 Plattformen hochladen. Immer wieder dieselben Fotos, dieselben Texte.
-              </CardContent>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-red-400">📱 Chaos</CardTitle>
-              </CardHeader>
-              <CardContent className="text-slate-300">
-                Anfragen auf WhatsApp, E-Mail, Telefon. Wer hat wann was gefragt? Keine Ahnung.
-              </CardContent>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-red-400">💸 Bauchgefühl</CardTitle>
-              </CardHeader>
-              <CardContent className="text-slate-300">
-                Preise nach Gefühl. Steht das Auto 3 Monate? Zu teuer. Nach 2 Tagen weg? Zu billig.
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+        {/* Headline */}
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 text-center mb-6">
+          Autohandel,<br />vereinfacht.
+        </h1>
 
-        {/* Features */}
-        <div id="features" className="mt-24">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
-            Eine Lösung für alles
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-white">📸 Fahrzeug-Erfassung</CardTitle>
-                <CardDescription>Fotos, Daten, Zustand — strukturiert erfasst</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-white">🚀 1-Click Publishing</CardTitle>
-                <CardDescription>Einmal erfassen, überall inserieren</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-white">💬 Kunden-Inbox</CardTitle>
-                <CardDescription>Alle Anfragen an einem Ort</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-white">🤖 AI-Preisempfehlung</CardTitle>
-                <CardDescription>Optimaler Preis basierend auf Marktdaten</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-white">📊 Standzeit-Tracking</CardTitle>
-                <CardDescription>Wissen, welche Autos sich bewegen</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-white">🔔 Follow-up Reminders</CardTitle>
-                <CardDescription>Nie wieder einen Lead vergessen</CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-        </div>
+        {/* Subheadline */}
+        <p className="text-lg md:text-xl text-slate-500 text-center max-w-lg mb-10">
+          Wissen Sie Ihren Gewinn pro Fahrzeug. Erkennen Sie Langsteher. 
+          Treffen Sie datenbasierte Entscheidungen.
+        </p>
 
-        {/* CTA */}
-        <div className="mt-24 text-center">
-          <Card className="bg-gradient-to-r from-blue-600 to-blue-700 border-0 max-w-2xl mx-auto">
-            <CardHeader>
-              <CardTitle className="text-white text-2xl">Beta-Programm</CardTitle>
-              <CardDescription className="text-blue-100">
-                Wir suchen 30 Händler, die Dealer OS mitgestalten wollen.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link href="/register">
-                <Button size="lg" variant="secondary" className="text-lg">
-                  Jetzt bewerben — kostenlos während der Beta
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link href="/register">
+            <button className="px-8 py-3 bg-slate-900 text-white rounded-lg font-medium hover:bg-slate-800 transition-colors">
+              Kostenlos starten
+            </button>
+          </Link>
+          <Link href="/login">
+            <button className="px-8 py-3 bg-white text-slate-900 rounded-lg font-medium border border-slate-300 hover:bg-slate-50 transition-colors">
+              Anmelden
+            </button>
+          </Link>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 mt-20 border-t border-slate-700">
-        <div className="flex justify-between items-center text-slate-400">
-          <div>© 2026 Dealer OS</div>
-          <div className="flex gap-6">
-            <Link href="/impressum" className="hover:text-white">Impressum</Link>
-            <Link href="/datenschutz" className="hover:text-white">Datenschutz</Link>
-          </div>
-        </div>
+      <footer className="py-6 text-center">
+        <p className="text-sm text-slate-400">
+          Für Garagisten, die ihr Geschäft ernst nehmen.
+        </p>
       </footer>
     </div>
   );
