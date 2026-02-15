@@ -39,7 +39,7 @@ export default async function EditVehiclePage({
           Kein Konto gefunden
         </h2>
         <p className="text-slate-600 mt-2">
-          Bitte kontaktieren Sie uns: support@dealer-os.ch
+          Bitte kontaktieren Sie uns: support@dealeros.ch
         </p>
       </div>
     );

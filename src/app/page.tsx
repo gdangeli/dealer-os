@@ -76,7 +76,7 @@ export default function Home() {
                     <div className="w-3 h-3 rounded-full bg-green-500" />
                   </div>
                   <div className="flex-1 text-center">
-                    <span className="text-xs text-slate-500">dealer-os.vercel.app/dashboard</span>
+                    <span className="text-xs text-slate-500">dealeros.ch/dashboard</span>
                   </div>
                 </div>
                 <div className="p-6 bg-gradient-to-br from-slate-900 to-slate-800">

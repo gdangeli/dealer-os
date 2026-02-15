@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "de_CH",
-    url: "https://dealer-os.vercel.app",
+    url: "https://dealeros.ch",
     siteName: "Dealer OS",
     title: "Dealer OS – Autohandel, vereinfacht",
     description: "Die Software für Schweizer Autohändler und Garagisten. Fahrzeugverwaltung, Lead-Management und Kennzahlen in einer Plattform.",

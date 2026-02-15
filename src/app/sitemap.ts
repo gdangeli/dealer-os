@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllBlogPosts } from '@/content/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://dealer-os.ch';
+  const baseUrl = 'https://dealeros.ch';
   
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [

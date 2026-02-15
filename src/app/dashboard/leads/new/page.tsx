@@ -31,7 +31,7 @@ export default function NewLeadPage() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [source, setSource] = useState<LeadSource>("vor-ort");
+  const [source, setSource] = useState<LeadSource>("walkin");
   const [vehicleId, setVehicleId] = useState<string>("");
   const [message, setMessage] = useState("");
   const [notes, setNotes] = useState("");
