@@ -4,7 +4,8 @@ test.describe('Authentication Flow', () => {
   
   test.describe('Login Page', () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto('/login');
+      // Use explicit locale prefix since next-intl has localePrefix: 'always'
+      await page.goto('/de/login');
     });
 
     test('should display login page elements', async ({ page }) => {
@@ -23,11 +24,11 @@ test.describe('Authentication Flow', () => {
     });
 
     test('should show link to register page', async ({ page }) => {
-      const registerLink = page.getByRole('link', { name: /kostenlos registrieren/i });
+      const registerLink = page.getByRole('link', { name: /jetzt registrieren/i });
       await expect(registerLink).toBeVisible();
       
       await registerLink.click();
-      await expect(page).toHaveURL(/\/register/);
+      await expect(page).toHaveURL(/\/de\/register/);
     });
 
     test('should show error for invalid credentials', async ({ page }) => {
@@ -52,7 +53,7 @@ test.describe('Authentication Flow', () => {
 
   test.describe('Register Page', () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto('/register');
+      await page.goto('/de/register');
     });
 
     test('should display registration form', async ({ page }) => {
@@ -70,34 +71,34 @@ test.describe('Authentication Flow', () => {
       await expect(loginLink).toBeVisible();
       
       await loginLink.click();
-      await expect(page).toHaveURL(/\/login/);
+      await expect(page).toHaveURL(/\/de\/login/);
     });
   });
 
   test.describe('Protected Routes', () => {
     test('should redirect unauthenticated users from dashboard', async ({ page }) => {
-      await page.goto('/dashboard');
-      await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
+      await page.goto('/de/dashboard');
+      await expect(page).toHaveURL(/\/de\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from vehicles page', async ({ page }) => {
-      await page.goto('/dashboard/vehicles');
-      await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
+      await page.goto('/de/dashboard/vehicles');
+      await expect(page).toHaveURL(/\/de\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from leads page', async ({ page }) => {
-      await page.goto('/dashboard/leads');
-      await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
+      await page.goto('/de/dashboard/leads');
+      await expect(page).toHaveURL(/\/de\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from settings', async ({ page }) => {
-      await page.goto('/dashboard/settings');
-      await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
+      await page.goto('/de/dashboard/settings');
+      await expect(page).toHaveURL(/\/de\/login/, { timeout: 10000 });
     });
 
     test('should redirect unauthenticated users from onboarding', async ({ page }) => {
-      await page.goto('/onboarding');
-      await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
+      await page.goto('/de/onboarding');
+      await expect(page).toHaveURL(/\/de\/login/, { timeout: 10000 });
     });
   });
 });
