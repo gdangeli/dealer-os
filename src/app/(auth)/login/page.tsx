@@ -44,8 +44,8 @@ export default function LoginPage() {
             <span className="text-2xl">🚗</span>
             <span className="text-xl font-bold">Dealer OS</span>
           </Link>
-          <CardTitle>Willkommen zurück</CardTitle>
-          <CardDescription>Melden Sie sich an, um fortzufahren</CardDescription>
+          <CardTitle>Schön, Sie wiederzusehen</CardTitle>
+          <CardDescription>Melden Sie sich in Ihrem Konto an</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -76,13 +76,13 @@ export default function LoginPage() {
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Wird angemeldet..." : "Anmelden"}
+              {loading ? "Einen Moment..." : "Anmelden"}
             </Button>
           </form>
           <div className="mt-4 text-center text-sm text-slate-600">
-            Noch kein Konto?{" "}
+            Noch keinen Zugang?{" "}
             <Link href="/register" className="text-blue-600 hover:underline">
-              Jetzt registrieren
+              Kostenlos registrieren
             </Link>
           </div>
         </CardContent>

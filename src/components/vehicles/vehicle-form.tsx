@@ -159,7 +159,7 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
       {/* Basis-Informationen */}
       <Card>
         <CardHeader>
-          <CardTitle>Fahrzeug-Informationen</CardTitle>
+          <CardTitle>Grunddaten</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-3 gap-4">
           <div className="space-y-2">
@@ -169,7 +169,7 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
               name="make"
               value={formData.make}
               onChange={handleChange}
-              placeholder="z.B. BMW"
+              placeholder="VW, BMW, Audi..."
               required
             />
           </div>
@@ -180,18 +180,18 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
               name="model"
               value={formData.model}
               onChange={handleChange}
-              placeholder="z.B. 320d"
+              placeholder="Golf, 3er, A4..."
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="variant">Variante</Label>
+            <Label htmlFor="variant">Ausführung</Label>
             <Input
               id="variant"
               name="variant"
               value={formData.variant}
               onChange={handleChange}
-              placeholder="z.B. xDrive Touring"
+              placeholder="GTI, Touring, Avant..."
             />
           </div>
         </CardContent>

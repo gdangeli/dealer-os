@@ -55,10 +55,10 @@ export default async function VehiclesPage({
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold text-red-600">
-          Kein Händler-Profil gefunden
+          Kein Konto gefunden
         </h2>
         <p className="text-slate-600 mt-2">
-          Bitte kontaktieren Sie den Administrator.
+          Bitte kontaktieren Sie uns: support@dealer-os.ch
         </p>
       </div>
     );
@@ -87,9 +87,9 @@ export default async function VehiclesPage({
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold text-red-600">
-          Fehler beim Laden der Fahrzeuge
+          Laden fehlgeschlagen
         </h2>
-        <p className="text-slate-600 mt-2">{error.message}</p>
+        <p className="text-slate-600 mt-2">Bitte versuchen Sie es erneut oder kontaktieren Sie den Support.</p>
       </div>
     );
   }
@@ -130,13 +130,13 @@ export default async function VehiclesPage({
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Fahrzeuge</h1>
+          <h1 className="text-3xl font-bold">Ihr Bestand</h1>
           <p className="text-slate-600">
-            Verwalten Sie Ihren Fahrzeugbestand
+            Alle Fahrzeuge auf einen Blick
           </p>
         </div>
         <Link href="/dashboard/vehicles/new">
-          <Button>+ Neues Fahrzeug</Button>
+          <Button>+ Fahrzeug erfassen</Button>
         </Link>
       </div>
 
@@ -193,7 +193,7 @@ export default async function VehiclesPage({
         <CardContent className="pt-6">
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium text-slate-600">
-              Status filtern:
+              Anzeigen:
             </span>
             <VehicleStatusFilter currentStatus={statusFilter} />
           </div>
@@ -283,16 +283,16 @@ export default async function VehiclesPage({
             <div className="text-center py-12">
               <div className="text-4xl mb-4">🚗</div>
               <h3 className="text-lg font-medium text-slate-900">
-                Keine Fahrzeuge gefunden
+                {statusFilter ? "Keine Treffer" : "Noch keine Fahrzeuge"}
               </h3>
               <p className="text-slate-600 mt-1">
                 {statusFilter
-                  ? "Keine Fahrzeuge mit diesem Status."
-                  : "Fügen Sie Ihr erstes Fahrzeug hinzu."}
+                  ? "Keine Fahrzeuge mit diesem Status gefunden."
+                  : "Erfassen Sie jetzt Ihr erstes Fahrzeug."}
               </p>
               {!statusFilter && (
                 <Link href="/dashboard/vehicles/new">
-                  <Button className="mt-4">+ Erstes Fahrzeug hinzufügen</Button>
+                  <Button className="mt-4">+ Erstes Fahrzeug erfassen</Button>
                 </Link>
               )}
             </div>

@@ -66,18 +66,18 @@ export const fuelTypeLabels: Record<FuelType, string> = {
   petrol: 'Benzin',
   diesel: 'Diesel',
   electric: 'Elektro',
-  hybrid: 'Hybrid',
+  hybrid: 'Hybrid (Voll)',
   plugin_hybrid: 'Plug-in Hybrid',
-  gas: 'Gas (CNG/LPG)',
+  gas: 'Gas / CNG',
 };
 
 export const transmissionLabels: Record<Transmission, string> = {
-  manual: 'Schaltgetriebe',
-  automatic: 'Automatik',
+  manual: 'Handschaltung',
+  automatic: 'Automat',
 };
 
 export const statusLabels: Record<VehicleStatus, string> = {
-  in_stock: 'An Lager',
+  in_stock: 'Verfügbar',
   reserved: 'Reserviert',
   sold: 'Verkauft',
 };

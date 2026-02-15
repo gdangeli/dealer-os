@@ -78,14 +78,14 @@ export default function RegisterPage() {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="text-4xl mb-4">✅</div>
-            <CardTitle>Registrierung erfolgreich!</CardTitle>
+            <CardTitle>Fast geschafft!</CardTitle>
             <CardDescription>
-              Bitte bestätigen Sie Ihre E-Mail-Adresse. Wir haben Ihnen einen Link geschickt.
+              Wir haben Ihnen eine E-Mail geschickt. Klicken Sie auf den Link, um Ihr Konto zu aktivieren.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Link href="/login">
-              <Button className="w-full">Zum Login</Button>
+              <Button className="w-full">Zur Anmeldung</Button>
             </Link>
           </CardContent>
         </Card>
@@ -102,11 +102,11 @@ export default function RegisterPage() {
             <span className="text-xl font-bold">Dealer OS</span>
           </Link>
           <div className="flex justify-center mb-2">
-            <Badge>Beta-Programm</Badge>
+            <Badge>Gratis Beta</Badge>
           </div>
-          <CardTitle>Beta-Zugang beantragen</CardTitle>
+          <CardTitle>Konto erstellen</CardTitle>
           <CardDescription>
-            Kostenlos während der Beta-Phase. Begrenzte Plätze.
+            In 2 Minuten startklar. Keine Kreditkarte nötig.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -117,38 +117,38 @@ export default function RegisterPage() {
               </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="companyName">Firmenname / Garage</Label>
+              <Label htmlFor="companyName">Name Ihrer Garage</Label>
               <Input
                 id="companyName"
-                placeholder="Garage Müller AG"
+                placeholder="z.B. Auto Meier GmbH"
                 value={formData.companyName}
                 onChange={(e) => setFormData({...formData, companyName: e.target.value})}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="contactName">Ansprechperson</Label>
+              <Label htmlFor="contactName">Ihr Name</Label>
               <Input
                 id="contactName"
-                placeholder="Hans Müller"
+                placeholder="Vor- und Nachname"
                 value={formData.contactName}
                 onChange={(e) => setFormData({...formData, contactName: e.target.value})}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">E-Mail</Label>
+              <Label htmlFor="email">Geschäfts-E-Mail</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="hans@garage-mueller.ch"
+                placeholder="name@ihre-garage.ch"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone">Telefon</Label>
+              <Label htmlFor="phone">Telefon (für Rückfragen)</Label>
               <Input
                 id="phone"
                 type="tel"
@@ -159,17 +159,17 @@ export default function RegisterPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="vehicleCount">Wie viele Fahrzeuge haben Sie ca. im Bestand?</Label>
+              <Label htmlFor="vehicleCount">Fahrzeuge im Bestand (ungefähr)</Label>
               <Input
                 id="vehicleCount"
-                placeholder="z.B. 25"
+                placeholder="z.B. 20"
                 value={formData.vehicleCount}
                 onChange={(e) => setFormData({...formData, vehicleCount: e.target.value})}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Passwort wählen</Label>
+              <Label htmlFor="password">Passwort (min. 8 Zeichen)</Label>
               <Input
                 id="password"
                 type="password"
@@ -180,13 +180,13 @@ export default function RegisterPage() {
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Wird registriert..." : "Beta-Zugang beantragen"}
+              {loading ? "Wird erstellt..." : "Konto erstellen"}
             </Button>
           </form>
           <div className="mt-4 text-center text-sm text-slate-600">
-            Bereits registriert?{" "}
+            Schon ein Konto?{" "}
             <Link href="/login" className="text-blue-600 hover:underline">
-              Anmelden
+              Hier anmelden
             </Link>
           </div>
         </CardContent>

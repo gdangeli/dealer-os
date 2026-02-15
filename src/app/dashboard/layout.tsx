@@ -35,10 +35,10 @@ export default async function DashboardLayout({
         </div>
         
         <nav className="flex-1 p-4 space-y-1">
-          <NavLink href="/dashboard" icon="📊">Dashboard</NavLink>
-          <NavLink href="/dashboard/vehicles" icon="🚙">Fahrzeuge</NavLink>
+          <NavLink href="/dashboard" icon="📊">Übersicht</NavLink>
+          <NavLink href="/dashboard/vehicles" icon="🚙">Bestand</NavLink>
           <NavLink href="/dashboard/leads" icon="💬">Anfragen</NavLink>
-          <NavLink href="/dashboard/analytics" icon="📈">Analytics</NavLink>
+          <NavLink href="/dashboard/analytics" icon="📈">Auswertungen</NavLink>
         </nav>
 
         <div className="p-4 border-t border-slate-200">

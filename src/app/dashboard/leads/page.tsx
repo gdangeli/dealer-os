@@ -66,17 +66,17 @@ export default function LeadsPage() {
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-4">
           <div>
-            <h1 className="text-3xl font-bold">Anfragen</h1>
-            <p className="text-slate-600">Verwalten Sie Ihre Kundenanfragen</p>
+            <h1 className="text-3xl font-bold">Kundenanfragen</h1>
+            <p className="text-slate-600">Behalten Sie den Überblick über alle Interessenten</p>
           </div>
           {newLeadsCount > 0 && (
             <Badge className="bg-blue-600 text-white text-lg px-3 py-1">
-              {newLeadsCount} neu
+              {newLeadsCount} offen
             </Badge>
           )}
         </div>
         <Link href="/dashboard/leads/new">
-          <Button>+ Neue Anfrage</Button>
+          <Button>+ Anfrage erfassen</Button>
         </Link>
       </div>
 
@@ -84,18 +84,18 @@ export default function LeadsPage() {
       <Card className="mb-6">
         <CardContent className="pt-6">
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium">Filter nach Status:</span>
+            <span className="text-sm font-medium">Anzeigen:</span>
             <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value as LeadStatus | "all")}>
               <SelectTrigger className="w-48">
-                <SelectValue placeholder="Alle Status" />
+                <SelectValue placeholder="Alle" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Alle Status</SelectItem>
-                <SelectItem value="new">Neu</SelectItem>
-                <SelectItem value="contacted">Kontaktiert</SelectItem>
-                <SelectItem value="qualified">Qualifiziert</SelectItem>
-                <SelectItem value="won">Gewonnen</SelectItem>
-                <SelectItem value="lost">Verloren</SelectItem>
+                <SelectItem value="all">Alle Anfragen</SelectItem>
+                <SelectItem value="new">Offen</SelectItem>
+                <SelectItem value="contacted">In Bearbeitung</SelectItem>
+                <SelectItem value="qualified">Heiss</SelectItem>
+                <SelectItem value="won">Abgeschlossen</SelectItem>
+                <SelectItem value="lost">Nicht gekauft</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -105,31 +105,31 @@ export default function LeadsPage() {
       {/* Lead Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Alle Anfragen</CardTitle>
+          <CardTitle>Übersicht</CardTitle>
           <CardDescription>
-            {leads.length} Anfrage{leads.length !== 1 ? "n" : ""} gefunden
+            {leads.length} {leads.length === 1 ? "Anfrage" : "Anfragen"} gefunden
           </CardDescription>
         </CardHeader>
         <CardContent>
           {loading ? (
-            <div className="text-center py-8 text-slate-500">Laden...</div>
+            <div className="text-center py-8 text-slate-500">Wird geladen...</div>
           ) : leads.length === 0 ? (
             <div className="text-center py-8">
-              <p className="text-slate-500 mb-4">Noch keine Anfragen vorhanden</p>
+              <p className="text-slate-500 mb-4">Noch keine Anfragen erfasst</p>
               <Link href="/dashboard/leads/new">
-                <Button>Erste Anfrage erfassen</Button>
+                <Button>Erste Anfrage hinzufügen</Button>
               </Link>
             </div>
           ) : (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Datum</TableHead>
-                  <TableHead>Name</TableHead>
+                  <TableHead>Eingegangen</TableHead>
+                  <TableHead>Interessent</TableHead>
                   <TableHead>Fahrzeug</TableHead>
-                  <TableHead>Quelle</TableHead>
+                  <TableHead>Herkunft</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>Nächster Follow-up</TableHead>
+                  <TableHead>Nächste Aktion</TableHead>
                   <TableHead></TableHead>
                 </TableRow>
               </TableHeader>

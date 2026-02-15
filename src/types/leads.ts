@@ -36,11 +36,11 @@ export interface Lead {
 }
 
 export const leadStatusLabels: Record<LeadStatus, string> = {
-  new: 'Neu',
-  contacted: 'Kontaktiert',
-  qualified: 'Qualifiziert',
-  won: 'Gewonnen',
-  lost: 'Verloren',
+  new: 'Offen',
+  contacted: 'In Bearbeitung',
+  qualified: 'Heiss 🔥',
+  won: 'Verkauft ✓',
+  lost: 'Nicht gekauft',
 };
 
 export const leadStatusColors: Record<LeadStatus, string> = {
@@ -52,10 +52,10 @@ export const leadStatusColors: Record<LeadStatus, string> = {
 };
 
 export const leadSourceLabels: Record<LeadSource, string> = {
-  website: 'Website',
+  website: 'Eigene Website',
   autoscout24: 'AutoScout24',
   'mobile.de': 'mobile.de',
-  walkin: 'Walk-in',
-  phone: 'Telefon',
-  other: 'Sonstige',
+  walkin: 'Vor Ort',
+  phone: 'Telefonisch',
+  other: 'Andere',
 };
