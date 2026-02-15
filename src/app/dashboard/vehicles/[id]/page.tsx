@@ -57,6 +57,13 @@ export default async function EditVehiclePage({
     notFound();
   }
 
+  // Bilder laden
+  const { data: images } = await supabase
+    .from("vehicle_images")
+    .select("*")
+    .eq("vehicle_id", id)
+    .order("position", { ascending: true });
+
   // Standzeit berechnen
   const calculateDaysOnLot = (createdAt: string): number => {
     const created = new Date(createdAt);
@@ -91,7 +98,7 @@ export default async function EditVehiclePage({
       </div>
 
       {/* Formular */}
-      <VehicleForm vehicle={vehicle as Vehicle} dealerId={dealer.id} />
+      <VehicleForm vehicle={vehicle as Vehicle} dealerId={dealer.id} initialImages={images || []} />
     </div>
   );
 }

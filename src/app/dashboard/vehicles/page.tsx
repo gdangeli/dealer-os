@@ -2,25 +2,13 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import {
   Vehicle,
   VehicleStatus,
-  statusLabels,
-  statusColors,
-  fuelTypeLabels,
-  FuelType,
 } from "@/types/vehicle";
 import { VehicleStatusFilter } from "./status-filter";
+import { VehicleListClient } from "@/components/vehicles/vehicle-list-client";
 
 interface SearchParams {
   status?: string;
@@ -64,10 +52,18 @@ export default async function VehiclesPage({
     );
   }
 
-  // Fahrzeuge laden
+  // Fahrzeuge mit Hauptbild laden
   let query = supabase
     .from("vehicles")
-    .select("*")
+    .select(`
+      *,
+      vehicle_images (
+        id,
+        url,
+        position,
+        is_main
+      )
+    `)
     .eq("dealer_id", dealer.id);
 
   // Filter nach Status
@@ -93,29 +89,6 @@ export default async function VehiclesPage({
       </div>
     );
   }
-
-  // Standzeit berechnen (Tage seit Erstellung)
-  const calculateDaysOnLot = (createdAt: string): number => {
-    const created = new Date(createdAt);
-    const now = new Date();
-    const diffTime = Math.abs(now.getTime() - created.getTime());
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  };
-
-  // Preis formatieren
-  const formatPrice = (price: number): string => {
-    return new Intl.NumberFormat("de-CH", {
-      style: "currency",
-      currency: "CHF",
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
-
-  // Jahr aus Erstzulassung extrahieren
-  const getYear = (dateStr: string | null): string => {
-    if (!dateStr) return "";
-    return new Date(dateStr).getFullYear().toString();
-  };
 
   // Statistiken berechnen
   const stats = {
@@ -200,85 +173,11 @@ export default async function VehiclesPage({
         </CardContent>
       </Card>
 
-      {/* Tabelle */}
+      {/* Tabelle mit Export-Funktion */}
       <Card>
         <CardContent className="pt-6">
           {vehicles && vehicles.length > 0 ? (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-16">Bild</TableHead>
-                  <TableHead>Fahrzeug</TableHead>
-                  <TableHead>Preis</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Standzeit</TableHead>
-                  <TableHead className="text-right">Aktionen</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {vehicles.map((vehicle: Vehicle) => {
-                  const daysOnLot = calculateDaysOnLot(vehicle.created_at);
-                  const isLongStanding = daysOnLot > 45;
-                  const fuelLabel = vehicle.fuel_type 
-                    ? fuelTypeLabels[vehicle.fuel_type as FuelType] || vehicle.fuel_type
-                    : "";
-
-                  return (
-                    <TableRow key={vehicle.id}>
-                      <TableCell>
-                        <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center text-xl">
-                          🚗
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="font-medium">
-                          {vehicle.make} {vehicle.model}
-                        </div>
-                        <div className="text-sm text-slate-500">
-                          {getYear(vehicle.first_registration)} •{" "}
-                          {vehicle.mileage?.toLocaleString("de-CH")} km •{" "}
-                          {fuelLabel}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="font-semibold">
-                          {vehicle.asking_price ? formatPrice(vehicle.asking_price) : "-"}
-                        </div>
-                        {vehicle.purchase_price && (
-                          <div className="text-xs text-slate-500">
-                            EK: {formatPrice(vehicle.purchase_price)}
-                          </div>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <Badge className={statusColors[vehicle.status]}>
-                          {statusLabels[vehicle.status]}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <span
-                          className={`font-medium ${
-                            isLongStanding ? "text-orange-600" : ""
-                          }`}
-                        >
-                          {daysOnLot} Tage
-                        </span>
-                        {isLongStanding && (
-                          <span className="ml-1 text-orange-500">⚠️</span>
-                        )}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Link href={`/dashboard/vehicles/${vehicle.id}`}>
-                          <Button variant="outline" size="sm">
-                            Bearbeiten
-                          </Button>
-                        </Link>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
+            <VehicleListClient vehicles={vehicles as Vehicle[]} />
           ) : (
             <div className="text-center py-12">
               <div className="text-4xl mb-4">🚗</div>

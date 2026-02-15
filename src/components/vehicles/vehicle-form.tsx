@@ -25,10 +25,13 @@ import {
   statusLabels,
 } from "@/types/vehicle";
 import { createClient } from "@/lib/supabase/client";
+import { ImageUpload } from "./image-upload";
+import { VehicleImage } from "@/types/database";
 
 interface VehicleFormProps {
   vehicle?: Vehicle;
   dealerId: string;
+  initialImages?: VehicleImage[];
 }
 
 const initialFormData: VehicleFormData = {
@@ -49,10 +52,11 @@ const initialFormData: VehicleFormData = {
   status: "in_stock",
 };
 
-export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
+export function VehicleForm({ vehicle, dealerId, initialImages = [] }: VehicleFormProps) {
   const router = useRouter();
   const supabase = createClient();
   const isEditing = !!vehicle;
+  const [vehicleId, setVehicleId] = useState<string | undefined>(vehicle?.id);
 
   const [formData, setFormData] = useState<VehicleFormData>(
     vehicle
@@ -128,16 +132,22 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
           .eq("id", vehicle.id);
 
         if (updateError) throw updateError;
+        
+        router.push("/dashboard/vehicles");
+        router.refresh();
       } else {
-        const { error: insertError } = await supabase
+        const { data: newVehicle, error: insertError } = await supabase
           .from("vehicles")
-          .insert(vehicleData);
+          .insert(vehicleData)
+          .select()
+          .single();
 
         if (insertError) throw insertError;
+        
+        // Redirect to edit page to allow image upload
+        router.push(`/dashboard/vehicles/${newVehicle.id}`);
+        router.refresh();
       }
-
-      router.push("/dashboard/vehicles");
-      router.refresh();
     } catch (err) {
       console.error("Error saving vehicle:", err);
       setError(
@@ -361,6 +371,13 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
           </div>
         </CardContent>
       </Card>
+
+      {/* Bilder */}
+      <ImageUpload
+        vehicleId={vehicleId}
+        dealerId={dealerId}
+        initialImages={initialImages}
+      />
 
       {/* Status (nur bei Bearbeitung) */}
       {isEditing && (
