@@ -27,10 +27,10 @@ export default async function NewVehiclePage() {
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold text-red-600">
-          Kein Händler-Profil gefunden
+          Kein Konto gefunden
         </h2>
         <p className="text-slate-600 mt-2">
-          Bitte kontaktieren Sie den Administrator.
+          Bitte kontaktieren Sie uns: support@dealer-os.ch
         </p>
       </div>
     );
@@ -46,9 +46,9 @@ export default async function NewVehiclePage() {
           </Button>
         </Link>
         <div>
-          <h1 className="text-3xl font-bold">Neues Fahrzeug</h1>
+          <h1 className="text-3xl font-bold">Fahrzeug erfassen</h1>
           <p className="text-slate-600">
-            Fügen Sie ein neues Fahrzeug zu Ihrem Bestand hinzu
+            Tragen Sie die wichtigsten Daten ein – fertig in 2 Minuten.
           </p>
         </div>
       </div>

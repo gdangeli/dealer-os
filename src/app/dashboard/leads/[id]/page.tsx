@@ -83,16 +83,16 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
 
     if (error) {
       console.error("Error updating lead:", error);
-      alert("Fehler beim Speichern");
+      alert("Speichern fehlgeschlagen. Bitte erneut versuchen.");
     } else {
       await fetchLead();
-      alert("Änderungen gespeichert!");
+      alert("Gespeichert!");
     }
     setSaving(false);
   }
 
   async function handleDelete() {
-    if (!confirm("Möchten Sie diese Anfrage wirklich löschen?")) return;
+    if (!confirm("Diese Anfrage endgültig löschen?")) return;
     
     setDeleting(true);
     const { error } = await supabase
@@ -102,7 +102,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
 
     if (error) {
       console.error("Error deleting lead:", error);
-      alert("Fehler beim Löschen");
+      alert("Löschen fehlgeschlagen. Bitte erneut versuchen.");
       setDeleting(false);
     } else {
       router.push("/dashboard/leads");
@@ -130,7 +130,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-slate-500">Laden...</div>
+        <div className="text-slate-500">Wird geladen...</div>
       </div>
     );
   }
@@ -138,9 +138,9 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
   if (!lead) {
     return (
       <div className="text-center py-8">
-        <p className="text-slate-500 mb-4">Anfrage nicht gefunden</p>
+        <p className="text-slate-500 mb-4">Diese Anfrage wurde nicht gefunden oder gelöscht.</p>
         <Link href="/dashboard/leads">
-          <Button>Zurück zur Übersicht</Button>
+          <Button>Zurück zu den Anfragen</Button>
         </Link>
       </div>
     );
@@ -173,7 +173,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {/* Kontaktdaten */}
           <Card>
             <CardHeader>
-              <CardTitle>Kontaktdaten</CardTitle>
+              <CardTitle>Kontaktinformationen</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -221,7 +221,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {lead.message && (
             <Card>
               <CardHeader>
-                <CardTitle>Nachricht des Kunden</CardTitle>
+                <CardTitle>Kundenanliegen</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="bg-slate-50 p-4 rounded-lg whitespace-pre-wrap">
@@ -234,14 +234,14 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {/* Notizen */}
           <Card>
             <CardHeader>
-              <CardTitle>Notizen</CardTitle>
-              <CardDescription>Interne Notizen zu dieser Anfrage</CardDescription>
+              <CardTitle>Ihre Notizen</CardTitle>
+              <CardDescription>Nur intern sichtbar – für Ihre Dokumentation</CardDescription>
             </CardHeader>
             <CardContent>
               <Textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="Notizen hinzufügen..."
+                placeholder="z.B. Probefahrt vereinbart für Samstag 10 Uhr..."
                 rows={4}
               />
             </CardContent>
@@ -253,26 +253,26 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {/* Status & Follow-up */}
           <Card>
             <CardHeader>
-              <CardTitle>Status & Follow-up</CardTitle>
+              <CardTitle>Bearbeitung</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label>Status</Label>
+                <Label>Aktueller Status</Label>
                 <Select value={status} onValueChange={(value) => setStatus(value as LeadStatus)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="new">Neu</SelectItem>
-                    <SelectItem value="contacted">Kontaktiert</SelectItem>
-                    <SelectItem value="qualified">Qualifiziert</SelectItem>
-                    <SelectItem value="won">Gewonnen</SelectItem>
-                    <SelectItem value="lost">Verloren</SelectItem>
+                    <SelectItem value="new">Offen</SelectItem>
+                    <SelectItem value="contacted">In Bearbeitung</SelectItem>
+                    <SelectItem value="qualified">Heiss 🔥</SelectItem>
+                    <SelectItem value="won">Verkauft ✓</SelectItem>
+                    <SelectItem value="lost">Nicht gekauft</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label htmlFor="followup">Nächster Follow-up</Label>
+                <Label htmlFor="followup">Nächste Aktion am</Label>
                 <Input
                   id="followup"
                   type="date"
@@ -287,7 +287,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {lead.vehicle && (
             <Card>
               <CardHeader>
-                <CardTitle>🚗 Fahrzeug</CardTitle>
+                <CardTitle>🚗 Interessiert an</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
@@ -296,7 +296,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                   </div>
                   {lead.vehicle.first_registration && (
                     <div className="text-slate-600">
-                      Jahrgang: {new Date(lead.vehicle.first_registration).getFullYear()}
+                      Jahrgang {new Date(lead.vehicle.first_registration).getFullYear()}
                     </div>
                   )}
                   {lead.vehicle.asking_price && (
@@ -306,7 +306,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                   )}
                   <Link href={`/dashboard/vehicles/${lead.vehicle.id}`}>
                     <Button variant="outline" className="w-full mt-2">
-                      Fahrzeug anzeigen
+                      Zum Fahrzeug
                     </Button>
                   </Link>
                 </div>
@@ -322,7 +322,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                 onClick={handleSave}
                 disabled={saving}
               >
-                {saving ? "Speichern..." : "💾 Änderungen speichern"}
+                {saving ? "Wird gespeichert..." : "Speichern"}
               </Button>
               <Button 
                 variant="destructive" 
@@ -330,7 +330,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                 onClick={handleDelete}
                 disabled={deleting}
               >
-                {deleting ? "Löschen..." : "🗑️ Anfrage löschen"}
+                {deleting ? "Wird gelöscht..." : "Anfrage löschen"}
               </Button>
             </CardContent>
           </Card>

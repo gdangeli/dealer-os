@@ -141,7 +141,7 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
     } catch (err) {
       console.error("Error saving vehicle:", err);
       setError(
-        err instanceof Error ? err.message : "Fehler beim Speichern"
+        err instanceof Error ? err.message : "Speichern fehlgeschlagen. Bitte erneut versuchen."
       );
     } finally {
       setLoading(false);
@@ -200,7 +200,7 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
       {/* Technische Daten */}
       <Card>
         <CardHeader>
-          <CardTitle>Technische Daten</CardTitle>
+          <CardTitle>Technische Details</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-3 gap-4">
           <div className="space-y-2">
@@ -222,23 +222,23 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
               type="number"
               value={formData.mileage || ""}
               onChange={handleChange}
-              placeholder="z.B. 45000"
+              placeholder="85000"
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="power_kw">Leistung (kW)</Label>
+            <Label htmlFor="power_kw">Leistung in kW</Label>
             <Input
               id="power_kw"
               name="power_kw"
               type="number"
               value={formData.power_kw ?? ""}
               onChange={handleChange}
-              placeholder="z.B. 140"
+              placeholder="110"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="fuel_type">Treibstoff *</Label>
+            <Label htmlFor="fuel_type">Antrieb *</Label>
             <Select
               value={formData.fuel_type}
               onValueChange={(value) => handleSelectChange("fuel_type", value)}
@@ -282,11 +282,11 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
               name="color"
               value={formData.color}
               onChange={handleChange}
-              placeholder="z.B. Schwarz Metallic"
+              placeholder="Schwarz Metallic"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="vin">Fahrgestellnummer (VIN)</Label>
+            <Label htmlFor="vin">Fahrgestellnummer</Label>
             <Input
               id="vin"
               name="vin"
@@ -301,7 +301,7 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
       {/* Preise */}
       <Card>
         <CardHeader>
-          <CardTitle>Preise</CardTitle>
+          <CardTitle>Kalkulation</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
@@ -312,7 +312,7 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
               type="number"
               value={formData.purchase_price ?? ""}
               onChange={handleChange}
-              placeholder="z.B. 18000"
+              placeholder="18000"
             />
           </div>
           <div className="space-y-2">
@@ -323,7 +323,7 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
               type="number"
               value={formData.asking_price || ""}
               onChange={handleChange}
-              placeholder="z.B. 22900"
+              placeholder="22900"
               required
             />
           </div>
@@ -333,28 +333,28 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
       {/* Beschreibungen */}
       <Card>
         <CardHeader>
-          <CardTitle>Beschreibungen</CardTitle>
+          <CardTitle>Texte</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="description">Öffentliche Beschreibung</Label>
+            <Label htmlFor="description">Inseratetext</Label>
             <Textarea
               id="description"
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="Beschreibung für das Inserat..."
+              placeholder="Beschreibung für AutoScout24, Ihre Website usw."
               rows={4}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="internal_notes">Interne Notizen</Label>
+            <Label htmlFor="internal_notes">Interne Notizen (nur für Sie sichtbar)</Label>
             <Textarea
               id="internal_notes"
               name="internal_notes"
               value={formData.internal_notes}
               onChange={handleChange}
-              placeholder="Notizen nur für interne Zwecke..."
+              placeholder="z.B. Eintausch von Kunde X, MFK-Termin am..."
               rows={3}
               className="bg-yellow-50"
             />
@@ -366,11 +366,11 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
       {isEditing && (
         <Card>
           <CardHeader>
-            <CardTitle>Status</CardTitle>
+            <CardTitle>Verfügbarkeit</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2 max-w-xs">
-              <Label htmlFor="status">Fahrzeug-Status</Label>
+              <Label htmlFor="status">Aktueller Status</Label>
               <Select
                 value={formData.status}
                 onValueChange={(value) =>
@@ -397,17 +397,17 @@ export function VehicleForm({ vehicle, dealerId }: VehicleFormProps) {
       <div className="flex gap-4">
         <Button type="submit" disabled={loading}>
           {loading
-            ? "Speichern..."
+            ? "Wird gespeichert..."
             : isEditing
-            ? "Änderungen speichern"
-            : "Fahrzeug hinzufügen"}
+            ? "Speichern"
+            : "Fahrzeug erfassen"}
         </Button>
         <Button
           type="button"
           variant="outline"
           onClick={() => router.push("/dashboard/vehicles")}
         >
-          Abbrechen
+          Verwerfen
         </Button>
       </div>
     </form>

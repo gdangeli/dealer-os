@@ -8,8 +8,8 @@ import { getAllBlogPosts, getAllCategories } from "@/content/blog";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 
 export const metadata = {
-  title: "Blog | Dealer OS",
-  description: "Tipps, Guides und Insights für Schweizer Autohändler und Garagisten. Erfahren Sie, wie Sie Ihren Betrieb digitalisieren und erfolgreicher verkaufen.",
+  title: "Blog für Garagisten | Dealer OS",
+  description: "Praxis-Tipps für den Schweizer Autohandel: Standzeiten reduzieren, Margen verbessern, digital verkaufen. Von Profis für Profis.",
 };
 
 export default function BlogPage() {

@@ -36,10 +36,10 @@ export default async function EditVehiclePage({
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold text-red-600">
-          Kein Händler-Profil gefunden
+          Kein Konto gefunden
         </h2>
         <p className="text-slate-600 mt-2">
-          Bitte kontaktieren Sie den Administrator.
+          Bitte kontaktieren Sie uns: support@dealer-os.ch
         </p>
       </div>
     );
@@ -83,7 +83,7 @@ export default async function EditVehiclePage({
             </h1>
             <p className="text-slate-600">
               {vehicle.variant && `${vehicle.variant} • `}
-              Im Bestand seit {daysOnLot} Tagen
+              {daysOnLot} Tage am Lager
             </p>
           </div>
         </div>

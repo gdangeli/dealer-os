@@ -42,7 +42,7 @@ export function DeleteVehicleButton({
       router.refresh();
     } catch (err) {
       console.error("Error deleting vehicle:", err);
-      alert("Fehler beim Löschen des Fahrzeugs");
+      alert("Löschen fehlgeschlagen. Bitte erneut versuchen.");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -58,10 +58,10 @@ export function DeleteVehicleButton({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Fahrzeug löschen?</DialogTitle>
+          <DialogTitle>Fahrzeug entfernen?</DialogTitle>
           <DialogDescription>
-            Möchten Sie <strong>{vehicleName}</strong> wirklich löschen? Diese
-            Aktion kann nicht rückgängig gemacht werden.
+            <strong>{vehicleName}</strong> wird unwiderruflich gelöscht – 
+            inklusive aller verknüpften Anfragen und Notizen.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -73,7 +73,7 @@ export function DeleteVehicleButton({
             onClick={handleDelete}
             disabled={loading}
           >
-            {loading ? "Löschen..." : "Ja, löschen"}
+            {loading ? "Wird gelöscht..." : "Endgültig löschen"}
           </Button>
         </DialogFooter>
       </DialogContent>
