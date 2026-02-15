@@ -131,12 +131,13 @@ CREATE TABLE leads (
   listing_id UUID REFERENCES listings(id) ON DELETE SET NULL,
   
   -- Contact Info
-  name TEXT NOT NULL,
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL,
   email TEXT,
   phone TEXT,
   
   -- Source
-  source TEXT,                  -- autoscout24, tutti, website, phone, walkin
+  source TEXT DEFAULT 'other',  -- website, autoscout24, mobile.de, walkin, phone, other
   
   -- Message
   message TEXT,
@@ -146,7 +147,7 @@ CREATE TABLE leads (
   
   -- Follow-up
   last_contact_at TIMESTAMPTZ,
-  next_followup_at TIMESTAMPTZ,
+  next_followup DATE,           -- Nächster Follow-up Termin
   
   -- Notes
   notes TEXT

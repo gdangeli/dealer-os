@@ -28,10 +28,10 @@ export interface Lead {
   // Joined data
   vehicle?: {
     id: string;
-    brand: string;
+    make: string;
     model: string;
-    year: number;
-    price: number;
+    first_registration: string;
+    asking_price: number;
   };
 }
 

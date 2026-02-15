@@ -27,7 +27,7 @@ export default function LeadsPage() {
       .from("leads")
       .select(`
         *,
-        vehicle:vehicles(id, brand, model, year, price)
+        vehicle:vehicles(id, make, model, first_registration, asking_price)
       `)
       .order("created_at", { ascending: false });
 
@@ -57,7 +57,8 @@ export default function LeadsPage() {
 
   function formatVehicle(vehicle: Lead["vehicle"]) {
     if (!vehicle) return "-";
-    return `${vehicle.brand} ${vehicle.model} (${vehicle.year})`;
+    const year = vehicle.first_registration ? new Date(vehicle.first_registration).getFullYear() : "";
+    return `${vehicle.make} ${vehicle.model}${year ? ` (${year})` : ""}`;
   }
 
   return (

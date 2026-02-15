@@ -42,7 +42,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
       .from("leads")
       .select(`
         *,
-        vehicle:vehicles(id, brand, model, year, price)
+        vehicle:vehicles(id, make, model, first_registration, asking_price)
       `)
       .eq("id", id)
       .single();
@@ -292,12 +292,18 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
               <CardContent>
                 <div className="space-y-2">
                   <div className="font-semibold text-lg">
-                    {lead.vehicle.brand} {lead.vehicle.model}
+                    {lead.vehicle.make} {lead.vehicle.model}
                   </div>
-                  <div className="text-slate-600">Jahrgang: {lead.vehicle.year}</div>
-                  <div className="text-green-600 font-semibold text-lg">
-                    {formatPrice(lead.vehicle.price)}
-                  </div>
+                  {lead.vehicle.first_registration && (
+                    <div className="text-slate-600">
+                      Jahrgang: {new Date(lead.vehicle.first_registration).getFullYear()}
+                    </div>
+                  )}
+                  {lead.vehicle.asking_price && (
+                    <div className="text-green-600 font-semibold text-lg">
+                      {formatPrice(lead.vehicle.asking_price)}
+                    </div>
+                  )}
                   <Link href={`/dashboard/vehicles/${lead.vehicle.id}`}>
                     <Button variant="outline" className="w-full mt-2">
                       Fahrzeug anzeigen
