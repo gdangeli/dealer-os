@@ -1,10 +1,10 @@
-import { Composition } from 'remotion';
+import { Composition, registerRoot } from 'remotion';
 import { DealerOSExplainer, VIDEO_CONFIG } from './DealerOSExplainer';
 
 // This is the entry point for Remotion
 // Run with: npx remotion studio src/video/index.tsx
 
-export const RemotionRoot: React.FC = () => {
+const RemotionRoot: React.FC = () => {
   return (
     <>
       {/* Main Explainer Video - 90 seconds at 30fps */}
@@ -39,3 +39,5 @@ export const RemotionRoot: React.FC = () => {
     </>
   );
 };
+
+registerRoot(RemotionRoot);

@@ -3,17 +3,17 @@ import { COLORS } from '../DealerOSExplainer';
 
 // Dealer OS Logo Component
 const DealerOSLogo = ({ size = 200 }: { size?: number }) => (
-  <svg viewBox="0 0 200 60" width={size} height={size * 0.3}>
+  <svg viewBox="0 0 280 60" width={size} height={size * 0.214}>
     {/* Logo Mark - Stylized D */}
     <rect x="0" y="5" width="50" height="50" rx="10" fill={COLORS.sky} />
     <path d="M12 15 L12 45 L30 45 Q42 45 42 30 Q42 15 30 15 Z" fill="white" />
     <circle cx="28" cy="30" r="6" fill={COLORS.sky} />
     
-    {/* Logo Text */}
+    {/* Logo Text - "Dealer" + "OS" with proper spacing */}
     <text x="60" y="42" fill={COLORS.slate} fontSize="36" fontWeight="700" fontFamily="system-ui, -apple-system, sans-serif">
       Dealer
     </text>
-    <text x="155" y="42" fill={COLORS.sky} fontSize="36" fontWeight="700" fontFamily="system-ui, -apple-system, sans-serif">
+    <text x="175" y="42" fill={COLORS.sky} fontSize="36" fontWeight="700" fontFamily="system-ui, -apple-system, sans-serif">
       OS
     </text>
   </svg>

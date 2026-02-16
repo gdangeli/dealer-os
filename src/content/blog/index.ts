@@ -12,6 +12,194 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 33 - 2026-02-16
+  {
+    slug: "fahrzeugankauf-inzahlungnahme-bewertung-guide",
+    title: "Fahrzeugankauf & Inzahlungnahme: So bewerten Sie richtig",
+    excerpt: "Der Fahrzeugankauf ist eine Kunst für sich. Erfahren Sie, wie Sie Occasionen professionell bewerten und faire Preise für Inzahlungnahmen kalkulieren.",
+    category: "Praxis",
+    readTime: 9,
+    emoji: "🔍",
+    publishedAt: "2026-02-16",
+    author: "Dealer OS Team",
+    keywords: ["Fahrzeugankauf", "Inzahlungnahme bewerten", "Occasionsbewertung", "Eintauschpreis", "Händlereinkauf"],
+    content: `
+## Der Ankauf entscheidet über Ihren Gewinn
+
+Ein altes Händler-Sprichwort besagt: "Der Gewinn liegt im Einkauf." Nirgendwo trifft das mehr zu als im Occasionshandel. Wer beim Ankauf oder bei der Inzahlungnahme zu viel bezahlt, hat beim Verkauf kaum noch Spielraum. Wer zu wenig bietet, verliert den Deal an die Konkurrenz.
+
+In diesem Guide zeigen wir Ihnen systematische Methoden für eine professionelle Fahrzeugbewertung.
+
+## Die drei Säulen der Fahrzeugbewertung
+
+### 1. Marktpreisrecherche
+
+Bevor Sie ein Fahrzeug ansehen, recherchieren Sie den Marktpreis:
+
+**Online-Plattformen checken:**
+- AutoScout24.ch: Filtern Sie nach Marke, Modell, Jahrgang, Kilometerstand
+- car4you.ch: Zweite Referenz für Schweizer Preise
+- mobile.de: Für den grösseren DACH-Markt als Referenz
+
+**Wichtig:** Notieren Sie mindestens 5-10 vergleichbare Fahrzeuge mit:
+- Angebotspreis
+- Kilometerstand
+- Ausstattung
+- Standort
+- Händler vs. Privat
+
+### Praxis-Tipp
+
+Vergleichbare Fahrzeuge von Händlern sind meist 10-15% teurer inseriert als sie am Ende verkauft werden. Privatinserate sind oft Wunschpreise. Rechnen Sie mit einer Verhandlungsmarge.
+
+### 2. Technische Prüfung
+
+Die gründliche Fahrzeugprüfung ist Ihr wichtigstes Werkzeug:
+
+**Exterieur-Check:**
+- Lackschichtmessung (Unfallschäden erkennen)
+- Spaltmasse prüfen (gleichmässig?)
+- Rostansätze (Radläufe, Schweller, Türunterkanten)
+- Scheiben (Steinschläge, Risse)
+- Reifen (Profiltiefe, Alter, gleichmässige Abnutzung)
+
+**Interieur-Check:**
+- Sitze (Verschleiss passend zum km-Stand?)
+- Lenkrad und Pedale (Abnutzung konsistent?)
+- Elektronik (alle Funktionen testen!)
+- Geruch (Feuchtigkeit, Raucher?)
+
+**Motor und Technik:**
+- Ölstand und -zustand
+- Kühlflüssigkeit
+- Geräusche bei Kaltstart
+- Probefahrt (min. 15 Minuten, verschiedene Geschwindigkeiten)
+- Fehlerspeicher auslesen (OBD2)
+
+### Checkliste für die Probefahrt
+
+| Prüfpunkt | Was Sie beachten sollten |
+|-----------|-------------------------|
+| Kaltstart | Springt sofort an? Ungewöhnliche Geräusche? |
+| Leerlauf | Ruhig? Vibrationen? |
+| Beschleunigung | Linear? Ruckeln? |
+| Bremsen | Gleichmässig? Geräusche? Vibrationen? |
+| Lenkung | Präzise? Spiel? Geräusche beim Einlenken? |
+| Getriebe | Schaltet sauber? (Manuell: alle Gänge testen) |
+| Fahrwerk | Poltern? Klappern über Unebenheiten? |
+
+### 3. Dokumentenprüfung
+
+**Unbedingt prüfen:**
+- Fahrzeugausweis (Halter, Typenbezeichnung, Erstzulassung)
+- Service-Heft (Stempel, km-Stände plausibel?)
+- MFK-Berichte (letzte Prüfung, Mängel?)
+- Rechnungen (grössere Reparaturen, Wartung)
+
+**Bei Import-Fahrzeugen zusätzlich:**
+- Verzollungsnachweis
+- Ursprünglicher Fahrzeugausweis
+- km-Stand in Vorbesitz-Dokumenten
+
+## Preiskalkulation: So rechnen Sie richtig
+
+### Der Händler-Rechner
+
+\`\`\`
+Erwarteter Verkaufspreis (VK)         CHF 25'000
+- Gewünschte Marge (15-20%)           CHF  4'000
+- Aufbereitung                        CHF    500
+- Inseratekosten                      CHF    200
+- MFK (falls nötig)                   CHF    150
+- Bekannte Mängel/Reparaturen         CHF  1'500
+- Risikopuffer (unentdeckte Mängel)   CHF    500
+= Maximaler Ankaufspreis              CHF 18'150
+\`\`\`
+
+### Inzahlungnahme-Kalkulation
+
+Bei einer Inzahlungnahme haben Sie zwei Geschäfte:
+1. Verkauf des Neufahrzeugs
+2. Ankauf des Eintausch-Fahrzeugs
+
+**Wichtig:** Kalkulieren Sie beide Geschäfte separat. Ein grosszügiger Eintauschpreis, der durch eine höhere Marge beim Neufahrzeug kompensiert wird, kann sinnvoll sein – aber Sie müssen die Gesamtrechnung im Blick haben.
+
+### Typische Inzahlungnahme-Formel
+
+\`\`\`
+Marktpreis (Händler-VK)               CHF 20'000
+- Händlermarge (ca. 15%)              CHF  3'000
+= Fairer Eintauschpreis               CHF 17'000
+- Verhandlungsspielraum               CHF  1'000
+= Ihr erstes Angebot                  CHF 16'000
+\`\`\`
+
+## Häufige Fehler vermeiden
+
+### 1. Emotionale Entscheidungen
+
+"Das ist genau das Modell, das sich gut verkauft" – und schon zahlt man zu viel. Bleiben Sie bei Ihrer Kalkulation.
+
+### 2. Zeitdruck
+
+"Ich muss heute entscheiden, es gibt noch andere Interessenten." Wenn Sie unter Druck gesetzt werden, ist Vorsicht geboten. Ein gutes Geschäft verpasst man nicht in einer Stunde.
+
+### 3. Versteckte Mängel unterschätzen
+
+Die Kosten für Reparaturen werden systematisch unterschätzt. Rechnen Sie bei älteren Fahrzeugen immer einen Puffer von CHF 500-1'000 ein.
+
+### 4. Markt nicht kennen
+
+Wer den Markt nicht täglich beobachtet, verschätzt sich bei der Preisfindung. Nutzen Sie Tools, die Marktpreise automatisch tracken.
+
+## Moderne Tools nutzen
+
+### Digitale Bewertungs-Plattformen
+
+- **Eurotax:** Der Schweizer Standard für Fahrzeugbewertungen
+- **DAT:** Deutsche Alternative, gut für Import-Fahrzeuge
+- **AutoScout24 Preisbewertung:** Schneller Marktüberblick
+
+### Dealer OS Pricing-Modul
+
+Mit Dealer OS können Sie:
+- Vergleichsfahrzeuge automatisch sammeln
+- Marktpreis-Trends verfolgen
+- Ihre Kalkulation digital speichern
+- Entscheidungen nachvollziehbar dokumentieren
+
+## Verhandlungstipps für den Ankauf
+
+### Mit Privat-Verkäufern
+
+1. **Lassen Sie sich Zeit:** Schauen Sie das Fahrzeug in Ruhe an
+2. **Mängel dokumentieren:** Fotografieren Sie alles, was auffällt
+3. **Transparent argumentieren:** "Hier sehe ich Rost, das kostet mich X in der Aufbereitung"
+4. **Realistisch bleiben:** Ein zu niedriges Angebot wirkt unseriös
+
+### Bei Inzahlungnahmen
+
+1. **Wert des Eintauschers zuerst klären:** Bevor Sie über das neue Fahrzeug sprechen
+2. **Kunden nicht überrumpeln:** Geben Sie Zeit für die Entscheidung
+3. **Transparent kommunizieren:** Erklären Sie Ihre Bewertung
+4. **Win-win anstreben:** Der Kunde soll zufrieden sein
+
+## Fazit: System schlägt Bauchgefühl
+
+Erfolgreiche Autohändler verlassen sich nicht auf ihr Bauchgefühl. Sie haben:
+
+- **Ein System:** Gleiche Prüfung bei jedem Fahrzeug
+- **Marktdaten:** Aktuelle Preise immer griffbereit
+- **Kalkulationstools:** Keine Überraschungen bei der Marge
+- **Dokumentation:** Jede Entscheidung nachvollziehbar
+
+Mit Dealer OS automatisieren Sie viele dieser Schritte und haben mehr Zeit für das, was zählt: gute Fahrzeuge finden und fair verhandeln.
+
+---
+
+*Möchten Sie Ihre Fahrzeugbewertung professionalisieren? Dealer OS bietet integrierte Tools für Marktanalyse und Preiskalkulation. [Jetzt kostenlos testen](/de/register)*
+`,
+  },
   // Artikel 30 - 2026-02-15 (heute)
   {
     slug: "so-digitalisieren-sie-ihre-garage-in-5-schritten",
