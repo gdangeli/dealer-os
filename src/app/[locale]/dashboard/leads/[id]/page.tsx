@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Lead, LeadStatus, leadStatusLabels, leadStatusColors, leadSourceLabels } from "@/types/leads";
+import { LeadTimeline } from "@/components/leads/lead-timeline";
 
 export default function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -246,6 +247,11 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
               />
             </CardContent>
           </Card>
+
+          {/* Timeline */}
+          {lead.dealer_id && (
+            <LeadTimeline leadId={id} dealerId={lead.dealer_id} />
+          )}
         </div>
 
         {/* Sidebar */}
