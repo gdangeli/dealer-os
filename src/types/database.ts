@@ -12,9 +12,14 @@ export interface Dealer {
   city?: string;
   country: string;
   vehicle_count_estimate?: number;
-  subscription_plan: 'beta' | 'starter' | 'pro' | 'business';
+  subscription_plan: 'beta' | 'starter' | 'pro' | 'business' | 'enterprise';
   status: 'pending' | 'active' | 'suspended';
   onboarding_completed: boolean;
+  // Stripe subscription fields
+  stripe_customer_id?: string;
+  stripe_subscription_id?: string;
+  subscription_status?: 'active' | 'canceled' | 'past_due' | 'unpaid' | 'trialing' | 'incomplete' | 'incomplete_expired' | 'paused' | null;
+  subscription_period_end?: string;
 }
 
 export interface Vehicle {

@@ -1,13 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { sendEmail } from '@/lib/email';
 import { longstandingWarningEmail, LongstandingWarningEmailData } from '@/lib/email/templates';
 
-// Use service role for server-side operations
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
+// Lazy initialization to avoid build-time errors
+let _supabase: SupabaseClient | null = null;
+function getSupabase(): SupabaseClient {
+  if (!_supabase) {
+    _supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return _supabase;
+}
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://dealer-os.ch';
 

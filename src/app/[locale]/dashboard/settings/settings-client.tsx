@@ -638,7 +638,7 @@ function ChannelsPlaceholder() {
 }
 
 // ============================================================================
-// Abo & Rechnung Placeholder
+// Abo & Rechnung - Redirect to dedicated page
 // ============================================================================
 function BillingPlaceholder() {
   return (
@@ -649,61 +649,15 @@ function BillingPlaceholder() {
           Verwalten Sie Ihr Abonnement und Zahlungsmethoden.
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Badge className="bg-green-600">Beta</Badge>
-            <span className="font-semibold text-green-800">Aktueller Plan: Kostenlos</span>
-          </div>
-          <p className="text-green-700 text-sm">
-            Sie nutzen Dealer OS während der Beta-Phase kostenlos. Alle Funktionen sind unbegrenzt verfügbar.
-          </p>
-        </div>
-
-        <div className="border-t pt-4">
-          <h3 className="font-medium mb-4">Verfügbare Pläne</h3>
-          
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="border rounded-lg p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h4 className="font-semibold">Starter</h4>
-                <Badge variant="outline">Aktuell</Badge>
-              </div>
-              <p className="text-2xl font-bold mb-2">CHF 0 <span className="text-sm font-normal text-slate-500">/Monat</span></p>
-              <ul className="text-sm text-slate-600 space-y-1">
-                <li>✓ Unbegrenzte Fahrzeuge</li>
-                <li>✓ Lead-Management</li>
-                <li>✓ Auswertungen</li>
-                <li>✓ E-Mail-Support</li>
-              </ul>
-            </div>
-
-            <div className="border rounded-lg p-4 opacity-60">
-              <div className="flex items-center justify-between mb-2">
-                <h4 className="font-semibold">Professional</h4>
-                <Badge variant="secondary">Coming Soon</Badge>
-              </div>
-              <p className="text-2xl font-bold mb-2">CHF 49 <span className="text-sm font-normal text-slate-500">/Monat</span></p>
-              <ul className="text-sm text-slate-600 space-y-1">
-                <li>✓ Alles aus Starter</li>
-                <li>✓ Multi-Channel Publishing</li>
-                <li>✓ API-Zugang</li>
-                <li>✓ Prioritäts-Support</li>
-              </ul>
-              <Button className="w-full mt-4" disabled>
-                Bald verfügbar
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-slate-50 border rounded-lg p-4">
-          <p className="text-sm text-slate-600">
-            💡 <strong>Hinweis zur Beta-Phase:</strong> Während der Beta ist Dealer OS komplett kostenlos. 
-            Wir werden Sie rechtzeitig informieren, bevor kostenpflichtige Pläne eingeführt werden. 
-            Ihre Daten bleiben erhalten.
-          </p>
-        </div>
+      <CardContent className="text-center py-8">
+        <p className="text-slate-600 mb-4">
+          Die Abo-Verwaltung wurde auf eine eigene Seite verschoben.
+        </p>
+        <Button asChild>
+          <a href="/dashboard/settings/billing">
+            Zur Abo-Verwaltung →
+          </a>
+        </Button>
       </CardContent>
     </Card>
   );
