@@ -64,14 +64,14 @@ const CTAButton = ({ delay }: { delay: number }) => {
 
 // Dealer OS Logo
 const Logo = () => (
-  <svg viewBox="0 0 200 60" width={300} height={90}>
+  <svg viewBox="0 0 320 60" width={400} height={75}>
     <rect x="0" y="5" width="50" height="50" rx="10" fill={COLORS.sky} />
     <path d="M12 15 L12 45 L30 45 Q42 45 42 30 Q42 15 30 15 Z" fill="white" />
     <circle cx="28" cy="30" r="6" fill={COLORS.sky} />
-    <text x="60" y="42" fill={COLORS.slate} fontSize="36" fontWeight="700" fontFamily="system-ui, -apple-system, sans-serif">
+    <text x="62" y="43" fill={COLORS.slate} fontSize="36" fontWeight="700" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="0.5">
       Dealer
     </text>
-    <text x="155" y="42" fill={COLORS.sky} fontSize="36" fontWeight="700" fontFamily="system-ui, -apple-system, sans-serif">
+    <text x="200" y="43" fill={COLORS.sky} fontSize="36" fontWeight="700" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="0.5">
       OS
     </text>
   </svg>
