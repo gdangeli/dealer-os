@@ -94,3 +94,17 @@ export interface Lead {
     model: string;
   };
 }
+
+export type LeadActivityType = 'note' | 'call' | 'email' | 'status_change' | 'system_event';
+
+export interface LeadActivity {
+  id: string;
+  lead_id: string;
+  dealer_id: string;
+  type: LeadActivityType;
+  content: string;
+  created_at: string;
+  created_by?: string;
+  reminder_at?: string;
+  metadata?: Record<string, any>;
+}
