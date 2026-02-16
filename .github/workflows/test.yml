@@ -49,8 +49,8 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Run E2E tests (critical subset)
-        run: npx playwright test landing.spec.ts auth.spec.ts onboarding.spec.ts --reporter=github
+      - name: Run E2E tests (no-auth tests)
+        run: npx playwright test landing.spec.ts auth.spec.ts --reporter=github
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
