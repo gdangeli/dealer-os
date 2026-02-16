@@ -7,7 +7,9 @@ test.describe('Dashboard Widget Configuration', () => {
     await page.fill('input[type="email"]', process.env.TEST_USER_EMAIL || 'test@dealer.com');
     await page.fill('input[type="password"]', process.env.TEST_USER_PASSWORD || 'testpass123');
     await page.click('button[type="submit"]');
-    await page.waitForURL('**/dashboard');
+    // Wait for dashboard to load (more reliable than URL)
+    await page.waitForSelector('[data-testid="dashboard"]', { timeout: 30000 }).catch(() => {});
+    await page.waitForURL('**/dashboard', { timeout: 30000 });
   });
 
   test('should show customize dashboard button', async ({ page }) => {
@@ -156,7 +158,9 @@ test.describe('Dashboard Widget Drag & Drop', () => {
     await page.fill('input[type="email"]', process.env.TEST_USER_EMAIL || 'test@dealer.com');
     await page.fill('input[type="password"]', process.env.TEST_USER_PASSWORD || 'testpass123');
     await page.click('button[type="submit"]');
-    await page.waitForURL('**/dashboard');
+    // Wait for dashboard to load (more reliable than URL)
+    await page.waitForSelector('[data-testid="dashboard"]', { timeout: 30000 }).catch(() => {});
+    await page.waitForURL('**/dashboard', { timeout: 30000 });
   });
 
   test.skip('should reorder widgets via drag and drop', async ({ page }) => {

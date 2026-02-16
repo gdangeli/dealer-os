@@ -78,7 +78,7 @@ export default async function DashboardPage() {
   const dashboardConfig = dealer?.dashboard_config?.widgets || DEFAULT_WIDGETS;
 
   return (
-    <div>
+    <div data-testid="dashboard">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold">Guten Tag{dealer?.contact_name ? `, ${dealer.contact_name}` : ''}!</h1>
