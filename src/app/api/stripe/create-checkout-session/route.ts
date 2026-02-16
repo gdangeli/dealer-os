@@ -23,6 +23,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
     }
 
+    // Check if dealer already has an active subscription
+    if (dealer.stripe_subscription_id && dealer.subscription_status && 
+        ['active', 'trialing', 'past_due'].includes(dealer.subscription_status)) {
+      return NextResponse.json(
+        { error: 'Du hast bereits ein aktives Abo. Bitte nutze "Abo verwalten" für Änderungen.' },
+        { status: 400 }
+      );
+    }
+
     // Parse request body
     const body = await request.json();
     const { plan, interval = 'monthly' } = body as { plan: PlanId; interval: 'monthly' | 'yearly' };
