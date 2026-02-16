@@ -57,10 +57,14 @@ interface ImageUploadProps {
 function SortableImage({
   image,
   onRemove,
+  onSetMain,
+  onViewFullscreen,
   isUploading,
 }: {
   image: VehicleImage;
   onRemove: (id: string) => void;
+  onSetMain: (id: string) => void;
+  onViewFullscreen: () => void;
   isUploading?: boolean;
 }) {
   const {
@@ -121,22 +125,54 @@ function SortableImage({
 
       {/* Hover Controls */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors">
-        {/* Drag Handle */}
+        {/* Fullscreen Button - Clickable area */}
         <button
-          {...attributes}
-          {...listeners}
-          className="absolute top-2 right-10 p-1.5 bg-white/90 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity cursor-grab active:cursor-grabbing"
+          onClick={onViewFullscreen}
+          className="absolute inset-0 w-full h-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
         >
-          <GripVertical className="w-4 h-4 text-slate-600" />
+          <div className="p-3 bg-white/90 rounded-full shadow-lg">
+            <Maximize2 className="w-5 h-5 text-slate-700" />
+          </div>
         </button>
+        
+        {/* Top Controls Row */}
+        <div className="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          {/* Set as Main Button */}
+          {!image.is_main && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onSetMain(image.id);
+              }}
+              className="p-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              title="Als Hauptbild setzen"
+            >
+              <Star className="w-4 h-4" />
+            </button>
+          )}
+          
+          {/* Drag Handle */}
+          <button
+            {...attributes}
+            {...listeners}
+            className="p-1.5 bg-white/90 rounded-lg cursor-grab active:cursor-grabbing"
+            title="Ziehen zum Sortieren"
+          >
+            <GripVertical className="w-4 h-4 text-slate-600" />
+          </button>
 
-        {/* Remove Button */}
-        <button
-          onClick={() => onRemove(image.id)}
-          className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
-        >
-          <X className="w-4 h-4" />
-        </button>
+          {/* Remove Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onRemove(image.id);
+            }}
+            className="p-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600"
+            title="Bild löschen"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       {/* Position Number */}
@@ -162,6 +198,8 @@ export function ImageUpload({
     totalOriginal: number;
     totalCompressed: number;
   } | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const MAX_IMAGES = 30;
   const MAX_SIZE_MB = 10; // Input max size
@@ -452,6 +490,40 @@ export function ImageUpload({
     }
   };
 
+  const handleSetMain = async (imageId: string) => {
+    // Update local state
+    const updatedImages = images.map((img) => ({
+      ...img,
+      is_main: img.id === imageId,
+    }));
+    setImages(updatedImages);
+
+    // Update in database
+    if (vehicleId) {
+      // First, set all images to not main
+      for (const img of images) {
+        if (!img.isNew) {
+          await supabase
+            .from("vehicle_images")
+            .update({ is_main: img.id === imageId })
+            .eq("id", img.id);
+        }
+      }
+    }
+
+    if (onImagesChange) {
+      onImagesChange(updatedImages);
+    }
+  };
+
+  const openLightbox = (index: number) => {
+    // Only open lightbox for uploaded images (not temp/uploading ones)
+    if (!images[index]?.isNew) {
+      setLightboxIndex(index);
+      setLightboxOpen(true);
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -530,11 +602,13 @@ export function ImageUpload({
               strategy={rectSortingStrategy}
             >
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {images.map((image) => (
+                {images.map((image, index) => (
                   <SortableImage
                     key={image.id}
                     image={image}
                     onRemove={handleRemove}
+                    onSetMain={handleSetMain}
+                    onViewFullscreen={() => openLightbox(index)}
                     isUploading={uploadingIds.has(image.id)}
                   />
                 ))}
@@ -546,10 +620,19 @@ export function ImageUpload({
         {/* Helper Text */}
         {images.length > 0 && (
           <p className="text-sm text-slate-500">
-            💡 Ziehen Sie Bilder um sie zu sortieren. Das erste Bild wird automatisch zum Hauptbild.
+            💡 Klicken Sie auf ein Bild für Vollansicht • Ziehen zum Sortieren • ⭐ für Hauptbild
           </p>
         )}
       </CardContent>
+
+      {/* Lightbox */}
+      <ImageLightbox
+        images={images.filter((img) => !img.isNew)}
+        initialIndex={lightboxIndex}
+        open={lightboxOpen}
+        onOpenChange={setLightboxOpen}
+        onSetMain={handleSetMain}
+      />
     </Card>
   );
 }
