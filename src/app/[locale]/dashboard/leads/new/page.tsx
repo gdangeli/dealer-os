@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LeadSource, leadSourceLabels } from "@/types/leads";
+import { triggerNewLeadNotification } from "@/lib/notifications/trigger";
 
 interface Vehicle {
   id: string;
@@ -84,6 +85,17 @@ export default function NewLeadPage() {
       alert("Fehler beim Erstellen der Anfrage");
       setLoading(false);
     } else {
+      // Trigger email notification (fire-and-forget)
+      triggerNewLeadNotification({
+        dealer_id: data.dealer_id,
+        name: `${firstName} ${lastName}`,
+        email: email || undefined,
+        phone: phone || undefined,
+        message: message || undefined,
+        vehicle_id: vehicleId || undefined,
+        source,
+      }).catch(console.error);
+
       router.push(`/dashboard/leads/${data.id}`);
     }
   }

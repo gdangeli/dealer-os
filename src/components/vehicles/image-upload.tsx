@@ -20,9 +20,15 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
-import { Upload, X, GripVertical, Star, Loader2 } from "lucide-react";
+import { Upload, X, GripVertical, Star, Loader2, CheckCircle } from "lucide-react";
+import { OptimizedImage } from "@/components/ui/optimized-image";
+import { 
+  compressImage, 
+  formatFileSize, 
+  calculateSavings,
+  type CompressedImage 
+} from "@/lib/image-utils";
 
 interface VehicleImage {
   id: string;
@@ -30,8 +36,13 @@ interface VehicleImage {
   storage_path: string;
   position: number;
   is_main: boolean;
-  isNew?: boolean; // For tracking new uploads before save
-  file?: File; // For new uploads
+  isNew?: boolean;
+  file?: File;
+  compressionInfo?: {
+    originalSize: number;
+    compressedSize: number;
+    savings: number;
+  };
 }
 
 interface ImageUploadProps {
@@ -41,7 +52,7 @@ interface ImageUploadProps {
   initialImages?: VehicleImage[];
 }
 
-// Sortable Image Component
+// Sortable Image Component with next/image
 function SortableImage({
   image,
   onRemove,
@@ -74,17 +85,29 @@ function SortableImage({
         image.is_main ? "border-blue-500" : "border-slate-200"
       } overflow-hidden aspect-[4/3]`}
     >
-      {/* Image */}
-      <img
+      {/* Optimized Image with next/image */}
+      <OptimizedImage
         src={image.url}
         alt="Fahrzeugbild"
-        className="w-full h-full object-cover"
+        fill
+        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 200px"
+        priority={image.position === 0}
+        className="object-cover"
       />
 
       {/* Uploading Overlay */}
       {isUploading && (
-        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center">
           <Loader2 className="w-8 h-8 text-white animate-spin" />
+          <span className="text-white text-xs mt-2">Komprimiere...</span>
+        </div>
+      )}
+
+      {/* Compression Info Badge (show briefly after upload) */}
+      {image.compressionInfo && image.compressionInfo.savings > 0 && (
+        <div className="absolute bottom-8 left-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full flex items-center gap-1 opacity-90">
+          <CheckCircle className="w-3 h-3" />
+          -{image.compressionInfo.savings}%
         </div>
       )}
 
@@ -134,9 +157,15 @@ export function ImageUpload({
   const [uploading, setUploading] = useState(false);
   const [uploadingIds, setUploadingIds] = useState<Set<string>>(new Set());
   const [error, setError] = useState<string | null>(null);
+  const [compressionStats, setCompressionStats] = useState<{
+    totalOriginal: number;
+    totalCompressed: number;
+  } | null>(null);
 
   const MAX_IMAGES = 30;
-  const MAX_SIZE_MB = 10;
+  const MAX_SIZE_MB = 10; // Input max size
+  const TARGET_SIZE_MB = 2; // Target compressed size
+  const MAX_DIMENSION = 2400; // Max width/height
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -169,20 +198,26 @@ export function ImageUpload({
     setImages(data || []);
   };
 
-  const uploadImage = async (file: File, position: number): Promise<VehicleImage | null> => {
+  const uploadImage = async (
+    file: File, 
+    position: number,
+    compressionInfo?: CompressedImage
+  ): Promise<VehicleImage | null> => {
     if (!vehicleId) {
       setError("Bitte speichern Sie das Fahrzeug zuerst, bevor Sie Bilder hochladen.");
       return null;
     }
 
-    const fileExt = file.name.split(".").pop()?.toLowerCase();
+    // Use .webp extension for compressed images
+    const fileExt = file.name.split(".").pop()?.toLowerCase() || 'webp';
     const fileName = `${vehicleId}/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
 
-    // Upload to Supabase Storage
+    // Upload to Supabase Storage with cache headers
     const { error: uploadError } = await supabase.storage
       .from("vehicle-images")
       .upload(fileName, file, {
-        cacheControl: "3600",
+        cacheControl: "31536000", // 1 year cache
+        contentType: file.type,
         upsert: false,
       });
 
@@ -214,6 +249,18 @@ export function ImageUpload({
       // Rollback: delete uploaded file
       await supabase.storage.from("vehicle-images").remove([fileName]);
       throw new Error(`Datenbankfehler: ${dbError.message}`);
+    }
+
+    // Add compression info to the record for display
+    if (compressionInfo) {
+      return {
+        ...imageRecord,
+        compressionInfo: {
+          originalSize: compressionInfo.originalSize,
+          compressedSize: compressionInfo.compressedSize,
+          savings: calculateSavings(compressionInfo.originalSize, compressionInfo.compressedSize),
+        },
+      };
     }
 
     return imageRecord;
@@ -255,14 +302,34 @@ export function ImageUpload({
       setUploadingIds(tempIds);
       setImages((prev) => [...prev, ...tempImages]);
 
-      // Upload each file
+      // Compress and upload each file
       const uploadedImages: VehicleImage[] = [];
       const errors: string[] = [];
+      let totalOriginal = 0;
+      let totalCompressed = 0;
 
       for (let i = 0; i < tempImages.length; i++) {
         const tempImage = tempImages[i];
         try {
-          const uploaded = await uploadImage(tempImage.file!, tempImage.position);
+          // Compress image before upload
+          const compressed = await compressImage(
+            tempImage.file!,
+            TARGET_SIZE_MB,
+            MAX_DIMENSION
+          );
+          
+          totalOriginal += compressed.originalSize;
+          totalCompressed += compressed.compressedSize;
+
+          console.log(
+            `Compressed ${tempImage.file!.name}: ${formatFileSize(compressed.originalSize)} → ${formatFileSize(compressed.compressedSize)} (${calculateSavings(compressed.originalSize, compressed.compressedSize)}% saved)`
+          );
+
+          const uploaded = await uploadImage(
+            compressed.file, 
+            tempImage.position,
+            compressed
+          );
           if (uploaded) {
             uploadedImages.push(uploaded);
           }
@@ -280,6 +347,13 @@ export function ImageUpload({
 
       setUploadingIds(new Set());
       setUploading(false);
+
+      // Show compression stats
+      if (totalOriginal > 0) {
+        setCompressionStats({ totalOriginal, totalCompressed });
+        // Clear stats after 5 seconds
+        setTimeout(() => setCompressionStats(null), 5000);
+      }
 
       if (errors.length > 0) {
         setError(`Upload fehlgeschlagen für: ${errors.join(", ")}`);
@@ -303,6 +377,8 @@ export function ImageUpload({
       "image/jpeg": [".jpg", ".jpeg"],
       "image/png": [".png"],
       "image/webp": [".webp"],
+      "image/heic": [".heic"],
+      "image/heif": [".heif"],
     },
     maxSize: MAX_SIZE_MB * 1024 * 1024,
     disabled: uploading || !vehicleId,
@@ -393,6 +469,17 @@ export function ImageUpload({
           </div>
         )}
 
+        {/* Compression Stats */}
+        {compressionStats && (
+          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm flex items-center gap-2">
+            <CheckCircle className="w-4 h-4" />
+            <span>
+              Bilder optimiert: {formatFileSize(compressionStats.totalOriginal)} → {formatFileSize(compressionStats.totalCompressed)} 
+              {" "}({calculateSavings(compressionStats.totalOriginal, compressionStats.totalCompressed)}% gespart)
+            </span>
+          </div>
+        )}
+
         {/* Info when no vehicleId */}
         {!vehicleId && (
           <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg text-sm">
@@ -421,7 +508,10 @@ export function ImageUpload({
                 Bilder hierher ziehen oder klicken
               </p>
               <p className="text-sm text-slate-500 mt-1">
-                JPG, PNG oder WebP • Max. {MAX_SIZE_MB}MB pro Bild
+                JPG, PNG, WebP oder HEIC • Max. {MAX_SIZE_MB}MB pro Bild
+              </p>
+              <p className="text-xs text-slate-400 mt-1">
+                ✨ Automatische Kompression & WebP-Konvertierung
               </p>
             </>
           )}

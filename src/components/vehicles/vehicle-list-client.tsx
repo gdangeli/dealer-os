@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -248,11 +249,14 @@ export function VehicleListClient({ vehicles }: VehicleListClientProps) {
                 </TableCell>
                 <TableCell>
                   {mainImage ? (
-                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-slate-100">
-                      <img
+                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-slate-100 relative">
+                      <Image
                         src={mainImage.url}
                         alt={`${vehicle.make} ${vehicle.model}`}
-                        className="w-full h-full object-cover"
+                        fill
+                        sizes="48px"
+                        className="object-cover"
+                        priority={false}
                       />
                     </div>
                   ) : (
