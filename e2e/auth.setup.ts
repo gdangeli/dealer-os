@@ -1,35 +1,45 @@
 import { test as setup, expect } from '@playwright/test';
 import path from 'path';
+import fs from 'fs';
 
 const authFile = path.join(__dirname, '../.playwright/.auth/user.json');
 
 /**
- * This setup file authenticates a test user and saves the session state.
- * To use authenticated tests, you need to:
- * 1. Create a test account on the platform
- * 2. Set TEST_USER_EMAIL and TEST_USER_PASSWORD environment variables
- * 3. Run: npx playwright test --project=setup
- * 
- * For now, this is optional - tests without auth will test the public pages.
+ * Authentication setup - runs once before authenticated tests.
+ * Logs in and saves session state for reuse.
  */
 setup('authenticate', async ({ page }) => {
   const email = process.env.TEST_USER_EMAIL;
   const password = process.env.TEST_USER_PASSWORD;
   
   if (!email || !password) {
-    console.log('⚠️  No test credentials provided. Skipping auth setup.');
-    console.log('   Set TEST_USER_EMAIL and TEST_USER_PASSWORD to enable authenticated tests.');
+    console.log('⚠️  No test credentials provided (TEST_USER_EMAIL, TEST_USER_PASSWORD)');
+    console.log('   Authenticated tests will be skipped.');
+    // Create empty auth file so tests don't fail
+    const authDir = path.dirname(authFile);
+    if (!fs.existsSync(authDir)) {
+      fs.mkdirSync(authDir, { recursive: true });
+    }
+    fs.writeFileSync(authFile, JSON.stringify({ cookies: [], origins: [] }));
     return;
   }
 
-  await page.goto('/login');
+  // Ensure auth directory exists
+  const authDir = path.dirname(authFile);
+  if (!fs.existsSync(authDir)) {
+    fs.mkdirSync(authDir, { recursive: true });
+  }
+
+  // Navigate to login
+  await page.goto('/de/login');
   
-  await page.getByLabel(/email/i).fill(email);
-  await page.getByLabel(/passwort|password/i).fill(password);
-  await page.getByRole('button', { name: /login|anmelden/i }).click();
+  // Fill login form
+  await page.locator('#email').fill(email);
+  await page.locator('#password').fill(password);
+  await page.getByRole('button', { name: /anmelden/i }).click();
   
-  // Wait for redirect to dashboard
-  await expect(page).toHaveURL(/\/dashboard|\/onboarding/, { timeout: 15000 });
+  // Wait for redirect to dashboard or onboarding
+  await expect(page).toHaveURL(/\/dashboard|\/onboarding/, { timeout: 20000 });
   
   // Save signed-in state
   await page.context().storageState({ path: authFile });

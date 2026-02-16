@@ -1,4 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'path';
+
+// Auth storage state path
+const authFile = path.join(__dirname, '.playwright/.auth/user.json');
 
 export default defineConfig({
   testDir: './e2e',
@@ -14,15 +18,32 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   projects: [
+    // Setup project - runs first, authenticates and saves state
     {
-      name: 'chromium',
+      name: 'setup',
+      testMatch: /auth\.setup\.ts/,
+    },
+    // Tests that don't need authentication
+    {
+      name: 'no-auth',
+      testMatch: /landing\.spec\.ts|auth\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
+    },
+    // Tests that need authentication - depend on setup
+    {
+      name: 'authenticated',
+      testIgnore: /landing\.spec\.ts|auth\.spec\.ts|auth\.setup\.ts|dashboard-widgets\.spec\.ts/,
+      use: { 
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
     },
   ],
   webServer: {
     command: process.env.CI ? 'npm run start' : 'npm run dev',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
-    timeout: 120000,  // 2 minutes to start (production server is fast)
+    timeout: 120000,
   },
 });

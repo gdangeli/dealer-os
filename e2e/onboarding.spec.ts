@@ -1,63 +1,54 @@
-import { test, expect, Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
-const TEST_EMAIL = process.env.TEST_USER_EMAIL;
-const TEST_PASSWORD = process.env.TEST_USER_PASSWORD;
-
-async function login(page: Page): Promise<boolean> {
-  if (!TEST_EMAIL || !TEST_PASSWORD) {
-    return false;
-  }
-  
-  await page.goto('/login');
-  await page.locator('#email').fill(TEST_EMAIL);
-  await page.locator('#password').fill(TEST_PASSWORD);
-  await page.getByRole('button', { name: /anmelden/i }).click();
-  await expect(page).toHaveURL(/\/dashboard|\/onboarding/, { timeout: 15000 });
-  
-  return true;
-}
+/**
+ * Onboarding tests - these run with authenticated state
+ * (storageState is loaded automatically from auth.setup.ts)
+ */
 
 test.describe('Onboarding Access', () => {
-  test('should require authentication', async ({ page }) => {
-    await page.goto('/onboarding');
+  test('should require authentication for unauthenticated users', async ({ page }) => {
+    // Clear auth state for this specific test
+    await page.context().clearCookies();
+    await page.goto('/de/onboarding');
     await expect(page).toHaveURL(/\/login/);
   });
 });
 
-test.describe('Onboarding Wizard (authenticated)', () => {
-  test.skip(!TEST_EMAIL, 'Requires TEST_USER_EMAIL env var');
-
-  test('should show onboarding or dashboard after login', async ({ page }) => {
-    const loggedIn = await login(page);
-    if (!loggedIn) return;
-    
+test.describe('Onboarding Wizard', () => {
+  // These tests use pre-authenticated state from auth.setup.ts
+  
+  test('should redirect authenticated user to onboarding or dashboard', async ({ page }) => {
+    await page.goto('/de/dashboard');
+    // Should stay on dashboard (completed onboarding) or redirect to onboarding
     const url = page.url();
     expect(url.includes('onboarding') || url.includes('dashboard')).toBe(true);
   });
 
-  test('should display onboarding content when on onboarding page', async ({ page }) => {
-    const loggedIn = await login(page);
-    if (!loggedIn) return;
+  test('should show dashboard content for user with completed onboarding', async ({ page }) => {
+    await page.goto('/de/dashboard');
     
-    if (!page.url().includes('onboarding')) {
+    // If redirected to onboarding, skip this test
+    if (page.url().includes('onboarding')) {
       test.skip();
       return;
     }
     
-    const content = page.locator('main');
-    await expect(content).toBeVisible();
+    // Dashboard should show welcome message or stats
+    await expect(page.locator('main')).toBeVisible();
+    await expect(page.getByText(/Guten Tag|Dashboard/i)).toBeVisible();
   });
 
-  test('should have navigation to skip or continue', async ({ page }) => {
-    const loggedIn = await login(page);
-    if (!loggedIn) return;
+  test('should show onboarding wizard if not completed', async ({ page }) => {
+    await page.goto('/de/onboarding');
     
-    if (!page.url().includes('onboarding')) {
+    // If redirected to dashboard (already completed), skip
+    if (page.url().includes('dashboard')) {
       test.skip();
       return;
     }
     
-    const actionButton = page.getByRole('button', { name: /weiter|next|überspringen|skip|dashboard/i });
+    // Onboarding should have a continue/next button
+    const actionButton = page.getByRole('button', { name: /weiter|next|überspringen|skip|starten/i });
     await expect(actionButton).toBeVisible();
   });
 });
