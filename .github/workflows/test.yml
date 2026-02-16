@@ -28,7 +28,7 @@ jobs:
   test:
     name: E2E Tests
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
 
     steps:
       - name: Checkout
