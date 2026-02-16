@@ -138,18 +138,25 @@ Kleine und mittlere Garagen in der Schweiz mit professionellen Tools auszustatte
 - **Aufwand:** M
 - **Status:** 📋 Backlog
 
+### 🔴 Hohe Priorität
+
+#### 12. WhatsApp Business Integration
+- **Beschreibung:** Lead-Kommunikation direkt über WhatsApp (Cloud API oder Business API)
+- **Nutzen:** Bevorzugter Kommunikationskanal in der Schweiz, schnellere Lead-Konvertierung
+- **Aufwand:** L
+- **Status:** 📋 Backlog
+- **Features:** 
+  - Eingehende Nachrichten als Leads erfassen
+  - Direkt aus Lead-Detail antworten
+  - Message Templates für Follow-ups
+  - Conversation History pro Lead
+
 ### 🟡 Mittlere Priorität
 
-#### 12. Öffentliche Fahrzeug-Detailseite
+#### 13. Öffentliche Fahrzeug-Detailseite
 - **Beschreibung:** Shareable Links für einzelne Fahrzeuge (Microsite)
 - **Nutzen:** Direkte Kundenansprache ohne Plattform-Umweg
 - **Aufwand:** M
-- **Status:** 📋 Backlog
-
-#### 13. WhatsApp Business Integration
-- **Beschreibung:** Lead-Kommunikation direkt über WhatsApp
-- **Nutzen:** Bevorzugter Kanal vieler Kunden
-- **Aufwand:** L
 - **Status:** 📋 Backlog
 
 #### 14. Analytics-Export (PDF/Excel)

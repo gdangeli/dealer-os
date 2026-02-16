@@ -108,9 +108,14 @@ export default async function VehiclesPage({
             Alle Fahrzeuge auf einen Blick
           </p>
         </div>
-        <Link href="/dashboard/vehicles/new">
-          <Button>+ Fahrzeug erfassen</Button>
-        </Link>
+        <div className="flex gap-2">
+          <Link href="/dashboard/vehicles/import">
+            <Button variant="outline">📄 CSV/Excel Import</Button>
+          </Link>
+          <Link href="/dashboard/vehicles/new">
+            <Button>+ Fahrzeug erfassen</Button>
+          </Link>
+        </div>
       </div>
 
       {/* Stats */}
