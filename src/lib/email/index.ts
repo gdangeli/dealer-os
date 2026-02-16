@@ -1,7 +1,14 @@
 import { Resend } from 'resend';
 
-// Initialize Resend client
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialization to avoid build-time errors
+let _resend: Resend | null = null;
+
+function getResend(): Resend {
+  if (!_resend) {
+    _resend = new Resend(process.env.RESEND_API_KEY || '');
+  }
+  return _resend;
+}
 
 // Default sender - will use verified domain in production
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'DealerOS <noreply@dealer-os.ch>';
@@ -20,7 +27,7 @@ export async function sendEmail({ to, subject, html, text }: SendEmailOptions) {
   }
 
   try {
-    const result = await resend.emails.send({
+    const result = await getResend().emails.send({
       from: FROM_EMAIL,
       to,
       subject,
@@ -49,4 +56,4 @@ function stripHtml(html: string): string {
     .trim();
 }
 
-export { resend };
+export { getResend as resend };

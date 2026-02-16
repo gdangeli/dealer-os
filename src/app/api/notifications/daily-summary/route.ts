@@ -1,13 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { sendEmail } from '@/lib/email';
 import { dailySummaryEmail, DailySummaryEmailData } from '@/lib/email/templates';
 
-// Use service role for server-side operations
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// Force dynamic rendering - don't pre-render this route
+export const dynamic = 'force-dynamic';
+
+// Lazy initialization to avoid build-time errors
+let _supabase: SupabaseClient | null = null;
+function getSupabase(): SupabaseClient {
+  if (!_supabase) {
+    _supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return _supabase;
+}
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://dealer-os.ch';
 
@@ -22,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get all dealers with daily summary enabled
-    const { data: dealers, error: dealersError } = await supabase
+    const { data: dealers, error: dealersError } = await getSupabase()
       .from('dealers')
       .select('*')
       .eq('notification_daily_summary', true);
@@ -49,7 +58,7 @@ export async function POST(request: NextRequest) {
     for (const dealer of dealers) {
       try {
         // Get new leads from yesterday
-        const { data: newLeads } = await supabase
+        const { data: newLeads } = await getSupabase()
           .from('leads')
           .select('name, source, vehicles(make, model)')
           .eq('dealer_id', dealer.id)
@@ -57,14 +66,14 @@ export async function POST(request: NextRequest) {
           .lte('created_at', yesterdayEnd);
 
         // Get total open leads
-        const { count: openLeadsCount } = await supabase
+        const { count: openLeadsCount } = await getSupabase()
           .from('leads')
           .select('*', { count: 'exact', head: true })
           .eq('dealer_id', dealer.id)
           .in('status', ['new', 'contacted', 'qualified']);
 
         // Get vehicles in stock
-        const { count: vehiclesInStock } = await supabase
+        const { count: vehiclesInStock } = await getSupabase()
           .from('vehicles')
           .select('*', { count: 'exact', head: true })
           .eq('dealer_id', dealer.id)
@@ -75,7 +84,7 @@ export async function POST(request: NextRequest) {
         const thresholdDate = new Date();
         thresholdDate.setDate(thresholdDate.getDate() - thresholdDays);
 
-        const { data: longstandingVehicles } = await supabase
+        const { data: longstandingVehicles } = await getSupabase()
           .from('vehicles')
           .select('id, make, model, acquired_at')
           .eq('dealer_id', dealer.id)
@@ -86,7 +95,7 @@ export async function POST(request: NextRequest) {
         const sevenDaysAgo = new Date();
         sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
-        const { count: recentSales } = await supabase
+        const { count: recentSales } = await getSupabase()
           .from('vehicles')
           .select('*', { count: 'exact', head: true })
           .eq('dealer_id', dealer.id)
@@ -106,11 +115,14 @@ export async function POST(request: NextRequest) {
           dealerName: dealer.contact_name || dealer.company_name,
           date: dateFormatter.format(new Date()),
           newLeadsCount: newLeads?.length || 0,
-          newLeads: (newLeads || []).map(l => ({
-            name: l.name,
-            vehicle: l.vehicles ? `${l.vehicles.make} ${l.vehicles.model}` : undefined,
-            source: l.source,
-          })),
+          newLeads: (newLeads || []).map(l => {
+            const vehicle = l.vehicles as unknown as { make: string; model: string } | null;
+            return {
+              name: l.name,
+              vehicle: vehicle ? `${vehicle.make} ${vehicle.model}` : undefined,
+              source: l.source,
+            };
+          }),
           openLeadsCount: openLeadsCount || 0,
           vehiclesInStock: vehiclesInStock || 0,
           longstandingVehicles: (longstandingVehicles || []).map(v => {

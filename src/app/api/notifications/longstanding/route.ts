@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get all dealers (we'll check their thresholds individually)
-    const { data: dealers, error: dealersError } = await supabase
+    const { data: dealers, error: dealersError } = await getSupabase()
       .from('dealers')
       .select('*');
 
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
         thresholdDate.setDate(thresholdDate.getDate() - thresholdDays);
 
         // Get vehicles that exceed the threshold
-        const { data: longstandingVehicles } = await supabase
+        const { data: longstandingVehicles } = await getSupabase()
           .from('vehicles')
           .select('id, make, model, acquired_at, asking_price, purchase_price')
           .eq('dealer_id', dealer.id)

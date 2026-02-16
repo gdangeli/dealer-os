@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get dealer with notification preferences
-    const { data: dealer, error: dealerError } = await supabase
+    const { data: dealer, error: dealerError } = await getSupabase()
       .from('dealers')
       .select('*')
       .eq('id', dealer_id)
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     let vehicleModel: string | undefined;
 
     if (vehicle_id) {
-      const { data: vehicle } = await supabase
+      const { data: vehicle } = await getSupabase()
         .from('vehicles')
         .select('make, model')
         .eq('id', vehicle_id)
