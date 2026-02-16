@@ -63,6 +63,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "jsdom": "^28.1.0",
+    "libsodium-wrappers": "^0.8.2",
     "remotion": "^4.0.422",
     "shadcn": "^3.8.4",
     "tailwindcss": "^4",
