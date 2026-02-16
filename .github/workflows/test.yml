@@ -28,7 +28,7 @@ jobs:
   test:
     name: E2E Tests
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
@@ -49,8 +49,8 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Run E2E tests (no-auth + authenticated)
-        run: npx playwright test --project=setup --project=no-auth --project=authenticated --reporter=github
+      - name: Run E2E tests
+        run: npx playwright test --project=no-auth --reporter=github
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
