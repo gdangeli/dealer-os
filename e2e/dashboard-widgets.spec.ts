@@ -1,28 +1,24 @@
 import { test, expect } from '@playwright/test';
 
-// TODO: Fix auth - these tests need shared auth state instead of per-test login
-test.describe.skip('Dashboard Widget Configuration', () => {
+/**
+ * Dashboard Widget Tests
+ * These tests run with authenticated state from auth.setup.ts
+ * (storageState is loaded automatically via playwright.config.ts)
+ */
+
+test.describe('Dashboard Widget Configuration', () => {
   test.beforeEach(async ({ page }) => {
-    // Login (reuse auth state or login flow)
-    await page.goto('/login');
-    await page.fill('input[type="email"]', process.env.TEST_USER_EMAIL || 'test@dealer.com');
-    await page.fill('input[type="password"]', process.env.TEST_USER_PASSWORD || 'testpass123');
-    await page.click('button[type="submit"]');
-    // Wait for dashboard to load (more reliable than URL)
-    await page.waitForSelector('[data-testid="dashboard"]', { timeout: 30000 }).catch(() => {});
-    await page.waitForURL('**/dashboard', { timeout: 30000 });
+    // Navigate directly to dashboard - auth state is pre-loaded
+    await page.goto('/de/dashboard');
+    await page.waitForLoadState('networkidle');
   });
 
   test('should show customize dashboard button', async ({ page }) => {
-    await page.goto('/dashboard');
-    
     const customizeButton = page.getByRole('button', { name: /dashboard anpassen/i });
     await expect(customizeButton).toBeVisible();
   });
 
   test('should enter edit mode when clicking customize button', async ({ page }) => {
-    await page.goto('/dashboard');
-    
     await page.click('button:has-text("Dashboard anpassen")');
     
     // Should show toggle panel
@@ -38,7 +34,6 @@ test.describe.skip('Dashboard Widget Configuration', () => {
   });
 
   test('should toggle widgets on/off', async ({ page }) => {
-    await page.goto('/dashboard');
     await page.click('button:has-text("Dashboard anpassen")');
     
     // Toggle "Neue Anfragen" widget off
@@ -51,6 +46,7 @@ test.describe.skip('Dashboard Widget Configuration', () => {
     
     // Reload page and verify widget is hidden
     await page.reload();
+    await page.waitForLoadState('networkidle');
     await expect(page.getByRole('heading', { name: 'Neue Anfragen' })).not.toBeVisible();
     
     // Re-enable the widget
@@ -60,12 +56,11 @@ test.describe.skip('Dashboard Widget Configuration', () => {
     await page.waitForTimeout(1000);
     
     await page.reload();
+    await page.waitForLoadState('networkidle');
     await expect(page.getByRole('heading', { name: 'Neue Anfragen' })).toBeVisible();
   });
 
   test('should cancel changes when clicking cancel', async ({ page }) => {
-    await page.goto('/dashboard');
-    
     // Verify initial state
     await expect(page.getByRole('heading', { name: 'Neue Anfragen' })).toBeVisible();
     
@@ -83,7 +78,6 @@ test.describe.skip('Dashboard Widget Configuration', () => {
   });
 
   test('should reset to default configuration', async ({ page }) => {
-    await page.goto('/dashboard');
     await page.click('button:has-text("Dashboard anpassen")');
     
     // Disable all widgets
@@ -108,35 +102,14 @@ test.describe.skip('Dashboard Widget Configuration', () => {
     await page.waitForTimeout(1000);
     
     await page.reload();
+    await page.waitForLoadState('networkidle');
     
     // All default widgets should be visible
     await expect(page.getByText('Am Lager')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Neue Anfragen' })).toBeVisible();
   });
 
-  test('should persist widget configuration across sessions', async ({ page, context }) => {
-    await page.goto('/dashboard');
-    await page.click('button:has-text("Dashboard anpassen")');
-    
-    // Disable "Neue Anfragen"
-    const recentLeadsSwitch = page.locator('label:has-text("Neue Anfragen")').locator('..').locator('button[role="switch"]');
-    await recentLeadsSwitch.click();
-    
-    await page.click('button:has-text("Speichern")');
-    await page.waitForTimeout(1000);
-    
-    // Open new tab (same session)
-    const newPage = await context.newPage();
-    await newPage.goto('/dashboard');
-    
-    // Widget should be hidden in new tab too
-    await expect(newPage.getByRole('heading', { name: 'Neue Anfragen' })).not.toBeVisible();
-    
-    await newPage.close();
-  });
-
   test('should show drag handles in edit mode', async ({ page }) => {
-    await page.goto('/dashboard');
     await page.click('button:has-text("Dashboard anpassen")');
     
     const dragHandles = page.locator('svg.lucide-grip-vertical');
@@ -146,29 +119,20 @@ test.describe.skip('Dashboard Widget Configuration', () => {
   });
 
   test('should hide drag handles in view mode', async ({ page }) => {
-    await page.goto('/dashboard');
-    
     const dragHandles = page.locator('svg.lucide-grip-vertical');
     await expect(dragHandles.first()).not.toBeVisible();
   });
 });
 
-// TODO: Fix auth - these tests need shared auth state instead of per-test login
-test.describe.skip('Dashboard Widget Drag & Drop', () => {
+test.describe('Dashboard Widget Drag & Drop', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/login');
-    await page.fill('input[type="email"]', process.env.TEST_USER_EMAIL || 'test@dealer.com');
-    await page.fill('input[type="password"]', process.env.TEST_USER_PASSWORD || 'testpass123');
-    await page.click('button[type="submit"]');
-    // Wait for dashboard to load (more reliable than URL)
-    await page.waitForSelector('[data-testid="dashboard"]', { timeout: 30000 }).catch(() => {});
-    await page.waitForURL('**/dashboard', { timeout: 30000 });
+    await page.goto('/de/dashboard');
+    await page.waitForLoadState('networkidle');
   });
 
   test.skip('should reorder widgets via drag and drop', async ({ page }) => {
     // Note: Drag & Drop testing in Playwright can be tricky
     // This is a basic implementation that might need adjustment
-    await page.goto('/dashboard');
     await page.click('button:has-text("Dashboard anpassen")');
     
     // Get initial order

@@ -32,7 +32,7 @@ export default defineConfig({
     // Tests that need authentication - depend on setup
     {
       name: 'authenticated',
-      testIgnore: /landing\.spec\.ts|auth\.spec\.ts|auth\.setup\.ts|dashboard-widgets\.spec\.ts/,
+      testIgnore: /landing\.spec\.ts|auth\.spec\.ts|auth\.setup\.ts/,
       use: { 
         ...devices['Desktop Chrome'],
         storageState: authFile,

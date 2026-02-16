@@ -21,8 +21,9 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/client";
-import { Upload, X, GripVertical, Star, Loader2, CheckCircle } from "lucide-react";
+import { Upload, X, GripVertical, Star, Loader2, CheckCircle, Maximize2 } from "lucide-react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import { ImageLightbox } from "./image-lightbox";
 import { 
   compressImage, 
   formatFileSize, 
