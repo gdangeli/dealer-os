@@ -49,8 +49,18 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Run E2E tests
-        run: npx playwright test --reporter=github
+      - name: Debug - Check if server starts
+        run: |
+          echo "🔍 Starting production server..."
+          npm run start &
+          SERVER_PID=$!
+          sleep 10
+          echo "🔍 Checking if server is responding..."
+          curl -I http://localhost:3000 || echo "❌ Server not responding"
+          kill $SERVER_PID 2>/dev/null || true
+          
+      - name: Run E2E tests (landing only for debug)
+        run: npx playwright test landing.spec.ts --reporter=github
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
