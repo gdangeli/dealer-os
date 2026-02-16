@@ -8,7 +8,7 @@ Config.setOverwriteOutput(true);
 Config.setCodec('h264');
 Config.setPixelFormat('yuv420p');
 
-// Performance
-Config.setConcurrency(4);
+// Performance (max 2 cores on this system)
+Config.setConcurrency(2);
 
 export default Config;
