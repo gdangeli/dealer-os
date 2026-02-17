@@ -23,6 +23,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { EmailTemplateManager } from "@/components/email/email-template-manager";
 
 // Types
 interface Dealer {
@@ -95,10 +96,11 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
       </div>
 
       <Tabs defaultValue="company" className="space-y-6">
-        <TabsList className="bg-white border">
+        <TabsList className="bg-white border flex-wrap h-auto gap-1 p-1">
           <TabsTrigger value="company">🏢 Firmenprofil</TabsTrigger>
           <TabsTrigger value="user">👤 Benutzer</TabsTrigger>
           <TabsTrigger value="notifications">🔔 Benachrichtigungen</TabsTrigger>
+          <TabsTrigger value="email-templates">✉️ E-Mail-Vorlagen</TabsTrigger>
           <TabsTrigger value="channels">📡 Kanäle</TabsTrigger>
           <TabsTrigger value="billing">💳 Abo</TabsTrigger>
           <TabsTrigger value="danger">⚠️ Gefahrenzone</TabsTrigger>
@@ -130,6 +132,11 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
             onUpdate={setDealer}
             supabase={supabase}
           />
+        </TabsContent>
+
+        {/* E-Mail-Vorlagen Tab */}
+        <TabsContent value="email-templates">
+          <EmailTemplateManager dealerId={dealer.id} />
         </TabsContent>
 
         {/* Inserate-Kanäle Tab */}

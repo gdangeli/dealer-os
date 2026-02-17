@@ -3,13 +3,14 @@
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Lead, LeadStatus, LeadSource, leadStatusLabels, leadStatusColors, leadSourceLabels } from "@/types/leads";
+import { LeadStatus, LeadSource, leadStatusLabels, leadStatusColors, leadSourceLabels } from "@/types/leads";
+import { calculateLeadScore, LeadWithScore, LeadActivity } from "@/lib/leads/scoring";
+import { LeadScoreBadge, LeadScoreCompact } from "@/components/leads/lead-score-badge";
 
 // Relative Zeit formatieren
 function timeAgo(dateString: string): string {
@@ -55,7 +56,7 @@ function StatCard({ title, value, subtitle, color, icon }: {
 
 // Lead Card Component
 function LeadCard({ lead, onStatusChange }: { 
-  lead: Lead; 
+  lead: LeadWithScore; 
   onStatusChange: (id: string, status: LeadStatus) => void;
 }) {
   const [showActions, setShowActions] = useState(false);
@@ -72,16 +73,15 @@ function LeadCard({ lead, onStatusChange }: {
     <Card className={`relative transition-all hover:shadow-md ${lead.status === "new" ? "border-l-4 border-l-blue-500" : ""}`}>
       <CardContent className="pt-4 pb-4">
         <div className="flex gap-4">
-          {/* Vehicle Thumbnail */}
-          {lead.vehicle ? (
-            <div className="w-20 h-20 bg-gradient-to-br from-slate-100 to-slate-200 rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-2xl">🚗</span>
-            </div>
-          ) : (
-            <div className="w-20 h-20 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-2xl text-slate-400">👤</span>
-            </div>
-          )}
+          {/* Score Badge statt Thumbnail */}
+          <div className="flex flex-col items-center justify-center w-16 flex-shrink-0">
+            <LeadScoreBadge 
+              score={lead.score} 
+              breakdown={lead.scoreBreakdown} 
+              size="lg"
+            />
+            <span className="text-xs text-slate-500 mt-1">Score</span>
+          </div>
 
           {/* Main Content */}
           <div className="flex-1 min-w-0">
@@ -203,7 +203,7 @@ function LeadCard({ lead, onStatusChange }: {
 // Kanban Column
 function KanbanColumn({ title, leads, status, color, onStatusChange, onDrop }: {
   title: string;
-  leads: Lead[];
+  leads: LeadWithScore[];
   status: LeadStatus;
   color: string;
   onStatusChange: (id: string, status: LeadStatus) => void;
@@ -248,7 +248,7 @@ function KanbanColumn({ title, leads, status, color, onStatusChange, onDrop }: {
 }
 
 // Kanban Card (simplified)
-function KanbanCard({ lead, onStatusChange }: { lead: Lead; onStatusChange: (id: string, status: LeadStatus) => void }) {
+function KanbanCard({ lead, onStatusChange }: { lead: LeadWithScore; onStatusChange?: (id: string, status: LeadStatus) => void }) {
   const handleDragStart = (e: React.DragEvent) => {
     e.dataTransfer.setData("leadId", lead.id);
   };
@@ -261,7 +261,10 @@ function KanbanCard({ lead, onStatusChange }: { lead: Lead; onStatusChange: (id:
     >
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
-          <h4 className="font-medium truncate">{lead.first_name} {lead.last_name}</h4>
+          <div className="flex items-center gap-2">
+            <h4 className="font-medium truncate">{lead.first_name} {lead.last_name}</h4>
+            <LeadScoreCompact score={lead.score} />
+          </div>
           {lead.vehicle && (
             <p className="text-xs text-slate-500 truncate">
               {lead.vehicle.make} {lead.vehicle.model}
@@ -289,8 +292,10 @@ function KanbanCard({ lead, onStatusChange }: { lead: Lead; onStatusChange: (id:
   );
 }
 
+type SortOption = "date" | "score" | "name" | "price";
+
 export default function LeadsPage() {
-  const [leads, setLeads] = useState<Lead[]>([]);
+  const [leads, setLeads] = useState<LeadWithScore[]>([]);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState<"list" | "kanban">("list");
   
@@ -299,6 +304,7 @@ export default function LeadsPage() {
   const [sourceFilter, setSourceFilter] = useState<LeadSource | "all">("all");
   const [statusFilter, setStatusFilter] = useState<LeadStatus | "all">("all");
   const [dateFilter, setDateFilter] = useState<"all" | "today" | "week" | "month">("all");
+  const [sortBy, setSortBy] = useState<SortOption>("score");
   
   const supabase = createClient();
 
@@ -309,7 +315,8 @@ export default function LeadsPage() {
   async function fetchLeads() {
     setLoading(true);
     
-    const { data, error } = await supabase
+    // Lade Leads mit Fahrzeugen
+    const { data: leadsData, error: leadsError } = await supabase
       .from("leads")
       .select(`
         *,
@@ -317,11 +324,43 @@ export default function LeadsPage() {
       `)
       .order("created_at", { ascending: false });
 
-    if (error) {
-      console.error("Error fetching leads:", error);
-    } else {
-      setLeads(data || []);
+    if (leadsError) {
+      console.error("Error fetching leads:", leadsError);
+      setLoading(false);
+      return;
     }
+
+    // Lade alle Aktivitäten für Score-Berechnung
+    const { data: activitiesData, error: activitiesError } = await supabase
+      .from("lead_activities")
+      .select("id, lead_id, type, created_at");
+
+    if (activitiesError) {
+      console.error("Error fetching activities:", activitiesError);
+    }
+
+    // Gruppiere Aktivitäten nach Lead
+    const activitiesByLead: Record<string, LeadActivity[]> = {};
+    (activitiesData || []).forEach((activity) => {
+      if (!activitiesByLead[activity.lead_id]) {
+        activitiesByLead[activity.lead_id] = [];
+      }
+      activitiesByLead[activity.lead_id].push(activity);
+    });
+
+    // Berechne Score für jeden Lead
+    const leadsWithScore: LeadWithScore[] = (leadsData || []).map((lead) => {
+      const activities = activitiesByLead[lead.id] || [];
+      const scoreBreakdown = calculateLeadScore(lead, activities);
+      return {
+        ...lead,
+        score: scoreBreakdown.total,
+        scoreBreakdown,
+        activities,
+      };
+    });
+
+    setLeads(leadsWithScore);
     setLoading(false);
   }
 
@@ -338,9 +377,9 @@ export default function LeadsPage() {
     }
   }
 
-  // Filter logic
+  // Filter & Sort logic
   const filteredLeads = useMemo(() => {
-    return leads.filter(lead => {
+    const filtered = leads.filter(lead => {
       // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
@@ -372,7 +411,17 @@ export default function LeadsPage() {
       
       return true;
     });
-  }, [leads, searchQuery, sourceFilter, statusFilter, dateFilter]);
+
+    // Sortierung (toSorted erstellt eine neue Kopie)
+    const sortFns: Record<SortOption, (a: LeadWithScore, b: LeadWithScore) => number> = {
+      score: (a, b) => b.score - a.score,
+      date: (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      name: (a, b) => `${a.first_name} ${a.last_name}`.localeCompare(`${b.first_name} ${b.last_name}`),
+      price: (a, b) => (b.vehicle?.asking_price || 0) - (a.vehicle?.asking_price || 0),
+    };
+
+    return [...filtered].sort(sortFns[sortBy]);
+  }, [leads, searchQuery, sourceFilter, statusFilter, dateFilter, sortBy]);
 
   // Stats calculations
   const stats = useMemo(() => {
@@ -495,6 +544,19 @@ export default function LeadsPage() {
                 <SelectItem value="today">Heute</SelectItem>
                 <SelectItem value="week">Diese Woche</SelectItem>
                 <SelectItem value="month">Diesen Monat</SelectItem>
+              </SelectContent>
+            </Select>
+
+            {/* Sort By */}
+            <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Sortierung" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="score">📊 Nach Score</SelectItem>
+                <SelectItem value="date">📅 Nach Datum</SelectItem>
+                <SelectItem value="name">🔤 Nach Name</SelectItem>
+                <SelectItem value="price">💰 Nach Preis</SelectItem>
               </SelectContent>
             </Select>
 

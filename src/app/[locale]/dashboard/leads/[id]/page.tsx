@@ -11,8 +11,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Lead, LeadStatus, leadStatusLabels, leadStatusColors, leadSourceLabels } from "@/types/leads";
 import { LeadTimeline } from "@/components/leads/lead-timeline";
+import { calculateLeadScore, LeadScoreBreakdown } from "@/lib/leads/scoring";
+import { LeadScoreDetail } from "@/components/leads/lead-score-badge";
+import { EmailComposer } from "@/components/email/email-composer";
+import { TemplateContext } from "@/types/email-templates";
 
 export default function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -21,6 +26,8 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [showEmailComposer, setShowEmailComposer] = useState(false);
+  const [scoreBreakdown, setScoreBreakdown] = useState<LeadScoreBreakdown | null>(null);
   const supabase = createClient();
 
   // Form state
@@ -53,6 +60,16 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
       router.push("/dashboard/leads");
       return;
     }
+
+    // Lade Aktivitäten für Score-Berechnung
+    const { data: activities } = await supabase
+      .from("lead_activities")
+      .select("id, lead_id, type, created_at")
+      .eq("lead_id", id);
+
+    // Berechne Score
+    const breakdown = calculateLeadScore(data, activities || []);
+    setScoreBreakdown(breakdown);
 
     setLead(data);
     setFirstName(data.first_name);
@@ -256,6 +273,19 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
 
         {/* Sidebar */}
         <div className="space-y-6">
+          {/* Lead Score */}
+          {scoreBreakdown && (
+            <Card>
+              <CardHeader>
+                <CardTitle>📊 Lead Score</CardTitle>
+                <CardDescription>Bewertung basierend auf Aktivität und Profil</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <LeadScoreDetail score={scoreBreakdown.total} breakdown={scoreBreakdown} />
+              </CardContent>
+            </Card>
+          )}
+
           {/* Status & Follow-up */}
           <Card>
             <CardHeader>
@@ -316,6 +346,55 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                     </Button>
                   </Link>
                 </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* E-Mail senden */}
+          {email && lead.dealer_id && (
+            <Card>
+              <CardHeader>
+                <CardTitle>✉️ Kunde kontaktieren</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Dialog open={showEmailComposer} onOpenChange={setShowEmailComposer}>
+                  <DialogTrigger asChild>
+                    <Button className="w-full" variant="outline">
+                      📧 E-Mail mit Vorlage
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+                    <EmailComposer
+                      dealerId={lead.dealer_id}
+                      recipientEmail={email}
+                      recipientName={`${firstName} ${lastName}`}
+                      context={{
+                        kunde_name: `${firstName} ${lastName}`,
+                        kunde_vorname: firstName,
+                        kunde_nachname: lastName,
+                        kunde_email: email,
+                        fahrzeug: lead.vehicle ? `${lead.vehicle.make} ${lead.vehicle.model}` : undefined,
+                        fahrzeug_marke: lead.vehicle?.make,
+                        fahrzeug_modell: lead.vehicle?.model,
+                        fahrzeug_jahrgang: lead.vehicle?.first_registration 
+                          ? new Date(lead.vehicle.first_registration).getFullYear().toString() 
+                          : undefined,
+                        preis: lead.vehicle?.asking_price 
+                          ? formatPrice(lead.vehicle.asking_price) 
+                          : undefined,
+                      }}
+                      onClose={() => setShowEmailComposer(false)}
+                    />
+                  </DialogContent>
+                </Dialog>
+                <a 
+                  href={`mailto:${email}`} 
+                  className="block mt-2"
+                >
+                  <Button variant="ghost" className="w-full text-sm">
+                    Direkt an {email}
+                  </Button>
+                </a>
               </CardContent>
             </Card>
           )}

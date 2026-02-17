@@ -239,12 +239,12 @@ export default function NewLeadPage() {
                 <CardDescription>Für welches Fahrzeug interessiert sich der Kunde?</CardDescription>
               </CardHeader>
               <CardContent>
-                <Select value={vehicleId} onValueChange={setVehicleId}>
+                <Select value={vehicleId || "_none"} onValueChange={(val) => setVehicleId(val === "_none" ? "" : val)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Fahrzeug auswählen (optional)" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Kein spezifisches Fahrzeug</SelectItem>
+                    <SelectItem value="_none">Kein spezifisches Fahrzeug</SelectItem>
                     {vehicles.map((vehicle) => {
                       const year = vehicle.first_registration 
                         ? new Date(vehicle.first_registration).getFullYear() 
