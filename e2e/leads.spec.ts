@@ -76,4 +76,41 @@ test.describe('Leads CRUD (authenticated)', () => {
   test('should have filter options if available', async ({ page }) => {
     await expect(page.locator('main')).toBeVisible();
   });
+
+  test('should load new lead form without errors', async ({ page }) => {
+    await page.goto('/dashboard/leads/new');
+    
+    // Wait for page to fully load
+    await expect(page.locator('main')).toBeVisible();
+    
+    // Check that form fields are visible
+    await expect(page.locator('#firstName')).toBeVisible();
+    await expect(page.locator('#lastName')).toBeVisible();
+    
+    // Check that Select dropdowns render without crashing
+    const sourceSelect = page.getByRole('combobox').first();
+    await expect(sourceSelect).toBeVisible();
+    
+    // Click to open vehicle select and verify it doesn't crash
+    const vehicleSelect = page.getByRole('combobox').nth(1);
+    await vehicleSelect.click();
+    
+    // The "Kein spezifisches Fahrzeug" option should be visible
+    await expect(page.getByText(/kein spezifisches/i)).toBeVisible();
+  });
+
+  test('should create a new lead successfully', async ({ page }) => {
+    await page.goto('/dashboard/leads/new');
+    
+    // Fill out required fields
+    await page.locator('#firstName').fill('E2E');
+    await page.locator('#lastName').fill('Testlead');
+    await page.locator('#email').fill('e2e-test@example.com');
+    
+    // Submit form
+    await page.getByRole('button', { name: /erstellen/i }).click();
+    
+    // Should redirect to lead detail page
+    await expect(page).toHaveURL(/\/dashboard\/leads\/[a-f0-9-]+/, { timeout: 10000 });
+  });
 });
