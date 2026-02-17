@@ -9,7 +9,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getAllBlogPosts, getAllCategories } from "@/content/blog";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, Clock, Calendar } from "lucide-react";
+import { ArrowRight, Clock, Calendar, FileText, Lightbulb, BarChart2, Zap, Users, Settings } from "lucide-react";
+
+// Category-based gradients and icons for professional look
+const categoryStyles: Record<string, { gradient: string; icon: React.ElementType }> = {
+  "Digitalisierung": { gradient: "from-blue-500 to-indigo-600", icon: Zap },
+  "Kennzahlen & Analyse": { gradient: "from-emerald-500 to-teal-600", icon: BarChart2 },
+  "Marketing": { gradient: "from-pink-500 to-rose-600", icon: Lightbulb },
+  "Verkauf": { gradient: "from-amber-500 to-orange-600", icon: Users },
+  "Betrieb": { gradient: "from-violet-500 to-purple-600", icon: Settings },
+  "default": { gradient: "from-slate-500 to-slate-700", icon: FileText },
+};
+
+function getCategoryStyle(category: string) {
+  return categoryStyles[category] || categoryStyles["default"];
+}
 
 export default function BlogPage() {
   const locale = useLocale();
@@ -84,8 +98,11 @@ export default function BlogPage() {
                 <Card className="overflow-hidden border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-0">
                     <div className="grid md:grid-cols-2 gap-0">
-                      <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 md:p-12 flex items-center justify-center min-h-[200px] md:min-h-[300px]">
-                        <span className="text-8xl md:text-9xl">{featuredPost.emoji}</span>
+                      <div className={`bg-gradient-to-br ${getCategoryStyle(featuredPost.category).gradient} p-8 md:p-12 flex items-center justify-center min-h-[200px] md:min-h-[300px]`}>
+                        {(() => {
+                          const IconComponent = getCategoryStyle(featuredPost.category).icon;
+                          return <IconComponent className="w-24 h-24 md:w-32 md:h-32 text-white/90" strokeWidth={1.5} />;
+                        })()}
                       </div>
                       
                       <div className="p-6 md:p-8 lg:p-12 flex flex-col justify-center">
@@ -150,10 +167,11 @@ export default function BlogPage() {
                   <Link key={post.slug} href={`/blog/${post.slug}`}>
                     <Card className="h-full border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 group">
                       <CardContent className="p-0">
-                        <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 flex items-center justify-center border-b border-slate-100">
-                          <span className="text-5xl group-hover:scale-110 transition-transform duration-300">
-                            {post.emoji}
-                          </span>
+                        <div className={`bg-gradient-to-br ${getCategoryStyle(post.category).gradient} p-6 flex items-center justify-center`}>
+                          {(() => {
+                            const IconComponent = getCategoryStyle(post.category).icon;
+                            return <IconComponent className="w-12 h-12 text-white/90 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />;
+                          })()}
                         </div>
                         
                         <div className="p-5">
