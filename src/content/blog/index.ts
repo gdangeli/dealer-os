@@ -1164,7 +1164,7 @@ Die richtige Preisgestaltung ist eine Mischung aus Daten, Erfahrung und Fingersp
     category: "Online-Marketing",
     readTime: 10,
     emoji: "🎯",
-    image: "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&q=80",
     publishedAt: "2026-02-11",
     author: "Dealer OS Team",
     keywords: ["Google Ads", "Autohändler", "Online-Werbung", "SEM", "Marketing"],
