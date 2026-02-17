@@ -16,8 +16,8 @@ export function Footer() {
     ],
     resources: [
       { name: t("blog"), href: "/blog" },
-      { name: t("help"), href: "/help" },
-      { name: t("contact"), href: "/contact" },
+      { name: t("help"), href: "/hilfe" },
+      { name: t("contact"), href: "/kontakt" },
     ],
     legal: [
       { name: t("privacy"), href: "/datenschutz" },
