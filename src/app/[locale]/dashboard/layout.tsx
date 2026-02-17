@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { LogoutButton } from "./logout-button";
+import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
 
 export default async function DashboardLayout({
   children,
@@ -60,11 +61,12 @@ export default async function DashboardLayout({
           <NavLink href="/dashboard/analytics" icon="📈">Auswertungen</NavLink>
         </nav>
 
-        <div className="p-4 border-t border-slate-200">
+        <div className="p-4 border-t border-slate-200 space-y-1">
           <div className="text-sm text-slate-600 mb-2 truncate">
             {dealer?.company_name || user.email}
           </div>
           <NavLink href="/dashboard/settings" icon="⚙️">Einstellungen</NavLink>
+          <LanguageSwitcher />
           <LogoutButton />
         </div>
       </aside>
