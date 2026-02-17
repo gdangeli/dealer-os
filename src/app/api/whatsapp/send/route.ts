@@ -41,11 +41,21 @@ export async function POST(request: NextRequest) {
     const supabase = getSupabase();
 
     // 1. Get lead with dealer info
-    const { data: lead, error: leadError } = await supabase
+    const { data: lead, error: leadError } = await (supabase as any)
       .from('leads')
       .select('id, dealer_id, first_name, last_name, phone, whatsapp_number')
       .eq('id', lead_id)
-      .single();
+      .single() as {
+        data: {
+          id: string;
+          dealer_id: string;
+          first_name: string;
+          last_name: string;
+          phone: string | null;
+          whatsapp_number: string | null;
+        } | null;
+        error: Error | null;
+      };
 
     if (leadError || !lead) {
       return NextResponse.json(
@@ -55,12 +65,20 @@ export async function POST(request: NextRequest) {
     }
 
     // 2. Get WhatsApp connection for dealer
-    const { data: connection, error: connError } = await supabase
+    const { data: connection, error: connError } = await (supabase as any)
       .from('whatsapp_connections')
       .select('phone_number_id, phone_number, access_token, status')
       .eq('dealer_id', lead.dealer_id)
       .eq('status', 'active')
-      .single();
+      .single() as {
+        data: {
+          phone_number_id: string;
+          phone_number: string;
+          access_token: string;
+          status: string;
+        } | null;
+        error: Error | null;
+      };
 
     if (connError || !connection) {
       return NextResponse.json(
@@ -90,8 +108,8 @@ export async function POST(request: NextRequest) {
     const response = await client.sendText(recipientPhone, message);
     const wamid = response.messages[0].id;
 
-    // 5. Save message to database
-    const { error: msgError } = await supabase
+    // 5. Save message to database (using any until Supabase types are regenerated)
+    const { error: msgError } = await (supabase as any)
       .from('whatsapp_messages')
       .insert({
         dealer_id: lead.dealer_id,
@@ -111,7 +129,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 6. Update lead's last WhatsApp activity
-    await supabase
+    await (supabase as any)
       .from('leads')
       .update({
         whatsapp_number: formatPhoneNumber(recipientPhone),
@@ -121,7 +139,8 @@ export async function POST(request: NextRequest) {
       .eq('id', lead.id);
 
     // 7. Create activity record
-    await supabase
+    // @ts-ignore - Supabase type inference issue
+    await (supabase as any)
       .from('lead_activities')
       .insert({
         lead_id: lead.id,

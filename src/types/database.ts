@@ -108,3 +108,35 @@ export interface LeadActivity {
   reminder_at?: string;
   metadata?: Record<string, any>;
 }
+
+// WhatsApp Integration Types
+export interface WhatsAppConnection {
+  id: string;
+  dealer_id: string;
+  phone_number_id: string;
+  phone_number: string;
+  waba_id: string;
+  access_token: string;
+  webhook_verify_token: string;
+  status: 'pending' | 'active' | 'disconnected';
+  auto_reply_enabled: boolean;
+  auto_reply_message?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface WhatsAppMessage {
+  id: string;
+  dealer_id: string;
+  lead_id?: string;
+  wamid: string;
+  direction: 'inbound' | 'outbound';
+  from_number: string;
+  to_number: string;
+  message_type: 'text' | 'image' | 'document' | 'audio' | 'video' | 'template';
+  content?: string;
+  media_url?: string;
+  status: 'sent' | 'delivered' | 'read' | 'failed';
+  timestamp: string;
+  created_at: string;
+}

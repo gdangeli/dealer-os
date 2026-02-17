@@ -123,7 +123,7 @@ async function processIncomingMessage(
   const supabase = getSupabase();
 
   // 1. Find dealer by phone_number_id (including auto-reply config)
-  const { data: connection, error: connError } = await supabase
+  const { data: connection, error: connError } = await (supabase as any)
     .from('whatsapp_connections')
     .select('dealer_id, auto_reply_enabled, auto_reply_message, access_token')
     .eq('phone_number_id', phoneNumberId)
@@ -163,7 +163,7 @@ async function processIncomingMessage(
     timestamp: new Date(parseInt(message.timestamp) * 1000).toISOString(),
   };
 
-  const { error: msgError } = await supabase
+  const { error: msgError } = await (supabase as any)
     .from('whatsapp_messages')
     .insert(waMessage);
 
@@ -173,7 +173,7 @@ async function processIncomingMessage(
 
   // 5. Update lead's last WhatsApp activity
   if (lead?.id) {
-    await supabase
+    await (supabase as any)
       .from('leads')
       .update({ 
         whatsapp_last_message_at: waMessage.timestamp,
@@ -182,7 +182,7 @@ async function processIncomingMessage(
       .eq('id', lead.id);
 
     // 6. Create activity record
-    await supabase
+    await (supabase as any)
       .from('lead_activities')
       .insert({
         lead_id: lead.id,
@@ -231,7 +231,7 @@ async function processIncomingMessage(
       const response = await client.sendText(senderPhone, connection.auto_reply_message);
 
       // Save auto-reply message
-      await supabase
+      await (supabase as any)
         .from('whatsapp_messages')
         .insert({
           dealer_id: dealerId,
@@ -247,7 +247,7 @@ async function processIncomingMessage(
         });
 
       // Create activity for auto-reply
-      await supabase
+      await (supabase as any)
         .from('lead_activities')
         .insert({
           lead_id: lead.id,
@@ -287,7 +287,7 @@ async function processStatusUpdate(status: MetaStatus) {
   const supabase = getSupabase();
 
   // Update message status
-  const { error } = await supabase
+  const { error } = await (supabase as any)
     .from('whatsapp_messages')
     .update({ 
       status: status.status,
@@ -418,7 +418,7 @@ async function findOrCreateLead(
   ];
 
   // Search by phone number
-  const { data: existingLead } = await supabase
+  const { data: existingLead } = await (supabase as any)
     .from('leads')
     .select('id')
     .eq('dealer_id', dealerId)
@@ -431,7 +431,7 @@ async function findOrCreateLead(
   }
 
   // Also check by whatsapp_number
-  const { data: existingByWa } = await supabase
+  const { data: existingByWa } = await (supabase as any)
     .from('leads')
     .select('id')
     .eq('dealer_id', dealerId)
@@ -448,7 +448,7 @@ async function findOrCreateLead(
   const firstName = nameParts[0] || 'WhatsApp';
   const lastName = nameParts.slice(1).join(' ') || 'Kontakt';
 
-  const { data: newLead, error } = await supabase
+  const { data: newLead, error } = await (supabase as any)
     .from('leads')
     .insert({
       dealer_id: dealerId,
