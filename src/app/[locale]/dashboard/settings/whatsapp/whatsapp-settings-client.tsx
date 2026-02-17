@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
 import { WhatsAppConnection } from '@/types/whatsapp';
+import { SetupWizard } from './setup-wizard';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -15,7 +16,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-import { CheckCircle2, XCircle, Loader2, Phone } from 'lucide-react';
+import { CheckCircle2, XCircle, Loader2, Phone, Wand2 } from 'lucide-react';
 
 interface WhatsAppSettingsClientProps {
   dealerId: string;
@@ -43,6 +44,7 @@ export function WhatsAppSettingsClient({ dealerId, initialConnection }: WhatsApp
   const [connection, setConnection] = useState<WhatsAppConnection | null>(initialConnection);
   const [isLoading, setIsLoading] = useState(false);
   const [showSetup, setShowSetup] = useState(!initialConnection);
+  const [useWizard, setUseWizard] = useState(!initialConnection);
   const supabase = createClient();
 
   // Setup form
@@ -187,6 +189,38 @@ export function WhatsAppSettingsClient({ dealerId, initialConnection }: WhatsApp
     ? `${window.location.origin}/api/webhooks/whatsapp`
     : '';
 
+  const handleWizardComplete = async () => {
+    // Refresh connection data after wizard completion
+    const { data: refreshed } = await supabase
+      .from('whatsapp_connections')
+      .select('*')
+      .eq('dealer_id', dealerId)
+      .single();
+
+    if (refreshed) {
+      setConnection(refreshed);
+      setUseWizard(false);
+      setShowSetup(false);
+    }
+  };
+
+  // Show wizard for new setup
+  if (useWizard && !connection) {
+    return (
+      <div>
+        <div className="mb-6 flex items-center justify-between">
+          <Button
+            variant="ghost"
+            onClick={() => setUseWizard(false)}
+          >
+            Zur erweiterten Einrichtung wechseln
+          </Button>
+        </div>
+        <SetupWizard dealerId={dealerId} onComplete={handleWizardComplete} />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Connection Status */}
@@ -222,9 +256,18 @@ export function WhatsAppSettingsClient({ dealerId, initialConnection }: WhatsApp
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
-              <XCircle className="h-5 w-5 text-slate-400" />
-              <span>Nicht verbunden</span>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <XCircle className="h-5 w-5 text-slate-400" />
+                <span>Nicht verbunden</span>
+              </div>
+              <Button
+                onClick={() => setUseWizard(true)}
+                className="w-full"
+              >
+                <Wand2 className="mr-2 h-4 w-4" />
+                Setup-Wizard starten
+              </Button>
             </div>
           )}
         </CardContent>
