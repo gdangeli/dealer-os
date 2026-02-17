@@ -13,6 +13,8 @@ export interface WhatsAppConnection {
   status: 'active' | 'disconnected' | 'pending';
   display_name: string | null;
   verify_token: string | null;
+  auto_reply_enabled?: boolean;
+  auto_reply_message?: string;
   created_at: string;
   updated_at: string;
 }

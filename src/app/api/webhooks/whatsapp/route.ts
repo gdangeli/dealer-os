@@ -122,10 +122,10 @@ async function processIncomingMessage(
 
   const supabase = getSupabase();
 
-  // 1. Find dealer by phone_number_id
+  // 1. Find dealer by phone_number_id (including auto-reply config)
   const { data: connection, error: connError } = await supabase
     .from('whatsapp_connections')
-    .select('dealer_id')
+    .select('dealer_id, auto_reply_enabled, auto_reply_message, access_token')
     .eq('phone_number_id', phoneNumberId)
     .single();
 
@@ -216,9 +216,61 @@ async function processIncomingMessage(
     }
   }
 
+  // 8. Send auto-reply if enabled (only for new conversations)
+  if (connection.auto_reply_enabled && lead?.isNew && connection.auto_reply_message) {
+    try {
+      // Import WhatsAppClient
+      const { WhatsAppClient } = await import('@/lib/whatsapp/client');
+      
+      const client = new WhatsAppClient({
+        phoneNumberId: phoneNumberId,
+        accessToken: connection.access_token,
+      });
+
+      // Send auto-reply
+      const response = await client.sendText(senderPhone, connection.auto_reply_message);
+
+      // Save auto-reply message
+      await supabase
+        .from('whatsapp_messages')
+        .insert({
+          dealer_id: dealerId,
+          lead_id: lead.id,
+          wamid: response.messages[0].id,
+          direction: 'outbound',
+          from_number: formatPhoneNumber(dealerPhoneNumber),
+          to_number: senderPhone,
+          message_type: 'text',
+          content: connection.auto_reply_message,
+          status: 'sent',
+          timestamp: new Date().toISOString(),
+        });
+
+      // Create activity for auto-reply
+      await supabase
+        .from('lead_activities')
+        .insert({
+          lead_id: lead.id,
+          dealer_id: dealerId,
+          type: 'whatsapp_outbound',
+          content: `[Auto-Reply] ${connection.auto_reply_message}`,
+          metadata: {
+            auto_reply: true,
+            wamid: response.messages[0].id,
+          },
+        });
+
+      console.log('[WhatsApp] Auto-reply sent:', response.messages[0].id);
+    } catch (autoReplyError) {
+      console.error('[WhatsApp] Auto-reply failed:', autoReplyError);
+      // Don't fail the whole webhook if auto-reply fails
+    }
+  }
+
   console.log('[WhatsApp] Message processed successfully:', {
     lead_id: lead?.id,
     is_new: lead?.isNew,
+    auto_reply_sent: connection.auto_reply_enabled && lead?.isNew,
   });
 }
 

@@ -56,6 +56,7 @@ export default async function DashboardLayout({
           <NavLink href="/dashboard" icon="📊">Übersicht</NavLink>
           <NavLink href="/dashboard/vehicles" icon="🚙">Bestand</NavLink>
           <NavLink href="/dashboard/leads" icon="💬">Anfragen</NavLink>
+          <NavLink href="/dashboard/whatsapp" icon="💬">WhatsApp</NavLink>
           <NavLink href="/dashboard/analytics" icon="📈">Auswertungen</NavLink>
         </nav>
 

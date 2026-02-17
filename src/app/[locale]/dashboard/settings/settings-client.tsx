@@ -600,47 +600,89 @@ function NotificationsForm({
 // ============================================================================
 function ChannelsPlaceholder() {
   const channels = [
-    { name: "AutoScout24", icon: "🚗", description: "Schweizer Automarktplatz Nr. 1" },
-    { name: "mobile.de", icon: "🇩🇪", description: "Deutscher Automarktplatz" },
-    { name: "tutti.ch", icon: "🏷️", description: "Schweizer Kleinanzeigen" },
-    { name: "Facebook Marketplace", icon: "📘", description: "Soziales Netzwerk" },
+    { name: "AutoScout24", icon: "🚗", description: "Schweizer Automarktplatz Nr. 1", status: "coming_soon" },
+    { name: "mobile.de", icon: "🇩🇪", description: "Deutscher Automarktplatz", status: "coming_soon" },
+    { name: "tutti.ch", icon: "🏷️", description: "Schweizer Kleinanzeigen", status: "coming_soon" },
+    { name: "Facebook Marketplace", icon: "📘", description: "Soziales Netzwerk", status: "coming_soon" },
+  ];
+
+  const communicationChannels = [
+    { 
+      name: "WhatsApp Business", 
+      icon: "💬", 
+      description: "Direkte Kommunikation mit Interessenten",
+      status: "active",
+      href: "/dashboard/settings/whatsapp"
+    },
   ];
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Inserate-Kanäle</CardTitle>
-        <CardDescription>
-          Verbinden Sie Ihre Plattformen, um Fahrzeuge automatisch zu publizieren.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <p className="text-blue-800">
-            🚀 <strong>Coming Soon!</strong> Bald können Sie Ihre Inserate-Kanäle hier verbinden 
-            und Fahrzeuge mit einem Klick auf mehreren Plattformen gleichzeitig publizieren.
-          </p>
-        </div>
-
-        <div className="space-y-4">
-          {channels.map((channel) => (
-            <div 
-              key={channel.name}
-              className="flex items-center justify-between p-4 border rounded-lg bg-slate-50"
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{channel.icon}</span>
-                <div>
-                  <div className="font-medium">{channel.name}</div>
-                  <div className="text-sm text-slate-500">{channel.description}</div>
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Kommunikations-Kanäle</CardTitle>
+          <CardDescription>
+            Verwalten Sie Ihre Kommunikations-Kanäle für Lead-Interaktionen.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {communicationChannels.map((channel) => (
+              <div 
+                key={channel.name}
+                className="flex items-center justify-between p-4 border rounded-lg hover:bg-slate-50 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">{channel.icon}</span>
+                  <div>
+                    <div className="font-medium">{channel.name}</div>
+                    <div className="text-sm text-slate-500">{channel.description}</div>
+                  </div>
                 </div>
+                <Button asChild size="sm">
+                  <a href={channel.href}>Einrichten →</a>
+                </Button>
               </div>
-              <Badge variant="secondary">Coming Soon</Badge>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Inserate-Kanäle</CardTitle>
+          <CardDescription>
+            Verbinden Sie Ihre Plattformen, um Fahrzeuge automatisch zu publizieren.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <p className="text-blue-800">
+              🚀 <strong>Coming Soon!</strong> Bald können Sie Ihre Inserate-Kanäle hier verbinden 
+              und Fahrzeuge mit einem Klick auf mehreren Plattformen gleichzeitig publizieren.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {channels.map((channel) => (
+              <div 
+                key={channel.name}
+                className="flex items-center justify-between p-4 border rounded-lg bg-slate-50"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">{channel.icon}</span>
+                  <div>
+                    <div className="font-medium">{channel.name}</div>
+                    <div className="text-sm text-slate-500">{channel.description}</div>
+                  </div>
+                </div>
+                <Badge variant="secondary">Coming Soon</Badge>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
