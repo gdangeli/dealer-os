@@ -47,7 +47,7 @@ Audi,A4,Avant,2021-08-10,32000,hybrid,automatic,150,Weiss,WAUZZZ8K8DA123456,2800
       .from("dealers")
       .select("id")
       .eq("user_id", testUserId)
-      .single();
+      .single() as { data: { id: string } | null };
 
     if (!dealer) {
       throw new Error("Test dealer not found");

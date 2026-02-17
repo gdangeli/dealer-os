@@ -97,7 +97,7 @@ test.describe('Image Upload - Component Display', () => {
     
     // Find file input
     const fileInput = page.locator('input[type="file"]');
-    const isAttached = await fileInput.isAttached().catch(() => false);
+    const isAttached = await fileInput.count().then(c => c > 0).catch(() => false);
     
     if (isAttached) {
       // Check accept attribute
@@ -123,7 +123,7 @@ test.describe('Image Upload - Interaction', () => {
     
     // Find file input (might be hidden)
     const fileInput = page.locator('input[type="file"]');
-    const isAttached = await fileInput.isAttached().catch(() => false);
+    const isAttached = await fileInput.count().then(c => c > 0).catch(() => false);
     
     if (isAttached) {
       // Create a small test image buffer (1x1 pixel PNG)
@@ -196,7 +196,7 @@ test.describe('Image Upload - Multiple Images', () => {
     await createVehicleAndGetEditPage(page);
     
     const fileInput = page.locator('input[type="file"]');
-    const isAttached = await fileInput.isAttached().catch(() => false);
+    const isAttached = await fileInput.count().then(c => c > 0).catch(() => false);
     
     if (isAttached) {
       // Check if multiple attribute is present
@@ -245,7 +245,7 @@ test.describe('Image Upload - Delete/Remove', () => {
     
     // Upload an image first
     const fileInput = page.locator('input[type="file"]');
-    const isAttached = await fileInput.isAttached().catch(() => false);
+    const isAttached = await fileInput.count().then(c => c > 0).catch(() => false);
     
     if (isAttached) {
       const testImageBuffer = Buffer.from([
@@ -292,7 +292,7 @@ test.describe('Image Upload - Error Handling', () => {
     await createVehicleAndGetEditPage(page);
     
     const fileInput = page.locator('input[type="file"]');
-    const isAttached = await fileInput.isAttached().catch(() => false);
+    const isAttached = await fileInput.count().then(c => c > 0).catch(() => false);
     
     if (isAttached) {
       // Try to upload a non-image file
