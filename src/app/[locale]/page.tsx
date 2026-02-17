@@ -217,42 +217,42 @@ function HomePage() {
                 title={t("features.vehicleManagement")}
                 description={t("features.vehicleManagementDesc")}
                 gradient="from-sky-500 to-sky-600"
-                image="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&q=80"
+                image="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80"
               />
               <FeatureCard
                 icon={Clock}
                 title={t("features.standtimeTracking")}
                 description={t("features.standtimeTrackingDesc")}
                 gradient="from-amber-500 to-orange-600"
-                image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80"
+                image="https://images.unsplash.com/photo-1508962914676-134849a727f0?w=800&q=80"
               />
               <FeatureCard
                 icon={Users}
                 title={t("features.leadManagement")}
                 description={t("features.leadManagementDesc")}
                 gradient="from-emerald-500 to-teal-600"
-                image="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&q=80"
+                image="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80"
               />
               <FeatureCard
                 icon={BarChart3}
                 title={t("features.realKpis")}
                 description={t("features.realKpisDesc")}
                 gradient="from-indigo-500 to-purple-600"
-                image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80"
+                image="https://images.unsplash.com/photo-1543286386-713bdd548da4?w=800&q=80"
               />
               <FeatureCard
                 icon={Zap}
                 title={t("features.listingExport")}
                 description={t("features.listingExportDesc")}
                 gradient="from-orange-500 to-red-600"
-                image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=80"
+                image="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80"
               />
               <FeatureCard
                 icon={Shield}
                 title={t("features.swissHosting")}
                 description={t("features.swissHostingDesc")}
                 gradient="from-red-500 to-rose-600"
-                image="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&q=80"
+                image="https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=800&q=80"
               />
             </div>
           </div>
