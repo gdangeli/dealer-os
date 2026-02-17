@@ -496,22 +496,25 @@ function FeatureCard({
 }) {
   return (
     <Card className="group border-slate-200 bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden rounded-2xl">
+      {/* Clean image without heavy overlay */}
       <div className="relative h-48 overflow-hidden">
         <Image
           src={image}
           alt={title}
           fill
-          className="object-cover group-hover:scale-110 transition-transform duration-500"
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-80 group-hover:opacity-70 transition-opacity`} />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-            <Icon className="h-8 w-8 text-white" />
-          </div>
-        </div>
+        {/* Subtle gradient at bottom only for depth */}
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/20 to-transparent" />
       </div>
       <CardContent className="p-6">
-        <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
+        {/* Icon next to title */}
+        <div className="flex items-center gap-3 mb-3">
+          <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0`}>
+            <Icon className="h-5 w-5 text-white" />
+          </div>
+          <h3 className="text-xl font-bold text-slate-900">{title}</h3>
+        </div>
         <p className="text-slate-600 leading-relaxed">{description}</p>
       </CardContent>
     </Card>
