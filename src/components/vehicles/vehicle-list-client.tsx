@@ -82,7 +82,15 @@ export function VehicleListClient({ vehicles }: VehicleListClientProps) {
   };
 
   // CSV Export
-  const handleExport = async (format: "autoscout24") => {
+  type ExportFormat = "autoscout24" | "tutti" | "full";
+  
+  const formatFileNames: Record<ExportFormat, string> = {
+    autoscout24: "autoscout24_export",
+    tutti: "tutti_export",
+    full: "fahrzeuge_komplett",
+  };
+
+  const handleExport = async (format: ExportFormat, includeAll: boolean = false) => {
     setIsExporting(true);
     try {
       const response = await fetch(`/api/export/${format}`, {
@@ -92,6 +100,7 @@ export function VehicleListClient({ vehicles }: VehicleListClientProps) {
         },
         body: JSON.stringify({
           vehicleIds: selectedIds.size > 0 ? Array.from(selectedIds) : null,
+          includeAll, // Für Full-Export: auch verkaufte inkludieren
         }),
       });
 
@@ -105,7 +114,7 @@ export function VehicleListClient({ vehicles }: VehicleListClientProps) {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `autoscout24_export_${new Date().toISOString().split("T")[0]}.csv`;
+      a.download = `${formatFileNames[format]}_${new Date().toISOString().split("T")[0]}.csv`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -182,7 +191,7 @@ export function VehicleListClient({ vehicles }: VehicleListClientProps) {
               <ChevronDown className="w-4 h-4 ml-2" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuItem onClick={() => handleExport("autoscout24")}>
               <FileSpreadsheet className="w-4 h-4 mr-2" />
               AutoScout24 CSV
@@ -192,7 +201,24 @@ export function VehicleListClient({ vehicles }: VehicleListClientProps) {
                 </span>
               )}
             </DropdownMenuItem>
-            {/* Weitere Formate können hier hinzugefügt werden */}
+            <DropdownMenuItem onClick={() => handleExport("tutti")}>
+              <FileSpreadsheet className="w-4 h-4 mr-2" />
+              tutti.ch CSV
+              {selectedIds.size > 0 && (
+                <span className="ml-2 text-slate-500">
+                  ({selectedIds.size})
+                </span>
+              )}
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleExport("full", true)}>
+              <Download className="w-4 h-4 mr-2" />
+              Alle Daten (Backup)
+              {selectedIds.size > 0 && (
+                <span className="ml-2 text-slate-500">
+                  ({selectedIds.size})
+                </span>
+              )}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
