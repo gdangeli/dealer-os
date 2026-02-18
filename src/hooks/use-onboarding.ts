@@ -170,6 +170,11 @@ export function useOnboarding() {
       if (dealerData) {
         setDealer(dealerData);
         
+        // Restore saved onboarding step if exists
+        if (dealerData.onboarding_step && ONBOARDING_STEPS.includes(dealerData.onboarding_step as OnboardingStep)) {
+          setCurrentStep(dealerData.onboarding_step as OnboardingStep);
+        }
+        
         // Pre-fill company data from existing dealer info
         setData(prev => ({
           ...prev,
@@ -209,27 +214,46 @@ export function useOnboarding() {
     loadDealer();
   }, [loadDealer]);
 
+  // Save current step to database
+  const saveCurrentStep = useCallback(async (step: OnboardingStep) => {
+    if (!dealer?.id) return;
+    
+    try {
+      await supabase
+        .from('dealers')
+        .update({ onboarding_step: step })
+        .eq('id', dealer.id);
+    } catch (err) {
+      console.error('Error saving onboarding step:', err);
+    }
+  }, [dealer?.id, supabase]);
+
   // Navigation
   const goToStep = useCallback((step: OnboardingStep) => {
     setCurrentStep(step);
     setError(null);
-  }, []);
+    saveCurrentStep(step);
+  }, [saveCurrentStep]);
 
   const nextStep = useCallback(() => {
     const nextIndex = currentStepIndex + 1;
     if (nextIndex < ONBOARDING_STEPS.length) {
-      setCurrentStep(ONBOARDING_STEPS[nextIndex]);
+      const newStep = ONBOARDING_STEPS[nextIndex];
+      setCurrentStep(newStep);
       setError(null);
+      saveCurrentStep(newStep);
     }
-  }, [currentStepIndex]);
+  }, [currentStepIndex, saveCurrentStep]);
 
   const prevStep = useCallback(() => {
     const prevIndex = currentStepIndex - 1;
     if (prevIndex >= 0) {
-      setCurrentStep(ONBOARDING_STEPS[prevIndex]);
+      const newStep = ONBOARDING_STEPS[prevIndex];
+      setCurrentStep(newStep);
       setError(null);
+      saveCurrentStep(newStep);
     }
-  }, [currentStepIndex]);
+  }, [currentStepIndex, saveCurrentStep]);
 
   // Mark step as completed
   const markStepCompleted = useCallback((step: OnboardingStep) => {
