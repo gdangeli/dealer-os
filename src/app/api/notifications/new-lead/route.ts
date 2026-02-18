@@ -91,6 +91,9 @@ export async function POST(request: NextRequest) {
       source,
       dashboardUrl: `${APP_URL}/dashboard/leads`,
       settingsUrl: `${APP_URL}/dashboard/settings`,
+      unsubscribeUrl: dealer.notification_unsubscribe_token 
+        ? `${APP_URL}/api/notifications/unsubscribe?token=${dealer.notification_unsubscribe_token}&type=new_lead`
+        : undefined,
     };
 
     // Send email

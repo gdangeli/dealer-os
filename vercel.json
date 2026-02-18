@@ -7,6 +7,14 @@
     {
       "path": "/api/notifications/longstanding",
       "schedule": "0 9 * * 1"
+    },
+    {
+      "path": "/api/notifications/quote-expiry",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/notifications/invoice-overdue",
+      "schedule": "0 9 * * 1,4"
     }
   ]
 }

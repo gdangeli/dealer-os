@@ -138,6 +138,9 @@ export async function POST(request: NextRequest) {
           recentSales: recentSales || 0,
           dashboardUrl: `${APP_URL}/dashboard`,
           settingsUrl: `${APP_URL}/dashboard/settings`,
+          unsubscribeUrl: dealer.notification_unsubscribe_token
+            ? `${APP_URL}/api/notifications/unsubscribe?token=${dealer.notification_unsubscribe_token}&type=daily_summary`
+            : undefined,
         };
 
         // Send email

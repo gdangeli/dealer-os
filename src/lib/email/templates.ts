@@ -55,6 +55,7 @@ export interface NewLeadEmailData {
   source?: string;
   dashboardUrl: string;
   settingsUrl: string;
+  unsubscribeUrl?: string;
 }
 
 export function newLeadEmail(data: NewLeadEmailData): string {
@@ -103,7 +104,13 @@ export function newLeadEmail(data: NewLeadEmailData): string {
         💡 <strong>Tipp:</strong> Schnelle Reaktionszeiten erhöhen Ihre Abschlussquote deutlich!
       </p>
     </div>
-  `.replace('{{settingsUrl}}', data.settingsUrl));
+    <div class="footer">
+      <p>DealerOS - Ihr digitaler Fahrzeug-Assistent</p>
+      <p>
+        <a href="${data.settingsUrl}">Benachrichtigungseinstellungen</a>${data.unsubscribeUrl ? ` · <a href="${data.unsubscribeUrl}">Abmelden</a>` : ''}
+      </p>
+    </div>
+  `);
 }
 
 // ============================================================================
@@ -120,6 +127,7 @@ export interface DailySummaryEmailData {
   recentSales: number;
   dashboardUrl: string;
   settingsUrl: string;
+  unsubscribeUrl?: string;
 }
 
 export function dailySummaryEmail(data: DailySummaryEmailData): string {
@@ -190,7 +198,13 @@ export function dailySummaryEmail(data: DailySummaryEmailData): string {
         Haben Sie einen erfolgreichen Tag! 🚗
       </p>
     </div>
-  `.replace('{{settingsUrl}}', data.settingsUrl));
+    <div class="footer">
+      <p>DealerOS - Ihr digitaler Fahrzeug-Assistent</p>
+      <p>
+        <a href="${data.settingsUrl}">Benachrichtigungseinstellungen</a>${data.unsubscribeUrl ? ` · <a href="${data.unsubscribeUrl}">Abmelden</a>` : ''}
+      </p>
+    </div>
+  `);
 }
 
 // ============================================================================
@@ -209,6 +223,7 @@ export interface LongstandingWarningEmailData {
   thresholdDays: number;
   dashboardUrl: string;
   settingsUrl: string;
+  unsubscribeUrl?: string;
 }
 
 export function longstandingWarningEmail(data: LongstandingWarningEmailData): string {
@@ -252,5 +267,188 @@ export function longstandingWarningEmail(data: LongstandingWarningEmailData): st
         <a href="${data.dashboardUrl}" class="button">Fahrzeuge bearbeiten →</a>
       </p>
     </div>
-  `.replace('{{settingsUrl}}', data.settingsUrl));
+    <div class="footer">
+      <p>DealerOS - Ihr digitaler Fahrzeug-Assistent</p>
+      <p>
+        <a href="${data.settingsUrl}">Benachrichtigungseinstellungen</a>${data.unsubscribeUrl ? ` · <a href="${data.unsubscribeUrl}">Abmelden</a>` : ''}
+      </p>
+    </div>
+  `);
+}
+
+// ============================================================================
+// Quote Expiry Reminder
+// ============================================================================
+export interface QuoteExpiryEmailData {
+  dealerName: string;
+  quotes: Array<{
+    id: string;
+    quoteNumber: string;
+    customerName: string;
+    total: number;
+    validUntil: string;
+    daysLeft: number;
+  }>;
+  dashboardUrl: string;
+  settingsUrl: string;
+  unsubscribeUrl: string;
+}
+
+export function quoteExpiryEmail(data: QuoteExpiryEmailData): string {
+  const quotesList = data.quotes.map(q => {
+    const urgencyColor = q.daysLeft <= 1 ? '#dc2626' : q.daysLeft <= 3 ? '#f59e0b' : '#3b82f6';
+    const urgencyText = q.daysLeft === 0 ? 'Läuft heute ab!' : 
+                        q.daysLeft === 1 ? 'Läuft morgen ab!' : 
+                        `Noch ${q.daysLeft} Tage`;
+    
+    return `
+      <div class="vehicle-card">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+          <div>
+            <h4 style="margin: 0 0 5px 0;">Offerte ${q.quoteNumber}</h4>
+            <p style="margin: 0; color: #64748b;">👤 ${q.customerName}</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="margin: 0; font-size: 18px; font-weight: bold; color: #1e293b;">
+              CHF ${(q.total / 100).toLocaleString('de-CH')}
+            </p>
+            <p style="margin: 5px 0 0 0; color: ${urgencyColor}; font-weight: 600;">
+              ⏰ ${urgencyText}
+            </p>
+          </div>
+        </div>
+        <p style="margin: 10px 0 0 0; font-size: 13px; color: #64748b;">
+          Gültig bis: ${new Date(q.validUntil).toLocaleDateString('de-CH')}
+        </p>
+      </div>
+    `;
+  }).join('');
+
+  const totalValue = data.quotes.reduce((sum, q) => sum + q.total, 0);
+
+  return baseTemplate(`
+    <div class="header" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+      <h1>⏰ Offerten laufen bald ab!</h1>
+    </div>
+    <div class="content">
+      <p>Hallo ${data.dealerName},</p>
+      
+      <p>Die folgenden <strong>${data.quotes.length} Offerten</strong> laufen in Kürze ab:</p>
+      
+      <div class="stat-box" style="text-align: center; margin: 20px 0;">
+        <div class="stat-number">CHF ${(totalValue / 100).toLocaleString('de-CH')}</div>
+        <div>Gesamtwert offener Offerten</div>
+      </div>
+      
+      ${quotesList}
+      
+      <div style="background: #fef3c7; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <h4 style="margin: 0 0 10px 0;">💡 Tipps für abschlussbereite Kunden:</h4>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li>Rufen Sie den Kunden persönlich an</li>
+          <li>Fragen Sie nach offenen Fragen oder Bedenken</li>
+          <li>Bieten Sie ggf. einen kleinen Bonus für schnelle Entscheidung</li>
+          <li>Bei Bedarf: Offerte verlängern und neu senden</li>
+        </ul>
+      </div>
+      
+      <p style="text-align: center;">
+        <a href="${data.dashboardUrl}" class="button">Offerten verwalten →</a>
+      </p>
+    </div>
+    <div class="footer">
+      <p>DealerOS - Ihr digitaler Fahrzeug-Assistent</p>
+      <p>
+        <a href="${data.settingsUrl}">Benachrichtigungseinstellungen</a> · 
+        <a href="${data.unsubscribeUrl}">Abmelden</a>
+      </p>
+    </div>
+  `);
+}
+
+// ============================================================================
+// Invoice Overdue Reminder
+// ============================================================================
+export interface InvoiceOverdueEmailData {
+  dealerName: string;
+  invoices: Array<{
+    id: string;
+    invoiceNumber: string;
+    customerName: string;
+    total: number;
+    dueDate: string;
+    daysOverdue: number;
+  }>;
+  dashboardUrl: string;
+  settingsUrl: string;
+  unsubscribeUrl: string;
+}
+
+export function invoiceOverdueEmail(data: InvoiceOverdueEmailData): string {
+  const invoicesList = data.invoices.map(inv => {
+    const urgencyColor = inv.daysOverdue >= 30 ? '#dc2626' : inv.daysOverdue >= 14 ? '#f59e0b' : '#ea580c';
+    
+    return `
+      <div class="vehicle-card" style="border-left: 4px solid ${urgencyColor};">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+          <div>
+            <h4 style="margin: 0 0 5px 0;">Rechnung ${inv.invoiceNumber}</h4>
+            <p style="margin: 0; color: #64748b;">👤 ${inv.customerName}</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="margin: 0; font-size: 18px; font-weight: bold; color: #1e293b;">
+              CHF ${(inv.total / 100).toLocaleString('de-CH')}
+            </p>
+            <p style="margin: 5px 0 0 0; color: ${urgencyColor}; font-weight: 600;">
+              📅 ${inv.daysOverdue} Tage überfällig
+            </p>
+          </div>
+        </div>
+        <p style="margin: 10px 0 0 0; font-size: 13px; color: #64748b;">
+          Fällig seit: ${new Date(inv.dueDate).toLocaleDateString('de-CH')}
+        </p>
+      </div>
+    `;
+  }).join('');
+
+  const totalOverdue = data.invoices.reduce((sum, inv) => sum + inv.total, 0);
+
+  return baseTemplate(`
+    <div class="header" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);">
+      <h1>⚠️ Überfällige Rechnungen</h1>
+    </div>
+    <div class="content">
+      <p>Hallo ${data.dealerName},</p>
+      
+      <p>Die folgenden <strong>${data.invoices.length} Rechnungen</strong> sind überfällig:</p>
+      
+      <div class="stat-box" style="text-align: center; margin: 20px 0; background: #fef2f2;">
+        <div class="stat-number" style="color: #dc2626;">CHF ${(totalOverdue / 100).toLocaleString('de-CH')}</div>
+        <div style="color: #991b1b;">Ausstehende Forderungen</div>
+      </div>
+      
+      ${invoicesList}
+      
+      <div style="background: #fef2f2; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <h4 style="margin: 0 0 10px 0; color: #991b1b;">📋 Empfohlene Massnahmen:</h4>
+        <ul style="margin: 0; padding-left: 20px; color: #7f1d1d;">
+          <li><strong>1-14 Tage:</strong> Freundliche Zahlungserinnerung per E-Mail</li>
+          <li><strong>15-30 Tage:</strong> Telefonische Nachfrage</li>
+          <li><strong>30+ Tage:</strong> Formelle Mahnung mit Frist</li>
+          <li>Prüfen Sie, ob Teilzahlungen vereinbart werden können</li>
+        </ul>
+      </div>
+      
+      <p style="text-align: center;">
+        <a href="${data.dashboardUrl}" class="button" style="background: #dc2626;">Rechnungen verwalten →</a>
+      </p>
+    </div>
+    <div class="footer">
+      <p>DealerOS - Ihr digitaler Fahrzeug-Assistent</p>
+      <p>
+        <a href="${data.settingsUrl}">Benachrichtigungseinstellungen</a> · 
+        <a href="${data.unsubscribeUrl}">Abmelden</a>
+      </p>
+    </div>
+  `);
 }

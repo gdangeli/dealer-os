@@ -98,6 +98,9 @@ export async function POST(request: NextRequest) {
           thresholdDays,
           dashboardUrl: `${APP_URL}/dashboard/vehicles`,
           settingsUrl: `${APP_URL}/dashboard/settings`,
+          unsubscribeUrl: dealer.notification_unsubscribe_token
+            ? `${APP_URL}/api/notifications/unsubscribe?token=${dealer.notification_unsubscribe_token}&type=longstanding`
+            : undefined,
         };
 
         // Send email

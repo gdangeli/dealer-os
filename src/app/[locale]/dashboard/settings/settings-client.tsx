@@ -39,6 +39,9 @@ interface Dealer {
   notification_new_lead?: boolean;
   notification_daily_summary?: boolean;
   notification_longstanding_days?: number;
+  notification_quote_expiry?: boolean;
+  notification_quote_expiry_days?: number;
+  notification_invoice_overdue?: boolean;
 }
 
 interface SettingsClientProps {
@@ -502,6 +505,9 @@ function NotificationsForm({
   const [notifyNewLead, setNotifyNewLead] = useState(dealer.notification_new_lead ?? true);
   const [notifyDailySummary, setNotifyDailySummary] = useState(dealer.notification_daily_summary ?? false);
   const [longstandingDays, setLongstandingDays] = useState(dealer.notification_longstanding_days ?? 30);
+  const [notifyQuoteExpiry, setNotifyQuoteExpiry] = useState(dealer.notification_quote_expiry ?? true);
+  const [quoteExpiryDays, setQuoteExpiryDays] = useState(dealer.notification_quote_expiry_days ?? 3);
+  const [notifyInvoiceOverdue, setNotifyInvoiceOverdue] = useState(dealer.notification_invoice_overdue ?? true);
 
   const handleSave = async () => {
     setIsLoading(true);
@@ -512,6 +518,9 @@ function NotificationsForm({
           notification_new_lead: notifyNewLead,
           notification_daily_summary: notifyDailySummary,
           notification_longstanding_days: longstandingDays,
+          notification_quote_expiry: notifyQuoteExpiry,
+          notification_quote_expiry_days: quoteExpiryDays,
+          notification_invoice_overdue: notifyInvoiceOverdue,
         })
         .eq('id', dealer.id)
         .select()
@@ -530,41 +539,110 @@ function NotificationsForm({
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Benachrichtigungen</CardTitle>
-        <CardDescription>
-          Wählen Sie, wann Sie per E-Mail benachrichtigt werden möchten.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <Label>Neue Anfragen</Label>
-            <p className="text-sm text-slate-500">
-              E-Mail erhalten, wenn ein Kunde eine Anfrage stellt.
-            </p>
+    <div className="space-y-6">
+      {/* Lead Notifications */}
+      <Card>
+        <CardHeader>
+          <CardTitle>🔔 Anfragen & Leads</CardTitle>
+          <CardDescription>
+            Benachrichtigungen zu Kundenanfragen.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <Label>Neue Anfragen</Label>
+              <p className="text-sm text-slate-500">
+                Sofort-E-Mail, wenn ein Kunde eine Anfrage stellt.
+              </p>
+            </div>
+            <Switch 
+              checked={notifyNewLead}
+              onCheckedChange={setNotifyNewLead}
+            />
           </div>
-          <Switch 
-            checked={notifyNewLead}
-            onCheckedChange={setNotifyNewLead}
-          />
-        </div>
 
-        <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <Label>Tägliche Zusammenfassung</Label>
-            <p className="text-sm text-slate-500">
-              Jeden Morgen eine Übersicht Ihrer Aktivitäten.
-            </p>
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <Label>Tägliche Zusammenfassung</Label>
+              <p className="text-sm text-slate-500">
+                Jeden Morgen um 7:00 Uhr eine Übersicht.
+              </p>
+            </div>
+            <Switch 
+              checked={notifyDailySummary}
+              onCheckedChange={setNotifyDailySummary}
+            />
           </div>
-          <Switch 
-            checked={notifyDailySummary}
-            onCheckedChange={setNotifyDailySummary}
-          />
-        </div>
+        </CardContent>
+      </Card>
 
-        <div className="border-t pt-4">
+      {/* Quote & Invoice Notifications */}
+      <Card>
+        <CardHeader>
+          <CardTitle>📄 Offerten & Rechnungen</CardTitle>
+          <CardDescription>
+            Erinnerungen für ablaufende Offerten und überfällige Rechnungen.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <Label>Offerten-Erinnerung</Label>
+              <p className="text-sm text-slate-500">
+                E-Mail, wenn Offerten bald ablaufen.
+              </p>
+            </div>
+            <Switch 
+              checked={notifyQuoteExpiry}
+              onCheckedChange={setNotifyQuoteExpiry}
+            />
+          </div>
+
+          {notifyQuoteExpiry && (
+            <div className="ml-4 pl-4 border-l-2 border-blue-200">
+              <div className="space-y-2">
+                <Label htmlFor="quote_expiry_days">Erinnerung vor Ablauf</Label>
+                <div className="flex items-center gap-2">
+                  <Input 
+                    id="quote_expiry_days"
+                    type="number"
+                    min={1}
+                    max={14}
+                    value={quoteExpiryDays}
+                    onChange={(e) => setQuoteExpiryDays(parseInt(e.target.value) || 3)}
+                    className="w-20"
+                  />
+                  <span className="text-slate-600">Tage vorher</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <Label>Überfällige Rechnungen</Label>
+              <p className="text-sm text-slate-500">
+                E-Mail, wenn Rechnungen überfällig sind (wöchentlich).
+              </p>
+            </div>
+            <Switch 
+              checked={notifyInvoiceOverdue}
+              onCheckedChange={setNotifyInvoiceOverdue}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Vehicle Notifications */}
+      <Card>
+        <CardHeader>
+          <CardTitle>🚗 Fahrzeug-Bestand</CardTitle>
+          <CardDescription>
+            Warnungen zu lange im Bestand stehenden Fahrzeugen.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
           <div className="space-y-2">
             <Label htmlFor="longstanding_days">Langsteher-Warnung nach</Label>
             <div className="flex items-center gap-2">
@@ -577,21 +655,21 @@ function NotificationsForm({
                 onChange={(e) => setLongstandingDays(parseInt(e.target.value) || 30)}
                 className="w-24"
               />
-              <span className="text-slate-600">Tagen</span>
+              <span className="text-slate-600">Tagen im Bestand</span>
             </div>
             <p className="text-sm text-slate-500">
-              Warnung, wenn ein Fahrzeug länger als diese Anzahl Tage im Bestand ist.
+              Wöchentliche E-Mail mit Fahrzeugen, die länger als diese Anzahl Tage im Bestand sind.
             </p>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        <div className="flex justify-end pt-4">
-          <Button onClick={handleSave} disabled={isLoading}>
-            {isLoading ? "Speichern..." : "Einstellungen speichern"}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+      <div className="flex justify-end">
+        <Button onClick={handleSave} disabled={isLoading} size="lg">
+          {isLoading ? "Speichern..." : "💾 Alle Einstellungen speichern"}
+        </Button>
+      </div>
+    </div>
   );
 }
 
