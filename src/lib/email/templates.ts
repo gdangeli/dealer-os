@@ -384,6 +384,190 @@ export interface InvoiceOverdueEmailData {
   unsubscribeUrl: string;
 }
 
+// ============================================================================
+// Lead Status Change
+// ============================================================================
+export interface LeadStatusChangeEmailData {
+  dealerName: string;
+  leadName: string;
+  leadEmail?: string;
+  leadPhone?: string;
+  oldStatus: string;
+  newStatus: string;
+  vehicleInfo?: string;
+  dashboardUrl: string;
+  settingsUrl: string;
+  unsubscribeUrl?: string;
+}
+
+const STATUS_LABELS: Record<string, { label: string; emoji: string; color: string }> = {
+  new: { label: 'Neu', emoji: '🆕', color: '#3b82f6' },
+  contacted: { label: 'Kontaktiert', emoji: '📞', color: '#8b5cf6' },
+  qualified: { label: 'Qualifiziert', emoji: '✅', color: '#10b981' },
+  negotiating: { label: 'In Verhandlung', emoji: '💬', color: '#f59e0b' },
+  test_drive: { label: 'Probefahrt', emoji: '🚗', color: '#06b6d4' },
+  won: { label: 'Gewonnen', emoji: '🎉', color: '#22c55e' },
+  lost: { label: 'Verloren', emoji: '❌', color: '#ef4444' },
+  archived: { label: 'Archiviert', emoji: '📁', color: '#6b7280' },
+};
+
+export function leadStatusChangeEmail(data: LeadStatusChangeEmailData): string {
+  const oldStatusInfo = STATUS_LABELS[data.oldStatus] || { label: data.oldStatus, emoji: '📊', color: '#6b7280' };
+  const newStatusInfo = STATUS_LABELS[data.newStatus] || { label: data.newStatus, emoji: '📊', color: '#6b7280' };
+  
+  const isPositive = ['qualified', 'negotiating', 'test_drive', 'won'].includes(data.newStatus);
+  const headerColor = isPositive 
+    ? 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)'
+    : data.newStatus === 'lost' 
+      ? 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'
+      : 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)';
+
+  return baseTemplate(`
+    <div class="header" style="background: ${headerColor};">
+      <h1>📊 Lead Status geändert</h1>
+    </div>
+    <div class="content">
+      <p>Hallo ${data.dealerName},</p>
+      
+      <p>Der Status eines Leads wurde aktualisiert:</p>
+      
+      <div class="lead-info">
+        <p><strong>👤 Name:</strong> ${data.leadName}</p>
+        ${data.leadEmail ? `<p><strong>📧 E-Mail:</strong> <a href="mailto:${data.leadEmail}">${data.leadEmail}</a></p>` : ''}
+        ${data.leadPhone ? `<p><strong>📞 Telefon:</strong> <a href="tel:${data.leadPhone}">${data.leadPhone}</a></p>` : ''}
+        ${data.vehicleInfo ? `<p><strong>🚗 Fahrzeug:</strong> ${data.vehicleInfo}</p>` : ''}
+      </div>
+      
+      <div style="text-align: center; margin: 30px 0;">
+        <div style="display: inline-block; padding: 15px 25px; background: #f1f5f9; border-radius: 8px;">
+          <span style="color: ${oldStatusInfo.color}; font-weight: 600;">
+            ${oldStatusInfo.emoji} ${oldStatusInfo.label}
+          </span>
+          <span style="margin: 0 15px; color: #64748b;">→</span>
+          <span style="color: ${newStatusInfo.color}; font-weight: 600; font-size: 18px;">
+            ${newStatusInfo.emoji} ${newStatusInfo.label}
+          </span>
+        </div>
+      </div>
+      
+      ${data.newStatus === 'won' ? `
+        <div style="background: #f0fdf4; border: 1px solid #22c55e; border-radius: 8px; padding: 20px; text-align: center; margin: 20px 0;">
+          <p style="font-size: 24px; margin: 0;">🎉 Herzlichen Glückwunsch!</p>
+          <p style="margin: 10px 0 0 0; color: #15803d;">Sie haben diesen Lead erfolgreich abgeschlossen!</p>
+        </div>
+      ` : ''}
+      
+      ${data.newStatus === 'lost' ? `
+        <div style="background: #fef2f2; border-radius: 8px; padding: 15px; margin: 20px 0;">
+          <p style="margin: 0;"><strong>💡 Nicht aufgeben!</strong></p>
+          <p style="margin: 10px 0 0 0; color: #7f1d1d; font-size: 14px;">
+            Manchmal ändern sich Kundenbedürfnisse. Markieren Sie einen Folgetermin in 3-6 Monaten.
+          </p>
+        </div>
+      ` : ''}
+      
+      <p style="text-align: center;">
+        <a href="${data.dashboardUrl}" class="button">Lead Details ansehen →</a>
+      </p>
+    </div>
+    <div class="footer">
+      <p>DealerOS - Ihr digitaler Fahrzeug-Assistent</p>
+      <p>
+        <a href="${data.settingsUrl}">Benachrichtigungseinstellungen</a>${data.unsubscribeUrl ? ` · <a href="${data.unsubscribeUrl}">Abmelden</a>` : ''}
+      </p>
+    </div>
+  `);
+}
+
+// ============================================================================
+// Quote Accepted
+// ============================================================================
+export interface QuoteAcceptedEmailData {
+  dealerName: string;
+  quoteNumber: string;
+  customerName: string;
+  total: number;
+  vehicleMake?: string;
+  vehicleModel?: string;
+  dashboardUrl: string;
+  settingsUrl: string;
+  unsubscribeUrl?: string;
+}
+
+export function quoteAcceptedEmail(data: QuoteAcceptedEmailData): string {
+  const vehicleInfo = data.vehicleMake && data.vehicleModel 
+    ? `${data.vehicleMake} ${data.vehicleModel}` 
+    : undefined;
+
+  return baseTemplate(`
+    <div class="header" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">
+      <h1>✅ Offerte angenommen!</h1>
+    </div>
+    <div class="content">
+      <p>Hallo ${data.dealerName},</p>
+      
+      <div style="background: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; padding: 25px; text-align: center; margin: 20px 0;">
+        <p style="font-size: 32px; margin: 0;">🎉</p>
+        <p style="font-size: 20px; font-weight: bold; color: #15803d; margin: 10px 0;">
+          Grossartige Neuigkeiten!
+        </p>
+        <p style="margin: 0; color: #166534;">
+          Ihre Offerte wurde angenommen!
+        </p>
+      </div>
+      
+      <div class="vehicle-card" style="border-left: 4px solid #22c55e;">
+        <h4 style="margin: 0 0 15px 0;">Offerten-Details</h4>
+        <table style="margin: 0;">
+          <tr>
+            <td style="padding: 8px 0; border: none;"><strong>Offerten-Nr.:</strong></td>
+            <td style="padding: 8px 0; border: none;">${data.quoteNumber}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 0; border: none;"><strong>Kunde:</strong></td>
+            <td style="padding: 8px 0; border: none;">${data.customerName}</td>
+          </tr>
+          ${vehicleInfo ? `
+          <tr>
+            <td style="padding: 8px 0; border: none;"><strong>Fahrzeug:</strong></td>
+            <td style="padding: 8px 0; border: none;">${vehicleInfo}</td>
+          </tr>
+          ` : ''}
+          <tr>
+            <td style="padding: 8px 0; border: none;"><strong>Gesamtbetrag:</strong></td>
+            <td style="padding: 8px 0; border: none; font-size: 20px; font-weight: bold; color: #22c55e;">
+              CHF ${(data.total / 100).toLocaleString('de-CH')}
+            </td>
+          </tr>
+        </table>
+      </div>
+      
+      <div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <h4 style="margin: 0 0 10px 0;">📋 Nächste Schritte</h4>
+        <ol style="margin: 0; padding-left: 20px; color: #1e40af;">
+          <li>Rechnung erstellen und versenden</li>
+          <li>Liefertermin mit Kunden vereinbaren</li>
+          <li>Fahrzeugübergabe vorbereiten</li>
+          <li>MFK/Versicherung prüfen</li>
+        </ol>
+      </div>
+      
+      <p style="text-align: center;">
+        <a href="${data.dashboardUrl}" class="button" style="background: #22c55e;">Offerte ansehen & Rechnung erstellen →</a>
+      </p>
+    </div>
+    <div class="footer">
+      <p>DealerOS - Ihr digitaler Fahrzeug-Assistent</p>
+      <p>
+        <a href="${data.settingsUrl}">Benachrichtigungseinstellungen</a>${data.unsubscribeUrl ? ` · <a href="${data.unsubscribeUrl}">Abmelden</a>` : ''}
+      </p>
+    </div>
+  `);
+}
+
+// ============================================================================
+// Invoice Overdue Reminder
+// ============================================================================
 export function invoiceOverdueEmail(data: InvoiceOverdueEmailData): string {
   const invoicesList = data.invoices.map(inv => {
     const urgencyColor = inv.daysOverdue >= 30 ? '#dc2626' : inv.daysOverdue >= 14 ? '#f59e0b' : '#ea580c';
