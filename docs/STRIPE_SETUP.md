@@ -20,26 +20,24 @@ Falls noch nicht vorhanden:
 
 Gehe zu **Products** → **+ Add product**
 
-### Plan 1: Starter
+### Plan 1: Starter (GRATIS)
 - **Name:** DealerOS Starter
-- **Beschreibung:** Für kleine Garagen bis 20 Fahrzeuge
-- **Preise hinzufügen:**
-  - CHF 149.00 / Monat (recurring)
-  - CHF 1'490.00 / Jahr (recurring) — *spart 2 Monate!*
+- **Beschreibung:** Gratis für immer — bis 10 Fahrzeuge, 1 Benutzer
+- **Kein Stripe-Produkt nötig** — Free Tier ohne Zahlung
 
 ### Plan 2: Professional
 - **Name:** DealerOS Professional  
-- **Beschreibung:** Für wachsende Betriebe bis 100 Fahrzeuge
+- **Beschreibung:** Für aktive Händler — unbegrenzte Fahrzeuge
 - **Preise hinzufügen:**
-  - CHF 349.00 / Monat (recurring)
-  - CHF 3'490.00 / Jahr (recurring)
+  - CHF 129.00 / Monat (recurring)
+  - CHF 1'290.00 / Jahr (recurring) — *spart ~2 Monate!*
 
 ### Plan 3: Business
 - **Name:** DealerOS Business
-- **Beschreibung:** Für grosse Händler, unbegrenzte Fahrzeuge
+- **Beschreibung:** Für Teams — inkl. Bexio, Multi-Standort
 - **Preise hinzufügen:**
-  - CHF 599.00 / Monat (recurring)
-  - CHF 5'990.00 / Jahr (recurring)
+  - CHF 229.00 / Monat (recurring)
+  - CHF 2'290.00 / Jahr (recurring) — *spart ~2 Monate!*
 
 **Wichtig:** Nach dem Erstellen jedes Preises → **Price ID kopieren** (beginnt mit `price_`)
 
