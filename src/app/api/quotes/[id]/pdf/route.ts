@@ -1,3 +1,4 @@
+import React from 'react';
 import { createClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { renderToBuffer } from '@react-pdf/renderer';
@@ -45,11 +46,11 @@ export async function GET(
 
     // Generate PDF
     const pdfBuffer = await renderToBuffer(
-      QuotePDF({ 
-        quote, 
-        companyName: dealer?.company_name || 'Ihre Garage',
-        companyAddress 
-      })
+      <QuotePDF 
+        quote={quote} 
+        companyName={dealer?.company_name || 'Ihre Garage'}
+        companyAddress={companyAddress}
+      />
     );
 
     // Return PDF

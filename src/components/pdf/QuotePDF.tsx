@@ -1,6 +1,4 @@
-'use client';
-
-import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { Quote, QuoteItem, Customer, formatCHF, getCustomerDisplayName, toCHF } from '@/types/billing';
 
 // Register fonts (optional - uses default sans-serif)

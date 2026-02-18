@@ -1,3 +1,4 @@
+import React from 'react';
 import { createClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { renderToBuffer } from '@react-pdf/renderer';
@@ -45,13 +46,12 @@ export async function GET(
 
     // Generate PDF
     const pdfBuffer = await renderToBuffer(
-      InvoicePDF({ 
-        invoice, 
-        companyName: dealer?.company_name || 'Ihre Garage',
-        companyAddress,
-        // Bank info could come from dealer settings
-        bankInfo: undefined 
-      })
+      <InvoicePDF 
+        invoice={invoice}
+        companyName={dealer?.company_name || 'Ihre Garage'}
+        companyAddress={companyAddress}
+        bankInfo={undefined}
+      />
     );
 
     // Return PDF
