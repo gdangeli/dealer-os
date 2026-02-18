@@ -1,18 +1,22 @@
 -- Email Templates für Kundenantworten
 -- Migration: 006_create_email_templates.sql
 
--- Enum für Template-Kategorien
-CREATE TYPE email_template_category AS ENUM (
-  'greeting',           -- Begrüssung / Erstkontakt
-  'test_drive',         -- Probefahrt-Bestätigung
-  'price_inquiry',      -- Preisanfrage-Antwort
-  'followup',           -- Nachfass-E-Mail
-  'rejection',          -- Absage (höflich)
-  'custom'              -- Benutzerdefiniert
-);
+-- Enum für Template-Kategorien (nur erstellen wenn nicht existiert)
+DO $$ BEGIN
+  CREATE TYPE email_template_category AS ENUM (
+    'greeting',           -- Begrüssung / Erstkontakt
+    'test_drive',         -- Probefahrt-Bestätigung
+    'price_inquiry',      -- Preisanfrage-Antwort
+    'followup',           -- Nachfass-E-Mail
+    'rejection',          -- Absage (höflich)
+    'custom'              -- Benutzerdefiniert
+  );
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END $$;
 
 -- Haupttabelle für E-Mail-Templates
-CREATE TABLE email_templates (
+CREATE TABLE IF NOT EXISTS email_templates (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   dealer_id UUID NOT NULL REFERENCES dealers(id) ON DELETE CASCADE,
   
@@ -41,12 +45,12 @@ CREATE TABLE email_templates (
 );
 
 -- Index für schnelle Abfragen
-CREATE INDEX idx_email_templates_dealer ON email_templates(dealer_id);
-CREATE INDEX idx_email_templates_category ON email_templates(category);
-CREATE INDEX idx_email_templates_active ON email_templates(dealer_id, is_active);
+CREATE INDEX IF NOT EXISTS idx_email_templates_dealer ON email_templates(dealer_id);
+CREATE INDEX IF NOT EXISTS idx_email_templates_category ON email_templates(category);
+CREATE INDEX IF NOT EXISTS idx_email_templates_active ON email_templates(dealer_id, is_active);
 
 -- Nur ein Default-Template pro Kategorie pro Händler
-CREATE UNIQUE INDEX idx_email_templates_default 
+CREATE UNIQUE INDEX IF NOT EXISTS idx_email_templates_default 
   ON email_templates(dealer_id, category) 
   WHERE is_default = true;
 
@@ -54,22 +58,27 @@ CREATE UNIQUE INDEX idx_email_templates_default
 ALTER TABLE email_templates ENABLE ROW LEVEL SECURITY;
 
 -- Händler können nur ihre eigenen Templates sehen
+DROP POLICY IF EXISTS "Dealers can view own templates" ON email_templates;
 CREATE POLICY "Dealers can view own templates" ON email_templates
   FOR SELECT USING (dealer_id = auth.uid());
 
 -- Händler können ihre eigenen Templates erstellen
+DROP POLICY IF EXISTS "Dealers can create own templates" ON email_templates;
 CREATE POLICY "Dealers can create own templates" ON email_templates
   FOR INSERT WITH CHECK (dealer_id = auth.uid());
 
 -- Händler können ihre eigenen Templates bearbeiten
+DROP POLICY IF EXISTS "Dealers can update own templates" ON email_templates;
 CREATE POLICY "Dealers can update own templates" ON email_templates
   FOR UPDATE USING (dealer_id = auth.uid());
 
 -- Händler können ihre eigenen Templates löschen
+DROP POLICY IF EXISTS "Dealers can delete own templates" ON email_templates;
 CREATE POLICY "Dealers can delete own templates" ON email_templates
   FOR DELETE USING (dealer_id = auth.uid());
 
 -- Updated_at Trigger
+DROP TRIGGER IF EXISTS update_email_templates_updated_at ON email_templates;
 CREATE TRIGGER update_email_templates_updated_at
   BEFORE UPDATE ON email_templates
   FOR EACH ROW
