@@ -13,10 +13,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import {
   EmailTemplate,
   EmailTemplateCategory,
-  categoryLabels,
-  categoryIcons,
-  categoryColors,
-  templatePlaceholders,
+  templateCategoryLabels,
+  templateCategoryIcons,
+  templateCategoryColors,
+  availablePlaceholders,
 } from "@/types/email-templates";
 
 // Template Card Component
@@ -39,7 +39,7 @@ function TemplateCard({
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-xl">{categoryIcons[template.category]}</span>
+              <span className="text-xl">{templateCategoryIcons[template.category]}</span>
               <h3 className="font-semibold truncate">{template.name}</h3>
               {template.is_default && (
                 <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
@@ -47,8 +47,8 @@ function TemplateCard({
                 </Badge>
               )}
             </div>
-            <Badge className={categoryColors[template.category]}>
-              {categoryLabels[template.category]}
+            <Badge className={templateCategoryColors[template.category]}>
+              {templateCategoryLabels[template.category]}
             </Badge>
           </div>
           <div className="flex gap-1">
@@ -162,9 +162,9 @@ function TemplateEditor({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {Object.entries(categoryLabels).map(([key, label]) => (
+              {Object.entries(templateCategoryLabels).map(([key, label]) => (
                 <SelectItem key={key} value={key}>
-                  {categoryIcons[key as EmailTemplateCategory]} {label}
+                  {templateCategoryIcons[key as EmailTemplateCategory]} {label}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -198,7 +198,7 @@ function TemplateEditor({
           <div className="mb-2 p-3 bg-slate-50 rounded-lg">
             <p className="text-xs text-slate-500 mb-2">Klicken Sie auf einen Platzhalter, um ihn einzufügen:</p>
             <div className="flex flex-wrap gap-1">
-              {templatePlaceholders.map((p) => (
+              {availablePlaceholders.map((p) => (
                 <Button
                   key={p.key}
                   variant="outline"
@@ -236,13 +236,13 @@ Mit freundlichen Grüssen
           <div className="mt-1 p-4 bg-slate-50 rounded-lg border">
             <div className="text-sm font-medium mb-2 text-slate-600">
               Betreff: {subject.replace(/\{\{.*?\}\}/g, (m) => {
-                const p = templatePlaceholders.find(pl => pl.key === m);
+                const p = availablePlaceholders.find(pl => pl.key === m);
                 return p ? `[${p.example}]` : m;
               })}
             </div>
             <div className="text-sm whitespace-pre-wrap">
               {body.replace(/\{\{.*?\}\}/g, (m) => {
-                const p = templatePlaceholders.find(pl => pl.key === m);
+                const p = availablePlaceholders.find(pl => pl.key === m);
                 return p ? `[${p.example}]` : m;
               })}
             </div>
@@ -427,9 +427,9 @@ export default function EmailTemplatesPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Alle Kategorien</SelectItem>
-            {Object.entries(categoryLabels).map(([key, label]) => (
+            {Object.entries(templateCategoryLabels).map(([key, label]) => (
               <SelectItem key={key} value={key}>
-                {categoryIcons[key as EmailTemplateCategory]} {label}
+                {templateCategoryIcons[key as EmailTemplateCategory]} {label}
               </SelectItem>
             ))}
           </SelectContent>
@@ -466,8 +466,8 @@ export default function EmailTemplatesPage() {
           {Object.entries(groupedTemplates).map(([category, categoryTemplates]) => (
             <div key={category}>
               <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                <span>{categoryIcons[category as EmailTemplateCategory]}</span>
-                {categoryLabels[category as EmailTemplateCategory]}
+                <span>{templateCategoryIcons[category as EmailTemplateCategory]}</span>
+                {templateCategoryLabels[category as EmailTemplateCategory]}
                 <Badge variant="secondary">{categoryTemplates.length}</Badge>
               </h2>
               <div className="grid gap-4 md:grid-cols-2">
@@ -514,7 +514,7 @@ export default function EmailTemplatesPage() {
             personalisierte E-Mails. Diese werden beim Versand automatisch ersetzt.
           </p>
           <div className="flex flex-wrap gap-2">
-            {templatePlaceholders.slice(0, 6).map((p) => (
+            {availablePlaceholders.slice(0, 6).map((p) => (
               <code key={p.key} className="text-xs bg-blue-100 px-2 py-1 rounded">
                 {p.key}
               </code>
