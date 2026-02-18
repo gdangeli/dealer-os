@@ -170,9 +170,9 @@ export function SalesBarChart({ data }: { data: SalesDataPoint[] }) {
           }}
           formatter={(value, name) => {
             if (name === "Umsatz" && typeof value === 'number') {
-              return [`CHF ${value.toLocaleString("de-CH")}`, name];
+              return [`CHF ${value.toLocaleString("de-CH")}`, name] as [string, string];
             }
-            return [value, name];
+            return [String(value), String(name)] as [string, string];
           }}
         />
         <Legend wrapperStyle={{ fontSize: '12px' }} />
@@ -303,9 +303,9 @@ export function RevenueLineChart({ data }: { data: RevenueDataPoint[] }) {
           }}
           formatter={(value, name) => {
             if (typeof value === 'number') {
-              return [`CHF ${value.toLocaleString("de-CH")}`, name];
+              return [`CHF ${value.toLocaleString("de-CH")}`, name] as [string, string];
             }
-            return [value, name];
+            return [String(value), String(name)] as [string, string];
           }}
         />
         <Legend wrapperStyle={{ fontSize: '12px' }} />
@@ -369,7 +369,7 @@ export function StandingTimeBarChart({ data }: { data: StandingTimeDataPoint[] }
             border: "1px solid #e2e8f0",
             borderRadius: "8px",
           }}
-          formatter={(value) => [`${value} Fahrzeuge`, "Anzahl"]}
+          formatter={(value) => [`${value} Fahrzeuge`, "Anzahl"] as [string, string]}
         />
         <Bar 
           dataKey="count" 
@@ -563,9 +563,9 @@ export function TopBrandsChart({ data }: { data: TopBrandsDataPoint[] }) {
           }}
           formatter={(value, name) => {
             if (name === "Umsatz" && typeof value === 'number') {
-              return [`CHF ${value.toLocaleString("de-CH")}`, name];
+              return [`CHF ${value.toLocaleString("de-CH")}`, name] as [string, string];
             }
-            return [value, name];
+            return [String(value), String(name)] as [string, string];
           }}
         />
         <Legend wrapperStyle={{ fontSize: '12px' }} />
