@@ -101,7 +101,17 @@
       "listingExport": "Export annunci",
       "listingExportDesc": "Pubblica su AutoScout24, car4you e il tuo sito con un clic.",
       "swissHosting": "Hosting Svizzero",
-      "swissHostingDesc": "I tuoi dati restano in Svizzera. Conforme GDPR e crittografato in modo sicuro."
+      "swissHostingDesc": "I tuoi dati restano in Svizzera. Conforme GDPR e crittografato in modo sicuro.",
+      "whatsappIntegration": "WhatsApp Business",
+      "whatsappIntegrationDesc": "Ricevi e rispondi alle richieste dei clienti direttamente tramite WhatsApp. Con risposte automatiche.",
+      "emailAutomation": "Automazione Email",
+      "emailAutomationDesc": "Template email professionali e notifiche automatiche per nuovi lead.",
+      "multiLocation": "Multi-Sede",
+      "multiLocationDesc": "Gestisci più filiali centralmente. Statistiche separate, panoramica condivisa.",
+      "bexioIntegration": "Integrazione Bexio",
+      "bexioIntegrationDesc": "Integrazione perfetta con la tua contabilità Bexio. Clienti, preventivi e fatture sincronizzati.",
+      "quotesInvoices": "Preventivi & Fatture",
+      "quotesInvoicesDesc": "Crea preventivi professionali e convertili direttamente in fatture. Con polizza QR."
     },
     "howItWorks": {
       "badge": "Come funziona",
@@ -380,5 +390,453 @@
     "autoSyncQuotes": "Sincronizza preventivi automaticamente",
     "autoSyncInvoices": "Sincronizza fatture automaticamente",
     "defaultVatRate": "Aliquota IVA predefinita"
+  },
+  "help": {
+    "title": "Aiuto & Documentazione",
+    "subtitle": "Trova guide e suggerimenti per tutte le funzionalità di Dealer OS",
+    "searchPlaceholder": "Cerca argomenti...",
+    "stepsTitle": "Passo dopo passo",
+    "tipsTitle": "Suggerimenti",
+    "backToOverview": "Torna alla panoramica",
+    "stillNeedHelp": "Hai ancora domande?",
+    "quickStart": {
+      "title": "Nuovo su Dealer OS?",
+      "description": "Scopri le funzionalità chiave in 5 minuti.",
+      "link": "Vedi la guida iniziale"
+    },
+    "support": {
+      "title": "Hai bisogno di aiuto?",
+      "description": "Il nostro team di supporto è a tua disposizione.",
+      "button": "Contatta il supporto"
+    },
+    "categories": {
+      "getting-started": {
+        "title": "Primi passi",
+        "description": "Basi e navigazione in Dealer OS",
+        "articles": {
+          "first-steps": {
+            "title": "Primi passi con Dealer OS",
+            "description": "Impara le basi e familiarizza con il sistema.",
+            "content": "<p>Benvenuto su Dealer OS! Questa guida ti aiuta a diventare produttivo rapidamente.</p><h3>Cos'è Dealer OS?</h3><p>Dealer OS è un software all-in-one per concessionari e garagisti svizzeri. Combina gestione veicoli, gestione clienti, preventivi, fatture e analisi in un'unica piattaforma.</p><h3>Aree principali</h3><ul><li><strong>Panoramica:</strong> La tua dashboard con le metriche chiave</li><li><strong>Magazzino:</strong> Gestisci tutti i tuoi veicoli</li><li><strong>Lead:</strong> Gestisci richieste e contatti clienti</li><li><strong>Clienti:</strong> Mantieni i dati dei clienti</li><li><strong>Preventivi & Fatture:</strong> Crea offerte e fattura</li></ul>",
+            "steps": [
+              "Accedi con le tue credenziali",
+              "Completa il profilo aziendale in Impostazioni",
+              "Aggiungi il tuo primo veicolo al magazzino",
+              "Crea i tuoi primi clienti",
+              "Esplora la dashboard per una panoramica"
+            ],
+            "tips": [
+              "Inizia con pochi veicoli di prova",
+              "Usa la ricerca per accesso rapido",
+              "Attiva le notifiche email per aggiornamenti importanti"
+            ]
+          },
+          "navigation": {
+            "title": "Navigazione & Layout",
+            "description": "Come orientarsi in Dealer OS.",
+            "content": "<p>Dealer OS ha un layout chiaro. La navigazione principale è a sinistra, l'area di lavoro a destra.</p><h3>Barra laterale (sinistra)</h3><p>La barra laterale contiene tutte le aree principali, organizzate in gruppi logici:</p><ul><li><strong>Panoramica & Magazzino:</strong> Lavoro quotidiano con i veicoli</li><li><strong>Vendite:</strong> Clienti, preventivi, fatture</li><li><strong>Comunicazione:</strong> Template email, WhatsApp</li><li><strong>Analisi:</strong> Report e valutazioni</li></ul><h3>Filtro sede</h3><p>Se hai più sedi, puoi passare da una all'altra o visualizzarle tutte in alto nella barra laterale.</p>",
+            "tips": [
+              "Clicca sul logo per tornare alla panoramica",
+              "Il filtro sede influenza tutte le viste",
+              "Usa il selettore lingua per la tua lingua preferita"
+            ]
+          },
+          "settings-overview": {
+            "title": "Configurare le impostazioni",
+            "description": "Personalizza Dealer OS per le tue esigenze.",
+            "content": "<p>Nelle impostazioni configuri Dealer OS per la tua azienda.</p><h3>Impostazioni importanti</h3><ul><li><strong>Profilo aziendale:</strong> Nome, indirizzo, logo per documenti</li><li><strong>Sedi:</strong> Gestisci più filiali</li><li><strong>Utenti:</strong> Invita membri del team</li><li><strong>Integrazioni:</strong> Connetti Bexio, WhatsApp e altro</li><li><strong>Template email:</strong> Personalizza i testi standard</li></ul>",
+            "steps": [
+              "Vai in Impostazioni nella barra laterale",
+              "Seleziona 'Profilo aziendale' e completa i dati",
+              "Carica il tuo logo (mostrato su preventivi/fatture)",
+              "Configura sedi aggiuntive se necessario",
+              "Connetti integrazioni come Bexio"
+            ]
+          }
+        }
+      },
+      "vehicles": {
+        "title": "Magazzino veicoli",
+        "description": "Aggiungi, gestisci e vendi veicoli",
+        "articles": {
+          "add-vehicle": {
+            "title": "Aggiungere un veicolo",
+            "description": "Come aggiungere un nuovo veicolo al magazzino.",
+            "content": "<p>Aggiungere un nuovo veicolo richiede solo pochi minuti. Inserisci i dati principali – il resto può essere aggiunto dopo.</p><h3>Campi obbligatori</h3><ul><li><strong>Marca & Modello:</strong> es. BMW 320d</li><li><strong>Prima immatricolazione:</strong> Per calcolo età</li><li><strong>Chilometraggio:</strong> Lettura attuale</li><li><strong>Prezzo:</strong> Prezzo di vendita</li></ul><h3>Informazioni opzionali</h3><p>Più dati inserisci, più significative saranno le analisi: prezzo d'acquisto, costi di preparazione, optional, ecc.</p>",
+            "steps": [
+              "Clicca su 'Magazzino' nella barra laterale",
+              "Clicca su 'Nuovo veicolo'",
+              "Compila i campi obbligatori",
+              "Aggiungi dettagli opzionali se necessario",
+              "Clicca su 'Salva'"
+            ],
+            "tips": [
+              "Inserisci il prezzo d'acquisto per il calcolo del margine",
+              "Dati più completi = analisi migliori",
+              "Lo stato viene impostato automaticamente su 'Disponibile'"
+            ]
+          },
+          "edit-vehicle": {
+            "title": "Modificare un veicolo",
+            "description": "Aggiornare i dati e cambiare lo stato.",
+            "content": "<p>Mantieni aggiornati i dati dei veicoli. Modifiche di prezzo, aggiornamenti di stato o informazioni aggiuntive possono essere modificati in qualsiasi momento.</p><h3>Stati del veicolo</h3><ul><li><strong>Disponibile:</strong> In vendita attiva</li><li><strong>Riservato:</strong> Tenuto per un cliente</li><li><strong>Venduto:</strong> Transazione completata</li></ul><h3>Storico prezzi</h3><p>Ogni modifica di prezzo viene registrata. Puoi vedere come si è sviluppato il prezzo.</p>",
+            "steps": [
+              "Apri il veicolo dalla lista del magazzino",
+              "Clicca su 'Modifica'",
+              "Cambia i campi desiderati",
+              "Salva le modifiche"
+            ],
+            "tips": [
+              "Usa 'Riservato' quando un cliente mostra interesse",
+              "Documenta le ragioni delle modifiche di prezzo nelle note"
+            ]
+          },
+          "vehicle-photos": {
+            "title": "Caricare foto",
+            "description": "Aggiungere e gestire le immagini dei veicoli.",
+            "content": "<p>Buone foto sono cruciali per le vendite. Carica più immagini per veicolo.</p><h3>Scatti consigliati</h3><ul><li>Anteriore e posteriore (angolati)</li><li>Entrambi i lati</li><li>Interni (cruscotto, sedili, bagagliaio)</li><li>Caratteristiche speciali</li><li>Eventuali danni (per trasparenza)</li></ul><h3>Formati immagine</h3><p>Sono supportati JPG e PNG. Dimensione max: 10 MB per immagine.</p>",
+            "steps": [
+              "Apri il veicolo",
+              "Vai alla scheda 'Foto'",
+              "Clicca su 'Carica foto' o trascina le immagini nell'area",
+              "Riordina le immagini con drag & drop",
+              "La prima immagine diventa l'immagine principale"
+            ],
+            "tips": [
+              "Fotografa con buona luce naturale",
+              "8-12 immagini per veicolo sono ideali",
+              "L'immagine principale appare nelle liste e negli annunci"
+            ]
+          },
+          "standtime-alerts": {
+            "title": "Avvisi giacenza",
+            "description": "Identificare veicoli fermi e agire in tempo.",
+            "content": "<p>I veicoli che restano troppo a lungo bloccano capitale e perdono valore. Dealer OS ti avvisa automaticamente.</p><h3>Livelli di avviso</h3><ul><li><strong>30 giorni (Giallo):</strong> Prima attenzione</li><li><strong>60 giorni (Arancione):</strong> Rivedere il prezzo</li><li><strong>90 giorni (Rosso):</strong> Azione urgente necessaria</li></ul><h3>Azioni consigliate</h3><p>Per veicoli fermi: adeguare prezzo, ottimizzare annuncio, promuovere attivamente o rivendere.</p>",
+            "tips": [
+              "Controlla i veicoli fermi settimanalmente",
+              "Riduzione del 5% ogni 30 giorni come linea guida",
+              "Documenta le azioni nelle note del veicolo"
+            ]
+          }
+        }
+      },
+      "leads": {
+        "title": "Lead & Richieste",
+        "description": "Gestire le richieste dei clienti in modo efficiente",
+        "articles": {
+          "manage-leads": {
+            "title": "Gestire i lead",
+            "description": "Tieni traccia di tutte le richieste.",
+            "content": "<p>I lead sono potenziali clienti che hanno mostrato interesse per un veicolo. Una gestione rapida e professionale aumenta il tasso di chiusura.</p><h3>Fonti dei lead</h3><ul><li>Modulo sito web</li><li>Richieste email</li><li>Telefonate (inserite manualmente)</li><li>Messaggi WhatsApp</li><li>Portali annunci</li></ul><h3>Informazioni chiave</h3><p>Cattura per ogni lead: contatti, veicolo di interesse, budget, tempistiche.</p>",
+            "steps": [
+              "Apri 'Lead' nella barra laterale",
+              "I nuovi lead appaiono in alto",
+              "Clicca su un lead per i dettagli",
+              "Aggiorna lo stato dopo il contatto",
+              "Collega il lead al cliente se interessato"
+            ],
+            "tips": [
+              "Rispondi entro 1 ora per i migliori risultati",
+              "Usa template per risposte frequenti",
+              "Registra anche le telefonate come lead"
+            ]
+          },
+          "lead-status": {
+            "title": "Capire gli stati dei lead",
+            "description": "Le diverse fasi di una richiesta cliente.",
+            "content": "<p>Lo stato del lead mostra dove si trova un potenziale cliente nel processo di vendita.</p><h3>Panoramica stati</h3><ul><li><strong>Nuovo:</strong> Non ancora elaborato</li><li><strong>Contattato:</strong> Prima risposta inviata</li><li><strong>Interessato:</strong> Interesse d'acquisto attivo</li><li><strong>Visita:</strong> Appuntamento fissato</li><li><strong>Trattativa:</strong> Negoziazione prezzo in corso</li><li><strong>Vinto:</strong> Vendita completata</li><li><strong>Perso:</strong> Nessun accordo</li></ul>",
+            "tips": [
+              "Mantieni lo stato aggiornato per report accurati",
+              "Annota il motivo quando segni 'Perso'",
+              "I lead vinti migliorano il tasso di conversione"
+            ]
+          },
+          "follow-up": {
+            "title": "Follow-up & Promemoria",
+            "description": "Non dimenticare mai una richiesta – follow-up automatico.",
+            "content": "<p>Molte vendite richiedono più contatti. I follow-up ti aiutano a restare in pista.</p><h3>Regole di follow-up</h3><ul><li>Dopo prima risposta: aspetta 2-3 giorni</li><li>Dopo visita: ricontatta il giorno dopo</li><li>Dopo preventivo: dai 1 settimana per decidere</li></ul>",
+            "steps": [
+              "Apri un lead",
+              "Clicca su 'Imposta promemoria'",
+              "Scegli data e ora",
+              "Aggiungi una nota (cosa discutere?)",
+              "Riceverai una notifica all'ora impostata"
+            ],
+            "tips": [
+              "Imposta il prossimo follow-up subito dopo ogni contatto",
+              "La mattina 9-11 raggiunge spesso meglio i clienti",
+              "Max 3 follow-up senza risposta, poi segna 'Perso'"
+            ]
+          }
+        }
+      },
+      "customers": {
+        "title": "Gestione clienti",
+        "description": "Costruire e mantenere la base clienti",
+        "articles": {
+          "add-customer": {
+            "title": "Aggiungere un cliente",
+            "description": "Come creare un nuovo cliente.",
+            "content": "<p>Una base clienti ben curata è la base per preventivi, fatture e acquisti ripetuti.</p><h3>Campi obbligatori</h3><ul><li><strong>Tipo cliente:</strong> Privato o Azienda</li><li><strong>Nome:</strong> Nome e cognome o ragione sociale</li><li><strong>Email o Telefono:</strong> Almeno un metodo di contatto</li></ul><h3>Dati indirizzo</h3><p>Per preventivi e fatture serve l'indirizzo completo.</p>",
+            "steps": [
+              "Vai in 'Clienti' nella barra laterale",
+              "Clicca su 'Nuovo cliente'",
+              "Seleziona il tipo di cliente",
+              "Compila i dati di contatto",
+              "Aggiungi l'indirizzo",
+              "Salva il cliente"
+            ],
+            "tips": [
+              "Per le aziende: aggiungi anche un referente",
+              "Partita IVA per clienti aziendali per fatture corrette",
+              "I clienti si sincronizzano automaticamente con Bexio (se connesso)"
+            ]
+          },
+          "customer-types": {
+            "title": "Privati vs. Aziende",
+            "description": "Differenze nell'inserimento dati clienti.",
+            "content": "<p>Requisiti diversi si applicano in base al tipo di cliente per documenti e fatturazione.</p><h3>Privati</h3><ul><li>Titolo, nome e cognome</li><li>Prezzi IVA inclusa</li><li>Nessuna partita IVA richiesta</li></ul><h3>Clienti aziendali</h3><ul><li>Ragione sociale + referente</li><li>Partita IVA per fatture B2B</li><li>Prezzi IVA esclusa (opzionale)</li></ul>",
+            "tips": [
+              "Per società di leasing: crea come azienda con nota conducente separata",
+              "Vendite tra commercianti: categoria propria per report"
+            ]
+          },
+          "customer-history": {
+            "title": "Storico cliente",
+            "description": "Tutte le interazioni a colpo d'occhio.",
+            "content": "<p>Lo storico cliente mostra tutte le interazioni passate, acquisti e documenti.</p><h3>Cosa viene salvato?</h3><ul><li>Tutti i lead/richieste del cliente</li><li>Preventivi creati</li><li>Fatture emesse</li><li>Veicoli acquistati</li><li>Note e commenti</li></ul>",
+            "tips": [
+              "Controlla lo storico prima di una chiamata",
+              "I clienti abituali meritano attenzione speciale",
+              "Usa le note per dettagli personali (hobby, famiglia)"
+            ]
+          }
+        }
+      },
+      "quotes": {
+        "title": "Preventivi",
+        "description": "Creare offerte professionali",
+        "articles": {
+          "create-quote": {
+            "title": "Creare un preventivo",
+            "description": "Passo dopo passo verso un preventivo professionale.",
+            "content": "<p>Un preventivo ben strutturato aumenta il tasso di chiusura. Dealer OS genera PDF professionali con il tuo logo.</p><h3>Componenti del preventivo</h3><ul><li><strong>Cliente:</strong> Seleziona dalla lista clienti</li><li><strong>Veicolo:</strong> Collega dal magazzino</li><li><strong>Voci:</strong> Prezzo veicolo, accessori, garanzia</li><li><strong>Sconto:</strong> Percentuale o assoluto</li><li><strong>Permuta:</strong> Veicolo dato in permuta</li></ul>",
+            "steps": [
+              "Vai in 'Preventivi' → 'Nuovo preventivo'",
+              "Seleziona un cliente (o creane uno nuovo)",
+              "Collega il veicolo di interesse",
+              "Aggiungi voci (accessori, garanzia, ecc.)",
+              "Controlla l'importo totale",
+              "Salva e invia per email"
+            ],
+            "tips": [
+              "Imposta una data di validità (es. 14 giorni)",
+              "Aggiungi i tuoi dati bancari per acconti",
+              "Usa l'anteprima prima dell'invio"
+            ]
+          },
+          "quote-positions": {
+            "title": "Aggiungere voci",
+            "description": "Elencare veicolo, accessori e servizi.",
+            "content": "<p>Un preventivo può contenere più voci. Struttura la tua offerta in modo chiaro.</p><h3>Tipi di voci</h3><ul><li><strong>Veicolo:</strong> Il veicolo principale</li><li><strong>Accessori:</strong> Pneumatici invernali, gancio traino, ecc.</li><li><strong>Servizio:</strong> Preparazione, consegna</li><li><strong>Garanzia:</strong> Pacchetti garanzia aggiuntivi</li><li><strong>Sconto:</strong> Riduzioni di prezzo</li></ul>",
+            "tips": [
+              "Elenca ogni voce separatamente – la trasparenza crea fiducia",
+              "Aggiungi il prezzo di costo degli accessori per il calcolo margine",
+              "Usa voci sconto invece di aggiustamenti manuali"
+            ]
+          },
+          "send-quote": {
+            "title": "Inviare un preventivo",
+            "description": "Via email o PDF al cliente.",
+            "content": "<p>Invia preventivi direttamente da Dealer OS. Il cliente riceve un PDF professionale.</p><h3>Opzioni di invio</h3><ul><li><strong>Email:</strong> Direttamente dal sistema con tracciamento</li><li><strong>Download PDF:</strong> Per invio manuale o stampa</li><li><strong>WhatsApp:</strong> Link alla visualizzazione online</li></ul><h3>Tracciamento</h3><p>Vedi quando il cliente ha aperto il preventivo (se inviato via email).</p>",
+            "steps": [
+              "Apri il preventivo completato",
+              "Clicca su 'Invia per email'",
+              "Controlla destinatario e oggetto",
+              "Personalizza il messaggio se necessario",
+              "Clicca su 'Invia'"
+            ],
+            "tips": [
+              "Personalizza il messaggio",
+              "Chiama 1-2 giorni dopo l'invio",
+              "Nessuna risposta: attiva il follow-up automatico"
+            ]
+          },
+          "convert-invoice": {
+            "title": "Convertire preventivo in fattura",
+            "description": "Dall'offerta alla fattura in un clic.",
+            "content": "<p>Quando il cliente accetta il preventivo, convertilo in fattura. Tutti i dati vengono trasferiti.</p><h3>Cosa viene trasferito?</h3><ul><li>Dati cliente</li><li>Tutte le voci</li><li>Sconti e permuta</li><li>Veicolo collegato</li></ul>",
+            "steps": [
+              "Apri il preventivo accettato",
+              "Imposta lo stato su 'Accettato'",
+              "Clicca su 'Converti in fattura'",
+              "Controlla i dati della fattura",
+              "Salva e invia la fattura"
+            ],
+            "tips": [
+              "Il preventivo rimane come riferimento",
+              "Lo stato del veicolo passa automaticamente a 'Venduto'",
+              "La fattura si sincronizza con Bexio (se connesso)"
+            ]
+          }
+        }
+      },
+      "invoices": {
+        "title": "Fatture",
+        "description": "Fatturazione e tracciamento pagamenti",
+        "articles": {
+          "create-invoice": {
+            "title": "Creare una fattura",
+            "description": "Generare fatture professionali.",
+            "content": "<p>Crea fatture manualmente o da un preventivo accettato.</p><h3>Contenuto fattura</h3><ul><li><strong>Numero fattura:</strong> Assegnato automaticamente</li><li><strong>Data fattura:</strong> Default: oggi</li><li><strong>Data scadenza:</strong> Secondo le tue condizioni</li><li><strong>Voci:</strong> Come per i preventivi</li></ul><h3>Gestione IVA</h3><p>L'IVA svizzera viene calcolata automaticamente (8.1%). Per clienti aziendali può essere mostrata IVA esclusa.</p>",
+            "steps": [
+              "Vai in 'Fatture' → 'Nuova fattura'",
+              "Seleziona il cliente",
+              "Aggiungi le voci",
+              "Controlla IVA e totale",
+              "Salva e invia"
+            ],
+            "tips": [
+              "Per vendite veicoli: converti sempre da preventivo",
+              "La fattura QR viene generata automaticamente",
+              "Il numero fattura è sequenziale e non modificabile"
+            ]
+          },
+          "payment-tracking": {
+            "title": "Tracciare i pagamenti",
+            "description": "Registrare pagamenti e monitorare gli importi dovuti.",
+            "content": "<p>Tieni traccia delle fatture pagate e in sospeso.</p><h3>Stati di pagamento</h3><ul><li><strong>Bozza:</strong> Non ancora inviata</li><li><strong>Inviata:</strong> Dal cliente</li><li><strong>Parziale:</strong> Acconto ricevuto</li><li><strong>Pagata:</strong> Completamente saldata</li><li><strong>Scaduta:</strong> Oltre la data di scadenza, non pagata</li></ul>",
+            "steps": [
+              "Apri la fattura",
+              "Clicca su 'Registra pagamento'",
+              "Inserisci importo e data",
+              "Seleziona il metodo di pagamento (bonifico, contanti, carta)",
+              "Salva – lo stato si aggiorna automaticamente"
+            ],
+            "tips": [
+              "Registra i pagamenti parziali separatamente",
+              "Riconcilia regolarmente con il tuo conto bancario",
+              "Con Bexio: i pagamenti si sincronizzano automaticamente"
+            ]
+          },
+          "reminders": {
+            "title": "Inviare solleciti",
+            "description": "Recuperare le fatture scadute.",
+            "content": "<p>Per pagamenti mancanti, un processo di sollecito strutturato aiuta.</p><h3>Livelli di sollecito</h3><ul><li><strong>Promemoria pagamento:</strong> Nota amichevole dopo 7 giorni</li><li><strong>1° sollecito:</strong> Dopo 14 giorni, fattuale</li><li><strong>2° sollecito:</strong> Dopo 30 giorni, con scadenza</li><li><strong>Sollecito finale:</strong> Avviso di azione legale</li></ul>",
+            "steps": [
+              "Apri la fattura scaduta",
+              "Clicca su 'Invia sollecito'",
+              "Seleziona il livello di sollecito",
+              "Personalizza il testo se necessario",
+              "Invia per email o stampa"
+            ],
+            "tips": [
+              "Chiama brevemente prima del primo sollecito",
+              "Documenta tutti i solleciti",
+              "Per debitori cronici: niente più affari senza pagamento anticipato"
+            ]
+          }
+        }
+      },
+      "integrations": {
+        "title": "Integrazioni",
+        "description": "Connetti Dealer OS con altri strumenti",
+        "articles": {
+          "bexio-setup": {
+            "title": "Connettere Bexio",
+            "description": "Automatizzare la contabilità con Bexio.",
+            "content": "<p>Connetti Dealer OS con Bexio per la sincronizzazione automatica di clienti, preventivi e fatture.</p><h3>Cosa viene sincronizzato?</h3><ul><li><strong>Clienti:</strong> Bidirezionale (entrambe le direzioni)</li><li><strong>Preventivi:</strong> Da Dealer OS a Bexio</li><li><strong>Fatture:</strong> Da Dealer OS a Bexio</li><li><strong>Pagamenti:</strong> Da Bexio a Dealer OS</li></ul><h3>Requisiti</h3><p>Serve un account Bexio attivo e accesso API (Bexio Pro o superiore).</p>",
+            "steps": [
+              "Vai in Impostazioni → Integrazioni",
+              "Clicca su 'Connetti con Bexio'",
+              "Accedi a Bexio",
+              "Autorizza l'accesso",
+              "Configura le impostazioni di sincronizzazione"
+            ],
+            "tips": [
+              "Testa con pochi record",
+              "Imposta un'aliquota IVA predefinita",
+              "Controlla la mappatura conti in Bexio"
+            ]
+          },
+          "whatsapp-setup": {
+            "title": "Configurare WhatsApp",
+            "description": "Ricevere richieste clienti via WhatsApp.",
+            "content": "<p>Connetti il tuo numero WhatsApp Business con Dealer OS per comunicazione diretta con i clienti.</p><h3>Funzionalità</h3><ul><li>Ricevi messaggi direttamente nella dashboard</li><li>Risposte rapide e template</li><li>Creazione automatica lead</li><li>Invia e ricevi media</li></ul>",
+            "steps": [
+              "Vai in Impostazioni → Integrazioni → WhatsApp",
+              "Scansiona il codice QR con WhatsApp Business",
+              "Attendi la conferma di connessione",
+              "Testa con un messaggio al tuo numero"
+            ],
+            "tips": [
+              "Usa un numero business dedicato",
+              "Imposta un messaggio di benvenuto automatico",
+              "Rispondi velocemente – i clienti WhatsApp se lo aspettano"
+            ]
+          },
+          "email-templates": {
+            "title": "Personalizzare i template email",
+            "description": "Configurare i testi predefiniti per le email.",
+            "content": "<p>Personalizza i template email secondo il tuo stile. I template vengono usati per preventivi, fatture e solleciti.</p><h3>Template disponibili</h3><ul><li>Invio preventivo</li><li>Invio fattura</li><li>Promemoria pagamento</li><li>1°/2°/3° sollecito</li><li>Risposta generale alle richieste</li></ul><h3>Variabili</h3><p>Usa variabili come {'{nomecliente}'}, {'{veicolo}'}, {'{importo}'} per personalizzazione automatica.</p>",
+            "steps": [
+              "Vai in Impostazioni → Template email",
+              "Seleziona un template da modificare",
+              "Personalizza oggetto e testo",
+              "Usa le variabili disponibili",
+              "Salva e testa con un'email di prova"
+            ],
+            "tips": [
+              "Mantieni le email brevi e personali",
+              "Includi la tua firma con i contatti",
+              "Testa ogni template prima dell'uso produttivo"
+            ]
+          }
+        }
+      },
+      "analytics": {
+        "title": "Analisi",
+        "description": "Capire e usare le tue metriche",
+        "articles": {
+          "dashboard-overview": {
+            "title": "Capire la dashboard",
+            "description": "Metriche chiave a colpo d'occhio.",
+            "content": "<p>La dashboard mostra i tuoi KPI più importanti in tempo reale.</p><h3>Metriche chiave</h3><ul><li><strong>Magazzino:</strong> Numero di veicoli, valore totale</li><li><strong>Giacenza media:</strong> Giorni medi fino alla vendita</li><li><strong>Lead aperti:</strong> Richieste non elaborate</li><li><strong>Margine medio:</strong> Profitto medio per veicolo</li><li><strong>Fatturato:</strong> Confronto mensile e annuale</li></ul>",
+            "tips": [
+              "Controlla la dashboard ogni mattina",
+              "I numeri rossi richiedono attenzione immediata",
+              "Confronta i valori con il mese precedente"
+            ]
+          },
+          "reports": {
+            "title": "Generare report",
+            "description": "Creare valutazioni dettagliate.",
+            "content": "<p>Crea report dettagliati per diversi periodi e categorie.</p><h3>Report disponibili</h3><ul><li><strong>Report magazzino:</strong> Tutti i veicoli con giacenza e margine</li><li><strong>Report vendite:</strong> Vendite concluse nel periodo</li><li><strong>Report lead:</strong> Tassi di conversione e fonti</li><li><strong>Report fatturato:</strong> Entrate e tendenze</li></ul>",
+            "steps": [
+              "Vai in Analisi → Report",
+              "Seleziona il tipo di report",
+              "Definisci il periodo",
+              "Opzionale: filtra per sede o categoria",
+              "Genera ed esporta il report"
+            ],
+            "tips": [
+              "Report mensili a fine mese per la contabilità",
+              "Confronta i trimestri per le tendenze",
+              "Esporta in Excel per analisi approfondite"
+            ]
+          },
+          "export-data": {
+            "title": "Esportare dati",
+            "description": "Scaricare dati per uso esterno.",
+            "content": "<p>Esporta i tuoi dati per contabilità, tasse o analisi.</p><h3>Formati di esportazione</h3><ul><li><strong>Excel (.xlsx):</strong> Per fogli di calcolo</li><li><strong>CSV:</strong> Per import in altri sistemi</li><li><strong>PDF:</strong> Per archiviazione e stampa</li></ul><h3>Dati esportabili</h3><p>Veicoli, clienti, preventivi, fatture, lead – tutto può essere esportato.</p>",
+            "tips": [
+              "Backup regolari consigliati",
+              "CSV per import in altri software",
+              "Export PDF per archiviazione legale"
+            ]
+          }
+        }
+      }
+    }
   }
 }

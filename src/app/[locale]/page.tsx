@@ -25,6 +25,11 @@ import {
   LineChart,
   Database,
   FileText,
+  MessageCircle,
+  Mail,
+  MapPin,
+  Link2,
+  Receipt,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -234,11 +239,46 @@ function HomePage() {
                 image="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80"
               />
               <FeatureCard
+                icon={MessageCircle}
+                title={t("features.whatsappIntegration")}
+                description={t("features.whatsappIntegrationDesc")}
+                gradient="from-green-500 to-emerald-600"
+                image="https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=800&q=80"
+              />
+              <FeatureCard
+                icon={Receipt}
+                title={t("features.quotesInvoices")}
+                description={t("features.quotesInvoicesDesc")}
+                gradient="from-violet-500 to-purple-600"
+                image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80"
+              />
+              <FeatureCard
                 icon={BarChart3}
                 title={t("features.realKpis")}
                 description={t("features.realKpisDesc")}
                 gradient="from-indigo-500 to-purple-600"
                 image="https://images.unsplash.com/photo-1543286386-713bdd548da4?w=800&q=80"
+              />
+              <FeatureCard
+                icon={Mail}
+                title={t("features.emailAutomation")}
+                description={t("features.emailAutomationDesc")}
+                gradient="from-blue-500 to-indigo-600"
+                image="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&q=80"
+              />
+              <FeatureCard
+                icon={MapPin}
+                title={t("features.multiLocation")}
+                description={t("features.multiLocationDesc")}
+                gradient="from-rose-500 to-pink-600"
+                image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80"
+              />
+              <FeatureCard
+                icon={Link2}
+                title={t("features.bexioIntegration")}
+                description={t("features.bexioIntegrationDesc")}
+                gradient="from-cyan-500 to-blue-600"
+                image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
               />
               <FeatureCard
                 icon={Zap}

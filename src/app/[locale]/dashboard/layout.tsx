@@ -96,6 +96,7 @@ export default async function DashboardLayout({
             {dealer?.company_name || user.email}
           </div>
           <NavLink href="/dashboard/settings" icon="⚙️">Einstellungen</NavLink>
+          <NavLink href="/dashboard/help" icon="❓">Hilfe</NavLink>
           <LanguageSwitcher />
           <LogoutButton />
         </div>

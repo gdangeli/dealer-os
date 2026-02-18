@@ -101,7 +101,17 @@
       "listingExport": "Export annonces",
       "listingExportDesc": "Publiez sur AutoScout24, car4you et votre site web en un clic.",
       "swissHosting": "Hébergement Suisse",
-      "swissHostingDesc": "Vos données restent en Suisse. Conforme RGPD et chiffré de manière sécurisée."
+      "swissHostingDesc": "Vos données restent en Suisse. Conforme RGPD et chiffré de manière sécurisée.",
+      "whatsappIntegration": "WhatsApp Business",
+      "whatsappIntegrationDesc": "Recevez et répondez aux demandes clients directement via WhatsApp. Avec réponses automatiques.",
+      "emailAutomation": "Automatisation Email",
+      "emailAutomationDesc": "Modèles d'emails professionnels et notifications automatiques pour les nouveaux leads.",
+      "multiLocation": "Multi-Sites",
+      "multiLocationDesc": "Gérez plusieurs succursales de manière centralisée. Statistiques séparées, vue d'ensemble commune.",
+      "bexioIntegration": "Intégration Bexio",
+      "bexioIntegrationDesc": "Intégration transparente avec votre comptabilité Bexio. Clients, devis et factures synchronisés.",
+      "quotesInvoices": "Devis & Factures",
+      "quotesInvoicesDesc": "Créez des devis professionnels et convertissez-les directement en factures. Avec bulletin de versement QR."
     },
     "howItWorks": {
       "badge": "Comment ça marche",
@@ -380,5 +390,453 @@
     "autoSyncQuotes": "Synchroniser les offres automatiquement",
     "autoSyncInvoices": "Synchroniser les factures automatiquement",
     "defaultVatRate": "Taux de TVA par défaut"
+  },
+  "help": {
+    "title": "Aide & Documentation",
+    "subtitle": "Trouvez des guides et conseils pour toutes les fonctionnalités de Dealer OS",
+    "searchPlaceholder": "Rechercher des sujets...",
+    "stepsTitle": "Étape par étape",
+    "tipsTitle": "Conseils",
+    "backToOverview": "Retour à l'aperçu",
+    "stillNeedHelp": "Encore des questions?",
+    "quickStart": {
+      "title": "Nouveau sur Dealer OS?",
+      "description": "Découvrez les fonctionnalités clés en 5 minutes.",
+      "link": "Voir le guide de démarrage"
+    },
+    "support": {
+      "title": "Besoin d'aide?",
+      "description": "Notre équipe support est là pour vous aider.",
+      "button": "Contacter le support"
+    },
+    "categories": {
+      "getting-started": {
+        "title": "Premiers pas",
+        "description": "Bases et navigation dans Dealer OS",
+        "articles": {
+          "first-steps": {
+            "title": "Premiers pas avec Dealer OS",
+            "description": "Apprenez les bases et familiarisez-vous avec le système.",
+            "content": "<p>Bienvenue sur Dealer OS! Ce guide vous aide à devenir rapidement productif.</p><h3>Qu'est-ce que Dealer OS?</h3><p>Dealer OS est un logiciel tout-en-un pour les concessionnaires et garagistes suisses. Il combine gestion des véhicules, gestion clients, devis, factures et analyses sur une seule plateforme.</p><h3>Zones principales</h3><ul><li><strong>Aperçu:</strong> Votre tableau de bord avec les indicateurs clés</li><li><strong>Stock:</strong> Gérer tous vos véhicules</li><li><strong>Leads:</strong> Traiter les demandes clients</li><li><strong>Clients:</strong> Maintenir les données clients</li><li><strong>Devis & Factures:</strong> Créer des offres et facturer</li></ul>",
+            "steps": [
+              "Connectez-vous avec vos identifiants",
+              "Complétez votre profil entreprise dans Paramètres",
+              "Ajoutez votre premier véhicule au stock",
+              "Créez vos premiers clients",
+              "Explorez le tableau de bord pour un aperçu"
+            ],
+            "tips": [
+              "Commencez avec quelques véhicules test",
+              "Utilisez la recherche pour un accès rapide",
+              "Activez les notifications email pour les mises à jour importantes"
+            ]
+          },
+          "navigation": {
+            "title": "Navigation & Organisation",
+            "description": "Comment se repérer dans Dealer OS.",
+            "content": "<p>Dealer OS a une organisation claire. La navigation principale est à gauche, l'espace de travail à droite.</p><h3>Barre latérale (gauche)</h3><p>La barre latérale contient toutes les zones principales, organisées en groupes logiques:</p><ul><li><strong>Aperçu & Stock:</strong> Travail quotidien avec les véhicules</li><li><strong>Ventes:</strong> Clients, devis, factures</li><li><strong>Communication:</strong> Modèles email, WhatsApp</li><li><strong>Analyses:</strong> Rapports et évaluations</li></ul><h3>Filtre de site</h3><p>Si vous avez plusieurs sites, vous pouvez basculer entre eux ou tout afficher en haut de la barre latérale.</p>",
+            "tips": [
+              "Cliquez sur le logo pour revenir à l'aperçu",
+              "Le filtre de site affecte toutes les vues",
+              "Utilisez le changeur de langue pour votre langue préférée"
+            ]
+          },
+          "settings-overview": {
+            "title": "Configurer les paramètres",
+            "description": "Personnalisez Dealer OS selon vos besoins.",
+            "content": "<p>Dans les paramètres, vous configurez Dealer OS pour votre entreprise.</p><h3>Paramètres importants</h3><ul><li><strong>Profil entreprise:</strong> Nom, adresse, logo pour documents</li><li><strong>Sites:</strong> Gérer plusieurs succursales</li><li><strong>Utilisateurs:</strong> Inviter des membres d'équipe</li><li><strong>Intégrations:</strong> Connecter Bexio, WhatsApp et plus</li><li><strong>Modèles email:</strong> Personnaliser les textes standard</li></ul>",
+            "steps": [
+              "Allez dans Paramètres dans la barre latérale",
+              "Sélectionnez 'Profil entreprise' et complétez vos données",
+              "Téléchargez votre logo (affiché sur devis/factures)",
+              "Configurez des sites supplémentaires si nécessaire",
+              "Connectez des intégrations comme Bexio"
+            ]
+          }
+        }
+      },
+      "vehicles": {
+        "title": "Stock de véhicules",
+        "description": "Ajouter, gérer et vendre des véhicules",
+        "articles": {
+          "add-vehicle": {
+            "title": "Ajouter un véhicule",
+            "description": "Comment ajouter un nouveau véhicule à votre stock.",
+            "content": "<p>Ajouter un nouveau véhicule ne prend que quelques minutes. Entrez les données clés – le reste peut être ajouté plus tard.</p><h3>Champs obligatoires</h3><ul><li><strong>Marque & Modèle:</strong> ex. BMW 320d</li><li><strong>Première immatriculation:</strong> Pour le calcul de l'âge</li><li><strong>Kilométrage:</strong> Relevé actuel</li><li><strong>Prix:</strong> Prix de vente</li></ul><h3>Informations optionnelles</h3><p>Plus vous entrez de données, plus vos analyses seront pertinentes: prix d'achat, frais de préparation, extras, etc.</p>",
+            "steps": [
+              "Cliquez sur 'Stock' dans la barre latérale",
+              "Cliquez sur 'Nouveau véhicule'",
+              "Remplissez les champs obligatoires",
+              "Ajoutez les détails optionnels selon besoin",
+              "Cliquez sur 'Enregistrer'"
+            ],
+            "tips": [
+              "Entrez le prix d'achat pour le calcul de marge",
+              "Des données complètes = meilleures analyses",
+              "Le statut est automatiquement 'Disponible'"
+            ]
+          },
+          "edit-vehicle": {
+            "title": "Modifier un véhicule",
+            "description": "Mettre à jour les données et changer le statut.",
+            "content": "<p>Gardez vos données véhicules à jour. Les changements de prix, mises à jour de statut ou informations supplémentaires peuvent être ajustés à tout moment.</p><h3>Statuts véhicule</h3><ul><li><strong>Disponible:</strong> En vente active</li><li><strong>Réservé:</strong> Retenu pour un client</li><li><strong>Vendu:</strong> Transaction terminée</li></ul><h3>Historique des prix</h3><p>Chaque changement de prix est enregistré. Vous pouvez voir comment le prix a évolué.</p>",
+            "steps": [
+              "Ouvrez le véhicule depuis la liste du stock",
+              "Cliquez sur 'Modifier'",
+              "Changez les champs souhaités",
+              "Enregistrez les modifications"
+            ],
+            "tips": [
+              "Utilisez 'Réservé' quand un client montre de l'intérêt",
+              "Documentez les raisons des changements de prix dans les notes"
+            ]
+          },
+          "vehicle-photos": {
+            "title": "Télécharger des photos",
+            "description": "Ajouter et gérer les images de véhicules.",
+            "content": "<p>De bonnes photos sont cruciales pour les ventes. Téléchargez plusieurs images par véhicule.</p><h3>Prises de vue recommandées</h3><ul><li>Avant et arrière (en angle)</li><li>Les deux côtés</li><li>Intérieur (tableau de bord, sièges, coffre)</li><li>Équipements spéciaux</li><li>Tout dommage (pour la transparence)</li></ul><h3>Formats d'image</h3><p>JPG et PNG sont supportés. Taille max: 10 Mo par image.</p>",
+            "steps": [
+              "Ouvrez le véhicule",
+              "Allez à l'onglet 'Photos'",
+              "Cliquez sur 'Télécharger' ou glissez les images",
+              "Arrangez les images par glisser-déposer",
+              "La première image devient l'image principale"
+            ],
+            "tips": [
+              "Photographiez avec une bonne lumière du jour",
+              "8-12 images par véhicule est idéal",
+              "L'image principale apparaît dans les listes et annonces"
+            ]
+          },
+          "standtime-alerts": {
+            "title": "Alertes durée en stock",
+            "description": "Identifier les véhicules stagnants et agir à temps.",
+            "content": "<p>Les véhicules qui restent trop longtemps immobilisent du capital et perdent de la valeur. Dealer OS vous alerte automatiquement.</p><h3>Niveaux d'alerte</h3><ul><li><strong>30 jours (Jaune):</strong> Première attention</li><li><strong>60 jours (Orange):</strong> Revoir le prix</li><li><strong>90 jours (Rouge):</strong> Action urgente requise</li></ul><h3>Actions recommandées</h3><p>Pour les véhicules stagnants: ajuster le prix, optimiser l'annonce, promouvoir activement ou revendre.</p>",
+            "tips": [
+              "Vérifiez vos véhicules stagnants chaque semaine",
+              "Réduction de 5% tous les 30 jours comme règle",
+              "Documentez les actions dans les notes du véhicule"
+            ]
+          }
+        }
+      },
+      "leads": {
+        "title": "Leads & Demandes",
+        "description": "Gérer efficacement les demandes clients",
+        "articles": {
+          "manage-leads": {
+            "title": "Gérer les leads",
+            "description": "Gardez une vue d'ensemble de toutes les demandes.",
+            "content": "<p>Les leads sont des clients potentiels qui ont montré de l'intérêt pour un véhicule. Un traitement rapide et professionnel augmente votre taux de conversion.</p><h3>Sources de leads</h3><ul><li>Formulaire du site web</li><li>Demandes par email</li><li>Appels téléphoniques (entrés manuellement)</li><li>Messages WhatsApp</li><li>Portails d'annonces</li></ul><h3>Informations clés</h3><p>Capturez pour chaque lead: coordonnées, véhicule d'intérêt, budget, délai.</p>",
+            "steps": [
+              "Ouvrez 'Leads' dans la barre latérale",
+              "Les nouveaux leads apparaissent en haut",
+              "Cliquez sur un lead pour les détails",
+              "Mettez à jour le statut après contact",
+              "Liez le lead au client si intéressé"
+            ],
+            "tips": [
+              "Répondez dans l'heure pour les meilleurs résultats",
+              "Utilisez des modèles pour les réponses fréquentes",
+              "Enregistrez aussi les appels comme leads"
+            ]
+          },
+          "lead-status": {
+            "title": "Comprendre les statuts de lead",
+            "description": "Les différentes étapes d'une demande client.",
+            "content": "<p>Le statut du lead montre où se trouve un prospect dans le processus de vente.</p><h3>Aperçu des statuts</h3><ul><li><strong>Nouveau:</strong> Pas encore traité</li><li><strong>Contacté:</strong> Première réponse envoyée</li><li><strong>Intéressé:</strong> Intérêt d'achat actif</li><li><strong>Visite:</strong> Rendez-vous planifié</li><li><strong>Négociation:</strong> Négociation de prix en cours</li><li><strong>Gagné:</strong> Vente conclue</li><li><strong>Perdu:</strong> Pas de conclusion</li></ul>",
+            "tips": [
+              "Gardez le statut à jour pour des rapports précis",
+              "Notez la raison quand vous marquez 'Perdu'",
+              "Les leads gagnés améliorent votre taux de conversion"
+            ]
+          },
+          "follow-up": {
+            "title": "Suivis & Rappels",
+            "description": "N'oubliez jamais une demande – suivi automatique.",
+            "content": "<p>Beaucoup de ventes nécessitent plusieurs contacts. Les suivis vous aident à rester sur la bonne voie.</p><h3>Règles de suivi</h3><ul><li>Après première réponse: attendre 2-3 jours</li><li>Après visite: relancer le lendemain</li><li>Après devis: donner 1 semaine pour décider</li></ul>",
+            "steps": [
+              "Ouvrez un lead",
+              "Cliquez sur 'Définir un rappel'",
+              "Choisissez date et heure",
+              "Ajoutez une note (quoi discuter?)",
+              "Vous recevrez une notification au moment voulu"
+            ],
+            "tips": [
+              "Définissez le prochain suivi juste après chaque contact",
+              "Le matin 9h-11h atteint souvent mieux les clients",
+              "Max 3 suivis sans réponse, puis marquez 'Perdu'"
+            ]
+          }
+        }
+      },
+      "customers": {
+        "title": "Gestion clients",
+        "description": "Construire et maintenir votre base clients",
+        "articles": {
+          "add-customer": {
+            "title": "Ajouter un client",
+            "description": "Comment créer un nouveau client.",
+            "content": "<p>Une base clients bien entretenue est la fondation pour les devis, factures et achats répétés.</p><h3>Champs obligatoires</h3><ul><li><strong>Type de client:</strong> Particulier ou Entreprise</li><li><strong>Nom:</strong> Prénom et nom ou raison sociale</li><li><strong>Email ou Téléphone:</strong> Au moins un moyen de contact</li></ul><h3>Données d'adresse</h3><p>Pour les devis et factures, vous avez besoin de l'adresse complète.</p>",
+            "steps": [
+              "Allez dans 'Clients' dans la barre latérale",
+              "Cliquez sur 'Nouveau client'",
+              "Sélectionnez le type de client",
+              "Remplissez les coordonnées",
+              "Ajoutez l'adresse",
+              "Enregistrez le client"
+            ],
+            "tips": [
+              "Pour les entreprises: ajoutez aussi une personne de contact",
+              "N° TVA pour les clients entreprise pour les factures correctes",
+              "Les clients se synchronisent automatiquement avec Bexio (si connecté)"
+            ]
+          },
+          "customer-types": {
+            "title": "Particuliers vs. Entreprises",
+            "description": "Différences dans la saisie des données clients.",
+            "content": "<p>Des exigences différentes s'appliquent selon le type de client pour les documents et la facturation.</p><h3>Particuliers</h3><ul><li>Civilité, prénom et nom</li><li>Prix TTC</li><li>Pas de n° TVA requis</li></ul><h3>Clients entreprise</h3><ul><li>Raison sociale + contact</li><li>N° TVA pour factures B2B</li><li>Prix HT (optionnel)</li></ul>",
+            "tips": [
+              "Pour les sociétés de leasing: créer comme entreprise avec note conducteur séparée",
+              "Ventes entre négociants: catégorie propre pour les rapports"
+            ]
+          },
+          "customer-history": {
+            "title": "Historique client",
+            "description": "Toutes les interactions en un coup d'œil.",
+            "content": "<p>L'historique client montre toutes les interactions passées, achats et documents.</p><h3>Qu'est-ce qui est stocké?</h3><ul><li>Tous les leads/demandes du client</li><li>Devis créés</li><li>Factures émises</li><li>Véhicules achetés</li><li>Notes et commentaires</li></ul>",
+            "tips": [
+              "Consultez l'historique avant un appel",
+              "Les clients réguliers méritent une attention particulière",
+              "Utilisez les notes pour les détails personnels (hobbies, famille)"
+            ]
+          }
+        }
+      },
+      "quotes": {
+        "title": "Devis",
+        "description": "Créer des offres professionnelles",
+        "articles": {
+          "create-quote": {
+            "title": "Créer un devis",
+            "description": "Étape par étape vers un devis professionnel.",
+            "content": "<p>Un devis bien structuré augmente votre taux de conversion. Dealer OS génère des PDF professionnels avec votre logo.</p><h3>Composants du devis</h3><ul><li><strong>Client:</strong> Sélectionner dans la liste</li><li><strong>Véhicule:</strong> Lier depuis le stock</li><li><strong>Postes:</strong> Prix véhicule, accessoires, garantie</li><li><strong>Remise:</strong> Pourcentage ou montant</li><li><strong>Reprise:</strong> Véhicule repris en échange</li></ul>",
+            "steps": [
+              "Allez dans 'Devis' → 'Nouveau devis'",
+              "Sélectionnez un client (ou créez-en un)",
+              "Liez le véhicule d'intérêt",
+              "Ajoutez des postes (accessoires, garantie, etc.)",
+              "Vérifiez le montant total",
+              "Enregistrez et envoyez par email"
+            ],
+            "tips": [
+              "Définissez une date de validité (ex. 14 jours)",
+              "Ajoutez vos coordonnées bancaires pour les acomptes",
+              "Utilisez l'aperçu avant envoi"
+            ]
+          },
+          "quote-positions": {
+            "title": "Ajouter des postes",
+            "description": "Lister véhicule, accessoires et services.",
+            "content": "<p>Un devis peut contenir plusieurs postes. Structurez votre offre clairement.</p><h3>Types de postes</h3><ul><li><strong>Véhicule:</strong> Le véhicule principal</li><li><strong>Accessoires:</strong> Pneus hiver, attelage, etc.</li><li><strong>Service:</strong> Préparation, livraison</li><li><strong>Garantie:</strong> Packs de garantie supplémentaires</li><li><strong>Remise:</strong> Réductions de prix</li></ul>",
+            "tips": [
+              "Listez chaque poste séparément – la transparence crée la confiance",
+              "Ajoutez le prix d'achat des accessoires pour le calcul de marge",
+              "Utilisez des postes de remise au lieu d'ajustements manuels"
+            ]
+          },
+          "send-quote": {
+            "title": "Envoyer un devis",
+            "description": "Par email ou PDF au client.",
+            "content": "<p>Envoyez des devis directement depuis Dealer OS. Le client reçoit un PDF professionnel.</p><h3>Options d'envoi</h3><ul><li><strong>Email:</strong> Directement depuis le système avec suivi</li><li><strong>Téléchargement PDF:</strong> Pour envoi manuel ou impression</li><li><strong>WhatsApp:</strong> Lien vers la vue en ligne</li></ul><h3>Suivi</h3><p>Vous voyez quand le client a ouvert le devis (si envoyé par email).</p>",
+            "steps": [
+              "Ouvrez le devis terminé",
+              "Cliquez sur 'Envoyer par email'",
+              "Vérifiez destinataire et sujet",
+              "Personnalisez le message si nécessaire",
+              "Cliquez sur 'Envoyer'"
+            ],
+            "tips": [
+              "Personnalisez le message",
+              "Appelez 1-2 jours après l'envoi",
+              "Pas de réponse: activez le suivi automatique"
+            ]
+          },
+          "convert-invoice": {
+            "title": "Convertir devis en facture",
+            "description": "De l'offre à la facture en un clic.",
+            "content": "<p>Quand le client accepte le devis, convertissez-le en facture. Toutes les données sont transférées.</p><h3>Qu'est-ce qui est transféré?</h3><ul><li>Données client</li><li>Tous les postes</li><li>Remises et reprise</li><li>Véhicule lié</li></ul>",
+            "steps": [
+              "Ouvrez le devis accepté",
+              "Mettez le statut sur 'Accepté'",
+              "Cliquez sur 'Convertir en facture'",
+              "Vérifiez les données de facture",
+              "Enregistrez et envoyez la facture"
+            ],
+            "tips": [
+              "Le devis reste comme référence",
+              "Le statut du véhicule passe automatiquement à 'Vendu'",
+              "La facture se synchronise avec Bexio (si connecté)"
+            ]
+          }
+        }
+      },
+      "invoices": {
+        "title": "Factures",
+        "description": "Facturation et suivi des paiements",
+        "articles": {
+          "create-invoice": {
+            "title": "Créer une facture",
+            "description": "Générer des factures professionnelles.",
+            "content": "<p>Créez des factures manuellement ou à partir d'un devis accepté.</p><h3>Contenu de la facture</h3><ul><li><strong>N° de facture:</strong> Attribué automatiquement</li><li><strong>Date de facture:</strong> Par défaut: aujourd'hui</li><li><strong>Date d'échéance:</strong> Selon vos conditions</li><li><strong>Postes:</strong> Comme pour les devis</li></ul><h3>Traitement TVA</h3><p>La TVA suisse est calculée automatiquement (8.1%). Pour les clients entreprise, HT peut être affiché.</p>",
+            "steps": [
+              "Allez dans 'Factures' → 'Nouvelle facture'",
+              "Sélectionnez le client",
+              "Ajoutez les postes",
+              "Vérifiez TVA et total",
+              "Enregistrez et envoyez"
+            ],
+            "tips": [
+              "Pour les ventes de véhicules: toujours convertir depuis un devis",
+              "La facture QR est générée automatiquement",
+              "Le n° de facture est séquentiel et ne peut pas être modifié"
+            ]
+          },
+          "payment-tracking": {
+            "title": "Suivre les paiements",
+            "description": "Enregistrer les paiements et surveiller les montants dus.",
+            "content": "<p>Gardez une vue d'ensemble des factures payées et en attente.</p><h3>Statuts de paiement</h3><ul><li><strong>Brouillon:</strong> Pas encore envoyée</li><li><strong>Envoyée:</strong> Chez le client</li><li><strong>Partiel:</strong> Acompte reçu</li><li><strong>Payée:</strong> Entièrement réglée</li><li><strong>En retard:</strong> Échue et impayée</li></ul>",
+            "steps": [
+              "Ouvrez la facture",
+              "Cliquez sur 'Enregistrer un paiement'",
+              "Entrez montant et date",
+              "Sélectionnez le mode de paiement (virement, espèces, carte)",
+              "Enregistrez – le statut se met à jour automatiquement"
+            ],
+            "tips": [
+              "Enregistrez les paiements partiels séparément",
+              "Réconciliez régulièrement avec votre compte bancaire",
+              "Avec Bexio: les paiements se synchronisent automatiquement"
+            ]
+          },
+          "reminders": {
+            "title": "Envoyer des rappels",
+            "description": "Recouvrer les factures en retard.",
+            "content": "<p>En cas de paiement manquant, un processus de rappel structuré aide.</p><h3>Niveaux de rappel</h3><ul><li><strong>Rappel de paiement:</strong> Note amicale après 7 jours</li><li><strong>1er rappel:</strong> Après 14 jours, factuel</li><li><strong>2ème rappel:</strong> Après 30 jours, avec échéance</li><li><strong>Dernier rappel:</strong> Avertissement d'action légale</li></ul>",
+            "steps": [
+              "Ouvrez la facture en retard",
+              "Cliquez sur 'Envoyer un rappel'",
+              "Sélectionnez le niveau de rappel",
+              "Personnalisez le texte si nécessaire",
+              "Envoyez par email ou imprimez"
+            ],
+            "tips": [
+              "Appelez brièvement avant le premier rappel",
+              "Documentez tous les rappels",
+              "Pour les mauvais payeurs chroniques: plus d'affaires sans prépaiement"
+            ]
+          }
+        }
+      },
+      "integrations": {
+        "title": "Intégrations",
+        "description": "Connecter Dealer OS avec d'autres outils",
+        "articles": {
+          "bexio-setup": {
+            "title": "Connecter Bexio",
+            "description": "Automatiser la comptabilité avec Bexio.",
+            "content": "<p>Connectez Dealer OS avec Bexio pour la synchronisation automatique des clients, devis et factures.</p><h3>Qu'est-ce qui est synchronisé?</h3><ul><li><strong>Clients:</strong> Bidirectionnel (les deux sens)</li><li><strong>Devis:</strong> De Dealer OS vers Bexio</li><li><strong>Factures:</strong> De Dealer OS vers Bexio</li><li><strong>Paiements:</strong> De Bexio vers Dealer OS</li></ul><h3>Prérequis</h3><p>Vous avez besoin d'un compte Bexio actif et d'un accès API (Bexio Pro ou supérieur).</p>",
+            "steps": [
+              "Allez dans Paramètres → Intégrations",
+              "Cliquez sur 'Connecter avec Bexio'",
+              "Connectez-vous à Bexio",
+              "Autorisez l'accès",
+              "Configurez les paramètres de synchronisation"
+            ],
+            "tips": [
+              "Testez avec quelques enregistrements",
+              "Définissez un taux de TVA par défaut",
+              "Vérifiez le plan comptable dans Bexio"
+            ]
+          },
+          "whatsapp-setup": {
+            "title": "Configurer WhatsApp",
+            "description": "Recevoir les demandes clients via WhatsApp.",
+            "content": "<p>Connectez votre numéro WhatsApp Business avec Dealer OS pour la communication directe avec les clients.</p><h3>Fonctionnalités</h3><ul><li>Recevoir les messages directement dans le tableau de bord</li><li>Réponses rapides et modèles</li><li>Création automatique de leads</li><li>Envoyer et recevoir des médias</li></ul>",
+            "steps": [
+              "Allez dans Paramètres → Intégrations → WhatsApp",
+              "Scannez le code QR avec WhatsApp Business",
+              "Attendez la confirmation de connexion",
+              "Testez avec un message vers votre numéro"
+            ],
+            "tips": [
+              "Utilisez un numéro business dédié",
+              "Configurez un message d'accueil automatique",
+              "Répondez vite – les clients WhatsApp l'attendent"
+            ]
+          },
+          "email-templates": {
+            "title": "Personnaliser les modèles email",
+            "description": "Configurer les textes par défaut pour les emails.",
+            "content": "<p>Personnalisez les modèles email selon votre style. Les modèles sont utilisés pour les devis, factures et rappels.</p><h3>Modèles disponibles</h3><ul><li>Envoi de devis</li><li>Envoi de facture</li><li>Rappel de paiement</li><li>1er/2ème/3ème rappel</li><li>Réponse générale aux demandes</li></ul><h3>Variables</h3><p>Utilisez des variables comme {'{nomclient}'}, {'{vehicule}'}, {'{montant}'} pour une personnalisation automatique.</p>",
+            "steps": [
+              "Allez dans Paramètres → Modèles email",
+              "Sélectionnez un modèle à modifier",
+              "Personnalisez l'objet et le texte",
+              "Utilisez les variables disponibles",
+              "Enregistrez et testez avec un email test"
+            ],
+            "tips": [
+              "Gardez les emails courts et personnels",
+              "Incluez votre signature avec vos coordonnées",
+              "Testez chaque modèle avant utilisation"
+            ]
+          }
+        }
+      },
+      "analytics": {
+        "title": "Analyses",
+        "description": "Comprendre et utiliser vos indicateurs",
+        "articles": {
+          "dashboard-overview": {
+            "title": "Comprendre le tableau de bord",
+            "description": "Indicateurs clés en un coup d'œil.",
+            "content": "<p>Le tableau de bord montre vos KPI les plus importants en temps réel.</p><h3>Indicateurs clés</h3><ul><li><strong>Stock:</strong> Nombre de véhicules, valeur totale</li><li><strong>Durée moy. en stock:</strong> Jours moyens jusqu'à la vente</li><li><strong>Leads ouverts:</strong> Demandes non traitées</li><li><strong>Marge moy.:</strong> Profit moyen par véhicule</li><li><strong>Chiffre d'affaires:</strong> Comparaison mensuelle et annuelle</li></ul>",
+            "tips": [
+              "Consultez le tableau de bord chaque matin",
+              "Les chiffres rouges nécessitent une attention immédiate",
+              "Comparez les valeurs avec le mois précédent"
+            ]
+          },
+          "reports": {
+            "title": "Générer des rapports",
+            "description": "Créer des évaluations détaillées.",
+            "content": "<p>Créez des rapports détaillés pour différentes périodes et catégories.</p><h3>Rapports disponibles</h3><ul><li><strong>Rapport de stock:</strong> Tous les véhicules avec durée en stock et marge</li><li><strong>Rapport des ventes:</strong> Ventes conclues sur la période</li><li><strong>Rapport leads:</strong> Taux de conversion et sources</li><li><strong>Rapport CA:</strong> Revenus et tendances</li></ul>",
+            "steps": [
+              "Allez dans Analyses → Rapports",
+              "Sélectionnez le type de rapport",
+              "Définissez la période",
+              "Optionnel: filtrez par site ou catégorie",
+              "Générez et exportez le rapport"
+            ],
+            "tips": [
+              "Rapports mensuels en fin de mois pour la comptabilité",
+              "Comparez les trimestres pour les tendances",
+              "Exportez en Excel pour une analyse approfondie"
+            ]
+          },
+          "export-data": {
+            "title": "Exporter les données",
+            "description": "Télécharger les données pour usage externe.",
+            "content": "<p>Exportez vos données pour la comptabilité, les impôts ou l'analyse.</p><h3>Formats d'export</h3><ul><li><strong>Excel (.xlsx):</strong> Pour les tableurs</li><li><strong>CSV:</strong> Pour import dans d'autres systèmes</li><li><strong>PDF:</strong> Pour archivage et impression</li></ul><h3>Données exportables</h3><p>Véhicules, clients, devis, factures, leads – tout peut être exporté.</p>",
+            "tips": [
+              "Sauvegardes régulières recommandées",
+              "CSV pour import dans d'autres logiciels",
+              "Export PDF pour archivage légal"
+            ]
+          }
+        }
+      }
+    }
   }
 }

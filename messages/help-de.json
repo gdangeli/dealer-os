@@ -1,0 +1,448 @@
+{
+  "title": "Hilfe & Dokumentation",
+  "subtitle": "Finden Sie Anleitungen und Tipps für alle Funktionen von Dealer OS",
+  "searchPlaceholder": "Suchen Sie nach Themen...",
+  "stepsTitle": "Schritt für Schritt",
+  "tipsTitle": "Tipps",
+  "backToOverview": "Zurück zur Übersicht",
+  "stillNeedHelp": "Noch Fragen?",
+  "quickStart": {
+    "title": "Neu bei Dealer OS?",
+    "description": "Lernen Sie in 5 Minuten die wichtigsten Funktionen kennen.",
+    "link": "Erste Schritte ansehen"
+  },
+  "support": {
+    "title": "Brauchen Sie Hilfe?",
+    "description": "Unser Support-Team hilft Ihnen gerne weiter.",
+    "button": "Support kontaktieren"
+  },
+  "categories": {
+    "getting-started": {
+      "title": "Erste Schritte",
+      "description": "Grundlagen und Navigation in Dealer OS",
+      "articles": {
+        "first-steps": {
+          "title": "Erste Schritte mit Dealer OS",
+          "description": "Lernen Sie die Grundlagen und machen Sie sich mit dem System vertraut.",
+          "content": "<p>Willkommen bei Dealer OS! Diese Anleitung hilft Ihnen, schnell produktiv zu werden.</p><h3>Was ist Dealer OS?</h3><p>Dealer OS ist eine All-in-One-Software für Schweizer Autohändler und Garagisten. Sie vereint Fahrzeugverwaltung, Kundenmanagement, Offerten, Rechnungen und Auswertungen in einer Plattform.</p><h3>Die wichtigsten Bereiche</h3><ul><li><strong>Übersicht:</strong> Ihr Dashboard mit den wichtigsten Kennzahlen</li><li><strong>Bestand:</strong> Alle Ihre Fahrzeuge verwalten</li><li><strong>Anfragen:</strong> Leads und Kundenanfragen bearbeiten</li><li><strong>Kunden:</strong> Kundenstammdaten pflegen</li><li><strong>Offerten & Rechnungen:</strong> Angebote erstellen und fakturieren</li></ul>",
+          "steps": [
+            "Melden Sie sich mit Ihren Zugangsdaten an",
+            "Vervollständigen Sie Ihr Firmenprofil unter Einstellungen",
+            "Erfassen Sie Ihr erstes Fahrzeug im Bestand",
+            "Legen Sie Ihre ersten Kunden an",
+            "Erkunden Sie das Dashboard für einen Überblick"
+          ],
+          "tips": [
+            "Beginnen Sie mit wenigen Fahrzeugen zum Testen",
+            "Nutzen Sie die Suchfunktion für schnellen Zugriff",
+            "Aktivieren Sie E-Mail-Benachrichtigungen für wichtige Updates"
+          ]
+        },
+        "navigation": {
+          "title": "Navigation & Aufbau",
+          "description": "So finden Sie sich in Dealer OS zurecht.",
+          "content": "<p>Dealer OS ist übersichtlich aufgebaut. Links finden Sie die Hauptnavigation, rechts den Arbeitsbereich.</p><h3>Seitenleiste (links)</h3><p>Die Seitenleiste enthält alle Hauptbereiche. Sie ist in logische Gruppen unterteilt:</p><ul><li><strong>Übersicht & Bestand:</strong> Tägliche Arbeit mit Fahrzeugen</li><li><strong>Verkauf:</strong> Kunden, Offerten, Rechnungen</li><li><strong>Kommunikation:</strong> E-Mail-Vorlagen, WhatsApp</li><li><strong>Analyse:</strong> Auswertungen und Reports</li></ul><h3>Standort-Filter</h3><p>Wenn Sie mehrere Standorte haben, können Sie oben in der Seitenleiste zwischen Standorten wechseln oder alle anzeigen.</p>",
+          "tips": [
+            "Klicken Sie auf das Logo, um zur Übersicht zurückzukehren",
+            "Der Standort-Filter wirkt sich auf alle Ansichten aus",
+            "Nutzen Sie den Sprachwechsler für Ihre bevorzugte Sprache"
+          ]
+        },
+        "settings-overview": {
+          "title": "Einstellungen einrichten",
+          "description": "Passen Sie Dealer OS an Ihre Bedürfnisse an.",
+          "content": "<p>In den Einstellungen konfigurieren Sie Dealer OS für Ihr Unternehmen.</p><h3>Wichtige Einstellungen</h3><ul><li><strong>Firmenprofil:</strong> Name, Adresse, Logo für Dokumente</li><li><strong>Standorte:</strong> Mehrere Filialen verwalten</li><li><strong>Benutzer:</strong> Teammitglieder einladen</li><li><strong>Integrationen:</strong> Bexio, WhatsApp und mehr verbinden</li><li><strong>E-Mail-Vorlagen:</strong> Standardtexte anpassen</li></ul>",
+          "steps": [
+            "Gehen Sie zu Einstellungen in der Seitenleiste",
+            "Wählen Sie 'Firmenprofil' und ergänzen Sie Ihre Daten",
+            "Laden Sie Ihr Logo hoch (wird auf Offerten/Rechnungen angezeigt)",
+            "Richten Sie bei Bedarf weitere Standorte ein",
+            "Verbinden Sie Integrationen wie Bexio"
+          ]
+        }
+      }
+    },
+    "vehicles": {
+      "title": "Fahrzeugbestand",
+      "description": "Fahrzeuge erfassen, verwalten und verkaufen",
+      "articles": {
+        "add-vehicle": {
+          "title": "Fahrzeug erfassen",
+          "description": "So fügen Sie ein neues Fahrzeug zu Ihrem Bestand hinzu.",
+          "content": "<p>Ein neues Fahrzeug zu erfassen dauert nur wenige Minuten. Geben Sie die wichtigsten Daten ein – der Rest kann später ergänzt werden.</p><h3>Pflichtfelder</h3><ul><li><strong>Marke & Modell:</strong> z.B. BMW 320d</li><li><strong>Erstzulassung:</strong> Für Altersberechnung</li><li><strong>Kilometerstand:</strong> Aktueller Stand</li><li><strong>Preis:</strong> Verkaufspreis (VK)</li></ul><h3>Optionale Angaben</h3><p>Je mehr Daten Sie erfassen, desto aussagekräftiger werden Ihre Auswertungen: Einkaufspreis, Aufbereitungskosten, Zusatzausstattung etc.</p>",
+          "steps": [
+            "Klicken Sie auf 'Bestand' in der Seitenleiste",
+            "Klicken Sie auf 'Neues Fahrzeug'",
+            "Füllen Sie die Pflichtfelder aus",
+            "Ergänzen Sie optionale Angaben nach Bedarf",
+            "Klicken Sie auf 'Speichern'"
+          ],
+          "tips": [
+            "Erfassen Sie den Einkaufspreis für Margenberechnung",
+            "Je vollständiger die Daten, desto besser die Auswertungen",
+            "Fahrzeugstatus wird automatisch auf 'Verfügbar' gesetzt"
+          ]
+        },
+        "edit-vehicle": {
+          "title": "Fahrzeug bearbeiten",
+          "description": "Fahrzeugdaten aktualisieren und Status ändern.",
+          "content": "<p>Halten Sie Ihre Fahrzeugdaten aktuell. Preisänderungen, Statuswechsel oder zusätzliche Informationen können jederzeit angepasst werden.</p><h3>Fahrzeugstatus</h3><ul><li><strong>Verfügbar:</strong> Im aktiven Verkauf</li><li><strong>Reserviert:</strong> Für einen Kunden vorgemerkt</li><li><strong>Verkauft:</strong> Erfolgreich abgeschlossen</li></ul><h3>Preishistorie</h3><p>Jede Preisänderung wird protokolliert. So sehen Sie später, wie sich der Preis entwickelt hat.</p>",
+          "steps": [
+            "Öffnen Sie das Fahrzeug aus der Bestandsliste",
+            "Klicken Sie auf 'Bearbeiten'",
+            "Ändern Sie die gewünschten Felder",
+            "Speichern Sie die Änderungen"
+          ],
+          "tips": [
+            "Nutzen Sie 'Reserviert' wenn ein Kunde Interesse zeigt",
+            "Dokumentieren Sie Gründe für Preisänderungen in den Notizen"
+          ]
+        },
+        "vehicle-photos": {
+          "title": "Fotos hochladen",
+          "description": "Fahrzeugbilder hinzufügen und verwalten.",
+          "content": "<p>Gute Fotos sind entscheidend für den Verkauf. Laden Sie mehrere Bilder pro Fahrzeug hoch.</p><h3>Empfohlene Aufnahmen</h3><ul><li>Front und Heck (schräg)</li><li>Beide Seiten</li><li>Innenraum (Cockpit, Sitze, Kofferraum)</li><li>Besondere Ausstattung</li><li>Eventuelle Mängel (für Transparenz)</li></ul><h3>Bildformate</h3><p>JPG und PNG werden unterstützt. Maximale Dateigrösse: 10 MB pro Bild.</p>",
+          "steps": [
+            "Öffnen Sie das Fahrzeug",
+            "Wechseln Sie zum Tab 'Fotos'",
+            "Klicken Sie auf 'Fotos hochladen' oder ziehen Sie Bilder in den Bereich",
+            "Ordnen Sie die Bilder per Drag & Drop",
+            "Das erste Bild wird als Hauptbild verwendet"
+          ],
+          "tips": [
+            "Fotografieren Sie bei gutem Tageslicht",
+            "8-12 Bilder pro Fahrzeug sind ideal",
+            "Das Hauptbild erscheint in Listen und auf Inseraten"
+          ]
+        },
+        "standtime-alerts": {
+          "title": "Standzeit-Warnungen",
+          "description": "Langsteher erkennen und rechtzeitig handeln.",
+          "content": "<p>Fahrzeuge, die lange stehen, binden Kapital und verlieren an Wert. Dealer OS warnt Sie automatisch.</p><h3>Warnstufen</h3><ul><li><strong>30 Tage (Gelb):</strong> Erste Aufmerksamkeit</li><li><strong>60 Tage (Orange):</strong> Preisanpassung prüfen</li><li><strong>90 Tage (Rot):</strong> Dringender Handlungsbedarf</li></ul><h3>Empfohlene Massnahmen</h3><p>Bei langer Standzeit: Preis anpassen, Inserat optimieren, aktiv bewerben oder an Händler abgeben.</p>",
+          "tips": [
+            "Prüfen Sie wöchentlich Ihre Langsteher",
+            "5% Preisreduktion alle 30 Tage als Richtwert",
+            "Dokumentieren Sie Massnahmen in den Fahrzeugnotizen"
+          ]
+        }
+      }
+    },
+    "leads": {
+      "title": "Anfragen & Leads",
+      "description": "Kundenanfragen effizient bearbeiten",
+      "articles": {
+        "manage-leads": {
+          "title": "Leads verwalten",
+          "description": "So behalten Sie den Überblick über alle Anfragen.",
+          "content": "<p>Leads sind potenzielle Kunden, die Interesse an einem Fahrzeug gezeigt haben. Eine schnelle und professionelle Bearbeitung erhöht Ihre Abschlussquote.</p><h3>Lead-Quellen</h3><ul><li>Website-Formular</li><li>E-Mail-Anfragen</li><li>Telefonanrufe (manuell erfasst)</li><li>WhatsApp-Nachrichten</li><li>Inserate-Portale</li></ul><h3>Wichtige Informationen</h3><p>Erfassen Sie bei jedem Lead: Kontaktdaten, interessiertes Fahrzeug, Budget, Zeitrahmen.</p>",
+          "steps": [
+            "Öffnen Sie 'Anfragen' in der Seitenleiste",
+            "Neue Leads erscheinen oben in der Liste",
+            "Klicken Sie auf einen Lead für Details",
+            "Aktualisieren Sie den Status nach Kontaktaufnahme",
+            "Verknüpfen Sie den Lead mit einem Kunden bei Interesse"
+          ],
+          "tips": [
+            "Antworten Sie innerhalb von 1 Stunde für beste Ergebnisse",
+            "Nutzen Sie Vorlagen für häufige Antworten",
+            "Erfassen Sie auch telefonische Anfragen als Lead"
+          ]
+        },
+        "lead-status": {
+          "title": "Lead-Status verstehen",
+          "description": "Die verschiedenen Phasen einer Kundenanfrage.",
+          "content": "<p>Der Lead-Status zeigt, wo sich ein Interessent im Verkaufsprozess befindet.</p><h3>Status-Übersicht</h3><ul><li><strong>Neu:</strong> Noch nicht bearbeitet</li><li><strong>Kontaktiert:</strong> Erste Antwort gesendet</li><li><strong>Interessiert:</strong> Aktives Kaufinteresse</li><li><strong>Besichtigung:</strong> Termin vereinbart</li><li><strong>Verhandlung:</strong> Preisverhandlung läuft</li><li><strong>Gewonnen:</strong> Verkauf abgeschlossen</li><li><strong>Verloren:</strong> Kein Abschluss</li></ul>",
+          "tips": [
+            "Halten Sie den Status aktuell für aussagekräftige Reports",
+            "Notieren Sie bei 'Verloren' den Grund",
+            "Gewonnene Leads erhöhen Ihre Conversion-Rate in Auswertungen"
+          ]
+        },
+        "follow-up": {
+          "title": "Follow-ups & Erinnerungen",
+          "description": "Keine Anfrage vergessen – automatische Nachverfolgung.",
+          "content": "<p>Viele Verkäufe brauchen mehrere Kontakte. Follow-ups helfen Ihnen, am Ball zu bleiben.</p><h3>Follow-up-Regeln</h3><ul><li>Nach Erstantwort: 2-3 Tage warten</li><li>Nach Besichtigung: Am nächsten Tag nachhaken</li><li>Nach Angebot: 1 Woche für Entscheidung geben</li></ul>",
+          "steps": [
+            "Öffnen Sie einen Lead",
+            "Klicken Sie auf 'Erinnerung setzen'",
+            "Wählen Sie Datum und Uhrzeit",
+            "Fügen Sie eine Notiz hinzu (was besprechen?)",
+            "Sie erhalten eine Benachrichtigung zum Zeitpunkt"
+          ],
+          "tips": [
+            "Setzen Sie nach jedem Kontakt gleich das nächste Follow-up",
+            "Morgens zwischen 9-11 Uhr sind Kunden oft gut erreichbar",
+            "Maximal 3 Follow-ups ohne Antwort, dann Status auf 'Verloren'"
+          ]
+        }
+      }
+    },
+    "customers": {
+      "title": "Kundenverwaltung",
+      "description": "Kundenstamm aufbauen und pflegen",
+      "articles": {
+        "add-customer": {
+          "title": "Kunden anlegen",
+          "description": "So erfassen Sie einen neuen Kunden.",
+          "content": "<p>Ein gepflegter Kundenstamm ist die Basis für Offerten, Rechnungen und Wiederholungskäufe.</p><h3>Pflichtfelder</h3><ul><li><strong>Kundentyp:</strong> Privatperson oder Firma</li><li><strong>Name:</strong> Vor- und Nachname oder Firmenname</li><li><strong>E-Mail oder Telefon:</strong> Mindestens ein Kontaktweg</li></ul><h3>Adressdaten</h3><p>Für Offerten und Rechnungen benötigen Sie die vollständige Adresse.</p>",
+          "steps": [
+            "Gehen Sie zu 'Kunden' in der Seitenleiste",
+            "Klicken Sie auf 'Neuer Kunde'",
+            "Wählen Sie den Kundentyp",
+            "Füllen Sie die Kontaktdaten aus",
+            "Ergänzen Sie die Adresse",
+            "Speichern Sie den Kunden"
+          ],
+          "tips": [
+            "Bei Firmen: Erfassen Sie auch einen Ansprechpartner",
+            "Die UID-Nummer bei Firmenkunden für korrekte Rechnungen",
+            "Kunden werden automatisch mit Bexio synchronisiert (wenn verbunden)"
+          ]
+        },
+        "customer-types": {
+          "title": "Privat- vs. Firmenkunden",
+          "description": "Unterschiede bei der Kundenerfassung.",
+          "content": "<p>Je nach Kundentyp gelten unterschiedliche Anforderungen an Dokumente und Rechnungsstellung.</p><h3>Privatpersonen</h3><ul><li>Anrede, Vor- und Nachname</li><li>Preise inkl. MwSt.</li><li>Keine UID erforderlich</li></ul><h3>Firmenkunden</h3><ul><li>Firmenname + Ansprechpartner</li><li>UID-Nummer für B2B-Rechnungen</li><li>Preise exkl. MwSt. (optional)</li></ul>",
+          "tips": [
+            "Für Leasingfirmen: Als Firmenkunde mit separatem Fahrernotiz anlegen",
+            "Händlerverkäufe: Eigene Kategorie für Reports"
+          ]
+        },
+        "customer-history": {
+          "title": "Kundenhistorie",
+          "description": "Alle Interaktionen auf einen Blick.",
+          "content": "<p>Die Kundenhistorie zeigt alle vergangenen Interaktionen, Käufe und Dokumente.</p><h3>Was wird gespeichert?</h3><ul><li>Alle Leads/Anfragen des Kunden</li><li>Erstellte Offerten</li><li>Ausgestellte Rechnungen</li><li>Gekaufte Fahrzeuge</li><li>Notizen und Kommentare</li></ul>",
+          "tips": [
+            "Prüfen Sie die Historie vor einem Gespräch",
+            "Stammkunden verdienen besondere Aufmerksamkeit",
+            "Nutzen Sie Notizen für persönliche Details (Hobbys, Familie)"
+          ]
+        }
+      }
+    },
+    "quotes": {
+      "title": "Offerten",
+      "description": "Professionelle Angebote erstellen",
+      "articles": {
+        "create-quote": {
+          "title": "Offerte erstellen",
+          "description": "Schritt für Schritt zur professionellen Offerte.",
+          "content": "<p>Eine gut strukturierte Offerte erhöht Ihre Abschlussquote. Dealer OS generiert professionelle PDFs mit Ihrem Firmenlogo.</p><h3>Offerten-Bestandteile</h3><ul><li><strong>Kunde:</strong> Aus Kundenstamm auswählen</li><li><strong>Fahrzeug:</strong> Aus Bestand verknüpfen</li><li><strong>Positionen:</strong> Fahrzeugpreis, Zubehör, Garantie</li><li><strong>Rabatt:</strong> Prozentual oder absolut</li><li><strong>Eintausch:</strong> Inzahlungnahme eines Alt-Fahrzeugs</li></ul>",
+          "steps": [
+            "Gehen Sie zu 'Offerten' → 'Neue Offerte'",
+            "Wählen Sie einen Kunden (oder legen Sie einen neuen an)",
+            "Verknüpfen Sie das interessierte Fahrzeug",
+            "Fügen Sie Positionen hinzu (Zubehör, Garantie, etc.)",
+            "Prüfen Sie den Gesamtbetrag",
+            "Speichern und per E-Mail senden"
+          ],
+          "tips": [
+            "Setzen Sie ein Gültigkeitsdatum (z.B. 14 Tage)",
+            "Fügen Sie Ihre Bankverbindung für Anzahlungen hinzu",
+            "Nutzen Sie die Vorschau vor dem Versand"
+          ]
+        },
+        "quote-positions": {
+          "title": "Positionen hinzufügen",
+          "description": "Fahrzeug, Zubehör und Dienstleistungen auflisten.",
+          "content": "<p>Eine Offerte kann mehrere Positionen enthalten. Strukturieren Sie Ihr Angebot übersichtlich.</p><h3>Positions-Typen</h3><ul><li><strong>Fahrzeug:</strong> Das Hauptfahrzeug</li><li><strong>Zubehör:</strong> Winterräder, Anhängerkupplung, etc.</li><li><strong>Dienstleistung:</strong> Aufbereitung, Lieferung</li><li><strong>Garantie:</strong> Zusätzliche Garantiepakete</li><li><strong>Rabatt:</strong> Preisnachlässe</li></ul>",
+          "tips": [
+            "Listen Sie jede Position separat auf – Transparenz schafft Vertrauen",
+            "Zubehör mit Einstandspreis hinterlegen für Margenberechnung",
+            "Nutzen Sie Rabatt-Positionen statt manueller Preisanpassung"
+          ]
+        },
+        "send-quote": {
+          "title": "Offerte versenden",
+          "description": "Per E-Mail oder PDF an den Kunden.",
+          "content": "<p>Versenden Sie Offerten direkt aus Dealer OS. Der Kunde erhält ein professionelles PDF.</p><h3>Versandoptionen</h3><ul><li><strong>E-Mail:</strong> Direkt aus dem System mit Tracking</li><li><strong>PDF-Download:</strong> Zum manuellen Versand oder Ausdruck</li><li><strong>WhatsApp:</strong> Link zur Online-Ansicht</li></ul><h3>Tracking</h3><p>Sie sehen, wann der Kunde die Offerte geöffnet hat (bei E-Mail-Versand).</p>",
+          "steps": [
+            "Öffnen Sie die fertige Offerte",
+            "Klicken Sie auf 'Per E-Mail senden'",
+            "Prüfen Sie den Empfänger und Betreff",
+            "Passen Sie den Begleittext bei Bedarf an",
+            "Klicken Sie auf 'Senden'"
+          ],
+          "tips": [
+            "Personalisieren Sie den Begleittext",
+            "Rufen Sie 1-2 Tage nach Versand an",
+            "Bei keiner Reaktion: Automatisches Follow-up aktivieren"
+          ]
+        },
+        "convert-invoice": {
+          "title": "Offerte in Rechnung umwandeln",
+          "description": "Vom Angebot zur Rechnung in einem Klick.",
+          "content": "<p>Wenn der Kunde die Offerte annimmt, wandeln Sie sie in eine Rechnung um. Alle Daten werden übernommen.</p><h3>Was wird übernommen?</h3><ul><li>Kundendaten</li><li>Alle Positionen</li><li>Rabatte und Eintausch</li><li>Verknüpftes Fahrzeug</li></ul>",
+          "steps": [
+            "Öffnen Sie die akzeptierte Offerte",
+            "Setzen Sie den Status auf 'Angenommen'",
+            "Klicken Sie auf 'In Rechnung umwandeln'",
+            "Prüfen Sie die Rechnungsdaten",
+            "Speichern und versenden Sie die Rechnung"
+          ],
+          "tips": [
+            "Offerte bleibt als Referenz erhalten",
+            "Fahrzeugstatus wird automatisch auf 'Verkauft' gesetzt",
+            "Rechnung wird mit Bexio synchronisiert (wenn verbunden)"
+          ]
+        }
+      }
+    },
+    "invoices": {
+      "title": "Rechnungen",
+      "description": "Rechnungsstellung und Zahlungsverfolgung",
+      "articles": {
+        "create-invoice": {
+          "title": "Rechnung erstellen",
+          "description": "Professionelle Rechnungen generieren.",
+          "content": "<p>Erstellen Sie Rechnungen manuell oder aus einer angenommenen Offerte.</p><h3>Rechnungs-Inhalt</h3><ul><li><strong>Rechnungsnummer:</strong> Automatisch vergeben</li><li><strong>Rechnungsdatum:</strong> Standard: heute</li><li><strong>Fälligkeitsdatum:</strong> Nach Ihren Zahlungsbedingungen</li><li><strong>Positionen:</strong> Wie bei Offerten</li></ul><h3>MwSt.-Behandlung</h3><p>Schweizer MwSt. wird automatisch berechnet (8.1%). Für Firmenkunden kann exkl. MwSt. ausgewiesen werden.</p>",
+          "steps": [
+            "Gehen Sie zu 'Rechnungen' → 'Neue Rechnung'",
+            "Wählen Sie den Kunden",
+            "Fügen Sie Positionen hinzu",
+            "Prüfen Sie MwSt. und Gesamtbetrag",
+            "Speichern und versenden"
+          ],
+          "tips": [
+            "Für Fahrzeugverkäufe: Immer aus Offerte umwandeln",
+            "QR-Rechnung wird automatisch generiert",
+            "Rechnungsnummer ist fortlaufend und nicht änderbar"
+          ]
+        },
+        "payment-tracking": {
+          "title": "Zahlungen verfolgen",
+          "description": "Zahlungseingänge erfassen und Offenes im Blick.",
+          "content": "<p>Behalten Sie den Überblick über bezahlte und offene Rechnungen.</p><h3>Zahlungsstatus</h3><ul><li><strong>Entwurf:</strong> Noch nicht versendet</li><li><strong>Gesendet:</strong> Beim Kunden</li><li><strong>Teilbezahlt:</strong> Anzahlung eingegangen</li><li><strong>Bezahlt:</strong> Vollständig beglichen</li><li><strong>Überfällig:</strong> Nach Fälligkeit nicht bezahlt</li></ul>",
+          "steps": [
+            "Öffnen Sie die Rechnung",
+            "Klicken Sie auf 'Zahlung erfassen'",
+            "Geben Sie Betrag und Datum ein",
+            "Wählen Sie die Zahlungsart (Überweisung, Bar, Karte)",
+            "Speichern – Status wird automatisch aktualisiert"
+          ],
+          "tips": [
+            "Erfassen Sie Teilzahlungen separat",
+            "Gleichen Sie regelmässig mit Ihrem Bankkonto ab",
+            "Mit Bexio: Zahlungen werden automatisch synchronisiert"
+          ]
+        },
+        "reminders": {
+          "title": "Mahnungen versenden",
+          "description": "Überfällige Rechnungen einfordern.",
+          "content": "<p>Bei ausbleibender Zahlung hilft ein strukturiertes Mahnwesen.</p><h3>Mahnstufen</h3><ul><li><strong>Zahlungserinnerung:</strong> Freundlicher Hinweis nach 7 Tagen</li><li><strong>1. Mahnung:</strong> Nach 14 Tagen, sachlich</li><li><strong>2. Mahnung:</strong> Nach 30 Tagen, mit Fristsetzung</li><li><strong>Letzte Mahnung:</strong> Androhung rechtlicher Schritte</li></ul>",
+          "steps": [
+            "Öffnen Sie die überfällige Rechnung",
+            "Klicken Sie auf 'Mahnung senden'",
+            "Wählen Sie die Mahnstufe",
+            "Passen Sie den Text bei Bedarf an",
+            "Versenden Sie per E-Mail oder drucken Sie aus"
+          ],
+          "tips": [
+            "Rufen Sie vor der ersten Mahnung kurz an",
+            "Dokumentieren Sie alle Mahnungen",
+            "Bei Dauerschuldnern: Keine weiteren Geschäfte ohne Vorauskasse"
+          ]
+        }
+      }
+    },
+    "integrations": {
+      "title": "Integrationen",
+      "description": "Verbinden Sie Dealer OS mit anderen Tools",
+      "articles": {
+        "bexio-setup": {
+          "title": "Bexio verbinden",
+          "description": "Buchhaltung automatisieren mit Bexio.",
+          "content": "<p>Verbinden Sie Dealer OS mit Bexio für automatische Synchronisation von Kunden, Offerten und Rechnungen.</p><h3>Was wird synchronisiert?</h3><ul><li><strong>Kunden:</strong> Bidirektional (beide Richtungen)</li><li><strong>Offerten:</strong> Von Dealer OS zu Bexio</li><li><strong>Rechnungen:</strong> Von Dealer OS zu Bexio</li><li><strong>Zahlungen:</strong> Von Bexio zu Dealer OS</li></ul><h3>Voraussetzungen</h3><p>Sie benötigen einen aktiven Bexio-Account und API-Zugang (ab Bexio Pro).</p>",
+          "steps": [
+            "Gehen Sie zu Einstellungen → Integrationen",
+            "Klicken Sie auf 'Mit Bexio verbinden'",
+            "Melden Sie sich bei Bexio an",
+            "Autorisieren Sie den Zugriff",
+            "Konfigurieren Sie die Synchronisations-Einstellungen"
+          ],
+          "tips": [
+            "Testen Sie mit wenigen Datensätzen",
+            "Legen Sie einen Standard-MwSt.-Satz fest",
+            "Prüfen Sie die Kontierung in Bexio"
+          ]
+        },
+        "whatsapp-setup": {
+          "title": "WhatsApp einrichten",
+          "description": "Kundenanfragen über WhatsApp empfangen.",
+          "content": "<p>Verbinden Sie Ihre WhatsApp Business-Nummer mit Dealer OS für direkte Kundenkommunikation.</p><h3>Funktionen</h3><ul><li>Nachrichten direkt im Dashboard empfangen</li><li>Schnellantworten und Vorlagen</li><li>Automatische Lead-Erstellung</li><li>Medien senden und empfangen</li></ul>",
+          "steps": [
+            "Gehen Sie zu Einstellungen → Integrationen → WhatsApp",
+            "Scannen Sie den QR-Code mit WhatsApp Business",
+            "Warten Sie auf die Verbindungsbestätigung",
+            "Testen Sie mit einer Nachricht an Ihre Nummer"
+          ],
+          "tips": [
+            "Nutzen Sie eine dedizierte Business-Nummer",
+            "Richten Sie automatische Begrüssung ein",
+            "Antworten Sie schnell – WhatsApp-Kunden erwarten das"
+          ]
+        },
+        "email-templates": {
+          "title": "E-Mail-Vorlagen anpassen",
+          "description": "Standardtexte für E-Mails konfigurieren.",
+          "content": "<p>Passen Sie E-Mail-Vorlagen an Ihren Stil an. Vorlagen werden für Offerten, Rechnungen und Mahnungen verwendet.</p><h3>Verfügbare Vorlagen</h3><ul><li>Offerten-Versand</li><li>Rechnungs-Versand</li><li>Zahlungserinnerung</li><li>1./2./3. Mahnung</li><li>Allgemeine Anfrage-Antwort</li></ul><h3>Platzhalter</h3><p>Nutzen Sie Platzhalter wie {'{kundenname}'}, {'{fahrzeug}'}, {'{betrag}'} für automatische Personalisierung.</p>",
+          "steps": [
+            "Gehen Sie zu Einstellungen → E-Mail-Vorlagen",
+            "Wählen Sie eine Vorlage zum Bearbeiten",
+            "Passen Sie Betreff und Text an",
+            "Nutzen Sie die verfügbaren Platzhalter",
+            "Speichern und testen Sie mit einer Test-E-Mail"
+          ],
+          "tips": [
+            "Halten Sie E-Mails kurz und persönlich",
+            "Fügen Sie Ihre Signatur mit Kontaktdaten ein",
+            "Testen Sie jede Vorlage vor dem produktiven Einsatz"
+          ]
+        }
+      }
+    },
+    "analytics": {
+      "title": "Auswertungen",
+      "description": "Kennzahlen verstehen und nutzen",
+      "articles": {
+        "dashboard-overview": {
+          "title": "Dashboard verstehen",
+          "description": "Die wichtigsten Kennzahlen auf einen Blick.",
+          "content": "<p>Das Dashboard zeigt Ihre wichtigsten KPIs in Echtzeit.</p><h3>Wichtige Kennzahlen</h3><ul><li><strong>Bestand:</strong> Anzahl Fahrzeuge, Gesamtwert</li><li><strong>Standzeit Ø:</strong> Durchschnittliche Tage bis Verkauf</li><li><strong>Offene Leads:</strong> Unbearbeitete Anfragen</li><li><strong>Marge Ø:</strong> Durchschnittlicher Gewinn pro Fahrzeug</li><li><strong>Umsatz:</strong> Monats- und Jahresvergleich</li></ul>",
+          "tips": [
+            "Prüfen Sie das Dashboard täglich morgens",
+            "Rote Zahlen erfordern sofortige Aufmerksamkeit",
+            "Vergleichen Sie Werte mit dem Vormonat"
+          ]
+        },
+        "reports": {
+          "title": "Reports generieren",
+          "description": "Detaillierte Auswertungen erstellen.",
+          "content": "<p>Erstellen Sie detaillierte Reports für verschiedene Zeiträume und Kategorien.</p><h3>Verfügbare Reports</h3><ul><li><strong>Bestandsreport:</strong> Alle Fahrzeuge mit Standzeit und Marge</li><li><strong>Verkaufsreport:</strong> Abgeschlossene Verkäufe im Zeitraum</li><li><strong>Lead-Report:</strong> Conversion-Raten und Quellen</li><li><strong>Umsatzreport:</strong> Einnahmen und Entwicklung</li></ul>",
+          "steps": [
+            "Gehen Sie zu Auswertungen → Reports",
+            "Wählen Sie den Report-Typ",
+            "Definieren Sie den Zeitraum",
+            "Optional: Filtern nach Standort oder Kategorie",
+            "Generieren und exportieren Sie den Report"
+          ],
+          "tips": [
+            "Monatsreports am Monatsende für Buchhaltung",
+            "Vergleichen Sie Quartale für Trends",
+            "Exportieren Sie als Excel für weitere Analyse"
+          ]
+        },
+        "export-data": {
+          "title": "Daten exportieren",
+          "description": "Daten für externe Verwendung herunterladen.",
+          "content": "<p>Exportieren Sie Ihre Daten für Buchhaltung, Steuer oder Analyse.</p><h3>Export-Formate</h3><ul><li><strong>Excel (.xlsx):</strong> Für Tabellenkalkulationen</li><li><strong>CSV:</strong> Für Import in andere Systeme</li><li><strong>PDF:</strong> Für Archivierung und Druck</li></ul><h3>Exportierbare Daten</h3><p>Fahrzeuge, Kunden, Offerten, Rechnungen, Leads – alles kann exportiert werden.</p>",
+          "tips": [
+            "Regelmässige Backups empfohlen",
+            "CSV für Datenimport in andere Software",
+            "PDF-Export für rechtssichere Archivierung"
+          ]
+        }
+      }
+    }
+  }
+}

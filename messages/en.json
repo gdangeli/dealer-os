@@ -101,7 +101,17 @@
       "listingExport": "Listing Export",
       "listingExportDesc": "Publish to AutoScout24, car4you and your website with one click.",
       "swissHosting": "Swiss Hosting",
-      "swissHostingDesc": "Your data stays in Switzerland. GDPR compliant and securely encrypted."
+      "swissHostingDesc": "Your data stays in Switzerland. GDPR compliant and securely encrypted.",
+      "whatsappIntegration": "WhatsApp Business",
+      "whatsappIntegrationDesc": "Receive and respond to customer inquiries directly via WhatsApp. With automatic replies.",
+      "emailAutomation": "Email Automation",
+      "emailAutomationDesc": "Professional email templates and automatic notifications for new leads.",
+      "multiLocation": "Multi-Location",
+      "multiLocationDesc": "Manage multiple branches centrally. Separate statistics, shared overview.",
+      "bexioIntegration": "Bexio Integration",
+      "bexioIntegrationDesc": "Seamless integration with your Bexio accounting. Customers, quotes and invoices synced.",
+      "quotesInvoices": "Quotes & Invoices",
+      "quotesInvoicesDesc": "Create professional quotes and convert them directly to invoices. With QR payment slip."
     },
     "howItWorks": {
       "badge": "How it works",
@@ -380,5 +390,453 @@
     "autoSyncQuotes": "Sync quotes automatically",
     "autoSyncInvoices": "Sync invoices automatically",
     "defaultVatRate": "Default VAT rate"
+  },
+  "help": {
+    "title": "Help & Documentation",
+    "subtitle": "Find guides and tips for all Dealer OS features",
+    "searchPlaceholder": "Search topics...",
+    "stepsTitle": "Step by Step",
+    "tipsTitle": "Tips",
+    "backToOverview": "Back to Overview",
+    "stillNeedHelp": "Still need help?",
+    "quickStart": {
+      "title": "New to Dealer OS?",
+      "description": "Learn the key features in 5 minutes.",
+      "link": "View Getting Started"
+    },
+    "support": {
+      "title": "Need help?",
+      "description": "Our support team is happy to assist.",
+      "button": "Contact Support"
+    },
+    "categories": {
+      "getting-started": {
+        "title": "Getting Started",
+        "description": "Basics and navigation in Dealer OS",
+        "articles": {
+          "first-steps": {
+            "title": "First Steps with Dealer OS",
+            "description": "Learn the basics and get familiar with the system.",
+            "content": "<p>Welcome to Dealer OS! This guide helps you become productive quickly.</p><h3>What is Dealer OS?</h3><p>Dealer OS is an all-in-one software for Swiss car dealers and garages. It combines vehicle management, customer management, quotes, invoices and analytics in one platform.</p><h3>Key Areas</h3><ul><li><strong>Overview:</strong> Your dashboard with key metrics</li><li><strong>Inventory:</strong> Manage all your vehicles</li><li><strong>Leads:</strong> Handle inquiries and customer requests</li><li><strong>Customers:</strong> Maintain customer data</li><li><strong>Quotes & Invoices:</strong> Create offers and invoice</li></ul>",
+            "steps": [
+              "Sign in with your credentials",
+              "Complete your company profile in Settings",
+              "Add your first vehicle to inventory",
+              "Create your first customers",
+              "Explore the dashboard for an overview"
+            ],
+            "tips": [
+              "Start with a few test vehicles",
+              "Use the search function for quick access",
+              "Enable email notifications for important updates"
+            ]
+          },
+          "navigation": {
+            "title": "Navigation & Layout",
+            "description": "How to find your way around Dealer OS.",
+            "content": "<p>Dealer OS has a clear layout. The main navigation is on the left, the workspace on the right.</p><h3>Sidebar (left)</h3><p>The sidebar contains all main areas, organized in logical groups:</p><ul><li><strong>Overview & Inventory:</strong> Daily vehicle work</li><li><strong>Sales:</strong> Customers, quotes, invoices</li><li><strong>Communication:</strong> Email templates, WhatsApp</li><li><strong>Analytics:</strong> Reports and evaluations</li></ul><h3>Location Filter</h3><p>If you have multiple locations, you can switch between them or view all at the top of the sidebar.</p>",
+            "tips": [
+              "Click the logo to return to the overview",
+              "The location filter affects all views",
+              "Use the language switcher for your preferred language"
+            ]
+          },
+          "settings-overview": {
+            "title": "Configure Settings",
+            "description": "Customize Dealer OS for your needs.",
+            "content": "<p>In settings, you configure Dealer OS for your business.</p><h3>Important Settings</h3><ul><li><strong>Company Profile:</strong> Name, address, logo for documents</li><li><strong>Locations:</strong> Manage multiple branches</li><li><strong>Users:</strong> Invite team members</li><li><strong>Integrations:</strong> Connect Bexio, WhatsApp and more</li><li><strong>Email Templates:</strong> Customize standard texts</li></ul>",
+            "steps": [
+              "Go to Settings in the sidebar",
+              "Select 'Company Profile' and complete your data",
+              "Upload your logo (shown on quotes/invoices)",
+              "Set up additional locations if needed",
+              "Connect integrations like Bexio"
+            ]
+          }
+        }
+      },
+      "vehicles": {
+        "title": "Vehicle Inventory",
+        "description": "Add, manage and sell vehicles",
+        "articles": {
+          "add-vehicle": {
+            "title": "Add a Vehicle",
+            "description": "How to add a new vehicle to your inventory.",
+            "content": "<p>Adding a new vehicle takes just a few minutes. Enter the key data – the rest can be added later.</p><h3>Required Fields</h3><ul><li><strong>Make & Model:</strong> e.g. BMW 320d</li><li><strong>First Registration:</strong> For age calculation</li><li><strong>Mileage:</strong> Current reading</li><li><strong>Price:</strong> Selling price</li></ul><h3>Optional Information</h3><p>The more data you enter, the more meaningful your analytics: purchase price, preparation costs, extras, etc.</p>",
+            "steps": [
+              "Click 'Inventory' in the sidebar",
+              "Click 'New Vehicle'",
+              "Fill in the required fields",
+              "Add optional details as needed",
+              "Click 'Save'"
+            ],
+            "tips": [
+              "Enter purchase price for margin calculation",
+              "More complete data means better analytics",
+              "Vehicle status is automatically set to 'Available'"
+            ]
+          },
+          "edit-vehicle": {
+            "title": "Edit a Vehicle",
+            "description": "Update vehicle data and change status.",
+            "content": "<p>Keep your vehicle data current. Price changes, status updates or additional information can be adjusted anytime.</p><h3>Vehicle Status</h3><ul><li><strong>Available:</strong> Actively for sale</li><li><strong>Reserved:</strong> Held for a customer</li><li><strong>Sold:</strong> Successfully completed</li></ul><h3>Price History</h3><p>Every price change is logged. You can later see how the price developed.</p>",
+            "steps": [
+              "Open the vehicle from the inventory list",
+              "Click 'Edit'",
+              "Change the desired fields",
+              "Save the changes"
+            ],
+            "tips": [
+              "Use 'Reserved' when a customer shows interest",
+              "Document reasons for price changes in notes"
+            ]
+          },
+          "vehicle-photos": {
+            "title": "Upload Photos",
+            "description": "Add and manage vehicle images.",
+            "content": "<p>Good photos are crucial for sales. Upload multiple images per vehicle.</p><h3>Recommended Shots</h3><ul><li>Front and rear (angled)</li><li>Both sides</li><li>Interior (dashboard, seats, trunk)</li><li>Special features</li><li>Any damage (for transparency)</li></ul><h3>Image Formats</h3><p>JPG and PNG are supported. Maximum file size: 10 MB per image.</p>",
+            "steps": [
+              "Open the vehicle",
+              "Switch to the 'Photos' tab",
+              "Click 'Upload Photos' or drag images into the area",
+              "Arrange images via drag & drop",
+              "The first image becomes the main image"
+            ],
+            "tips": [
+              "Photograph in good daylight",
+              "8-12 images per vehicle is ideal",
+              "The main image appears in lists and on listings"
+            ]
+          },
+          "standtime-alerts": {
+            "title": "Days-on-Lot Alerts",
+            "description": "Identify slow movers and act in time.",
+            "content": "<p>Vehicles that sit too long tie up capital and lose value. Dealer OS alerts you automatically.</p><h3>Warning Levels</h3><ul><li><strong>30 Days (Yellow):</strong> First attention</li><li><strong>60 Days (Orange):</strong> Review pricing</li><li><strong>90 Days (Red):</strong> Urgent action needed</li></ul><h3>Recommended Actions</h3><p>For long standers: adjust price, optimize listing, actively promote or wholesale.</p>",
+            "tips": [
+              "Review your slow movers weekly",
+              "5% price reduction every 30 days as guideline",
+              "Document actions in vehicle notes"
+            ]
+          }
+        }
+      },
+      "leads": {
+        "title": "Leads & Inquiries",
+        "description": "Handle customer inquiries efficiently",
+        "articles": {
+          "manage-leads": {
+            "title": "Manage Leads",
+            "description": "Keep track of all inquiries.",
+            "content": "<p>Leads are potential customers who have shown interest in a vehicle. Quick and professional handling increases your close rate.</p><h3>Lead Sources</h3><ul><li>Website form</li><li>Email inquiries</li><li>Phone calls (manually entered)</li><li>WhatsApp messages</li><li>Listing portals</li></ul><h3>Key Information</h3><p>Capture for each lead: contact details, interested vehicle, budget, timeframe.</p>",
+            "steps": [
+              "Open 'Leads' in the sidebar",
+              "New leads appear at the top",
+              "Click a lead for details",
+              "Update status after contact",
+              "Link lead to customer when interested"
+            ],
+            "tips": [
+              "Respond within 1 hour for best results",
+              "Use templates for frequent responses",
+              "Also log phone inquiries as leads"
+            ]
+          },
+          "lead-status": {
+            "title": "Understanding Lead Status",
+            "description": "The different stages of a customer inquiry.",
+            "content": "<p>Lead status shows where a prospect is in the sales process.</p><h3>Status Overview</h3><ul><li><strong>New:</strong> Not yet processed</li><li><strong>Contacted:</strong> First response sent</li><li><strong>Interested:</strong> Active buying interest</li><li><strong>Viewing:</strong> Appointment scheduled</li><li><strong>Negotiating:</strong> Price negotiation ongoing</li><li><strong>Won:</strong> Sale completed</li><li><strong>Lost:</strong> No deal</li></ul>",
+            "tips": [
+              "Keep status current for accurate reports",
+              "Note the reason when marking 'Lost'",
+              "Won leads improve your conversion rate in analytics"
+            ]
+          },
+          "follow-up": {
+            "title": "Follow-ups & Reminders",
+            "description": "Never forget an inquiry – automatic follow-up.",
+            "content": "<p>Many sales require multiple contacts. Follow-ups help you stay on track.</p><h3>Follow-up Rules</h3><ul><li>After first response: wait 2-3 days</li><li>After viewing: follow up next day</li><li>After quote: give 1 week to decide</li></ul>",
+            "steps": [
+              "Open a lead",
+              "Click 'Set Reminder'",
+              "Choose date and time",
+              "Add a note (what to discuss?)",
+              "You'll receive a notification at the time"
+            ],
+            "tips": [
+              "Set the next follow-up right after each contact",
+              "Mornings 9-11 AM often reach customers best",
+              "Max 3 follow-ups without response, then mark 'Lost'"
+            ]
+          }
+        }
+      },
+      "customers": {
+        "title": "Customer Management",
+        "description": "Build and maintain your customer base",
+        "articles": {
+          "add-customer": {
+            "title": "Add a Customer",
+            "description": "How to create a new customer.",
+            "content": "<p>A well-maintained customer base is the foundation for quotes, invoices and repeat purchases.</p><h3>Required Fields</h3><ul><li><strong>Customer Type:</strong> Individual or Company</li><li><strong>Name:</strong> First and last name or company name</li><li><strong>Email or Phone:</strong> At least one contact method</li></ul><h3>Address Data</h3><p>For quotes and invoices, you need the complete address.</p>",
+            "steps": [
+              "Go to 'Customers' in the sidebar",
+              "Click 'New Customer'",
+              "Select customer type",
+              "Fill in contact details",
+              "Add the address",
+              "Save the customer"
+            ],
+            "tips": [
+              "For companies: also add a contact person",
+              "VAT ID for business customers for correct invoices",
+              "Customers sync automatically with Bexio (if connected)"
+            ]
+          },
+          "customer-types": {
+            "title": "Individual vs. Business Customers",
+            "description": "Differences in customer data entry.",
+            "content": "<p>Different requirements apply depending on customer type for documents and invoicing.</p><h3>Individuals</h3><ul><li>Salutation, first and last name</li><li>Prices incl. VAT</li><li>No VAT ID required</li></ul><h3>Business Customers</h3><ul><li>Company name + contact person</li><li>VAT ID for B2B invoices</li><li>Prices excl. VAT (optional)</li></ul>",
+            "tips": [
+              "For leasing companies: create as business with separate driver note",
+              "Dealer sales: own category for reports"
+            ]
+          },
+          "customer-history": {
+            "title": "Customer History",
+            "description": "All interactions at a glance.",
+            "content": "<p>Customer history shows all past interactions, purchases and documents.</p><h3>What's Stored?</h3><ul><li>All leads/inquiries from the customer</li><li>Created quotes</li><li>Issued invoices</li><li>Purchased vehicles</li><li>Notes and comments</li></ul>",
+            "tips": [
+              "Review history before a call",
+              "Regular customers deserve special attention",
+              "Use notes for personal details (hobbies, family)"
+            ]
+          }
+        }
+      },
+      "quotes": {
+        "title": "Quotes",
+        "description": "Create professional offers",
+        "articles": {
+          "create-quote": {
+            "title": "Create a Quote",
+            "description": "Step by step to a professional quote.",
+            "content": "<p>A well-structured quote increases your close rate. Dealer OS generates professional PDFs with your company logo.</p><h3>Quote Components</h3><ul><li><strong>Customer:</strong> Select from customer list</li><li><strong>Vehicle:</strong> Link from inventory</li><li><strong>Items:</strong> Vehicle price, accessories, warranty</li><li><strong>Discount:</strong> Percentage or absolute</li><li><strong>Trade-in:</strong> Vehicle taken in exchange</li></ul>",
+            "steps": [
+              "Go to 'Quotes' → 'New Quote'",
+              "Select a customer (or create new)",
+              "Link the interested vehicle",
+              "Add items (accessories, warranty, etc.)",
+              "Review total amount",
+              "Save and send by email"
+            ],
+            "tips": [
+              "Set a validity date (e.g. 14 days)",
+              "Add your bank details for deposits",
+              "Use preview before sending"
+            ]
+          },
+          "quote-positions": {
+            "title": "Add Items",
+            "description": "List vehicle, accessories and services.",
+            "content": "<p>A quote can contain multiple items. Structure your offer clearly.</p><h3>Item Types</h3><ul><li><strong>Vehicle:</strong> The main vehicle</li><li><strong>Accessories:</strong> Winter tires, trailer hitch, etc.</li><li><strong>Service:</strong> Preparation, delivery</li><li><strong>Warranty:</strong> Additional warranty packages</li><li><strong>Discount:</strong> Price reductions</li></ul>",
+            "tips": [
+              "List each item separately – transparency builds trust",
+              "Add cost price for accessories for margin calculation",
+              "Use discount items instead of manual price adjustment"
+            ]
+          },
+          "send-quote": {
+            "title": "Send a Quote",
+            "description": "Via email or PDF to the customer.",
+            "content": "<p>Send quotes directly from Dealer OS. The customer receives a professional PDF.</p><h3>Sending Options</h3><ul><li><strong>Email:</strong> Directly from the system with tracking</li><li><strong>PDF Download:</strong> For manual sending or printing</li><li><strong>WhatsApp:</strong> Link to online view</li></ul><h3>Tracking</h3><p>You can see when the customer opened the quote (when sent by email).</p>",
+            "steps": [
+              "Open the completed quote",
+              "Click 'Send by Email'",
+              "Check recipient and subject",
+              "Customize the message if needed",
+              "Click 'Send'"
+            ],
+            "tips": [
+              "Personalize the message",
+              "Call 1-2 days after sending",
+              "No response: activate automatic follow-up"
+            ]
+          },
+          "convert-invoice": {
+            "title": "Convert Quote to Invoice",
+            "description": "From offer to invoice in one click.",
+            "content": "<p>When the customer accepts the quote, convert it to an invoice. All data is transferred.</p><h3>What's Transferred?</h3><ul><li>Customer data</li><li>All items</li><li>Discounts and trade-in</li><li>Linked vehicle</li></ul>",
+            "steps": [
+              "Open the accepted quote",
+              "Set status to 'Accepted'",
+              "Click 'Convert to Invoice'",
+              "Review invoice data",
+              "Save and send the invoice"
+            ],
+            "tips": [
+              "Quote remains as reference",
+              "Vehicle status automatically set to 'Sold'",
+              "Invoice syncs with Bexio (if connected)"
+            ]
+          }
+        }
+      },
+      "invoices": {
+        "title": "Invoices",
+        "description": "Invoicing and payment tracking",
+        "articles": {
+          "create-invoice": {
+            "title": "Create an Invoice",
+            "description": "Generate professional invoices.",
+            "content": "<p>Create invoices manually or from an accepted quote.</p><h3>Invoice Content</h3><ul><li><strong>Invoice Number:</strong> Automatically assigned</li><li><strong>Invoice Date:</strong> Default: today</li><li><strong>Due Date:</strong> Per your payment terms</li><li><strong>Items:</strong> Same as quotes</li></ul><h3>VAT Handling</h3><p>Swiss VAT is calculated automatically (8.1%). For business customers, excl. VAT can be shown.</p>",
+            "steps": [
+              "Go to 'Invoices' → 'New Invoice'",
+              "Select customer",
+              "Add items",
+              "Review VAT and total",
+              "Save and send"
+            ],
+            "tips": [
+              "For vehicle sales: always convert from quote",
+              "QR invoice is generated automatically",
+              "Invoice number is sequential and cannot be changed"
+            ]
+          },
+          "payment-tracking": {
+            "title": "Track Payments",
+            "description": "Record payments and monitor outstanding amounts.",
+            "content": "<p>Keep track of paid and outstanding invoices.</p><h3>Payment Status</h3><ul><li><strong>Draft:</strong> Not yet sent</li><li><strong>Sent:</strong> With customer</li><li><strong>Partial:</strong> Deposit received</li><li><strong>Paid:</strong> Fully settled</li><li><strong>Overdue:</strong> Past due date unpaid</li></ul>",
+            "steps": [
+              "Open the invoice",
+              "Click 'Record Payment'",
+              "Enter amount and date",
+              "Select payment method (transfer, cash, card)",
+              "Save – status updates automatically"
+            ],
+            "tips": [
+              "Record partial payments separately",
+              "Reconcile regularly with your bank account",
+              "With Bexio: payments sync automatically"
+            ]
+          },
+          "reminders": {
+            "title": "Send Reminders",
+            "description": "Collect overdue invoices.",
+            "content": "<p>For missing payments, a structured reminder process helps.</p><h3>Reminder Levels</h3><ul><li><strong>Payment Reminder:</strong> Friendly note after 7 days</li><li><strong>1st Reminder:</strong> After 14 days, factual</li><li><strong>2nd Reminder:</strong> After 30 days, with deadline</li><li><strong>Final Reminder:</strong> Warning of legal action</li></ul>",
+            "steps": [
+              "Open the overdue invoice",
+              "Click 'Send Reminder'",
+              "Select reminder level",
+              "Customize text if needed",
+              "Send by email or print"
+            ],
+            "tips": [
+              "Call briefly before the first reminder",
+              "Document all reminders",
+              "For chronic debtors: no more business without prepayment"
+            ]
+          }
+        }
+      },
+      "integrations": {
+        "title": "Integrations",
+        "description": "Connect Dealer OS with other tools",
+        "articles": {
+          "bexio-setup": {
+            "title": "Connect Bexio",
+            "description": "Automate accounting with Bexio.",
+            "content": "<p>Connect Dealer OS with Bexio for automatic synchronization of customers, quotes and invoices.</p><h3>What's Synchronized?</h3><ul><li><strong>Customers:</strong> Bidirectional (both ways)</li><li><strong>Quotes:</strong> From Dealer OS to Bexio</li><li><strong>Invoices:</strong> From Dealer OS to Bexio</li><li><strong>Payments:</strong> From Bexio to Dealer OS</li></ul><h3>Requirements</h3><p>You need an active Bexio account and API access (Bexio Pro or higher).</p>",
+            "steps": [
+              "Go to Settings → Integrations",
+              "Click 'Connect with Bexio'",
+              "Sign in to Bexio",
+              "Authorize access",
+              "Configure sync settings"
+            ],
+            "tips": [
+              "Test with a few records",
+              "Set a default VAT rate",
+              "Check the account mapping in Bexio"
+            ]
+          },
+          "whatsapp-setup": {
+            "title": "Set Up WhatsApp",
+            "description": "Receive customer inquiries via WhatsApp.",
+            "content": "<p>Connect your WhatsApp Business number with Dealer OS for direct customer communication.</p><h3>Features</h3><ul><li>Receive messages directly in dashboard</li><li>Quick replies and templates</li><li>Automatic lead creation</li><li>Send and receive media</li></ul>",
+            "steps": [
+              "Go to Settings → Integrations → WhatsApp",
+              "Scan the QR code with WhatsApp Business",
+              "Wait for connection confirmation",
+              "Test with a message to your number"
+            ],
+            "tips": [
+              "Use a dedicated business number",
+              "Set up automatic greeting",
+              "Respond quickly – WhatsApp customers expect it"
+            ]
+          },
+          "email-templates": {
+            "title": "Customize Email Templates",
+            "description": "Configure default texts for emails.",
+            "content": "<p>Customize email templates to your style. Templates are used for quotes, invoices and reminders.</p><h3>Available Templates</h3><ul><li>Quote sending</li><li>Invoice sending</li><li>Payment reminder</li><li>1st/2nd/3rd reminder</li><li>General inquiry response</li></ul><h3>Placeholders</h3><p>Use placeholders like {'{customername}'}, {'{vehicle}'}, {'{amount}'} for automatic personalization.</p>",
+            "steps": [
+              "Go to Settings → Email Templates",
+              "Select a template to edit",
+              "Customize subject and text",
+              "Use available placeholders",
+              "Save and test with a test email"
+            ],
+            "tips": [
+              "Keep emails short and personal",
+              "Include your signature with contact details",
+              "Test each template before productive use"
+            ]
+          }
+        }
+      },
+      "analytics": {
+        "title": "Analytics",
+        "description": "Understand and use your metrics",
+        "articles": {
+          "dashboard-overview": {
+            "title": "Understanding the Dashboard",
+            "description": "Key metrics at a glance.",
+            "content": "<p>The dashboard shows your most important KPIs in real-time.</p><h3>Key Metrics</h3><ul><li><strong>Inventory:</strong> Number of vehicles, total value</li><li><strong>Avg. Days on Lot:</strong> Average days until sale</li><li><strong>Open Leads:</strong> Unprocessed inquiries</li><li><strong>Avg. Margin:</strong> Average profit per vehicle</li><li><strong>Revenue:</strong> Monthly and yearly comparison</li></ul>",
+            "tips": [
+              "Check the dashboard daily in the morning",
+              "Red numbers require immediate attention",
+              "Compare values with previous month"
+            ]
+          },
+          "reports": {
+            "title": "Generate Reports",
+            "description": "Create detailed evaluations.",
+            "content": "<p>Create detailed reports for different time periods and categories.</p><h3>Available Reports</h3><ul><li><strong>Inventory Report:</strong> All vehicles with days on lot and margin</li><li><strong>Sales Report:</strong> Completed sales in period</li><li><strong>Lead Report:</strong> Conversion rates and sources</li><li><strong>Revenue Report:</strong> Income and trends</li></ul>",
+            "steps": [
+              "Go to Analytics → Reports",
+              "Select report type",
+              "Define time period",
+              "Optional: filter by location or category",
+              "Generate and export the report"
+            ],
+            "tips": [
+              "Monthly reports at month end for accounting",
+              "Compare quarters for trends",
+              "Export as Excel for further analysis"
+            ]
+          },
+          "export-data": {
+            "title": "Export Data",
+            "description": "Download data for external use.",
+            "content": "<p>Export your data for accounting, taxes or analysis.</p><h3>Export Formats</h3><ul><li><strong>Excel (.xlsx):</strong> For spreadsheets</li><li><strong>CSV:</strong> For import into other systems</li><li><strong>PDF:</strong> For archiving and printing</li></ul><h3>Exportable Data</h3><p>Vehicles, customers, quotes, invoices, leads – everything can be exported.</p>",
+            "tips": [
+              "Regular backups recommended",
+              "CSV for data import into other software",
+              "PDF export for legally compliant archiving"
+            ]
+          }
+        }
+      }
+    }
   }
 }
