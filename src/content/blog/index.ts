@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-02-18",
     author: "Dealer OS Team",
     keywords: ["Offerten", "Rechnungen", "Digitalisierung", "Autohandel", "Effizienz", "Buchhaltung"],
-    content: \`
+    content: `
 ## Das Problem mit Excel und Word
 
 Kennen Sie das? Ein Kunde interessiert sich für einen Occasion. Sie öffnen Excel, suchen Ihre Offerten-Vorlage, tippen die Fahrzeugdaten ab, rechnen die MwSt von Hand aus, speichern als PDF und versenden per E-Mail. 
@@ -93,11 +93,11 @@ Der Kunde sieht sofort, was er effektiv zahlt. Keine versteckten Überraschungen
 
 Wurde die Offerte angenommen? Dann sollte die Rechnung mit einem Klick entstehen – nicht durch nochmaliges Abtippen:
 
-\\\`\\\`\\\`
-Offerte OFF-2026-0042 → Status: Angenommen → [In Rechnung umwandeln]
-                        ↓
-                    Rechnung RE-2026-0042 (automatisch generiert)
-\\\`\\\`\\\`
+> **Offerte OFF-2026-0042** → Status: Angenommen → [In Rechnung umwandeln]
+>
+> ↓
+>
+> **Rechnung RE-2026-0042** (automatisch generiert)
 
 **Was automatisch übernommen wird:**
 - Alle Positionen und Preise
@@ -189,7 +189,7 @@ Die Digitalisierung von Offerten und Rechnungen ist keine Raketenwissenschaft �
 - Professionelleres Auftreten beim Kunden
 
 Und das Wichtigste: Mehr Zeit für das, was wirklich zählt – den Verkauf.
-\`,
+`,
   },
   // Artikel 34 - 2026-02-17
   {
