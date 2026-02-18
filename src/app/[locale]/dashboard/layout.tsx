@@ -67,6 +67,11 @@ export default async function DashboardLayout({
           <NavLink href="/dashboard/invoices" icon="🧾">Rechnungen</NavLink>
           
           <div className="pt-3 pb-1">
+            <span className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Kommunikation</span>
+          </div>
+          <NavLink href="/dashboard/email-templates" icon="📧">E-Mail-Vorlagen</NavLink>
+          
+          <div className="pt-3 pb-1">
             <span className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Analyse</span>
           </div>
           <NavLink href="/dashboard/analytics" icon="📈">Auswertungen</NavLink>
