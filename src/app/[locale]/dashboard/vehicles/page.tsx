@@ -13,6 +13,7 @@ import { VehicleListClient } from "@/components/vehicles/vehicle-list-client";
 interface SearchParams {
   status?: string;
   sort?: string;
+  location?: string;
 }
 
 export default async function VehiclesPage({
@@ -70,6 +71,12 @@ export default async function VehiclesPage({
   const statusFilter = params.status as VehicleStatus | undefined;
   if (statusFilter && ["in_stock", "reserved", "sold"].includes(statusFilter)) {
     query = query.eq("status", statusFilter);
+  }
+
+  // Filter nach Standort
+  const locationFilter = params.location;
+  if (locationFilter && locationFilter !== "all") {
+    query = query.eq("location_id", locationFilter);
   }
 
   // Sortierung nach Erstellungsdatum (älteste zuerst = längste Standzeit)

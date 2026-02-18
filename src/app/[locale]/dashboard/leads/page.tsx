@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -295,6 +296,9 @@ function KanbanCard({ lead, onStatusChange }: { lead: LeadWithScore; onStatusCha
 type SortOption = "date" | "score" | "name" | "price";
 
 export default function LeadsPage() {
+  const searchParams = useSearchParams();
+  const locationFilter = searchParams.get("location") || "all";
+  
   const [leads, setLeads] = useState<LeadWithScore[]>([]);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState<"list" | "kanban">("list");
@@ -310,19 +314,26 @@ export default function LeadsPage() {
 
   useEffect(() => {
     fetchLeads();
-  }, []);
+  }, [locationFilter]);
 
   async function fetchLeads() {
     setLoading(true);
     
     // Lade Leads mit Fahrzeugen
-    const { data: leadsData, error: leadsError } = await supabase
+    let query = supabase
       .from("leads")
       .select(`
         *,
         vehicle:vehicles(id, make, model, first_registration, asking_price)
       `)
       .order("created_at", { ascending: false });
+    
+    // Filter nach Standort
+    if (locationFilter && locationFilter !== "all") {
+      query = query.eq("location_id", locationFilter);
+    }
+    
+    const { data: leadsData, error: leadsError } = await query;
 
     if (leadsError) {
       console.error("Error fetching leads:", leadsError);

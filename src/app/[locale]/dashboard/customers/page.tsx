@@ -8,7 +8,7 @@ import { PlusIcon, MagnifyingGlassIcon, UserIcon, BuildingOfficeIcon } from '@he
 export default async function CustomersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ search?: string; page?: string }>;
+  searchParams: Promise<{ search?: string; page?: string; location?: string }>;
 }) {
   const params = await searchParams;
   const supabase = await createClient();
@@ -24,6 +24,8 @@ export default async function CustomersPage({
   const offset = (page - 1) * limit;
   const search = params.search || '';
 
+  const locationFilter = params.location;
+  
   let query = supabase
     .from('customers')
     .select('*', { count: 'exact' })
@@ -35,6 +37,11 @@ export default async function CustomersPage({
     query = query.or(
       `first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,company_name.ilike.%${search}%`
     );
+  }
+
+  // Filter nach Standort
+  if (locationFilter && locationFilter !== 'all') {
+    query = query.eq('location_id', locationFilter);
   }
 
   const { data: customers, count } = await query;
@@ -150,7 +157,7 @@ export default async function CustomersPage({
               <div className="flex gap-2">
                 {page > 1 && (
                   <Link
-                    href={`/dashboard/customers?page=${page - 1}${search ? `&search=${search}` : ''}`}
+                    href={`/dashboard/customers?page=${page - 1}${search ? `&search=${search}` : ''}${locationFilter ? `&location=${locationFilter}` : ''}`}
                     className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50"
                   >
                     Zurück
@@ -161,7 +168,7 @@ export default async function CustomersPage({
                 </span>
                 {page < totalPages && (
                   <Link
-                    href={`/dashboard/customers?page=${page + 1}${search ? `&search=${search}` : ''}`}
+                    href={`/dashboard/customers?page=${page + 1}${search ? `&search=${search}` : ''}${locationFilter ? `&location=${locationFilter}` : ''}`}
                     className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50"
                   >
                     Weiter

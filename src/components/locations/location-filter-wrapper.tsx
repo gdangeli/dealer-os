@@ -22,5 +22,8 @@ export async function LocationFilterWrapper({ dealerId, className }: LocationFil
     return null;
   }
 
-  return <LocationFilter locations={locations} className={className} />;
+  // Cast to expected type (Supabase returns the correct shape)
+  const typedLocations = locations as { id: string; name: string; city: string | null; is_main: boolean }[];
+
+  return <LocationFilter locations={typedLocations} className={className} />;
 }

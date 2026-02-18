@@ -499,7 +499,7 @@ export function LeadsBySourceChart({ data }: { data: LeadsBySourceDataPoint[] })
             formatter={(value: number, name: string) => [
               `${value} (${((value / total) * 100).toFixed(1)}%)`,
               name
-            ]}
+            ] as [string, string]}
           />
         </PieChart>
       </ResponsiveContainer>

@@ -9,10 +9,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Location } from '@/types/locations';
+
+// Minimal location type for the filter
+interface LocationForFilter {
+  id: string;
+  name: string;
+  city: string | null;
+  is_main: boolean;
+}
 
 interface LocationFilterProps {
-  locations: Location[];
+  locations: LocationForFilter[];
   className?: string;
 }
 
