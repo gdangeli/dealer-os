@@ -61,7 +61,7 @@ export default function NewInvoicePage() {
   // If quote ID provided, show confirmation
   if (quoteId && quote) {
     return (
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex items-center gap-4">
           <Link
             href="/dashboard/invoices"
@@ -125,7 +125,7 @@ export default function NewInvoicePage() {
 
   // Show list of accepted quotes to convert
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center gap-4">
         <Link
           href="/dashboard/invoices"
