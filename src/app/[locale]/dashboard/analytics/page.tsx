@@ -18,7 +18,8 @@ import {
   TrendIndicator,
   SOURCE_COLORS
 } from "@/components/analytics/charts";
-import { TimeRangeFilter, type TimeRange, getTimeRangeDays, getTimeRangeLabel } from "@/components/analytics/time-range-filter";
+import { TimeRangeFilter } from "@/components/analytics/time-range-filter";
+import { type TimeRange, getTimeRangeDays, getTimeRangeLabel } from "@/lib/analytics/time-range";
 import { ExportButton } from "@/components/analytics/export-button";
 
 // Helper: Calculate days in stock

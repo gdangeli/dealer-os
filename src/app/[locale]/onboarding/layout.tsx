@@ -15,11 +15,8 @@ export default async function OnboardingLayout({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900">
-      {/* Subtle animated background pattern */}
-      <div className="fixed inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-      
       {/* Main content */}
-      <div className="relative z-10">
+      <div className="relative">
         {children}
       </div>
     </div>
