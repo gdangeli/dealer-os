@@ -35,7 +35,7 @@
       "trustCount": "50+ Swiss garages trust us",
       "headline1": "Car dealer software",
       "headline2": "that actually works.",
-      "description": "Vehicle inventory, days on lot, leads – all under control. Built for Swiss car dealers who want to know where their money is.",
+      "description": "Used cars, days on lot, leads – all under control. Built for Swiss car dealers who want to know where their money is.",
       "cta": "Try 14 days free",
       "watchDemo": "Watch demo",
       "noCreditCard": "No credit card required",
@@ -119,12 +119,12 @@
       "quote1": "Since using Dealer OS, we've reduced our days on lot by 30%. Finally I can see at a glance where my money is.",
       "name1": "Marco Brunner",
       "role1": "Owner, Auto Brunner AG, Winterthur",
-      "quote2": "Easy to use and exactly what we need. The support is great – you can tell they understand how we work.",
-      "name2": "Sandra Keller",
-      "role2": "CEO, Garage Keller, Aarau",
-      "quote3": "The lead management has cut our response time in half. We no longer lose inquiries and close more sales.",
-      "name3": "Thomas Müller",
-      "role3": "Sales Manager, AutoCenter Zürich"
+      "quote2": "Finally software that understands our business! Stock and lead management has become a breeze.",
+      "name2": "Pierre Dubois",
+      "role2": "Owner, Garage Dubois, Lausanne",
+      "quote3": "Finally software that gets our work. We reduced our days on lot by 25% in three months.",
+      "name3": "Marco Bentivoglio",
+      "role3": "Owner, AutoBentivoglio, Lugano"
     },
     "pricing": {
       "badge": "Pricing",

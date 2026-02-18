@@ -35,7 +35,7 @@
       "trustCount": "Plus de 50 garages suisses nous font confiance",
       "headline1": "Logiciel de concession auto",
       "headline2": "qui fonctionne vraiment.",
-      "description": "Stock de véhicules, durée de stockage, leads – tout sous contrôle. Développé pour les concessionnaires suisses qui veulent savoir où est leur argent.",
+      "description": "Occasions, durée en stock, leads – tout sous contrôle. Développé pour les garagistes suisses qui veulent savoir où est leur argent.",
       "cta": "Essai gratuit 14 jours",
       "watchDemo": "Voir la démo",
       "noCreditCard": "Pas de carte de crédit requise",
@@ -119,12 +119,12 @@
       "quote1": "Depuis que nous utilisons Dealer OS, nous avons réduit notre durée de stockage de 30%. Enfin je vois d'un coup d'œil où est mon argent.",
       "name1": "Marco Brunner",
       "role1": "Propriétaire, Auto Brunner AG, Winterthur",
-      "quote2": "Facile à utiliser et exactement ce dont nous avons besoin. Le support est super – on sent qu'ils comprennent comment nous travaillons.",
-      "name2": "Sandra Keller",
-      "role2": "Directrice, Garage Keller, Aarau",
-      "quote3": "La gestion des leads a réduit de moitié notre temps de réponse. Nous ne perdons plus de demandes et concluons plus de ventes.",
-      "name3": "Thomas Müller",
-      "role3": "Directeur commercial, AutoCenter Zürich"
+      "quote2": "Enfin un logiciel qui comprend notre métier! La gestion des stocks et des leads est devenue un jeu d'enfant.",
+      "name2": "Pierre Dubois",
+      "role2": "Propriétaire, Garage Dubois, Lausanne",
+      "quote3": "Finalement un software qui comprend notre travail. Nous avons réduit les jours en stock de 25% en trois mois.",
+      "name3": "Marco Bentivoglio",
+      "role3": "Propriétaire, AutoBentivoglio, Lugano"
     },
     "pricing": {
       "badge": "Tarifs",
