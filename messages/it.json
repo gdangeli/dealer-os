@@ -111,7 +111,7 @@
       "bexioIntegration": "Integrazione Bexio",
       "bexioIntegrationDesc": "Integrazione perfetta con la tua contabilità Bexio. Clienti, preventivi e fatture sincronizzati.",
       "quotesInvoices": "Preventivi & Fatture",
-      "quotesInvoicesDesc": "Crea preventivi professionali e convertili direttamente in fatture. Con polizza QR."
+      "quotesInvoicesDesc": "Crea preventivi professionali e convertili direttamente in fatture. Con bollettino QR."
     },
     "howItWorks": {
       "badge": "Come funziona",
@@ -705,7 +705,7 @@
           "payment-tracking": {
             "title": "Tracciare i pagamenti",
             "description": "Registrare pagamenti e monitorare gli importi dovuti.",
-            "content": "<p>Tieni traccia delle fatture pagate e in sospeso.</p><h3>Stati di pagamento</h3><ul><li><strong>Bozza:</strong> Non ancora inviata</li><li><strong>Inviata:</strong> Dal cliente</li><li><strong>Parziale:</strong> Acconto ricevuto</li><li><strong>Pagata:</strong> Completamente saldata</li><li><strong>Scaduta:</strong> Oltre la data di scadenza, non pagata</li></ul>",
+            "content": "<p>Tieni traccia delle fatture pagate e in sospeso.</p><h3>Stati di pagamento</h3><ul><li><strong>Bozza:</strong> Non ancora inviata</li><li><strong>Inviata:</strong> Presso il cliente</li><li><strong>Parziale:</strong> Acconto ricevuto</li><li><strong>Pagata:</strong> Completamente saldata</li><li><strong>Scaduta:</strong> Oltre la data di scadenza, non pagata</li></ul>",
             "steps": [
               "Apri la fattura",
               "Clicca su 'Registra pagamento'",
