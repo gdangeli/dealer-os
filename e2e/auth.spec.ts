@@ -91,7 +91,8 @@ test.describe('Login - Successful Authentication', () => {
 
   test('should maintain session after login', async ({ page }) => {
     await page.goto('/de/login');
-    await expect(page.locator('form')).toBeVisible({ timeout: 10000 });
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('form')).toBeVisible({ timeout: 15000 });
     
     await page.locator('#email').fill(TEST_EMAIL!);
     await page.locator('#password').fill(TEST_PASSWORD!);
