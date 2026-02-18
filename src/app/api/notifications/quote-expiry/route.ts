@@ -128,7 +128,9 @@ export async function POST(request: NextRequest) {
         const emailData: QuoteExpiryEmailData = {
           dealerName: dealer.contact_name || dealer.company_name,
           quotes: newQuotes.map(q => {
-            const customer = q.customers as { first_name: string; last_name: string; company_name: string | null; customer_type: string } | null;
+            // Supabase may return single object or array depending on relation
+            const customerData = q.customers;
+            const customer = Array.isArray(customerData) ? customerData[0] : customerData as { first_name: string; last_name: string; company_name: string | null; customer_type: string } | null;
             const customerName = customer?.customer_type === 'company' && customer?.company_name
               ? customer.company_name
               : customer ? `${customer.first_name} ${customer.last_name}` : 'Unbekannt';
