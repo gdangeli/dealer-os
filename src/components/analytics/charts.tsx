@@ -168,12 +168,13 @@ export function SalesBarChart({ data }: { data: SalesDataPoint[] }) {
             border: "1px solid #e2e8f0",
             borderRadius: "8px",
           }}
-          formatter={(value, name) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          formatter={((value: any, name: any) => {
             if (name === "Umsatz" && typeof value === 'number') {
-              return [`CHF ${value.toLocaleString("de-CH")}`, name] as [string, string];
+              return [`CHF ${value.toLocaleString("de-CH")}`, name];
             }
-            return [String(value), String(name)] as [string, string];
-          }}
+            return [String(value), String(name)];
+          }) as any}
         />
         <Legend wrapperStyle={{ fontSize: '12px' }} />
         <Bar 
@@ -301,12 +302,13 @@ export function RevenueLineChart({ data }: { data: RevenueDataPoint[] }) {
             border: "1px solid #e2e8f0",
             borderRadius: "8px",
           }}
-          formatter={(value, name) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          formatter={((value: any, name: any) => {
             if (typeof value === 'number') {
-              return [`CHF ${value.toLocaleString("de-CH")}`, name] as [string, string];
+              return [`CHF ${value.toLocaleString("de-CH")}`, name];
             }
-            return [String(value), String(name)] as [string, string];
-          }}
+            return [String(value), String(name)];
+          }) as any}
         />
         <Legend wrapperStyle={{ fontSize: '12px' }} />
         <Line
@@ -369,7 +371,8 @@ export function StandingTimeBarChart({ data }: { data: StandingTimeDataPoint[] }
             border: "1px solid #e2e8f0",
             borderRadius: "8px",
           }}
-          formatter={(value) => [`${value} Fahrzeuge`, "Anzahl"] as [string, string]}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          formatter={((value: any) => [`${value} Fahrzeuge`, "Anzahl"]) as any}
         />
         <Bar 
           dataKey="count" 
@@ -496,10 +499,11 @@ export function LeadsBySourceChart({ data }: { data: LeadsBySourceDataPoint[] })
               border: "1px solid #e2e8f0",
               borderRadius: "8px",
             }}
-            formatter={(value: number, name: string) => [
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            formatter={((value: any, name: any) => [
               `${value} (${((value / total) * 100).toFixed(1)}%)`,
               name
-            ] as [string, string]}
+            ]) as any}
           />
         </PieChart>
       </ResponsiveContainer>
@@ -561,12 +565,13 @@ export function TopBrandsChart({ data }: { data: TopBrandsDataPoint[] }) {
             border: "1px solid #e2e8f0",
             borderRadius: "8px",
           }}
-          formatter={(value, name) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          formatter={((value: any, name: any) => {
             if (name === "Umsatz" && typeof value === 'number') {
-              return [`CHF ${value.toLocaleString("de-CH")}`, name] as [string, string];
+              return [`CHF ${value.toLocaleString("de-CH")}`, name];
             }
-            return [String(value), String(name)] as [string, string];
-          }}
+            return [String(value), String(name)];
+          }) as any}
         />
         <Legend wrapperStyle={{ fontSize: '12px' }} />
         <Bar 

@@ -21,7 +21,7 @@ export default async function DashboardLayout({
   // Dealer-Profil holen oder erstellen
   let { data: dealer } = await supabase
     .from('dealers')
-    .select('id, company_name')
+    .select('id, company_name, onboarding_completed')
     .eq('user_id', user.id)
     .single();
 
@@ -34,12 +34,18 @@ export default async function DashboardLayout({
         email: user.email,
         company_name: user.user_metadata?.company_name || user.email?.split('@')[0] || 'Meine Garage',
         contact_name: user.user_metadata?.contact_name || '',
-        status: 'active'
+        status: 'active',
+        onboarding_completed: false
       })
-      .select('id, company_name')
+      .select('id, company_name, onboarding_completed')
       .single();
     
     dealer = newDealer;
+  }
+
+  // Redirect to onboarding if not completed
+  if (dealer && !dealer.onboarding_completed) {
+    redirect('/onboarding');
   }
 
   return (

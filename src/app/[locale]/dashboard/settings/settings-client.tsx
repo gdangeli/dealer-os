@@ -919,6 +919,28 @@ function DangerZone({
     }
   };
 
+  const [isResettingOnboarding, setIsResettingOnboarding] = useState(false);
+
+  const handleRestartOnboarding = async () => {
+    setIsResettingOnboarding(true);
+    try {
+      const { error } = await supabase
+        .from('dealers')
+        .update({ onboarding_completed: false })
+        .eq('id', dealer.id);
+
+      if (error) throw error;
+      
+      toast.success("Onboarding wird neu gestartet...");
+      // Redirect to onboarding
+      window.location.href = '/onboarding';
+    } catch (error) {
+      console.error(error);
+      toast.error("Fehler beim Zurücksetzen");
+      setIsResettingOnboarding(false);
+    }
+  };
+
   return (
     <Card className="border-red-200">
       <CardHeader>
@@ -928,6 +950,24 @@ function DangerZone({
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* Restart Onboarding */}
+        <div className="flex items-center justify-between p-4 border rounded-lg border-blue-200 bg-blue-50">
+          <div>
+            <h3 className="font-medium text-blue-800">🚀 Onboarding wiederholen</h3>
+            <p className="text-sm text-blue-600">
+              Gehe den Einrichtungs-Wizard nochmals durch, um Einstellungen zu überprüfen.
+            </p>
+          </div>
+          <Button 
+            variant="outline" 
+            className="border-blue-300 text-blue-700 hover:bg-blue-100"
+            onClick={handleRestartOnboarding}
+            disabled={isResettingOnboarding}
+          >
+            {isResettingOnboarding ? "Starte..." : "🔄 Wiederholen"}
+          </Button>
+        </div>
+
         {/* Export Data */}
         <div className="flex items-center justify-between p-4 border rounded-lg">
           <div>
