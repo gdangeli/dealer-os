@@ -126,13 +126,14 @@ export function QuoteActions({ quote, locale }: QuoteActionsProps) {
       )}
 
       {/* PDF Download - always available */}
-      <button
-        disabled={isLoading}
-        className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50"
+      <a
+        href={`/api/quotes/${quote.id}/pdf`}
+        download
+        className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
       >
         <DocumentArrowDownIcon className="w-4 h-4" />
         PDF
-      </button>
+      </a>
 
       {/* Delete - only for drafts */}
       {quote.status === 'draft' && (
