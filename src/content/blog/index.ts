@@ -13,6 +13,184 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 35 - 2026-02-18
+  {
+    slug: "offerten-rechnungen-digitalisieren-autohandel",
+    title: "Offerten und Rechnungen digitalisieren: So sparen Autohändler Zeit",
+    excerpt: "Excel-Offerten und Word-Rechnungen kosten Zeit und Nerven. Erfahren Sie, wie moderne Garagisten ihre Verkaufsdokumente digitalisieren und dabei Fehler vermeiden.",
+    category: "Digitalisierung",
+    readTime: 7,
+    emoji: "📄",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+    publishedAt: "2026-02-18",
+    author: "Dealer OS Team",
+    keywords: ["Offerten", "Rechnungen", "Digitalisierung", "Autohandel", "Effizienz", "Buchhaltung"],
+    content: \`
+## Das Problem mit Excel und Word
+
+Kennen Sie das? Ein Kunde interessiert sich für einen Occasion. Sie öffnen Excel, suchen Ihre Offerten-Vorlage, tippen die Fahrzeugdaten ab, rechnen die MwSt von Hand aus, speichern als PDF und versenden per E-Mail. 
+
+Eine halbe Stunde später: Der Kunde möchte doch lieber die Winterräder dabei haben. Also alles nochmal von vorne.
+
+**Die versteckten Kosten manueller Offerten:**
+- Ø 25 Minuten pro Offerte erstellen
+- 15% der Offerten enthalten Rechenfehler
+- Keine Übersicht über offene Angebote
+- Verlust von Verkaufschancen durch Verzögerungen
+
+## Was moderne Händler anders machen
+
+### 1. Zentrale Kundendatenbank
+
+Statt Kundendaten immer wieder neu einzutippen, werden sie einmal erfasst und sind dann für alle Dokumente verfügbar:
+
+- Name, Adresse, Kontaktdaten
+- Bisherige Anfragen und Käufe
+- Präferenzen und Notizen
+- Automatische Übernahme in Offerten
+
+**Der Vorteil:** Wenn Herr Müller zum dritten Mal anfragt, sehen Sie sofort seine Historie – und er fühlt sich als Stammkunde wertgeschätzt.
+
+### 2. Fahrzeugdaten per Klick übernehmen
+
+Die Zeiten von Copy-Paste sind vorbei. Ein Klick auf "Offerte erstellen" und die Fahrzeugdaten fliessen automatisch ins Dokument:
+
+- Marke, Modell, Jahrgang
+- Kilometerstand
+- Ausstattung
+- Listenpreis
+- Fotos
+
+**Der Vorteil:** Keine Tippfehler, keine vergessenen Details, professionelles Erscheinungsbild.
+
+### 3. Flexible Positionen
+
+Eine gute Offerte besteht selten nur aus dem Fahrzeugpreis:
+
+| Position | Beispiel | Typ |
+|----------|----------|-----|
+| Fahrzeug | BMW 320d Touring 2022 | Hauptposition |
+| Zubehör | Winterräder Alu 18" | Zubehör |
+| Service | Servicepaket 24 Monate | Dienstleistung |
+| Garantie | Anschlussgarantie 2 Jahre | Garantie |
+| Eintausch | VW Golf 2018, 85'000 km | Abzug |
+
+**Der Vorteil:** Übersichtliche Darstellung, einfache Kalkulation, Upselling-Möglichkeiten.
+
+## Der Eintausch-Faktor
+
+Im Occasionshandel ist der Eintausch das A und O. Ein gutes System zeigt klar:
+
+- **Fahrzeugpreis:** CHF 38'500
+- **Eintausch:** - CHF 12'000
+- **Netto:** CHF 26'500
+- **MwSt. (8.1%):** CHF 2'147
+- **Total:** CHF 28'647
+
+Der Kunde sieht sofort, was er effektiv zahlt. Keine versteckten Überraschungen, volle Transparenz.
+
+## Von der Offerte zur Rechnung
+
+Wurde die Offerte angenommen? Dann sollte die Rechnung mit einem Klick entstehen – nicht durch nochmaliges Abtippen:
+
+\\\`\\\`\\\`
+Offerte OFF-2026-0042 → Status: Angenommen → [In Rechnung umwandeln]
+                        ↓
+                    Rechnung RE-2026-0042 (automatisch generiert)
+\\\`\\\`\\\`
+
+**Was automatisch übernommen wird:**
+- Alle Positionen und Preise
+- Kundendaten
+- Eintausch-Details
+- Zahlungsbedingungen
+
+**Was Sie nur noch ergänzen:**
+- Rechnungsdatum
+- Zahlungsfrist
+- Eventuelle Anpassungen
+
+## Die Bexio-Frage
+
+Viele Schweizer Garagen nutzen Bexio für die Buchhaltung. Die Frage ist: Wie kommen die Verkaufsdaten dorthin?
+
+**Option A: Doppelte Erfassung (zeitaufwändig)**
+1. Offerte im Verkaufssystem erstellen
+2. Manuell in Bexio übertragen
+3. Rechnung in Bexio erstellen
+4. Hoffen, dass keine Fehler passieren
+
+**Option B: Automatische Synchronisation (effizient)**
+1. Offerte im Verkaufssystem erstellen
+2. Bei Annahme: Ein Klick → Rechnung in Bexio
+3. Kundendaten automatisch synchronisiert
+4. Zahlungsstatus wird aktualisiert
+
+Die Zeitersparnis bei Option B: **ca. 20 Minuten pro Verkauf**.
+
+## Offene Offerten im Blick
+
+Wie viele Offerten haben Sie aktuell ausstehend? Welche sind bald abgelaufen? Wer hat seit einer Woche nicht reagiert?
+
+Ein gutes System zeigt Ihnen:
+
+| Status | Anzahl | Wert |
+|--------|--------|------|
+| 📝 Entwurf | 3 | CHF 87'000 |
+| 📤 Gesendet | 8 | CHF 245'000 |
+| ⏰ Läuft bald ab | 2 | CHF 62'000 |
+| ✅ Angenommen | 12 | CHF 380'000 |
+
+**Der Vorteil:** Sie wissen genau, wo Potenzial liegt und wo Sie nachfassen sollten.
+
+## Typische Fehler bei der Digitalisierung
+
+### Fehler 1: Zu komplexe Systeme
+Ein System, das alles kann, aber niemand versteht, nützt niemandem. Achten Sie auf:
+- Intuitive Bedienung
+- Klare Workflows
+- Mobile Nutzung möglich
+
+### Fehler 2: Keine Schulung
+Auch das beste Tool braucht Einführung. Planen Sie:
+- 1-2 Stunden für die Grundschulung
+- Dokumentation für Nachschlagen
+- Ansprechpartner für Fragen
+
+### Fehler 3: Insellösungen
+Wenn Fahrzeugverwaltung, CRM und Buchhaltung nicht zusammenspielen, entstehen wieder Doppelerfassungen. Achten Sie auf:
+- Integration mit bestehenden Tools
+- Datenaustausch (Import/Export)
+- API-Schnittstellen
+
+## Checkliste: Sind Sie bereit?
+
+Prüfen Sie Ihren aktuellen Stand:
+
+- [ ] Kundendaten zentral erfasst?
+- [ ] Fahrzeugdaten digital verfügbar?
+- [ ] Offerten-Vorlage standardisiert?
+- [ ] Nummernkreise definiert (OFF-2026-001)?
+- [ ] MwSt.-Berechnung automatisch?
+- [ ] Eintausch-Handling geklärt?
+- [ ] Workflow Offerte → Rechnung definiert?
+- [ ] Buchhaltungs-Integration geplant?
+
+**Wenn Sie mehr als 3 Punkte nicht abhaken können:** Es wird Zeit für eine moderne Lösung.
+
+## Fazit
+
+Die Digitalisierung von Offerten und Rechnungen ist keine Raketenwissenschaft – aber sie spart enorm Zeit und vermeidet Fehler. Der Schlüssel liegt in der Integration: Kundendaten, Fahrzeuge, Offerten, Rechnungen und Buchhaltung sollten nahtlos zusammenspielen.
+
+**Die Investition lohnt sich:**
+- 25 Minuten Zeitersparnis pro Offerte
+- Weniger Fehler durch Automatisierung
+- Besserer Überblick über offene Angebote
+- Professionelleres Auftreten beim Kunden
+
+Und das Wichtigste: Mehr Zeit für das, was wirklich zählt – den Verkauf.
+\`,
+  },
   // Artikel 34 - 2026-02-17
   {
     slug: "whatsapp-business-fuer-autohaendler",
