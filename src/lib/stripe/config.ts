@@ -25,42 +25,45 @@ export const stripe = {
 };
 
 // Subscription plan configuration
+// NEW PRICING (Feb 2026):
+// - Starter: FREE (10 vehicles, 1 user)
+// - Professional: 129 CHF/month (unlimited vehicles, 1 user)
+// - Business: 229 CHF/month (unlimited vehicles, 3 users, Bexio)
 export const PLANS = {
   starter: {
     name: 'Starter',
-    description: 'Für kleine Betriebe',
-    priceMonthly: 149,
-    priceYearly: 1490, // 2 months free
+    description: 'Gratis für immer',
+    priceMonthly: 0,
+    priceYearly: 0,
     limits: {
-      vehicles: 20 as number,
-      users: 2 as number,
+      vehicles: 10 as number,
+      users: 1 as number,
       channels: 2 as number,
     },
     features: [
-      'Bis 20 Fahrzeuge',
-      '2 Benutzer',
-      '2 Inserate-Kanäle',
+      'Bis 10 Fahrzeuge',
+      '1 Benutzer',
       'Standzeit-Tracking',
       'Basis-CRM',
       'E-Mail Support',
     ],
-    stripePriceIdMonthly: process.env.STRIPE_STARTER_MONTHLY_PRICE_ID,
-    stripePriceIdYearly: process.env.STRIPE_STARTER_YEARLY_PRICE_ID,
+    stripePriceIdMonthly: null, // Free tier, no Stripe
+    stripePriceIdYearly: null,
   },
   pro: {
     name: 'Professional',
-    description: 'Für wachsende Händler',
-    priceMonthly: 349,
-    priceYearly: 3490, // 2 months free
+    description: 'Für aktive Händler',
+    priceMonthly: 129,
+    priceYearly: 1290, // ~2 months free
     limits: {
-      vehicles: 50 as number,
-      users: 5 as number,
-      channels: 5 as number,
+      vehicles: -1 as number, // unlimited
+      users: 1 as number,
+      channels: -1 as number, // unlimited
     },
     features: [
-      'Bis 50 Fahrzeuge',
-      '5 Benutzer',
-      '5 Inserate-Kanäle',
+      'Unbegrenzte Fahrzeuge',
+      '1 Benutzer',
+      'Alle Inserate-Kanäle',
       'AI-Preisempfehlung',
       'WhatsApp Integration',
       'Vollständiges CRM',
@@ -71,18 +74,18 @@ export const PLANS = {
   },
   business: {
     name: 'Business',
-    description: 'Für grössere Betriebe',
-    priceMonthly: 599,
-    priceYearly: 5990, // 2 months free
+    description: 'Für Teams',
+    priceMonthly: 229,
+    priceYearly: 2290, // ~2 months free
     limits: {
-      vehicles: 100 as number,
-      users: 10 as number,
+      vehicles: -1 as number, // unlimited
+      users: 3 as number,
       channels: -1 as number, // unlimited
     },
     features: [
-      'Bis 100 Fahrzeuge',
-      '10 Benutzer',
-      'Unbegrenzte Kanäle',
+      'Unbegrenzte Fahrzeuge',
+      '3 Benutzer',
+      'Bexio-Integration',
       'Multi-Standort',
       'Team-Auswertungen',
       'API-Zugang',
@@ -93,7 +96,7 @@ export const PLANS = {
   },
   beta: {
     name: 'Beta',
-    description: 'Gratis Beta-Zugang',
+    description: 'Legacy Beta-Zugang',
     priceMonthly: 0,
     priceYearly: 0,
     limits: {

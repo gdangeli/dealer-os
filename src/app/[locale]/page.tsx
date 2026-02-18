@@ -353,7 +353,6 @@ function HomePage() {
                 name={tPricing("starter.name")}
                 description={tPricing("starter.description")}
                 price={tPricing("starter.price")}
-                perMonth={tPricing("perMonth")}
                 features={[
                   tPricing("starter.features.0"),
                   tPricing("starter.features.1"),
@@ -363,6 +362,8 @@ function HomePage() {
                   tPricing("starter.features.5"),
                 ]}
                 ctaText={tPricing("freeTrial")}
+                free
+                freeLabel={tPricing("free")}
               />
               <PricingCard
                 name={tPricing("professional.name")}
@@ -602,6 +603,8 @@ function PricingCard({
   popular,
   popularLabel,
   enterprise,
+  free,
+  freeLabel,
 }: {
   name: string;
   description: string;
@@ -612,6 +615,8 @@ function PricingCard({
   popular?: boolean;
   popularLabel?: string;
   enterprise?: boolean;
+  free?: boolean;
+  freeLabel?: string;
 }) {
   return (
     <Card
@@ -620,6 +625,8 @@ function PricingCard({
           ? "border-sky-400 bg-gradient-to-br from-sky-50 to-indigo-50 shadow-2xl shadow-sky-200 scale-105"
           : enterprise
           ? "bg-slate-50 border-slate-300"
+          : free
+          ? "border-emerald-300 bg-gradient-to-br from-emerald-50 to-teal-50"
           : "border-slate-200 bg-white"
       } hover:shadow-xl transition-all duration-300 rounded-2xl`}
     >
@@ -634,7 +641,11 @@ function PricingCard({
         <h3 className="font-bold text-slate-900 text-xl mb-2">{name}</h3>
         <p className="text-sm text-slate-600 mb-6">{description}</p>
         <div className="mb-8">
-          {perMonth ? (
+          {free && freeLabel ? (
+            <span className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              {freeLabel}
+            </span>
+          ) : perMonth ? (
             <>
               <span className="text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">
                 {price}
@@ -652,7 +663,7 @@ function PricingCard({
               className="flex items-start gap-3 text-sm text-slate-700"
             >
               <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                popular ? "bg-sky-100" : "bg-emerald-100"
+                popular ? "bg-sky-100" : free ? "bg-emerald-100" : "bg-emerald-100"
               }`}>
                 <Check className={`h-3 w-3 ${popular ? "text-sky-600" : "text-emerald-600"}`} />
               </div>
@@ -664,9 +675,11 @@ function PricingCard({
           className={`w-full rounded-xl ${
             popular
               ? "bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 shadow-lg shadow-sky-500/30"
+              : free
+              ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-lg shadow-emerald-500/30"
               : "border-slate-300 hover:bg-slate-50"
           }`}
-          variant={popular ? "default" : "outline"}
+          variant={popular || free ? "default" : "outline"}
           asChild
         >
           <Link href={enterprise ? "mailto:enterprise@dealeros.ch" : "/register"}>
