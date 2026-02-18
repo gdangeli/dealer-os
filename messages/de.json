@@ -97,7 +97,7 @@
       "leadManagement": "Lead-Management",
       "leadManagementDesc": "Alle Anfragen an einem Ort. Automatische Erinnerungen, damit nichts verloren geht.",
       "realKpis": "Echte Kennzahlen",
-      "realKpisDesc": "Gewinn pro Fahrzeug, Durchschnitts-Standzeit, Conversion-Rate – auf einen Blick.",
+      "realKpisDesc": "Gewinn pro Fahrzeug, Durchschnitts-Standzeit, Abschlussquote – auf einen Blick.",
       "listingExport": "Inserate-Export",
       "listingExportDesc": "Mit einem Klick auf AutoScout24, car4you und Ihre Website veröffentlichen.",
       "swissHosting": "Schweizer Hosting",
@@ -220,7 +220,7 @@
       "title": "Bereit für mehr Durchblick?",
       "description": "Testen Sie Dealer OS 14 Tage kostenlos. Keine Kreditkarte, keine Verpflichtung.",
       "button": "Jetzt kostenlos starten",
-      "swissMade": "Swiss Made Software",
+      "swissMade": "Schweizer Software",
       "swissHosting": "Hosting in der Schweiz",
       "zurichSupport": "Support aus Zürich"
     }
@@ -548,7 +548,7 @@
             "tips": [
               "Halten Sie den Status aktuell für aussagekräftige Reports",
               "Notieren Sie bei 'Verloren' den Grund",
-              "Gewonnene Leads erhöhen Ihre Conversion-Rate in Auswertungen"
+              "Gewonnene Leads verbessern Ihre Abschlussquote in den Auswertungen"
             ]
           },
           "follow-up": {
@@ -811,7 +811,7 @@
           "reports": {
             "title": "Reports generieren",
             "description": "Detaillierte Auswertungen erstellen.",
-            "content": "<p>Erstellen Sie detaillierte Reports für verschiedene Zeiträume und Kategorien.</p><h3>Verfügbare Reports</h3><ul><li><strong>Bestandsreport:</strong> Alle Fahrzeuge mit Standzeit und Marge</li><li><strong>Verkaufsreport:</strong> Abgeschlossene Verkäufe im Zeitraum</li><li><strong>Lead-Report:</strong> Conversion-Raten und Quellen</li><li><strong>Umsatzreport:</strong> Einnahmen und Entwicklung</li></ul>",
+            "content": "<p>Erstellen Sie detaillierte Reports für verschiedene Zeiträume und Kategorien.</p><h3>Verfügbare Reports</h3><ul><li><strong>Bestandsreport:</strong> Alle Fahrzeuge mit Standzeit und Marge</li><li><strong>Verkaufsreport:</strong> Abgeschlossene Verkäufe im Zeitraum</li><li><strong>Anfragen-Report:</strong> Abschlussquoten und Quellen</li><li><strong>Umsatzreport:</strong> Einnahmen und Entwicklung</li></ul>",
             "steps": [
               "Gehen Sie zu Auswertungen → Reports",
               "Wählen Sie den Report-Typ",
