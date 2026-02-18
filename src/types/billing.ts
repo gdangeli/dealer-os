@@ -18,6 +18,7 @@ export interface Customer {
   postal_code: string | null;
   city: string | null;
   country: string;
+  location_id: string | null;
   bexio_contact_id: number | null;
   bexio_synced_at: string | null;
   lead_id: string | null;
@@ -38,6 +39,7 @@ export interface CustomerFormData {
   postal_code?: string;
   city?: string;
   country?: string;
+  location_id?: string;
   lead_id?: string;
 }
 

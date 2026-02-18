@@ -101,6 +101,7 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
       <Tabs defaultValue="company" className="space-y-6">
         <TabsList className="bg-white border flex-wrap h-auto gap-1 p-1">
           <TabsTrigger value="company">🏢 Firmenprofil</TabsTrigger>
+          <TabsTrigger value="locations">📍 Standorte</TabsTrigger>
           <TabsTrigger value="user">👤 Benutzer</TabsTrigger>
           <TabsTrigger value="notifications">🔔 Benachrichtigungen</TabsTrigger>
           <TabsTrigger value="email-templates">✉️ E-Mail-Vorlagen</TabsTrigger>
@@ -116,6 +117,11 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
             onUpdate={setDealer} 
             supabase={supabase} 
           />
+        </TabsContent>
+
+        {/* Standorte Tab */}
+        <TabsContent value="locations">
+          <LocationsRedirect />
         </TabsContent>
 
         {/* Benutzer Tab */}
@@ -997,6 +1003,32 @@ function DangerZone({
             </DialogContent>
           </Dialog>
         </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ============================================================================
+// Standorte Redirect
+// ============================================================================
+function LocationsRedirect() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>📍 Standorte verwalten</CardTitle>
+        <CardDescription>
+          Verwalten Sie Ihre Filialstandorte für Fahrzeuge, Leads und Kunden.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="text-center py-8">
+        <p className="text-slate-600 mb-4">
+          Die Standort-Verwaltung wurde auf eine eigene Seite verschoben.
+        </p>
+        <Button asChild>
+          <a href="/dashboard/settings/locations">
+            Zur Standort-Verwaltung →
+          </a>
+        </Button>
       </CardContent>
     </Card>
   );

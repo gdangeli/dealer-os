@@ -94,6 +94,7 @@ export async function POST(request: NextRequest) {
         postal_code: body.postal_code || null,
         city: body.city || null,
         country: body.country || 'CH',
+        location_id: body.location_id || null,
         lead_id: body.lead_id || null,
       })
       .select()

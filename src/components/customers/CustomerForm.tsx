@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Customer, CustomerFormData, CustomerType, Salutation } from '@/types/billing';
+import { Location } from '@/types/locations';
 import { useTranslations } from 'next-intl';
+import { createClient } from '@/lib/supabase/client';
 
 interface CustomerFormProps {
   customer?: Customer;
@@ -14,8 +16,10 @@ interface CustomerFormProps {
 export function CustomerForm({ customer, onSuccess, onCancel }: CustomerFormProps) {
   const router = useRouter();
   const t = useTranslations('customers');
+  const supabase = createClient();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [locations, setLocations] = useState<Location[]>([]);
 
   const [formData, setFormData] = useState<CustomerFormData>({
     customer_type: customer?.customer_type || 'private',
@@ -30,7 +34,29 @@ export function CustomerForm({ customer, onSuccess, onCancel }: CustomerFormProp
     postal_code: customer?.postal_code || '',
     city: customer?.city || '',
     country: customer?.country || 'CH',
+    location_id: customer?.location_id || undefined,
   });
+
+  // Load locations on mount
+  useEffect(() => {
+    async function loadLocations() {
+      const { data } = await supabase
+        .from('locations')
+        .select('*')
+        .order('is_main', { ascending: false })
+        .order('name', { ascending: true });
+      
+      if (data) {
+        setLocations(data);
+        // Set default location to main location for new customers
+        if (!customer && data.length > 0 && !formData.location_id) {
+          const mainLocation = data.find(l => l.is_main) || data[0];
+          setFormData(prev => ({ ...prev, location_id: mainLocation.id }));
+        }
+      }
+    }
+    loadLocations();
+  }, [supabase, customer]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,7 +92,7 @@ export function CustomerForm({ customer, onSuccess, onCancel }: CustomerFormProp
     }
   };
 
-  const handleChange = (field: keyof CustomerFormData, value: string | CustomerType | Salutation) => {
+  const handleChange = (field: keyof CustomerFormData, value: string | CustomerType | Salutation | undefined) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -269,6 +295,30 @@ export function CustomerForm({ customer, onSuccess, onCancel }: CustomerFormProp
           </select>
         </div>
       </div>
+
+      {/* Location */}
+      {locations.length > 0 && (
+        <div>
+          <label htmlFor="location_id" className="block text-sm font-medium text-gray-700 mb-1">
+            📍 Standort
+          </label>
+          <select
+            id="location_id"
+            value={formData.location_id || ''}
+            onChange={(e) => handleChange('location_id', e.target.value || undefined)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="">Kein Standort</option>
+            {locations.map((location) => (
+              <option key={location.id} value={location.id}>
+                {location.is_main && '⭐ '}
+                {location.name}
+                {location.city && ` (${location.city})`}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {/* Actions */}
       <div className="flex justify-end gap-3 pt-4 border-t">

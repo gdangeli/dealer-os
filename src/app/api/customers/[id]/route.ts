@@ -77,6 +77,7 @@ export async function PUT(
         postal_code: body.postal_code || null,
         city: body.city || null,
         country: body.country || 'CH',
+        location_id: body.location_id || null,
       })
       .eq('id', id)
       .eq('dealer_id', user.id)

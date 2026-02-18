@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,17 +24,26 @@ import {
   transmissionLabels,
   statusLabels,
 } from "@/types/vehicle";
+import { Location } from "@/types/locations";
 import { createClient } from "@/lib/supabase/client";
 import { ImageUpload } from "./image-upload";
 import { VehicleImage } from "@/types/database";
 
+interface VehicleWithLocation extends Vehicle {
+  location_id?: string | null;
+}
+
 interface VehicleFormProps {
-  vehicle?: Vehicle;
+  vehicle?: VehicleWithLocation;
   dealerId: string;
   initialImages?: VehicleImage[];
 }
 
-const initialFormData: VehicleFormData = {
+interface VehicleFormDataWithLocation extends VehicleFormData {
+  location_id: string | null;
+}
+
+const initialFormData: VehicleFormDataWithLocation = {
   make: "",
   model: "",
   variant: "",
@@ -50,6 +59,7 @@ const initialFormData: VehicleFormData = {
   description: "",
   internal_notes: "",
   status: "in_stock",
+  location_id: null,
 };
 
 export function VehicleForm({ vehicle, dealerId, initialImages = [] }: VehicleFormProps) {
@@ -57,8 +67,9 @@ export function VehicleForm({ vehicle, dealerId, initialImages = [] }: VehicleFo
   const supabase = createClient();
   const isEditing = !!vehicle;
   const [vehicleId, setVehicleId] = useState<string | undefined>(vehicle?.id);
+  const [locations, setLocations] = useState<Location[]>([]);
 
-  const [formData, setFormData] = useState<VehicleFormData>(
+  const [formData, setFormData] = useState<VehicleFormDataWithLocation>(
     vehicle
       ? {
           make: vehicle.make,
@@ -76,12 +87,35 @@ export function VehicleForm({ vehicle, dealerId, initialImages = [] }: VehicleFo
           description: vehicle.description || "",
           internal_notes: vehicle.internal_notes || "",
           status: vehicle.status,
+          location_id: vehicle.location_id || null,
         }
       : initialFormData
   );
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Load locations on mount
+  useEffect(() => {
+    async function loadLocations() {
+      const { data } = await supabase
+        .from('locations')
+        .select('*')
+        .eq('dealer_id', dealerId)
+        .order('is_main', { ascending: false })
+        .order('name', { ascending: true });
+      
+      if (data) {
+        setLocations(data);
+        // Set default location to main location for new vehicles
+        if (!vehicle && data.length > 0) {
+          const mainLocation = data.find(l => l.is_main) || data[0];
+          setFormData(prev => ({ ...prev, location_id: mainLocation.id }));
+        }
+      }
+    }
+    loadLocations();
+  }, [dealerId, supabase, vehicle]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -93,7 +127,7 @@ export function VehicleForm({ vehicle, dealerId, initialImages = [] }: VehicleFo
     }));
   };
 
-  const handleSelectChange = (name: string, value: string) => {
+  const handleSelectChange = (name: string, value: string | null) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -123,6 +157,7 @@ export function VehicleForm({ vehicle, dealerId, initialImages = [] }: VehicleFo
         description: formData.description || null,
         internal_notes: formData.internal_notes || null,
         status: formData.status,
+        location_id: formData.location_id,
       };
 
       if (isEditing) {
@@ -204,6 +239,30 @@ export function VehicleForm({ vehicle, dealerId, initialImages = [] }: VehicleFo
               placeholder="GTI, Touring, Avant..."
             />
           </div>
+          {/* Location Selection */}
+          {locations.length > 0 && (
+            <div className="space-y-2">
+              <Label htmlFor="location_id">📍 Standort</Label>
+              <Select
+                value={formData.location_id || "_none"}
+                onValueChange={(value) => handleSelectChange("location_id", value === "_none" ? null : value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Standort wählen" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="_none">Kein Standort</SelectItem>
+                  {locations.map((location) => (
+                    <SelectItem key={location.id} value={location.id}>
+                      {location.is_main && "⭐ "}
+                      {location.name}
+                      {location.city && ` (${location.city})`}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
         </CardContent>
       </Card>
 

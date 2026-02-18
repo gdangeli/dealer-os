@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LeadSource, leadSourceLabels } from "@/types/leads";
+import { Location } from "@/types/locations";
 import { triggerNewLeadNotification } from "@/lib/notifications/trigger";
 
 interface Vehicle {
@@ -24,6 +25,7 @@ interface Vehicle {
 export default function NewLeadPage() {
   const router = useRouter();
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(false);
   const supabase = createClient();
 
@@ -34,11 +36,13 @@ export default function NewLeadPage() {
   const [phone, setPhone] = useState("");
   const [source, setSource] = useState<LeadSource>("walkin");
   const [vehicleId, setVehicleId] = useState<string>("");
+  const [locationId, setLocationId] = useState<string>("");
   const [message, setMessage] = useState("");
   const [notes, setNotes] = useState("");
 
   useEffect(() => {
     fetchVehicles();
+    fetchLocations();
   }, []);
 
   async function fetchVehicles() {
@@ -51,6 +55,25 @@ export default function NewLeadPage() {
       console.error("Error fetching vehicles:", error);
     } else {
       setVehicles(data || []);
+    }
+  }
+
+  async function fetchLocations() {
+    const { data, error } = await supabase
+      .from("locations")
+      .select("*")
+      .order("is_main", { ascending: false })
+      .order("name", { ascending: true });
+
+    if (error) {
+      console.error("Error fetching locations:", error);
+    } else {
+      setLocations(data || []);
+      // Set default to main location
+      if (data && data.length > 0) {
+        const mainLocation = data.find(l => l.is_main) || data[0];
+        setLocationId(mainLocation.id);
+      }
     }
   }
 
@@ -73,6 +96,7 @@ export default function NewLeadPage() {
         phone: phone || null,
         source,
         vehicle_id: vehicleId || null,
+        location_id: locationId || null,
         message: message || null,
         notes: notes || null,
         status: "new",
@@ -231,6 +255,33 @@ export default function NewLeadPage() {
                 </Select>
               </CardContent>
             </Card>
+
+            {/* Standort */}
+            {locations.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>📍 Standort</CardTitle>
+                  <CardDescription>An welchem Standort wurde die Anfrage gestellt?</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Select value={locationId || "_none"} onValueChange={(val) => setLocationId(val === "_none" ? "" : val)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Standort wählen" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="_none">Kein Standort</SelectItem>
+                      {locations.map((location) => (
+                        <SelectItem key={location.id} value={location.id}>
+                          {location.is_main && "⭐ "}
+                          {location.name}
+                          {location.city && ` (${location.city})`}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Fahrzeug */}
             <Card>

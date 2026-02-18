@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { LogoutButton } from "./logout-button";
 import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
+import { LocationFilterWrapper } from "@/components/locations/location-filter-wrapper";
 
 export default async function DashboardLayout({
   children,
@@ -20,7 +21,7 @@ export default async function DashboardLayout({
   // Dealer-Profil holen oder erstellen
   let { data: dealer } = await supabase
     .from('dealers')
-    .select('company_name')
+    .select('id, company_name')
     .eq('user_id', user.id)
     .single();
 
@@ -35,7 +36,7 @@ export default async function DashboardLayout({
         contact_name: user.user_metadata?.contact_name || '',
         status: 'active'
       })
-      .select('company_name')
+      .select('id, company_name')
       .single();
     
     dealer = newDealer;
@@ -52,6 +53,13 @@ export default async function DashboardLayout({
           </Link>
           <Badge variant="secondary" className="mt-2">Beta</Badge>
         </div>
+
+        {/* Location Filter */}
+        {dealer?.id && (
+          <div className="px-4 py-3 border-b border-slate-200">
+            <LocationFilterWrapper dealerId={dealer.id} />
+          </div>
+        )}
         
         <nav className="flex-1 p-4 space-y-1">
           <NavLink href="/dashboard" icon="📊">Übersicht</NavLink>

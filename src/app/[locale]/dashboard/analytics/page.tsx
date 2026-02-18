@@ -12,11 +12,16 @@ import {
   RevenueLineChart,
   StandingTimeBarChart,
   ConversionFunnelChart,
-  MiniSparkline 
+  LeadsBySourceChart,
+  TopBrandsChart,
+  MiniSparkline,
+  TrendIndicator,
+  SOURCE_COLORS
 } from "@/components/analytics/charts";
 import { TimeRangeFilter, type TimeRange, getTimeRangeDays, getTimeRangeLabel } from "@/components/analytics/time-range-filter";
+import { ExportButton } from "@/components/analytics/export-button";
 
-// Hilfsfunktion für Standzeit-Berechnung
+// Helper: Calculate days in stock
 function calculateDaysInStock(acquiredAt: string | null): number {
   if (!acquiredAt) return 0;
   const acquired = new Date(acquiredAt);
@@ -24,7 +29,7 @@ function calculateDaysInStock(acquiredAt: string | null): number {
   return Math.floor((now.getTime() - acquired.getTime()) / (1000 * 60 * 60 * 24));
 }
 
-// Empfehlung basierend auf Standzeit
+// Recommendation based on standing time
 function getRecommendation(days: number): { text: string; urgency: "low" | "medium" | "high" } {
   if (days > 90) {
     return { text: "Dringend: Aggressive Preisanpassung empfohlen", urgency: "high" };
@@ -36,9 +41,24 @@ function getRecommendation(days: number): { text: string; urgency: "low" | "medi
   return { text: "Normal", urgency: "low" };
 }
 
-// Formatierung Rappen zu CHF
+// Format Rappen to CHF
 function formatCHF(rappen: number): string {
   return (rappen / 100).toLocaleString("de-CH", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+// Get source label for display
+function getSourceLabel(source: string | null): string {
+  const labels: Record<string, string> = {
+    website: "Website",
+    autoscout24: "AutoScout24",
+    "mobile.de": "Mobile.de",
+    tutti: "Tutti",
+    walkin: "Walk-in",
+    phone: "Telefon",
+    whatsapp: "WhatsApp",
+    other: "Andere",
+  };
+  return labels[source || "other"] || source || "Unbekannt";
 }
 
 interface PageProps {
@@ -75,16 +95,21 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
   rangeStart.setDate(rangeStart.getDate() - daysBack);
   const rangeStartISO = rangeStart.toISOString();
 
-  // === DATEN LADEN ===
+  // === DATE HELPERS ===
+  const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const firstDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  const lastDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+
+  // === LOAD DATA ===
   
-  // Alle Fahrzeuge
+  // All vehicles
   const { data: allVehicles } = await supabase
     .from("vehicles")
     .select("*")
     .eq("dealer_id", dealer.id);
   const vehicles = allVehicles || [];
 
-  // Leads im Zeitraum
+  // Leads in range
   const { data: allLeads } = await supabase
     .from("leads")
     .select("*")
@@ -94,7 +119,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
   const leadsInRange = leads.filter(l => new Date(l.created_at) >= rangeStart);
   const leadsWonInRange = leadsInRange.filter(l => l.status === "won");
 
-  // Quotes (Offerten)
+  // Quotes (Offers)
   const { data: allQuotes } = await supabase
     .from("quotes")
     .select("*")
@@ -105,7 +130,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
   const quotesInRange = quotes.filter(q => new Date(q.created_at) >= rangeStart);
   const acceptedQuotesInRange = quotesInRange.filter(q => q.status === "accepted" || q.status === "invoiced");
 
-  // Invoices (Rechnungen)
+  // Invoices
   const { data: allInvoices } = await supabase
     .from("invoices")
     .select("*")
@@ -117,34 +142,40 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
   );
   const totalRevenueInRange = paidInvoicesInRange.reduce((sum, i) => sum + (i.total || 0), 0);
 
-  // === KPIs BERECHNEN ===
+  // === CALCULATE KPIs ===
   
   const inStockVehicles = vehicles.filter(v => v.status === "in_stock");
   const soldVehicles = vehicles.filter(v => v.status === "sold");
   
-  // Leads diese Woche (für Hauptkarte)
+  // Leads this week (for main card)
   const oneWeekAgo = new Date(now);
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
   const leadsThisWeek = leads.filter(l => new Date(l.created_at) >= oneWeekAgo);
   
-  // Conversion Rate (Leads → Won im Zeitraum)
+  // Conversion Rate (Leads → Won in range)
   const conversionRate = leadsInRange.length > 0 
     ? Math.round((leadsWonInRange.length / leadsInRange.length) * 100) 
     : 0;
 
-  // Offerten Conversion (Sent → Accepted)
+  // Quote Conversion (Sent → Accepted)
   const sentQuotesInRange = quotesInRange.filter(q => q.sent_at);
   const quoteConversionRate = sentQuotesInRange.length > 0
     ? Math.round((acceptedQuotesInRange.length / sentQuotesInRange.length) * 100)
     : 0;
 
-  // Verkäufe diesen Monat
-  const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  // Sales this month
   const soldThisMonth = soldVehicles.filter(v => 
     v.sold_at && new Date(v.sold_at) >= firstDayOfMonth
   );
+  
+  // Sales previous month
+  const soldPrevMonth = soldVehicles.filter(v => {
+    if (!v.sold_at) return false;
+    const soldDate = new Date(v.sold_at);
+    return soldDate >= firstDayOfPrevMonth && soldDate <= lastDayOfPrevMonth;
+  });
 
-  // Durchschnittliche Standzeit
+  // Average standing time
   const soldWithDates = soldVehicles.filter(v => v.sold_at && v.acquired_at);
   const avgStandingTime = soldWithDates.length > 0
     ? Math.round(soldWithDates.reduce((sum, v) => {
@@ -154,7 +185,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
       }, 0) / soldWithDates.length)
     : null;
 
-  // Durchschnittliche Marge
+  // Average margin
   const vehiclesWithMargin = soldVehicles.filter(v => 
     v.purchase_price && v.asking_price && v.purchase_price > 0
   );
@@ -168,14 +199,66 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
         sum + ((v.asking_price! - v.purchase_price!) / v.purchase_price! * 100), 0) / vehiclesWithMargin.length)
     : null;
 
-  // === CHARTS-DATEN ===
+  // === TREND DATA: Current vs Previous Month ===
+  
+  // Leads
+  const leadsThisMonth = leads.filter(l => new Date(l.created_at) >= firstDayOfMonth);
+  const leadsPrevMonth = leads.filter(l => {
+    const d = new Date(l.created_at);
+    return d >= firstDayOfPrevMonth && d <= lastDayOfPrevMonth;
+  });
 
-  // Leads über Zeit (gruppiert nach Tag/Woche je nach Zeitraum)
+  // Revenue
+  const revenueThisMonth = invoices
+    .filter(i => i.status === "paid" && i.paid_at && new Date(i.paid_at) >= firstDayOfMonth)
+    .reduce((sum, i) => sum + (i.total || 0), 0);
+  const revenuePrevMonth = invoices
+    .filter(i => {
+      if (i.status !== "paid" || !i.paid_at) return false;
+      const d = new Date(i.paid_at);
+      return d >= firstDayOfPrevMonth && d <= lastDayOfPrevMonth;
+    })
+    .reduce((sum, i) => sum + (i.total || 0), 0);
+
+  // === NEW KPIs ===
+
+  // Top 5 brands by sales
+  const brandSales: Record<string, { sales: number; revenue: number }> = {};
+  soldVehicles.forEach(v => {
+    const brand = v.make || "Unbekannt";
+    if (!brandSales[brand]) {
+      brandSales[brand] = { sales: 0, revenue: 0 };
+    }
+    brandSales[brand].sales++;
+    brandSales[brand].revenue += v.asking_price || 0;
+  });
+  const topBrandsData = Object.entries(brandSales)
+    .map(([brand, data]) => ({ brand, ...data }))
+    .sort((a, b) => b.sales - a.sales)
+    .slice(0, 5);
+
+  // Leads by source
+  const leadsBySource: Record<string, number> = {};
+  leadsInRange.forEach(l => {
+    const source = l.source || "other";
+    leadsBySource[source] = (leadsBySource[source] || 0) + 1;
+  });
+  const leadsBySourceData = Object.entries(leadsBySource)
+    .map(([source, count]) => ({
+      source: getSourceLabel(source),
+      count,
+      color: SOURCE_COLORS[source] || SOURCE_COLORS.other,
+    }))
+    .sort((a, b) => b.count - a.count);
+
+  // === CHARTS DATA ===
+
+  // Leads over time (grouped by day/week depending on range)
   const leadsOverTime: { date: string; leads: number; won: number }[] = [];
   const groupByWeek = daysBack > 30;
   
   if (groupByWeek) {
-    // Gruppiere nach Woche für längere Zeiträume
+    // Group by week for longer periods
     const weeks = Math.ceil(daysBack / 7);
     for (let i = weeks - 1; i >= 0; i--) {
       const weekEnd = new Date(now);
@@ -196,7 +279,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
       });
     }
   } else {
-    // Gruppiere nach Tag für kürzere Zeiträume
+    // Group by day for shorter periods
     for (let i = daysBack - 1; i >= 0; i--) {
       const date = new Date(now);
       date.setDate(date.getDate() - i);
@@ -215,7 +298,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
     }
   }
 
-  // Umsatz über Zeit
+  // Revenue over time
   const revenueOverTime: { date: string; umsatz: number; offerten: number }[] = [];
   const months = Math.min(Math.ceil(daysBack / 30), 12);
   
@@ -240,12 +323,12 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
     
     revenueOverTime.push({
       date: monthStr,
-      umsatz: monthInvoices.reduce((sum, i) => sum + (i.total || 0), 0) / 100, // Convert to CHF
+      umsatz: monthInvoices.reduce((sum, i) => sum + (i.total || 0), 0) / 100,
       offerten: monthQuotes.reduce((sum, q) => sum + (q.total || 0), 0) / 100,
     });
   }
 
-  // Standzeit-Verteilung
+  // Standing time distribution
   const standingTimeData: { range: string; count: number; color: string }[] = [
     { range: "0-30 Tage", count: 0, color: "#22c55e" },
     { range: "31-60 Tage", count: 0, color: "#f59e0b" },
@@ -269,7 +352,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
     { stage: "Gewonnen", count: leadsWonInRange.length, color: "#22c55e" },
   ];
 
-  // Bestand über Zeit (letzte 6 Monate)
+  // Stock over time (last 6 months)
   const stockOverTime: { date: string; bestand: number }[] = [];
   for (let i = 5; i >= 0; i--) {
     const date = new Date();
@@ -284,7 +367,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
     stockOverTime.push({ date: monthStr, bestand: count });
   }
 
-  // Verkäufe pro Monat
+  // Sales per month
   const salesByMonth: { month: string; verkäufe: number; umsatz: number }[] = [];
   for (let i = 5; i >= 0; i--) {
     const date = new Date();
@@ -301,11 +384,12 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
     salesByMonth.push({ month: monthStr, verkäufe: monthSales.length, umsatz });
   }
 
-  // Sparkline-Daten für Leads
+  // Sparkline data
   const leadSparkline = leadsOverTime.slice(-7).map(d => d.leads);
   const revenueSparkline = revenueOverTime.slice(-6).map(d => d.umsatz);
+  const salesSparkline = salesByMonth.map(d => d.verkäufe);
 
-  // === Langsteher-Analyse ===
+  // === Long-stander analysis ===
   const longStanders = inStockVehicles
     .filter(v => v.acquired_at)
     .map(v => ({
@@ -319,7 +403,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
   const over60Days = longStanders.filter(v => v.daysInStock > 60 && v.daysInStock <= 90).length;
   const over90Days = longStanders.filter(v => v.daysInStock > 90).length;
 
-  // Top-Performer
+  // Top performers
   const fastestSales = soldWithDates
     .map(v => ({
       ...v,
@@ -339,132 +423,193 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
     .sort((a, b) => b.margin - a.margin)
     .slice(0, 5);
 
+  // Export data
+  const exportData = {
+    leadsTotal: leadsInRange.length,
+    leadsWon: leadsWonInRange.length,
+    conversionRate,
+    totalRevenue: totalRevenueInRange,
+    vehiclesInStock: inStockVehicles.length,
+    vehiclesSold: soldVehicles.length,
+    avgStandingTime,
+    avgMargin,
+    avgMarginPercent,
+    currentMonthLeads: leadsThisMonth.length,
+    prevMonthLeads: leadsPrevMonth.length,
+    currentMonthRevenue: revenueThisMonth,
+    prevMonthRevenue: revenuePrevMonth,
+    currentMonthSales: soldThisMonth.length,
+    prevMonthSales: soldPrevMonth.length,
+    topBrands: topBrandsData,
+    leadsBySource: leadsBySourceData.map(d => ({ source: d.source, count: d.count })),
+    rangeLabel,
+  };
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">Analytics</h1>
-          <p className="text-slate-600">
-            KPIs und Auswertungen ({rangeLabel})
-          </p>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Analytics</h1>
+            <p className="text-sm sm:text-base text-slate-600">
+              KPIs und Auswertungen ({rangeLabel})
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <ExportButton data={exportData} />
+            <Suspense fallback={<div className="h-9 w-64 bg-slate-100 rounded animate-pulse" />}>
+              <TimeRangeFilter currentRange={timeRange} />
+            </Suspense>
+          </div>
         </div>
-        <Suspense fallback={<div className="h-9 w-64 bg-slate-100 rounded animate-pulse" />}>
-          <TimeRangeFilter currentRange={timeRange} />
-        </Suspense>
       </div>
 
+      {/* Trend Comparison Cards */}
+      <Card className="border-blue-200 bg-blue-50/50">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+            📊 Trend-Vergleich
+            <Badge variant="outline" className="font-normal">vs. Vormonat</Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="p-3 sm:p-4 bg-white rounded-lg shadow-sm">
+              <p className="text-xs sm:text-sm text-slate-500">Leads</p>
+              <p className="text-xl sm:text-2xl font-bold">{leadsThisMonth.length}</p>
+              <TrendIndicator current={leadsThisMonth.length} previous={leadsPrevMonth.length} />
+            </div>
+            <div className="p-3 sm:p-4 bg-white rounded-lg shadow-sm">
+              <p className="text-xs sm:text-sm text-slate-500">Umsatz</p>
+              <p className="text-xl sm:text-2xl font-bold">CHF {formatCHF(revenueThisMonth)}</p>
+              <TrendIndicator current={revenueThisMonth} previous={revenuePrevMonth} format="currency" />
+            </div>
+            <div className="p-3 sm:p-4 bg-white rounded-lg shadow-sm">
+              <p className="text-xs sm:text-sm text-slate-500">Verkäufe</p>
+              <p className="text-xl sm:text-2xl font-bold">{soldThisMonth.length}</p>
+              <TrendIndicator current={soldThisMonth.length} previous={soldPrevMonth.length} />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Primary KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card className="relative overflow-hidden">
-          <CardHeader className="pb-2">
-            <CardDescription>Leads / Woche</CardDescription>
-            <CardTitle className="text-3xl text-blue-600">{leadsThisWeek.length}</CardTitle>
+          <CardHeader className="pb-2 px-3 sm:px-6">
+            <CardDescription className="text-xs sm:text-sm">Leads / Woche</CardDescription>
+            <CardTitle className="text-2xl sm:text-3xl text-blue-600">{leadsThisWeek.length}</CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-sm text-slate-500">
+          <CardContent className="px-3 sm:px-6">
+            <p className="text-xs sm:text-sm text-slate-500">
               {leadsInRange.length} im Zeitraum
             </p>
             {leadSparkline.length > 0 && (
-              <div className="absolute bottom-2 right-2 w-20 opacity-50">
+              <div className="absolute bottom-2 right-2 w-16 sm:w-20 opacity-50">
                 <MiniSparkline data={leadSparkline} color="#3b82f6" />
               </div>
             )}
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>Offene Offerten</CardDescription>
-            <CardTitle className="text-3xl text-purple-600">{openQuotes.length}</CardTitle>
+        <Card className="relative overflow-hidden">
+          <CardHeader className="pb-2 px-3 sm:px-6">
+            <CardDescription className="text-xs sm:text-sm">Offene Offerten</CardDescription>
+            <CardTitle className="text-2xl sm:text-3xl text-purple-600">{openQuotes.length}</CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-sm text-slate-500">
-              CHF {formatCHF(openQuotes.reduce((s, q) => s + (q.total || 0), 0))} Potenzial
+          <CardContent className="px-3 sm:px-6">
+            <p className="text-xs sm:text-sm text-slate-500 truncate">
+              CHF {formatCHF(openQuotes.reduce((s, q) => s + (q.total || 0), 0))}
             </p>
           </CardContent>
         </Card>
 
         <Card className="relative overflow-hidden">
-          <CardHeader className="pb-2">
-            <CardDescription>Umsatz ({rangeLabel})</CardDescription>
-            <CardTitle className="text-3xl text-green-600">
-              CHF {formatCHF(totalRevenueInRange)}
+          <CardHeader className="pb-2 px-3 sm:px-6">
+            <CardDescription className="text-xs sm:text-sm">Umsatz ({rangeLabel.split(" ")[1] || rangeLabel})</CardDescription>
+            <CardTitle className="text-2xl sm:text-3xl text-green-600">
+              <span className="text-lg sm:text-2xl">CHF</span> {formatCHF(totalRevenueInRange)}
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-sm text-slate-500">
-              {paidInvoicesInRange.length} Rechnungen bezahlt
+          <CardContent className="px-3 sm:px-6">
+            <p className="text-xs sm:text-sm text-slate-500">
+              {paidInvoicesInRange.length} Rechnungen
             </p>
             {revenueSparkline.length > 0 && (
-              <div className="absolute bottom-2 right-2 w-20 opacity-50">
+              <div className="absolute bottom-2 right-2 w-16 sm:w-20 opacity-50">
                 <MiniSparkline data={revenueSparkline} color="#22c55e" />
               </div>
             )}
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>Conversion Rate</CardDescription>
-            <CardTitle className="text-3xl">
+        <Card className="relative overflow-hidden">
+          <CardHeader className="pb-2 px-3 sm:px-6">
+            <CardDescription className="text-xs sm:text-sm">Conversion Rate</CardDescription>
+            <CardTitle className="text-2xl sm:text-3xl">
               <span className={conversionRate >= 20 ? "text-green-600" : conversionRate >= 10 ? "text-yellow-600" : "text-red-600"}>
                 {conversionRate}%
               </span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-sm text-slate-500">
-              {leadsWonInRange.length} von {leadsInRange.length} Leads
+          <CardContent className="px-3 sm:px-6">
+            <p className="text-xs sm:text-sm text-slate-500">
+              {leadsWonInRange.length}/{leadsInRange.length} Leads
             </p>
           </CardContent>
         </Card>
       </div>
 
       {/* Secondary KPIs */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>Im Bestand</CardDescription>
-            <CardTitle className="text-2xl">{inStockVehicles.length}</CardTitle>
+          <CardHeader className="pb-2 px-3 sm:px-6">
+            <CardDescription className="text-xs sm:text-sm">Im Bestand</CardDescription>
+            <CardTitle className="text-xl sm:text-2xl">{inStockVehicles.length}</CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-sm text-slate-500">
+          <CardContent className="px-3 sm:px-6">
+            <p className="text-xs sm:text-sm text-slate-500">
               {vehicles.length} total
             </p>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>Verkauft (Monat)</CardDescription>
-            <CardTitle className="text-2xl text-green-600">{soldThisMonth.length}</CardTitle>
+        <Card className="relative overflow-hidden">
+          <CardHeader className="pb-2 px-3 sm:px-6">
+            <CardDescription className="text-xs sm:text-sm">Verkauft (Monat)</CardDescription>
+            <CardTitle className="text-xl sm:text-2xl text-green-600">{soldThisMonth.length}</CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-sm text-slate-500">
+          <CardContent className="px-3 sm:px-6">
+            <p className="text-xs sm:text-sm text-slate-500">
               {soldVehicles.length} total
             </p>
+            {salesSparkline.length > 0 && (
+              <div className="absolute bottom-2 right-2 w-14 sm:w-16 opacity-50">
+                <MiniSparkline data={salesSparkline} color="#22c55e" height={30} />
+              </div>
+            )}
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>⌀ Standzeit</CardDescription>
-            <CardTitle className="text-2xl">
+          <CardHeader className="pb-2 px-3 sm:px-6">
+            <CardDescription className="text-xs sm:text-sm">⌀ Standzeit</CardDescription>
+            <CardTitle className="text-xl sm:text-2xl">
               {avgStandingTime !== null ? `${avgStandingTime}d` : "—"}
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-sm text-slate-500">
+          <CardContent className="px-3 sm:px-6">
+            <p className="text-xs sm:text-sm text-slate-500">
               {avgStandingTime !== null ? "verkaufte Fzg." : "Keine Daten"}
             </p>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>⌀ Marge</CardDescription>
-            <CardTitle className="text-2xl">
+          <CardHeader className="pb-2 px-3 sm:px-6">
+            <CardDescription className="text-xs sm:text-sm">⌀ Marge</CardDescription>
+            <CardTitle className="text-xl sm:text-2xl">
               {avgMargin !== null ? (
                 <span className={avgMargin >= 0 ? "text-green-600" : "text-red-600"}>
                   {avgMarginPercent}%
@@ -472,120 +617,143 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
               ) : "—"}
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-sm text-slate-500">
+          <CardContent className="px-3 sm:px-6">
+            <p className="text-xs sm:text-sm text-slate-500 truncate">
               {avgMargin !== null ? `CHF ${avgMargin.toLocaleString("de-CH")}` : "Keine Daten"}
             </p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Charts Row 1 */}
-      <div className="grid md:grid-cols-2 gap-6">
+      {/* NEW: Top Brands & Leads by Source */}
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Leads über Zeit</CardTitle>
-            <CardDescription>Neue Leads und Abschlüsse ({rangeLabel})</CardDescription>
+            <CardTitle className="text-base sm:text-lg">🏆 Top 5 Marken</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Nach Verkaufszahl</CardDescription>
           </CardHeader>
           <CardContent>
+            <TopBrandsChart data={topBrandsData} />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base sm:text-lg">📍 Lead-Quellen</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Woher kommen die Leads? ({rangeLabel})</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <LeadsBySourceChart data={leadsBySourceData} />
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Row 1 */}
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base sm:text-lg">Leads über Zeit</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Neue Leads und Abschlüsse ({rangeLabel})</CardDescription>
+          </CardHeader>
+          <CardContent className="px-2 sm:px-6">
             <LeadsAreaChart data={leadsOverTime} />
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Lead-Funnel</CardTitle>
-            <CardDescription>Conversion pro Stufe ({rangeLabel})</CardDescription>
+            <CardTitle className="text-base sm:text-lg">Lead-Funnel</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Conversion pro Stufe ({rangeLabel})</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-2 sm:px-6">
             <ConversionFunnelChart data={funnelData} />
           </CardContent>
         </Card>
       </div>
 
       {/* Charts Row 2 */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Umsatz-Entwicklung</CardTitle>
-            <CardDescription>Bezahlte Rechnungen vs. gesendete Offerten</CardDescription>
+            <CardTitle className="text-base sm:text-lg">Umsatz-Entwicklung</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Bezahlte Rechnungen vs. gesendete Offerten</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-2 sm:px-6">
             <RevenueLineChart data={revenueOverTime} />
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Standzeit-Verteilung</CardTitle>
-            <CardDescription>Fahrzeuge im Bestand nach Alter</CardDescription>
+            <CardTitle className="text-base sm:text-lg">Standzeit-Verteilung</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Fahrzeuge im Bestand nach Alter</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-2 sm:px-6">
             <StandingTimeBarChart data={standingTimeData} />
           </CardContent>
         </Card>
       </div>
 
       {/* Charts Row 3 */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Bestandsentwicklung</CardTitle>
-            <CardDescription>Fahrzeuge im Bestand (letzte 6 Monate)</CardDescription>
+            <CardTitle className="text-base sm:text-lg">Bestandsentwicklung</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Fahrzeuge im Bestand (letzte 6 Monate)</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-2 sm:px-6">
             <StockLineChart data={stockOverTime} />
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Verkäufe pro Monat</CardTitle>
-            <CardDescription>Anzahl & Umsatz (letzte 6 Monate)</CardDescription>
+            <CardTitle className="text-base sm:text-lg">Verkäufe pro Monat</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Anzahl & Umsatz (letzte 6 Monate)</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-2 sm:px-6">
             <SalesBarChart data={salesByMonth} />
           </CardContent>
         </Card>
       </div>
 
-      {/* Standzeit-Analyse */}
+      {/* Standing Time Analysis */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="text-base sm:text-lg flex flex-wrap items-center gap-2">
             ⏱️ Standzeit-Analyse
             {over90Days > 0 && (
               <Badge variant="destructive">{over90Days} kritisch</Badge>
             )}
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-xs sm:text-sm">
             Fahrzeuge die länger als 30 Tage im Bestand sind
           </CardDescription>
         </CardHeader>
         <CardContent>
           {/* Summary */}
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="flex flex-wrap gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-yellow-400" />
-              <span className="text-sm">30-60 Tage: <strong>{over30Days}</strong></span>
+              <span className="text-xs sm:text-sm">30-60d: <strong>{over30Days}</strong></span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-orange-500" />
-              <span className="text-sm">60-90 Tage: <strong>{over60Days}</strong></span>
+              <span className="text-xs sm:text-sm">60-90d: <strong>{over60Days}</strong></span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-red-500" />
-              <span className="text-sm">&gt;90 Tage: <strong>{over90Days}</strong></span>
+              <span className="text-xs sm:text-sm">&gt;90d: <strong>{over90Days}</strong></span>
             </div>
           </div>
 
           {longStanders.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {longStanders.slice(0, 10).map((vehicle) => {
                 const rec = getRecommendation(vehicle.daysInStock);
                 return (
                   <Link key={vehicle.id} href={`/dashboard/vehicles/${vehicle.id}`}>
-                    <div className={`flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 rounded-lg border transition-colors hover:bg-slate-50 gap-2 ${
+                    <div className={`flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 sm:p-4 rounded-lg border transition-colors hover:bg-slate-50 gap-2 ${
                       vehicle.daysInStock > 90 
                         ? "border-red-200 bg-red-50" 
                         : vehicle.daysInStock > 60 
@@ -593,16 +761,16 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
                           : "border-yellow-200 bg-yellow-50"
                     }`}>
                       <div>
-                        <div className="font-medium">
+                        <div className="font-medium text-sm sm:text-base">
                           {vehicle.make} {vehicle.model}
                           {vehicle.variant && <span className="text-slate-500"> {vehicle.variant}</span>}
                         </div>
-                        <div className="text-sm text-slate-600">
+                        <div className="text-xs sm:text-sm text-slate-600">
                           CHF {vehicle.asking_price?.toLocaleString("de-CH") || "—"}
                         </div>
                       </div>
                       <div className="text-left sm:text-right">
-                        <div className={`font-bold ${
+                        <div className={`font-bold text-sm sm:text-base ${
                           vehicle.daysInStock > 90 
                             ? "text-red-600" 
                             : vehicle.daysInStock > 60 
@@ -626,49 +794,49 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
                 );
               })}
               {longStanders.length > 10 && (
-                <p className="text-center text-sm text-slate-500 pt-2">
+                <p className="text-center text-xs sm:text-sm text-slate-500 pt-2">
                   ... und {longStanders.length - 10} weitere
                 </p>
               )}
             </div>
           ) : (
-            <div className="text-center py-8 text-slate-500">
-              <div className="text-4xl mb-2">🎉</div>
-              Alle Fahrzeuge unter 30 Tagen Standzeit — ausgezeichnet!
+            <div className="text-center py-6 sm:py-8 text-slate-500">
+              <div className="text-3xl sm:text-4xl mb-2">🎉</div>
+              <p className="text-sm sm:text-base">Alle Fahrzeuge unter 30 Tagen Standzeit — ausgezeichnet!</p>
             </div>
           )}
         </CardContent>
       </Card>
 
-      {/* Top-Performer */}
-      <div className="grid md:grid-cols-2 gap-6">
+      {/* Top Performers */}
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>🚀 Schnellste Verkäufe</CardTitle>
-            <CardDescription>Diese Fahrzeuge gingen am schnellsten weg</CardDescription>
+            <CardTitle className="text-base sm:text-lg">🚀 Schnellste Verkäufe</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Diese Fahrzeuge gingen am schnellsten weg</CardDescription>
           </CardHeader>
           <CardContent>
             {fastestSales.length > 0 ? (
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {fastestSales.map((vehicle, i) => (
-                  <div key={vehicle.id} className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <span className="text-lg font-bold text-slate-400">#{i + 1}</span>
+                  <div key={vehicle.id} className="flex justify-between items-center p-2 sm:p-3 bg-slate-50 rounded-lg">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <span className="text-base sm:text-lg font-bold text-slate-400">#{i + 1}</span>
                       <div>
-                        <div className="font-medium">{vehicle.make} {vehicle.model}</div>
-                        <div className="text-sm text-slate-500">
+                        <div className="font-medium text-sm sm:text-base">{vehicle.make} {vehicle.model}</div>
+                        <div className="text-xs sm:text-sm text-slate-500">
                           CHF {vehicle.asking_price?.toLocaleString("de-CH")}
                         </div>
                       </div>
                     </div>
-                    <Badge variant="secondary" className="text-green-700 bg-green-100">
-                      {vehicle.daysToSell} Tage
+                    <Badge variant="secondary" className="text-green-700 bg-green-100 text-xs sm:text-sm">
+                      {vehicle.daysToSell}d
                     </Badge>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-slate-500 text-center py-6">
+              <p className="text-slate-500 text-center py-4 sm:py-6 text-sm">
                 Noch keine Verkaufsdaten mit Einkaufs- und Verkaufsdatum
               </p>
             )}
@@ -677,36 +845,39 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
 
         <Card>
           <CardHeader>
-            <CardTitle>💰 Beste Margen</CardTitle>
-            <CardDescription>Die profitabelsten Fahrzeuge</CardDescription>
+            <CardTitle className="text-base sm:text-lg">💰 Beste Margen</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Die profitabelsten Fahrzeuge</CardDescription>
           </CardHeader>
           <CardContent>
             {bestMargins.length > 0 ? (
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {bestMargins.map((vehicle, i) => (
-                  <div key={vehicle.id} className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <span className="text-lg font-bold text-slate-400">#{i + 1}</span>
+                  <div key={vehicle.id} className="flex justify-between items-center p-2 sm:p-3 bg-slate-50 rounded-lg">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <span className="text-base sm:text-lg font-bold text-slate-400">#{i + 1}</span>
                       <div>
-                        <div className="font-medium">{vehicle.make} {vehicle.model}</div>
-                        <div className="text-sm text-slate-500">
+                        <div className="font-medium text-sm sm:text-base">{vehicle.make} {vehicle.model}</div>
+                        <div className="text-xs text-slate-500 hidden sm:block">
                           EK: CHF {vehicle.purchase_price?.toLocaleString("de-CH")} → VK: CHF {vehicle.asking_price?.toLocaleString("de-CH")}
+                        </div>
+                        <div className="text-xs text-slate-500 sm:hidden">
+                          +{vehicle.marginPercent}% Marge
                         </div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="font-bold text-green-600">
+                      <div className="font-bold text-green-600 text-sm sm:text-base">
                         +CHF {vehicle.margin.toLocaleString("de-CH")}
                       </div>
-                      <div className="text-xs text-slate-500">{vehicle.marginPercent}%</div>
+                      <div className="text-xs text-slate-500 hidden sm:block">{vehicle.marginPercent}%</div>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-center py-6">
-                <p className="text-slate-500">Noch keine Margen-Daten</p>
-                <p className="text-sm text-slate-400 mt-1">
+              <div className="text-center py-4 sm:py-6">
+                <p className="text-slate-500 text-sm">Noch keine Margen-Daten</p>
+                <p className="text-xs sm:text-sm text-slate-400 mt-1">
                   Erfassen Sie Einkaufspreise für Margen-Tracking
                 </p>
                 <Link href="/dashboard/vehicles">
