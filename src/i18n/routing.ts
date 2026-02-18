@@ -5,4 +5,5 @@ export const routing = defineRouting({
   locales,
   defaultLocale,
   localePrefix: 'always',
+  localeDetection: false, // Always use defaultLocale (de) for new visitors
 });
