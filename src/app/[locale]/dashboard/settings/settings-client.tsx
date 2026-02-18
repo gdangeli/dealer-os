@@ -616,6 +616,16 @@ function ChannelsPlaceholder() {
     },
   ];
 
+  const integrationChannels = [
+    { 
+      name: "Bexio", 
+      icon: "📊", 
+      description: "Buchhaltung und Rechnungen synchronisieren",
+      status: "active",
+      href: "/dashboard/settings/bexio"
+    },
+  ];
+
   return (
     <div className="space-y-6">
       <Card>
@@ -628,6 +638,36 @@ function ChannelsPlaceholder() {
         <CardContent>
           <div className="space-y-4">
             {communicationChannels.map((channel) => (
+              <div 
+                key={channel.name}
+                className="flex items-center justify-between p-4 border rounded-lg hover:bg-slate-50 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">{channel.icon}</span>
+                  <div>
+                    <div className="font-medium">{channel.name}</div>
+                    <div className="text-sm text-slate-500">{channel.description}</div>
+                  </div>
+                </div>
+                <Button asChild size="sm">
+                  <a href={channel.href}>Einrichten →</a>
+                </Button>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Integrationen</CardTitle>
+          <CardDescription>
+            Verbinden Sie externe Systeme für automatischen Datenaustausch.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {integrationChannels.map((channel) => (
               <div 
                 key={channel.name}
                 className="flex items-center justify-between p-4 border rounded-lg hover:bg-slate-50 transition-colors"
