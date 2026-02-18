@@ -58,6 +58,17 @@ export default async function DashboardLayout({
           <NavLink href="/dashboard/vehicles" icon="🚙">Bestand</NavLink>
           <NavLink href="/dashboard/leads" icon="💬">Anfragen</NavLink>
           <NavLink href="/dashboard/whatsapp" icon="💬">WhatsApp</NavLink>
+          
+          <div className="pt-3 pb-1">
+            <span className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Verkauf</span>
+          </div>
+          <NavLink href="/dashboard/customers" icon="👥">Kunden</NavLink>
+          <NavLink href="/dashboard/quotes" icon="📄">Offerten</NavLink>
+          <NavLink href="/dashboard/invoices" icon="🧾">Rechnungen</NavLink>
+          
+          <div className="pt-3 pb-1">
+            <span className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Analyse</span>
+          </div>
           <NavLink href="/dashboard/analytics" icon="📈">Auswertungen</NavLink>
         </nav>
 
