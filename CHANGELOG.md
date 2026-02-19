@@ -6,13 +6,32 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ## [Unreleased]
 
+_Nächste geplante Features_
+
+---
+
+## [0.10.0] - 2026-02-19
+
 ### Added
-- **Bexio-Integration** — OAuth-Verbindung, Kunden- und Rechnungs-Synchronisation
-- **Erweitertes Analytics Dashboard** — KPIs, Charts, Verkaufs-Statistiken
-- **E-Mail Benachrichtigungen** — Offerten-Ablauf, überfällige Rechnungen
+- **Hilfe-Center** — Umfassende In-App-Dokumentation mit FAQ und Guides (aad773c)
+- **E-Mail-Vorlagen Modul** — Anpassbare Templates für Bestätigungen, Erinnerungen, Benachrichtigungen (b35a358, 0172952)
+- **Onboarding Fortschritts-Speicherung** — Wizard-Stand wird gespeichert und kann fortgesetzt werden (3e13556)
+- **Multi-Standort Support** — Verwaltung mehrerer Filialen mit separaten Statistiken (6ebc623)
+- **Zentrales Benachrichtigungssystem** — Vereinheitlichte E-Mail-Kommunikation
+- 1 neuer Blog-Artikel: Google Bewertungen für Autohändler (3584cf5)
+- E2E Tests für email-templates und help Module (f114649)
+- Umfassende manuelle Test-Dokumentation (29b5d3f)
 
 ### Changed
-- Analytics-Seite mit Recharts-Diagrammen erweitert
+- Landing Page mit neuen Features aktualisiert
+- Branchenspezifische Terminologie in i18n verbessert (b4a4538)
+
+### Fixed
+- Template Literal Syntax in Blog-Artikel (947ff4f)
+- Übersetzungsfehler FR/IT korrigiert (6ebc62f)
+- E2E Auth Test Timeout erhöht (1f835ba)
+- Time-range Utils in shared lib verschoben (9f12682)
+- Recharts Tooltip Typisierung (17a80fe, 8cf33f3)
 
 ---
 

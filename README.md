@@ -19,6 +19,7 @@
 - **Lead-Management** — Anfragen zentral verwalten
 - **WhatsApp-Integration** — Direkte Kommunikation mit Kunden
 - **E-Mail Benachrichtigungen** — Automatische Alerts (neue Leads, Standzeit, etc.)
+- **E-Mail-Vorlagen** — Anpassbare Templates für Bestätigungen, Erinnerungen & mehr
 
 ### Offerten & Rechnungen
 - **Offerten-Modul** — Professionelle Offerten erstellen und verwalten
@@ -30,6 +31,11 @@
 - **Dashboard** — KPIs auf einen Blick (Bestand, Umsatz, Standzeit)
 - **Verkaufs-Statistiken** — Trends und Performance-Analyse
 - **Standzeit-Analyse** — Identifiziere Ladenhüter
+- **Multi-Standort** — Verwaltung mehrerer Filialen mit separaten Statistiken
+
+### Onboarding & Hilfe
+- **Interaktiver Onboarding-Wizard** — Schritt-für-Schritt Einrichtung mit Fortschritts-Speicherung
+- **Hilfe-Center** — Umfassende Dokumentation und FAQ direkt in der App
 
 ### Mehrsprachigkeit
 - 🇩🇪 Deutsch (Standard)
