@@ -68,12 +68,18 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Supabase join returns array or object depending on relationship
+    const dealerData = invitation.dealer;
+    const companyName = Array.isArray(dealerData) 
+      ? dealerData[0]?.company_name 
+      : (dealerData as { company_name: string } | null)?.company_name;
+    
     return NextResponse.json({
       invitation: {
         email: invitation.email,
         role: invitation.role,
         expiresAt: invitation.expires_at,
-        companyName: (invitation.dealer as { company_name: string } | null)?.company_name,
+        companyName: companyName ?? null,
       }
     });
   } catch (error) {

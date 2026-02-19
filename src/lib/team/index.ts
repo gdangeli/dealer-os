@@ -201,7 +201,15 @@ export async function getInvitationByToken(token: string): Promise<TeamInvitatio
     .single();
     
   if (error || !data) return null;
-  return data as TeamInvitation & { dealer: { company_name: string } };
+  
+  // Handle Supabase join which may return array or object
+  const dealerData = data.dealer;
+  const dealer = Array.isArray(dealerData) ? dealerData[0] : dealerData;
+  
+  return {
+    ...data,
+    dealer: dealer as { company_name: string },
+  } as TeamInvitation & { dealer: { company_name: string } };
 }
 
 export async function acceptInvitation(token: string, userId: string): Promise<TeamMember> {
