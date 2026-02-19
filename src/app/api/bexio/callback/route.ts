@@ -54,20 +54,30 @@ export async function GET(request: Request) {
       return NextResponse.redirect(redirectUrl);
     }
 
-    // Verify dealer belongs to user
-    const { data: dealer, error: dealerError } = await supabase
-      .from('dealers')
-      .select('id')
-      .eq('id', dealerId)
+    // Verify user is a member of this dealer (via team_members)
+    const { data: membership, error: memberError } = await supabase
+      .from('team_members')
+      .select('dealer_id')
+      .eq('dealer_id', dealerId)
       .eq('user_id', user.id)
       .single();
 
-    if (dealerError || !dealer) {
-      console.error('[Bexio Callback] Dealer validation failed:', dealerError);
-      const redirectUrl = new URL('/dashboard/settings/bexio', baseUrl);
-      redirectUrl.searchParams.set('error', 'invalid_state');
-      redirectUrl.searchParams.set('message', 'Ungültige Sitzung');
-      return NextResponse.redirect(redirectUrl);
+    if (memberError || !membership) {
+      // Fallback to legacy user_id check
+      const { data: legacyDealer, error: legacyError } = await supabase
+        .from('dealers')
+        .select('id')
+        .eq('id', dealerId)
+        .eq('user_id', user.id)
+        .single();
+      
+      if (legacyError || !legacyDealer) {
+        console.error('[Bexio Callback] Dealer validation failed:', memberError || legacyError);
+        const redirectUrl = new URL('/dashboard/settings/bexio', baseUrl);
+        redirectUrl.searchParams.set('error', 'invalid_state');
+        redirectUrl.searchParams.set('message', 'Ungültige Sitzung');
+        return NextResponse.redirect(redirectUrl);
+      }
     }
 
     // Exchange code for tokens
@@ -87,7 +97,7 @@ export async function GET(request: Request) {
     try {
       // Create a temporary client to fetch company info
       const tempClient = new BexioClient({
-        dealerId: dealer.id,
+        dealerId: dealerId,
         encryptedAccessToken,
         encryptedRefreshToken,
         tokenExpiresAt: expiresAt,
@@ -114,7 +124,7 @@ export async function GET(request: Request) {
         bexio_is_connected: true,
         bexio_last_error: null,
       })
-      .eq('id', dealer.id);
+      .eq('id', dealerId);
 
     if (updateError) {
       console.error('[Bexio Callback] Database update failed:', updateError);

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { stripe, getStripePriceId, PlanId } from '@/lib/stripe/config';
+import { getCurrentDealer, hasPermission } from '@/lib/auth/get-current-dealer';
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,15 +13,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get dealer profile
-    const { data: dealer, error: dealerError } = await supabase
-      .from('dealers')
-      .select('*')
-      .eq('user_id', user.id)
-      .single();
+    // Get dealer profile via team_members
+    const dealer = await getCurrentDealer();
 
-    if (dealerError || !dealer) {
+    if (!dealer) {
       return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+    
+    // Only owners can manage billing
+    if (!hasPermission(dealer.role, 'manage_billing')) {
+      return NextResponse.json({ error: 'Permission denied' }, { status: 403 });
     }
 
     // Check if dealer already has an active subscription

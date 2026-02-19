@@ -10,6 +10,7 @@ import { createClient } from '@/lib/supabase/server';
 import { decryptToken } from '@/lib/bexio/crypto';
 import { revokeToken } from '@/lib/bexio/oauth';
 import { NextResponse } from 'next/server';
+import { getCurrentDealer } from '@/lib/auth/get-current-dealer';
 
 export async function POST() {
   try {
@@ -24,11 +25,20 @@ export async function POST() {
       );
     }
 
-    // Get dealer with Bexio tokens
+    // Get dealer with Bexio tokens via team_members
+    const dealerWithRole = await getCurrentDealer();
+    if (!dealerWithRole) {
+      return NextResponse.json(
+        { error: 'Händler nicht gefunden' },
+        { status: 404 }
+      );
+    }
+    
+    // Get full dealer data with Bexio tokens
     const { data: dealer, error: dealerError } = await supabase
       .from('dealers')
       .select('id, bexio_access_token, bexio_refresh_token')
-      .eq('user_id', user.id)
+      .eq('id', dealerWithRole.id)
       .single();
 
     if (dealerError || !dealer) {

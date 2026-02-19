@@ -9,6 +9,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { generateAuthUrl, encodeState } from '@/lib/bexio/oauth';
 import { NextResponse } from 'next/server';
+import { getCurrentDealer } from '@/lib/auth/get-current-dealer';
 
 export async function GET(request: Request) {
   try {
@@ -23,14 +24,10 @@ export async function GET(request: Request) {
       );
     }
 
-    // Get dealer
-    const { data: dealer, error: dealerError } = await supabase
-      .from('dealers')
-      .select('id')
-      .eq('user_id', user.id)
-      .single();
+    // Get dealer via team_members
+    const dealer = await getCurrentDealer();
 
-    if (dealerError || !dealer) {
+    if (!dealer) {
       return NextResponse.json(
         { error: 'Händler nicht gefunden' },
         { status: 404 }

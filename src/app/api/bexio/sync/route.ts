@@ -15,6 +15,7 @@ import {
   getBexioClientForDealer 
 } from '@/lib/bexio/sync';
 import { NextRequest, NextResponse } from 'next/server';
+import { getCurrentDealer } from '@/lib/auth/get-current-dealer';
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,11 +30,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get dealer
+    // Get dealer via team_members
+    const dealerWithRole = await getCurrentDealer();
+    if (!dealerWithRole) {
+      return NextResponse.json(
+        { error: 'Händler nicht gefunden' },
+        { status: 404 }
+      );
+    }
+    
+    // Get Bexio connection status
     const { data: dealer, error: dealerError } = await supabase
       .from('dealers')
       .select('id, bexio_is_connected')
-      .eq('user_id', user.id)
+      .eq('id', dealerWithRole.id)
       .single();
 
     if (dealerError || !dealer) {
@@ -138,15 +148,15 @@ export async function POST(request: NextRequest) {
     
     // Try to log the error to the dealer record
     try {
-      const supabase = await createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
+      const dealerForError = await getCurrentDealer();
+      if (dealerForError) {
+        const supabase = await createClient();
         await supabase
           .from('dealers')
           .update({
             bexio_last_error: error instanceof Error ? error.message : 'Unbekannter Fehler',
           })
-          .eq('user_id', user.id);
+          .eq('id', dealerForError.id);
       }
     } catch {
       // Ignore logging errors
@@ -178,11 +188,20 @@ export async function GET() {
       );
     }
 
+    // Get dealer via team_members
+    const dealerWithRole = await getCurrentDealer();
+    if (!dealerWithRole) {
+      return NextResponse.json(
+        { error: 'Händler nicht gefunden' },
+        { status: 404 }
+      );
+    }
+
     // Get dealer with Bexio info
     const { data: dealer, error: dealerError } = await supabase
       .from('dealers')
       .select('bexio_is_connected, bexio_company_name, bexio_connected_at, bexio_last_sync_at, bexio_last_error')
-      .eq('user_id', user.id)
+      .eq('id', dealerWithRole.id)
       .single();
 
     if (dealerError || !dealer) {
@@ -192,27 +211,29 @@ export async function GET() {
       );
     }
 
+    const dealerId = dealerWithRole.id;
+
     // Get sync statistics
     const { count: totalCustomers } = await supabase
       .from('customers')
       .select('*', { count: 'exact', head: true })
-      .eq('dealer_id', (await supabase.from('dealers').select('id').eq('user_id', user.id).single()).data?.id);
+      .eq('dealer_id', dealerId);
 
     const { count: syncedCustomers } = await supabase
       .from('customers')
       .select('*', { count: 'exact', head: true })
-      .eq('dealer_id', (await supabase.from('dealers').select('id').eq('user_id', user.id).single()).data?.id)
+      .eq('dealer_id', dealerId)
       .not('bexio_contact_id', 'is', null);
 
     const { count: totalInvoices } = await supabase
       .from('invoices')
       .select('*', { count: 'exact', head: true })
-      .eq('dealer_id', (await supabase.from('dealers').select('id').eq('user_id', user.id).single()).data?.id);
+      .eq('dealer_id', dealerId);
 
     const { count: syncedInvoices } = await supabase
       .from('invoices')
       .select('*', { count: 'exact', head: true })
-      .eq('dealer_id', (await supabase.from('dealers').select('id').eq('user_id', user.id).single()).data?.id)
+      .eq('dealer_id', dealerId)
       .not('bexio_invoice_id', 'is', null);
 
     return NextResponse.json({
