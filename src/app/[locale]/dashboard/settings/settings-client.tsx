@@ -24,6 +24,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { EmailTemplateManager } from "@/components/email/email-template-manager";
+import { TeamManagement } from "@/components/settings/team-management";
 
 // Types
 interface Dealer {
@@ -36,6 +37,7 @@ interface Dealer {
   address?: string;
   city?: string;
   postal_code?: string;
+  subscription_plan?: string;
   notification_new_lead?: boolean;
   notification_daily_summary?: boolean;
   notification_longstanding_days?: number;
@@ -103,6 +105,7 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
           <TabsTrigger value="company">🏢 Firmenprofil</TabsTrigger>
           <TabsTrigger value="locations">📍 Standorte</TabsTrigger>
           <TabsTrigger value="user">👤 Benutzer</TabsTrigger>
+          <TabsTrigger value="team">👥 Team</TabsTrigger>
           <TabsTrigger value="notifications">🔔 Benachrichtigungen</TabsTrigger>
           <TabsTrigger value="email-templates">✉️ E-Mail-Vorlagen</TabsTrigger>
           <TabsTrigger value="channels">📡 Kanäle</TabsTrigger>
@@ -131,6 +134,14 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
             userEmail={userEmail}
             onUpdate={setDealer}
             supabase={supabase}
+          />
+        </TabsContent>
+
+        {/* Team Tab */}
+        <TabsContent value="team">
+          <TeamManagement 
+            dealerId={dealer.id}
+            dealerPlan={dealer.subscription_plan || 'starter'}
           />
         </TabsContent>
 

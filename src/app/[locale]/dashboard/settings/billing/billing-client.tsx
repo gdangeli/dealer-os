@@ -150,9 +150,9 @@ export function BillingClient({ dealer }: BillingClientProps) {
             </div>
             <div className="text-right">
               <p className="text-3xl font-bold">
-                {currentPlan.priceMonthly === 0 ? 'Gratis' : `CHF ${currentPlan.priceMonthly}`}
+                {currentPlan.priceMonthly === null ? 'Auf Anfrage' : currentPlan.priceMonthly === 0 ? 'Gratis' : `CHF ${currentPlan.priceMonthly}`}
               </p>
-              {currentPlan.priceMonthly > 0 && (
+              {currentPlan.priceMonthly !== null && currentPlan.priceMonthly > 0 && (
                 <p className="text-sm text-slate-500">pro Monat</p>
               )}
             </div>
