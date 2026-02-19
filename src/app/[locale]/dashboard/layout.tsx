@@ -78,6 +78,15 @@ export default async function DashboardLayout({
     redirect('/onboarding');
   }
 
+  // Check if user is platform admin
+  const { data: platformAdmin } = await supabase
+    .from('platform_admins')
+    .select('id')
+    .eq('user_id', user.id)
+    .single();
+  
+  const isPlatformAdmin = !!platformAdmin;
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Sidebar */}
@@ -125,6 +134,9 @@ export default async function DashboardLayout({
           <div className="text-sm text-slate-600 mb-2 truncate">
             {dealer?.company_name || user.email}
           </div>
+          {isPlatformAdmin && (
+            <NavLink href="/admin" icon="👑">Admin Dashboard</NavLink>
+          )}
           <NavLink href="/dashboard/settings" icon="⚙️">Einstellungen</NavLink>
           <NavLink href="/dashboard/help" icon="❓">Hilfe</NavLink>
           <LanguageSwitcher />
