@@ -3,7 +3,7 @@ import { getAllBlogPosts } from '@/content/blog';
 import { locales, defaultLocale } from '@/i18n/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://dealeros.ch';
+  const baseUrl = 'https://www.dealeros.ch';
   
   const pages: MetadataRoute.Sitemap = [];
   
