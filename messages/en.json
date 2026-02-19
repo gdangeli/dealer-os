@@ -548,7 +548,7 @@
             "tips": [
               "Keep status current for accurate reports",
               "Note the reason when marking 'Lost'",
-              "Won leads improve your conversion rate in analytics"
+              "Won leads improve your close rate in analytics"
             ]
           },
           "follow-up": {
@@ -811,7 +811,7 @@
           "reports": {
             "title": "Generate Reports",
             "description": "Create detailed evaluations.",
-            "content": "<p>Create detailed reports for different time periods and categories.</p><h3>Available Reports</h3><ul><li><strong>Inventory Report:</strong> All vehicles with days on lot and margin</li><li><strong>Sales Report:</strong> Completed sales in period</li><li><strong>Lead Report:</strong> Conversion rates and sources</li><li><strong>Revenue Report:</strong> Income and trends</li></ul>",
+            "content": "<p>Create detailed reports for different time periods and categories.</p><h3>Available Reports</h3><ul><li><strong>Inventory Report:</strong> All vehicles with days on lot and margin</li><li><strong>Sales Report:</strong> Completed sales in period</li><li><strong>Lead Report:</strong> Close rates and sources</li><li><strong>Revenue Report:</strong> Income and trends</li></ul>",
             "steps": [
               "Go to Analytics → Reports",
               "Select report type",

@@ -548,7 +548,7 @@
             "tips": [
               "Mantieni lo stato aggiornato per report accurati",
               "Annota il motivo quando segni 'Perso'",
-              "I lead vinti migliorano il tasso di conversione"
+              "I lead vinti migliorano il tasso di chiusura"
             ]
           },
           "follow-up": {
@@ -811,7 +811,7 @@
           "reports": {
             "title": "Generare report",
             "description": "Creare valutazioni dettagliate.",
-            "content": "<p>Crea report dettagliati per diversi periodi e categorie.</p><h3>Report disponibili</h3><ul><li><strong>Report magazzino:</strong> Tutti i veicoli con giacenza e margine</li><li><strong>Report vendite:</strong> Vendite concluse nel periodo</li><li><strong>Report lead:</strong> Tassi di conversione e fonti</li><li><strong>Report fatturato:</strong> Entrate e tendenze</li></ul>",
+            "content": "<p>Crea report dettagliati per diversi periodi e categorie.</p><h3>Report disponibili</h3><ul><li><strong>Report magazzino:</strong> Tutti i veicoli con giacenza e margine</li><li><strong>Report vendite:</strong> Vendite concluse nel periodo</li><li><strong>Report lead:</strong> Tasso di chiusura e fonti</li><li><strong>Report fatturato:</strong> Entrate e tendenze</li></ul>",
             "steps": [
               "Vai in Analisi → Report",
               "Seleziona il tipo di report",

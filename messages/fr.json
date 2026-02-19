@@ -527,7 +527,7 @@
           "manage-leads": {
             "title": "Gérer les leads",
             "description": "Gardez une vue d'ensemble de toutes les demandes.",
-            "content": "<p>Les leads sont des clients potentiels qui ont montré de l'intérêt pour un véhicule. Un traitement rapide et professionnel augmente votre taux de conversion.</p><h3>Sources de leads</h3><ul><li>Formulaire du site web</li><li>Demandes par email</li><li>Appels téléphoniques (entrés manuellement)</li><li>Messages WhatsApp</li><li>Portails d'annonces</li></ul><h3>Informations clés</h3><p>Capturez pour chaque lead: coordonnées, véhicule d'intérêt, budget, délai.</p>",
+            "content": "<p>Les leads sont des clients potentiels qui ont montré de l'intérêt pour un véhicule. Un traitement rapide et professionnel augmente votre taux de conclusion.</p><h3>Sources de leads</h3><ul><li>Formulaire du site web</li><li>Demandes par email</li><li>Appels téléphoniques (entrés manuellement)</li><li>Messages WhatsApp</li><li>Portails d'annonces</li></ul><h3>Informations clés</h3><p>Capturez pour chaque lead: coordonnées, véhicule d'intérêt, budget, délai.</p>",
             "steps": [
               "Ouvrez 'Leads' dans la barre latérale",
               "Les nouveaux leads apparaissent en haut",
@@ -548,7 +548,7 @@
             "tips": [
               "Gardez le statut à jour pour des rapports précis",
               "Notez la raison quand vous marquez 'Perdu'",
-              "Les leads gagnés améliorent votre taux de conversion"
+              "Les leads gagnés améliorent votre taux de conclusion"
             ]
           },
           "follow-up": {
@@ -620,7 +620,7 @@
           "create-quote": {
             "title": "Créer un devis",
             "description": "Étape par étape vers un devis professionnel.",
-            "content": "<p>Un devis bien structuré augmente votre taux de conversion. Dealer OS génère des PDF professionnels avec votre logo.</p><h3>Composants du devis</h3><ul><li><strong>Client:</strong> Sélectionner dans la liste</li><li><strong>Véhicule:</strong> Lier depuis le stock</li><li><strong>Postes:</strong> Prix véhicule, accessoires, garantie</li><li><strong>Remise:</strong> Pourcentage ou montant</li><li><strong>Reprise:</strong> Véhicule repris en échange</li></ul>",
+            "content": "<p>Un devis bien structuré augmente votre taux de conclusion. Dealer OS génère des PDF professionnels avec votre logo.</p><h3>Composants du devis</h3><ul><li><strong>Client:</strong> Sélectionner dans la liste</li><li><strong>Véhicule:</strong> Lier depuis le stock</li><li><strong>Postes:</strong> Prix véhicule, accessoires, garantie</li><li><strong>Remise:</strong> Pourcentage ou montant</li><li><strong>Reprise:</strong> Véhicule repris en échange</li></ul>",
             "steps": [
               "Allez dans 'Devis' → 'Nouveau devis'",
               "Sélectionnez un client (ou créez-en un)",
@@ -811,7 +811,7 @@
           "reports": {
             "title": "Générer des rapports",
             "description": "Créer des évaluations détaillées.",
-            "content": "<p>Créez des rapports détaillés pour différentes périodes et catégories.</p><h3>Rapports disponibles</h3><ul><li><strong>Rapport de stock:</strong> Tous les véhicules avec durée en stock et marge</li><li><strong>Rapport des ventes:</strong> Ventes conclues sur la période</li><li><strong>Rapport leads:</strong> Taux de conversion et sources</li><li><strong>Rapport CA:</strong> Revenus et tendances</li></ul>",
+            "content": "<p>Créez des rapports détaillés pour différentes périodes et catégories.</p><h3>Rapports disponibles</h3><ul><li><strong>Rapport de stock:</strong> Tous les véhicules avec durée en stock et marge</li><li><strong>Rapport des ventes:</strong> Ventes conclues sur la période</li><li><strong>Rapport leads:</strong> Taux de conclusion et sources</li><li><strong>Rapport CA:</strong> Revenus et tendances</li></ul>",
             "steps": [
               "Allez dans Analyses → Rapports",
               "Sélectionnez le type de rapport",

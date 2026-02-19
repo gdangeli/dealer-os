@@ -155,7 +155,7 @@
           "tips": [
             "Halten Sie den Status aktuell für aussagekräftige Reports",
             "Notieren Sie bei 'Verloren' den Grund",
-            "Gewonnene Leads erhöhen Ihre Conversion-Rate in Auswertungen"
+            "Gewonnene Leads erhöhen Ihre Abschlussquote in Auswertungen"
           ]
         },
         "follow-up": {
@@ -418,7 +418,7 @@
         "reports": {
           "title": "Reports generieren",
           "description": "Detaillierte Auswertungen erstellen.",
-          "content": "<p>Erstellen Sie detaillierte Reports für verschiedene Zeiträume und Kategorien.</p><h3>Verfügbare Reports</h3><ul><li><strong>Bestandsreport:</strong> Alle Fahrzeuge mit Standzeit und Marge</li><li><strong>Verkaufsreport:</strong> Abgeschlossene Verkäufe im Zeitraum</li><li><strong>Lead-Report:</strong> Conversion-Raten und Quellen</li><li><strong>Umsatzreport:</strong> Einnahmen und Entwicklung</li></ul>",
+          "content": "<p>Erstellen Sie detaillierte Reports für verschiedene Zeiträume und Kategorien.</p><h3>Verfügbare Reports</h3><ul><li><strong>Bestandsreport:</strong> Alle Fahrzeuge mit Standzeit und Marge</li><li><strong>Verkaufsreport:</strong> Abgeschlossene Verkäufe im Zeitraum</li><li><strong>Lead-Report:</strong> Abschlussquoten und Quellen</li><li><strong>Umsatzreport:</strong> Einnahmen und Entwicklung</li></ul>",
           "steps": [
             "Gehen Sie zu Auswertungen → Reports",
             "Wählen Sie den Report-Typ",
