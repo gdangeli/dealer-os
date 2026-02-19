@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -85,9 +86,30 @@ export function AdminDashboardClient({ dealers, stats, currentUserId }: AdminDas
     return matchesSearch && matchesPlan && matchesStatus;
   });
 
+  const [impersonating, setImpersonating] = useState<string | null>(null);
+  const router = useRouter();
+
   const handleImpersonate = async (dealerId: string) => {
-    // TODO: Implement impersonate functionality
-    alert(`Impersonate für Dealer ${dealerId} kommt bald!`);
+    setImpersonating(dealerId);
+    try {
+      const response = await fetch('/api/admin/impersonate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dealerId }),
+      });
+      
+      if (response.ok) {
+        router.push('/dashboard');
+      } else {
+        const error = await response.json();
+        alert(`Fehler: ${error.error}`);
+      }
+    } catch (error) {
+      console.error('Impersonate error:', error);
+      alert('Fehler beim Impersonieren');
+    } finally {
+      setImpersonating(null);
+    }
   };
 
   return (
@@ -250,8 +272,9 @@ export function AdminDashboardClient({ dealers, stats, currentUserId }: AdminDas
                         variant="ghost"
                         size="sm"
                         onClick={() => handleImpersonate(dealer.id)}
+                        disabled={impersonating === dealer.id}
                       >
-                        👤 Impersonate
+                        {impersonating === dealer.id ? '...' : '👤 Impersonate'}
                       </Button>
                     </TableCell>
                   </TableRow>

@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { LogoutButton } from "./logout-button";
 import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
 import { LocationFilterWrapper } from "@/components/locations/location-filter-wrapper";
+import { getImpersonationInfo } from "@/lib/auth/get-current-dealer";
+import { ImpersonationBanner } from "@/components/admin/impersonation-banner";
 
 export default async function DashboardLayout({
   children,
@@ -87,8 +89,35 @@ export default async function DashboardLayout({
   
   const isPlatformAdmin = !!platformAdmin;
 
+  // Check for impersonation
+  const impersonation = await getImpersonationInfo();
+  let isImpersonating = false;
+  let impersonatedDealerName = '';
+  
+  if (impersonation && isPlatformAdmin) {
+    isImpersonating = true;
+    // Override dealer with impersonated dealer
+    const { data: impersonatedDealer } = await supabase
+      .from('dealers')
+      .select('id, company_name, onboarding_completed')
+      .eq('id', impersonation.dealerId)
+      .single();
+    
+    if (impersonatedDealer) {
+      dealer = impersonatedDealer;
+      impersonatedDealerName = impersonatedDealer.company_name || 'Unbekannt';
+    }
+  }
+
   return (
     <div className="min-h-screen bg-slate-50">
+      {/* Impersonation Banner */}
+      {isImpersonating && (
+        <div className="fixed top-0 left-0 right-0 z-50">
+          <ImpersonationBanner dealerName={impersonatedDealerName} />
+        </div>
+      )}
+      
       {/* Sidebar */}
       <aside className="fixed left-0 top-0 w-64 h-screen bg-white border-r border-slate-200 flex flex-col">
         <div className="p-4 border-b border-slate-200">
