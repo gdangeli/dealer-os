@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { WidgetConfig } from '@/components/dashboard/types';
+import { getCurrentDealer } from '@/lib/auth/get-current-dealer';
 
 export async function saveDashboardConfig(config: WidgetConfig[]) {
   const supabase = await createClient();
@@ -12,11 +13,8 @@ export async function saveDashboardConfig(config: WidgetConfig[]) {
     throw new Error('Not authenticated');
   }
 
-  const { data: dealer } = await supabase
-    .from('dealers')
-    .select('id')
-    .eq('user_id', user.id)
-    .single();
+  // Get dealer via team_members
+  const dealer = await getCurrentDealer();
 
   if (!dealer) {
     throw new Error('Dealer not found');

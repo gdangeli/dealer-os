@@ -5,6 +5,7 @@ import Link from "next/link";
 import { WidgetGrid } from "@/components/dashboard/widget-grid";
 import { saveDashboardConfig } from "./actions";
 import { DEFAULT_WIDGETS } from "@/components/dashboard/types";
+import { getCurrentDealer } from "@/lib/auth/get-current-dealer";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -13,12 +14,8 @@ export default async function DashboardPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
 
-  // Get dealer profile
-  const { data: dealer } = await supabase
-    .from('dealers')
-    .select('*')
-    .eq('user_id', user.id)
-    .single();
+  // Get dealer profile via team_members
+  const dealer = await getCurrentDealer();
 
   // Redirect to onboarding if not completed
   if (dealer && !dealer.onboarding_completed) {

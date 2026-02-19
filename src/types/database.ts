@@ -20,6 +20,9 @@ export interface Dealer {
   stripe_subscription_id?: string;
   subscription_status?: 'active' | 'canceled' | 'past_due' | 'unpaid' | 'trialing' | 'incomplete' | 'incomplete_expired' | 'paused' | null;
   subscription_period_end?: string;
+  // Dashboard customization (JSON blob)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dashboard_config?: { widgets?: any[] } | null;
 }
 
 export interface Vehicle {

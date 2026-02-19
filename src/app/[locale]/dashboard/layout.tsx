@@ -18,12 +18,32 @@ export default async function DashboardLayout({
     redirect('/login');
   }
 
-  // Dealer-Profil holen oder erstellen
-  let { data: dealer } = await supabase
-    .from('dealers')
-    .select('id, company_name, onboarding_completed')
+  // First try to get dealer via team_members (multi-user)
+  let dealer: { id: string; company_name: string | null; onboarding_completed: boolean | null } | null = null;
+  
+  const { data: membership } = await supabase
+    .from('team_members')
+    .select('dealer_id')
     .eq('user_id', user.id)
+    .limit(1)
     .single();
+  
+  if (membership) {
+    const { data } = await supabase
+      .from('dealers')
+      .select('id, company_name, onboarding_completed')
+      .eq('id', membership.dealer_id)
+      .single();
+    dealer = data;
+  } else {
+    // Fallback to legacy user_id lookup
+    const { data } = await supabase
+      .from('dealers')
+      .select('id, company_name, onboarding_completed')
+      .eq('user_id', user.id)
+      .single();
+    dealer = data;
+  }
 
   // Auto-create dealer if doesn't exist
   if (!dealer) {
@@ -39,6 +59,16 @@ export default async function DashboardLayout({
       })
       .select('id, company_name, onboarding_completed')
       .single();
+    
+    // Also add to team_members as owner
+    if (newDealer) {
+      await supabase.from('team_members').insert({
+        dealer_id: newDealer.id,
+        user_id: user.id,
+        role: 'owner',
+        accepted_at: new Date().toISOString(),
+      });
+    }
     
     dealer = newDealer;
   }

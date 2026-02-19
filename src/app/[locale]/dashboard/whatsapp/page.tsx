@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { WhatsAppConversationsClient } from './whatsapp-conversations-client';
+import { getCurrentDealer } from '@/lib/auth/get-current-dealer';
 
 export default async function WhatsAppPage() {
   const supabase = await createClient();
@@ -14,12 +15,8 @@ export default async function WhatsAppPage() {
     redirect('/auth/login');
   }
 
-  // Get dealer
-  const { data: dealer } = await supabase
-    .from('dealers')
-    .select('id, company_name')
-    .eq('user_id', user.id)
-    .single();
+  // Get dealer via team_members
+  const dealer = await getCurrentDealer();
 
   if (!dealer) {
     redirect('/dashboard');
