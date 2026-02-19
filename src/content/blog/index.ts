@@ -13,6 +13,219 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 40 - 2026-02-23
+  {
+    slug: "google-bewertungen-autohandel-reputation-aufbauen",
+    title: "Google Bewertungen: So bauen Autohändler ihre Online-Reputation auf",
+    excerpt: "90% der Kunden lesen Online-Bewertungen vor dem Kauf. Erfahren Sie, wie Sie positive Google Reviews gewinnen und mit negativen Bewertungen professionell umgehen.",
+    category: "Marketing",
+    readTime: 7,
+    emoji: "⭐",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+    publishedAt: "2026-02-23",
+    author: "Dealer OS Team",
+    keywords: ["Google Bewertungen", "Online Reputation", "Autohändler Marketing", "Kundenbewertungen", "Google My Business"],
+    content: \`
+## Warum Google Bewertungen über Ihren Erfolg entscheiden
+
+Stellen Sie sich vor: Ein Kunde sucht nach "Autogarage Zürich". Google zeigt 10 Ergebnisse. Ihre Garage hat 3.2 Sterne mit 8 Bewertungen. Der Konkurrent zwei Strassen weiter hat 4.8 Sterne mit 127 Bewertungen. Zu wem geht der Kunde?
+
+Die Zahlen sind eindeutig:
+- **90%** der Konsumenten lesen Online-Bewertungen vor einem Kauf
+- **88%** vertrauen Online-Bewertungen so sehr wie persönlichen Empfehlungen
+- **72%** handeln erst nach dem Lesen positiver Bewertungen
+
+Für lokale Geschäfte wie Autogaragen sind Google Bewertungen der wichtigste Vertrauensfaktor im Internet.
+
+## Der Teufelskreis der Bewertungen
+
+### Das Problem vieler Garagen
+
+Viele Garagisten kennen das:
+- Zufriedene Kunden sagen "Danke" und gehen
+- Unzufriedene Kunden schreiben wütende Bewertungen
+- Die Sternebewertung sinkt
+- Neue Kunden werden abgeschreckt
+- Weniger Geschäft, mehr Frust
+
+### Der Durchbruch
+
+Das Geheimnis erfolgreicher Händler: Sie **bitten aktiv** um Bewertungen. Nicht aufdringlich, aber systematisch. Und plötzlich dreht sich das Verhältnis um.
+
+## So gewinnen Sie mehr positive Bewertungen
+
+### 1. Der richtige Moment
+
+Timing ist alles. Die beste Zeit für eine Bewertungsanfrage:
+
+**Perfekte Momente:**
+- Direkt nach der Fahrzeugübergabe (Kunde ist glücklich)
+- Nach einer erfolgreichen Reparatur
+- Wenn der Kunde spontan Lob ausspricht
+- Nach einer Empfehlung durch den Kunden
+
+**Schlechte Momente:**
+- Während einer Preisverhandlung
+- Bei einer Reklamation
+- Wenn der Kunde gestresst wirkt
+
+### 2. Persönlich fragen
+
+Eine persönliche Bitte wirkt besser als jede E-Mail:
+
+> "Herr Müller, es freut mich, dass Sie zufrieden sind! Darf ich Sie um einen kleinen Gefallen bitten? Wenn Sie 2 Minuten Zeit haben, würde uns eine Google-Bewertung sehr helfen. Ich schicke Ihnen gleich den Link per WhatsApp."
+
+**Wichtig:** Fragen Sie nie nach einer "5-Sterne-Bewertung". Bitten Sie einfach um eine ehrliche Bewertung.
+
+### 3. Es so einfach wie möglich machen
+
+Je weniger Klicks, desto mehr Bewertungen:
+
+**Der direkte Bewertungslink:**
+Erstellen Sie einen kurzen Link zu Ihrer Google-Bewertungsseite:
+1. Suchen Sie Ihr Unternehmen in Google Maps
+2. Klicken Sie auf "Rezension schreiben"
+3. Kopieren Sie die URL
+4. Kürzen Sie sie mit bit.ly oder ähnlichem
+
+**Beispiel:** \`bit.ly/garage-mueller-bewertung\`
+
+### 4. Mehrere Kanäle nutzen
+
+**Nach der Übergabe:**
+- Visitenkarte mit QR-Code zur Bewertungsseite
+- WhatsApp-Nachricht mit direktem Link
+- E-Mail mit Dankeschön und Link
+
+**Im Showroom:**
+- QR-Code am Empfang
+- Aufsteller mit "Bewerten Sie uns!"
+- Bildschirm mit aktuellen Bewertungen
+
+### 5. Das Team einbinden
+
+Machen Sie Bewertungen zum Teamziel:
+- Wöchentliches Ziel: X neue Bewertungen
+- Anerkennung für Mitarbeiter, die erwähnt werden
+- Regelmässige Besprechung der Bewertungen
+
+## Mit negativen Bewertungen umgehen
+
+### Die goldene Regel
+
+**Niemals ignorieren. Niemals aggressiv reagieren.**
+
+Eine professionelle Antwort auf eine negative Bewertung kann mehr Vertrauen schaffen als zehn positive Bewertungen.
+
+### Die perfekte Antwort-Struktur
+
+1. **Bedanken** – Für das Feedback, auch wenn es wehtut
+2. **Entschuldigen** – Für die schlechte Erfahrung (nicht für Schuld)
+3. **Erklären** – Kurz und sachlich, keine Ausreden
+4. **Lösung anbieten** – Konkret und persönlich
+5. **Offline nehmen** – Kontaktdaten für weitere Klärung
+
+### Beispiel: Negative Bewertung
+
+> ⭐ "Wurde am Telefon unfreundlich behandelt. Werde dort nie kaufen."
+
+**Schlechte Antwort:**
+> "Das stimmt nicht! Unsere Mitarbeiter sind immer freundlich. Sie haben wahrscheinlich einen schlechten Tag gehabt."
+
+**Gute Antwort:**
+> "Guten Tag, vielen Dank für Ihr Feedback. Es tut mir aufrichtig leid, dass Sie diese Erfahrung gemacht haben – das entspricht nicht unserem Anspruch. Ich würde das gerne persönlich klären. Bitte kontaktieren Sie mich direkt unter 044 123 45 67 oder m.mueller@garage.ch. – Marco Müller, Geschäftsführer"
+
+### Wann Sie gegen Bewertungen vorgehen können
+
+Manche Bewertungen verstossen gegen die Google-Richtlinien:
+- Falsche Tatsachenbehauptungen
+- Bewertungen von Personen, die nie Kunde waren
+- Beleidigende oder diskriminierende Inhalte
+- Bewertungen von Konkurrenten
+
+**So melden Sie eine Bewertung:**
+1. Bei der Bewertung auf die drei Punkte klicken
+2. "Als unangemessen melden" wählen
+3. Grund angeben
+4. Google prüft und entscheidet
+
+**Hinweis:** Google löscht nur bei klaren Verstössen. Schlechte, aber ehrliche Bewertungen bleiben.
+
+## Bewertungen strategisch nutzen
+
+### Auf der Website einbinden
+
+Zeigen Sie Ihre Bewertungen stolz:
+- Widget mit aktuellen Google Reviews
+- Testimonials auf der Startseite
+- Sternebewertung im Header
+
+### In der Werbung verwenden
+
+- "4.8 Sterne bei Google" in Inseraten
+- Kundenzitate in Social Media
+- Bewertungs-Badge auf Flyern
+
+### Für Verbesserungen nutzen
+
+Analysieren Sie Ihre Bewertungen regelmässig:
+- Welche Themen werden gelobt?
+- Welche Beschwerden wiederholen sich?
+- Was macht die Konkurrenz anders?
+
+## Typische Fehler vermeiden
+
+### Fehler 1: Gefälschte Bewertungen kaufen
+
+Abgesehen davon, dass es unethisch ist: Google erkennt Fake-Bewertungen immer besser und bestraft sie hart (komplette Löschung des Profils möglich).
+
+### Fehler 2: Nur auf negative Bewertungen antworten
+
+Antworten Sie auch auf positive Bewertungen! Ein kurzes "Danke, Herr Meier! Es war uns eine Freude." zeigt Wertschätzung.
+
+### Fehler 3: Mit Kunden online streiten
+
+Selbst wenn der Kunde unrecht hat: Ein öffentlicher Streit schadet nur Ihnen. Nehmen Sie es offline.
+
+### Fehler 4: Bewertungen einmal sammeln, dann aufhören
+
+Online-Reputation ist ein Marathon, kein Sprint. Bleiben Sie dran – auch nach 100 Bewertungen.
+
+## Der Aktionsplan: In 30 Tagen zu besseren Bewertungen
+
+### Woche 1: Grundlagen
+- Google Unternehmensprofil optimieren (Fotos, Öffnungszeiten, Beschreibung)
+- Direkten Bewertungslink erstellen
+- QR-Code drucken
+
+### Woche 2: Team briefen
+- Bewertungsstrategie besprechen
+- Formulierungen für Anfragen üben
+- Jeder Mitarbeiter macht den Prozess einmal selbst durch
+
+### Woche 3: Aktiv werden
+- Bei jeder Fahrzeugübergabe um Bewertung bitten
+- WhatsApp-Vorlage nutzen
+- Auf alle bestehenden Bewertungen antworten
+
+### Woche 4: Auswerten und optimieren
+- Anzahl neue Bewertungen prüfen
+- Durchschnittsbewertung vergleichen
+- Was funktioniert? Was nicht?
+
+## Fazit: Reputation ist Ihr wertvollstes Kapital
+
+Im digitalen Zeitalter ist Ihre Online-Reputation genauso wichtig wie Ihr Ruf in der Nachbarschaft – vielleicht sogar wichtiger. Google Bewertungen sind der erste Eindruck für potenzielle Kunden.
+
+Die gute Nachricht: Sie haben es in der Hand. Mit systematischem Vorgehen können Sie in wenigen Monaten Ihre Sternebewertung deutlich verbessern und mehr Kunden gewinnen.
+
+Fangen Sie heute an. Jede Bewertung zählt.
+
+---
+
+*Sie möchten Ihre Kundenkommunikation professionalisieren? Mit Dealer OS haben Sie alle Kundeninteraktionen im Blick und verpassen keine Gelegenheit für eine Bewertungsanfrage. [Jetzt kostenlos testen](/de/register)*
+\`,
+  },
   // Artikel 39 - 2026-02-22
   {
     slug: "crm-fuer-autohaendler-warum-excel-nicht-mehr-reicht",
