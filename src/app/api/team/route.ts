@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { NextRequest, NextResponse } from 'next/server';
 import { TeamInvitation } from '@/types/team';
 
@@ -43,19 +44,26 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: membersError.message }, { status: 500 });
     }
 
-    // Get user details for each member
-    const membersWithUsers = await Promise.all(
-      (members || []).map(async (member) => {
-        const { data: userData } = await supabase.auth.admin.getUserById(member.user_id);
-        return {
-          ...member,
-          user: userData?.user ? {
-            email: userData.user.email,
-            user_metadata: userData.user.user_metadata,
-          } : undefined,
-        };
-      })
-    );
+    // Get user details for each member using admin client
+    let membersWithUsers = members || [];
+    try {
+      const adminClient = createAdminClient();
+      membersWithUsers = await Promise.all(
+        (members || []).map(async (member) => {
+          const { data: userData } = await adminClient.auth.admin.getUserById(member.user_id);
+          return {
+            ...member,
+            user: userData?.user ? {
+              email: userData.user.email,
+              user_metadata: userData.user.user_metadata,
+            } : undefined,
+          };
+        })
+      );
+    } catch (adminError) {
+      console.warn('Could not fetch user details (admin client not configured):', adminError);
+      // Continue without user details
+    }
 
     // Get pending invitations (only if user can manage team)
     let invitations: TeamInvitation[] = [];
