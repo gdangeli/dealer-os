@@ -78,7 +78,7 @@ export function InviteAcceptClient({
   };
 
   // Email mismatch - user logged in with different email
-  const emailMismatch = isLoggedIn && userEmail && userEmail.toLowerCase() !== invitation.email.toLowerCase();
+  const emailMismatch = Boolean(isLoggedIn && userEmail && userEmail.toLowerCase() !== invitation.email.toLowerCase());
 
   if (accepted) {
     return (
