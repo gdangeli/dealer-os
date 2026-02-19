@@ -23,14 +23,22 @@ export async function getTeamMembers(dealerId: string): Promise<TeamMember[]> {
     
   if (error) throw error;
   
-  // Transform user data
-  return (data || []).map(member => ({
-    ...member,
+  // Transform user data - cast to handle Supabase's dynamic types
+  return (data || []).map((member: Record<string, unknown>) => ({
+    id: member.id as string,
+    dealer_id: member.dealer_id as string,
+    user_id: member.user_id as string,
+    role: member.role as TeamMember['role'],
+    invited_by: member.invited_by as string | undefined,
+    invited_at: member.invited_at as string,
+    accepted_at: member.accepted_at as string | undefined,
+    created_at: member.created_at as string,
+    updated_at: member.updated_at as string,
     user: member.user ? {
-      email: member.user.email,
-      user_metadata: member.user.raw_user_meta_data,
+      email: (member.user as Record<string, unknown>).email as string,
+      user_metadata: (member.user as Record<string, unknown>).raw_user_meta_data as Record<string, unknown> | undefined,
     } : undefined,
-  }));
+  })) as TeamMember[];
 }
 
 export async function getTeamMemberCount(dealerId: string): Promise<number> {
