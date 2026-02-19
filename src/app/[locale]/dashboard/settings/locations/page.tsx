@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { LocationsSettingsClient } from './locations-settings-client';
+import { getCurrentDealer } from '@/lib/auth/get-current-dealer';
 
 export const metadata = {
   title: 'Standorte verwalten',
@@ -18,12 +19,8 @@ export default async function LocationsSettingsPage() {
     redirect('/login');
   }
 
-  // Get dealer
-  const { data: dealer } = await supabase
-    .from('dealers')
-    .select('id, company_name, street, zip, city, phone, email')
-    .eq('user_id', user.id)
-    .single();
+  // Get dealer via team_members
+  const dealer = await getCurrentDealer();
 
   if (!dealer) {
     redirect('/dashboard');

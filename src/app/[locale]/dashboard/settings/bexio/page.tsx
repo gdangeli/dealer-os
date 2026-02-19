@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { BexioSettingsClient } from "./bexio-settings-client";
+import { getCurrentDealer } from "@/lib/auth/get-current-dealer";
 
 export const metadata = {
   title: "Bexio-Integration",
@@ -12,7 +13,13 @@ export default async function BexioSettingsPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
 
-  // Get dealer profile with Bexio settings
+  // Get dealer via team_members
+  const dealerWithRole = await getCurrentDealer();
+  if (!dealerWithRole) {
+    redirect('/dashboard');
+  }
+
+  // Get dealer Bexio settings
   const { data: dealer } = await supabase
     .from('dealers')
     .select(`
@@ -24,7 +31,7 @@ export default async function BexioSettingsPage() {
       bexio_last_sync_at,
       bexio_last_error
     `)
-    .eq('user_id', user.id)
+    .eq('id', dealerWithRole.id)
     .single();
 
   if (!dealer) {
