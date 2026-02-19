@@ -266,7 +266,9 @@ function PlanGrid({ billingInterval, currentPlan, loading, onUpgrade }: PlanGrid
     <div className="grid md:grid-cols-3 gap-4">
       {plans.map((planId) => {
         const plan = PLANS[planId];
-        const price = billingInterval === 'monthly' ? plan.priceMonthly : Math.round(plan.priceYearly / 12);
+        const priceMonthly = plan.priceMonthly ?? 0;
+        const priceYearly = plan.priceYearly ?? 0;
+        const price = billingInterval === 'monthly' ? priceMonthly : Math.round(priceYearly / 12);
         const isPopular = planId === 'pro';
         const isCurrent = planId === currentPlan;
 
@@ -283,9 +285,9 @@ function PlanGrid({ billingInterval, currentPlan, loading, onUpgrade }: PlanGrid
               <div className="pt-2">
                 <span className="text-3xl font-bold">CHF {price}</span>
                 <span className="text-slate-500">/Mt.</span>
-                {billingInterval === 'yearly' && (
+                {billingInterval === 'yearly' && priceYearly > 0 && (
                   <p className="text-xs text-emerald-600 mt-1">
-                    CHF {plan.priceYearly}/Jahr (2 Monate gratis)
+                    CHF {priceYearly}/Jahr (2 Monate gratis)
                   </p>
                 )}
               </div>
