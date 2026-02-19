@@ -49,13 +49,7 @@ export async function GET(request: NextRequest) {
     // Get invitation details (public, no auth required)
     const { data: invitation, error } = await supabase
       .from('team_invitations')
-      .select(`
-        id,
-        email,
-        role,
-        expires_at,
-        dealer:dealers(company_name)
-      `)
+      .select('id, email, role, expires_at, dealer_id')
       .eq('token', token)
       .is('accepted_at', null)
       .gt('expires_at', new Date().toISOString())
@@ -68,18 +62,19 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Supabase join returns array or object depending on relationship
-    const dealerData = invitation.dealer;
-    const companyName = Array.isArray(dealerData) 
-      ? dealerData[0]?.company_name 
-      : (dealerData as { company_name: string } | null)?.company_name;
+    // Get dealer name separately to avoid join type issues
+    const { data: dealer } = await supabase
+      .from('dealers')
+      .select('company_name')
+      .eq('id', invitation.dealer_id)
+      .single();
     
     return NextResponse.json({
       invitation: {
         email: invitation.email,
         role: invitation.role,
         expiresAt: invitation.expires_at,
-        companyName: companyName ?? null,
+        companyName: dealer?.company_name ?? null,
       }
     });
   } catch (error) {

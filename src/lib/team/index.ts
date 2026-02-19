@@ -11,34 +11,17 @@ import { randomBytes } from 'crypto';
 export async function getTeamMembers(dealerId: string): Promise<TeamMember[]> {
   const supabase = await createClient();
   
+  // Simple query without auth.users join (user data loaded separately in API route)
   const { data, error } = await supabase
     .from('team_members')
-    .select(`
-      *,
-      user:auth.users(email, raw_user_meta_data)
-    `)
+    .select('*')
     .eq('dealer_id', dealerId)
     .order('role', { ascending: true })
     .order('created_at', { ascending: true });
     
   if (error) throw error;
   
-  // Transform user data - cast to handle Supabase's dynamic types
-  return (data || []).map((member: Record<string, unknown>) => ({
-    id: member.id as string,
-    dealer_id: member.dealer_id as string,
-    user_id: member.user_id as string,
-    role: member.role as TeamMember['role'],
-    invited_by: member.invited_by as string | undefined,
-    invited_at: member.invited_at as string,
-    accepted_at: member.accepted_at as string | undefined,
-    created_at: member.created_at as string,
-    updated_at: member.updated_at as string,
-    user: member.user ? {
-      email: (member.user as Record<string, unknown>).email as string,
-      user_metadata: (member.user as Record<string, unknown>).raw_user_meta_data as Record<string, unknown> | undefined,
-    } : undefined,
-  })) as TeamMember[];
+  return (data || []) as TeamMember[];
 }
 
 export async function getTeamMemberCount(dealerId: string): Promise<number> {
@@ -197,26 +180,27 @@ export async function getInvitations(dealerId: string): Promise<TeamInvitation[]
 export async function getInvitationByToken(token: string): Promise<TeamInvitation & { dealer: { company_name: string } } | null> {
   const supabase = await createClient();
   
-  const { data, error } = await supabase
+  // Get invitation
+  const { data: invitation, error } = await supabase
     .from('team_invitations')
-    .select(`
-      *,
-      dealer:dealers(company_name)
-    `)
+    .select('*')
     .eq('token', token)
     .is('accepted_at', null)
     .gt('expires_at', new Date().toISOString())
     .single();
     
-  if (error || !data) return null;
+  if (error || !invitation) return null;
   
-  // Handle Supabase join which may return array or object
-  const dealerData = data.dealer;
-  const dealer = Array.isArray(dealerData) ? dealerData[0] : dealerData;
+  // Get dealer separately
+  const { data: dealer } = await supabase
+    .from('dealers')
+    .select('company_name')
+    .eq('id', invitation.dealer_id)
+    .single();
   
   return {
-    ...data,
-    dealer: dealer as { company_name: string },
+    ...invitation,
+    dealer: dealer || { company_name: '' },
   } as TeamInvitation & { dealer: { company_name: string } };
 }
 
