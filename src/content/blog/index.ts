@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-02-23",
     author: "Dealer OS Team",
     keywords: ["Google Bewertungen", "Online Reputation", "Autohändler Marketing", "Kundenbewertungen", "Google My Business"],
-    content: \`
+    content: `
 ## Warum Google Bewertungen über Ihren Erfolg entscheiden
 
 Stellen Sie sich vor: Ein Kunde sucht nach "Autogarage Zürich". Google zeigt 10 Ergebnisse. Ihre Garage hat 3.2 Sterne mit 8 Bewertungen. Der Konkurrent zwei Strassen weiter hat 4.8 Sterne mit 127 Bewertungen. Zu wem geht der Kunde?
@@ -224,7 +224,7 @@ Fangen Sie heute an. Jede Bewertung zählt.
 ---
 
 *Sie möchten Ihre Kundenkommunikation professionalisieren? Mit Dealer OS haben Sie alle Kundeninteraktionen im Blick und verpassen keine Gelegenheit für eine Bewertungsanfrage. [Jetzt kostenlos testen](/de/register)*
-\`,
+`,
   },
   // Artikel 39 - 2026-02-22
   {
