@@ -1,12 +1,15 @@
 {
-  "timestamp": "2026-02-18T11:17:43.585Z",
+  "timestamp": "2026-02-19T07:01:35.037Z",
   "coverage": {
-    "total": 8,
+    "total": 10,
     "covered": 8,
     "partial": 0,
-    "missing": 0,
-    "percent": 100
+    "missing": 2,
+    "percent": 80
   },
-  "missingModules": [],
+  "missingModules": [
+    "email-templates",
+    "help"
+  ],
   "partialModules": []
 }

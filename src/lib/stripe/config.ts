@@ -29,6 +29,7 @@ export const stripe = {
 // - Starter: FREE (10 vehicles, 1 user)
 // - Professional: 129 CHF/month (unlimited vehicles, 1 user)
 // - Business: 229 CHF/month (unlimited vehicles, 3 users, Bexio)
+// - Enterprise: Custom pricing (unlimited everything, white-label)
 export const PLANS = {
   starter: {
     name: 'Starter',
@@ -93,6 +94,28 @@ export const PLANS = {
     ],
     stripePriceIdMonthly: process.env.STRIPE_BUSINESS_MONTHLY_PRICE_ID,
     stripePriceIdYearly: process.env.STRIPE_BUSINESS_YEARLY_PRICE_ID,
+  },
+  enterprise: {
+    name: 'Enterprise',
+    description: 'Für Händlergruppen',
+    priceMonthly: null, // Custom pricing
+    priceYearly: null,
+    limits: {
+      vehicles: -1 as number, // unlimited
+      users: -1 as number, // unlimited
+      channels: -1 as number, // unlimited
+    },
+    features: [
+      'Unbegrenzte Fahrzeuge',
+      'Unbegrenzte Benutzer',
+      'Custom Integrationen',
+      'White-Label Option',
+      'SLA 99.9% Uptime',
+      'Dedicated Manager',
+      'API-Zugang',
+    ],
+    stripePriceIdMonthly: null, // Custom pricing, no Stripe self-service
+    stripePriceIdYearly: null,
   },
   beta: {
     name: 'Beta',
