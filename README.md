@@ -13,6 +13,7 @@
 - **Standzeit-Tracking** — Automatische Überwachung der Standzeit
 - **CSV/Excel Import** — Bulk-Import aus bestehenden Systemen
 - **Fahrzeug-Export** — Inserate für verschiedene Plattformen generieren
+- **Website Widget** — Fahrzeuge auf externen Websites einbetten mit anpassbarem Design
 
 ### CRM & Kommunikation
 - **Kunden-Verwaltung** — Vollständiges CRM mit Kontakthistorie
@@ -50,9 +51,15 @@
 - **Interaktiver Onboarding-Wizard** — Schritt-für-Schritt Einrichtung mit Fortschritts-Speicherung
 - **Hilfe-Center** — Umfassende Dokumentation und FAQ direkt in der App
 
+### 📱 Mobile Experience
+- **Vollständig responsive** — Optimiert für alle Bildschirmgrössen
+- **Mobile Dashboard** — Touch-optimierte Navigation und Bedienung
+- **Adaptive Headers** — Automatische Anpassung an Bildschirmbreite
+
 ### Mehrsprachigkeit
 - 🇩🇪 Deutsch (Standard)
 - 🇬🇧 English
+- Sprachauswahl in Benutzer-Einstellungen
 
 ## 💰 Pricing
 

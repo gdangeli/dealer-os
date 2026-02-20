@@ -219,7 +219,39 @@ CREATE POLICY "Users can view own vehicles" ON vehicles
 │   └── [id]/               # Invoice PDF generation
 ├── export/                 # CSV/Excel exports
 └── bexio/                  # Bexio integration
+
+/embed/
+└── [dealerId]/             # Embeddable widget (public)
 ```
+
+### Website Widget (Embed System)
+
+The embed system allows dealers to display their inventory on external websites:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    EMBED ARCHITECTURE                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Dealer Website         DealerOS                            │
+│  ┌──────────────┐      ┌──────────────────────────────┐    │
+│  │   <iframe>   │ ←──→ │  /embed/[dealerId]           │    │
+│  │              │      │  ├── Server Component        │    │
+│  │  postMessage │      │  │   (auth, data fetch)      │    │
+│  │  ↕ height    │      │  └── Client Component        │    │
+│  │  ↕ contact   │      │      (layouts, interactivity)│    │
+│  └──────────────┘      └──────────────────────────────┘    │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Features:**
+- **Server-side data loading:** Vehicle data fetched via Supabase
+- **Configurable styling:** Colors, fonts, button styles, dark mode
+- **Layout options:** Grid, List, Slider views
+- **postMessage API:** Auto-height adjustment, contact event forwarding
+- **Domain whitelisting:** Optional security restriction
+- **Preview mode:** Test in settings before enabling
 
 ### Data Fetching Pattern
 

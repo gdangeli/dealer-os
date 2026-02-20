@@ -10,6 +10,36 @@ _Nächste geplante Features_
 
 ---
 
+## [0.12.0] - 2025-02-21
+
+### Added
+- **Website Widget** — Fahrzeuge auf externen Websites einbetten (6c21324)
+  - Anpassbares Widget-Design (Farben, Layout, Filter)
+  - Live-Vorschau vor dem Speichern (9b59357)
+  - Embed-Code Generator für einfache Integration
+  - /embed Routes von i18n Middleware ausgeschlossen (66e1f8b)
+- **UX Polish & Performance** — Verbesserte Benutzererfahrung (29af4fc)
+  - Optimierte Ladezeiten
+  - Besseres Error Handling
+  - Verbesserte Mobile Experience
+- Umfassende Dokumentation hinzugefügt:
+  - ROADMAP.md mit allen geplanten Features (87118bb, 2ae668d)
+  - AI Pricing Research & Konzept (64a8ea2)
+  - M&A Due Diligence Dokumentation (2be7210, 60bf539)
+
+### Changed
+- **Language Switcher** verschoben von Sidebar zu Settings > User (14fbbae)
+- Beta Badge entfernt (ea97857)
+
+### Fixed
+- **Mobile Responsive Fixes** — Komplette Überarbeitung für alle Bildschirmgrössen
+  - Fahrzeug- und Lead-Listen mobile-optimiert (c71bc94)
+  - Responsive Headers auf allen Dashboard-Seiten (65e2fad)
+  - Dashboard Header mobile-optimiert (0e5ade6)
+  - Umfassende Mobile-Verbesserungen (ce02235)
+
+---
+
 ## [0.11.0] - 2025-02-20
 
 ### Added

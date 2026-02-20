@@ -169,7 +169,42 @@
 
 ---
 
-### 8. E-Mail-Vorlagen | Email Templates
+### 8. Website Widget (Embed)
+
+**Status:** ✅ Live
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Embeddable iFrame | ✅ | Drop-in widget for dealer websites |
+| Layout Options | ✅ | Grid, List, or Slider view |
+| Custom Styling | ✅ | Primary color, fonts, button styles |
+| Dark Mode | ✅ | For dark website backgrounds |
+| Live Preview | ✅ | Test before deploying |
+| Auto-Height | ✅ | Responsive iframe sizing via postMessage |
+| Domain Whitelisting | ✅ | Security: limit allowed domains |
+| Contact Integration | ✅ | Configurable contact URL or JS events |
+| Price Toggle | ✅ | Show/hide prices in widget |
+| Embed Code Generator | ✅ | Copy-paste ready code |
+
+**Implementation Details:**
+- Served from `/embed/[dealerId]` endpoint
+- Query parameters for live customization
+- postMessage API for parent-child communication
+- SEO-friendly with Next.js server components
+- Optimized images via Next.js Image
+
+**Embed Code Example:**
+```html
+<iframe 
+  src="https://dealeros.ch/embed/{dealerId}"
+  style="width: 100%; border: none; min-height: 600px;"
+  loading="lazy"
+></iframe>
+```
+
+---
+
+### 9. E-Mail-Vorlagen | Email Templates
 
 **Status:** ✅ Live
 
@@ -190,7 +225,7 @@
 
 ---
 
-### 9. Einstellungen | Settings
+### 10. Einstellungen | Settings
 
 **Status:** ✅ Live
 
@@ -209,7 +244,7 @@
 
 ---
 
-### 10. Onboarding
+### 11. Onboarding
 
 **Status:** ✅ Live
 
@@ -224,7 +259,7 @@
 
 ---
 
-### 11. Hilfe-Center | Help Center
+### 12. Hilfe-Center | Help Center
 
 **Status:** ✅ Live
 
@@ -239,7 +274,7 @@
 
 ---
 
-### 12. Multi-Language Support (i18n)
+### 13. Multi-Language Support (i18n)
 
 **Status:** ✅ Live
 
@@ -250,6 +285,34 @@
 | 🇫🇷 French | `fr` | 100% |
 | 🇮🇹 Italian | `it` | 100% |
 | 🇷🇸 Serbian | `sr` | 100% |
+
+---
+
+### 14. Mobile Experience
+
+**Status:** ✅ Live
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Bottom Navigation | ✅ | iOS/Android-style tab bar |
+| Swipe Actions | ✅ | Swipe-to-delete/edit gestures |
+| Responsive Lists | ✅ | Touch-optimized list components |
+| Safe Area Handling | ✅ | iPhone notch/home bar support |
+| Touch-First UI | ✅ | Optimized tap targets (44px+) |
+| Pull-to-Refresh | 📋 | Native-feel refresh gesture |
+| PWA Support | 📋 | Install as app on device |
+
+**Mobile Components:**
+- `BottomNav`: Fixed bottom navigation bar (hidden on desktop)
+- `SwipeActionRow`: Swipe-to-reveal action buttons
+- `ResponsiveList`: Touch-optimized list with chevrons
+- Locale-aware routing (de/en/fr/it/sr URL prefixes)
+
+**Mobile UX Details:**
+- Bottom nav only visible on mobile (`lg:hidden`)
+- Swipe threshold: 80px for action reveal
+- Active state feedback on all tappable elements
+- Smooth transitions (200ms ease-out)
 
 ---
 

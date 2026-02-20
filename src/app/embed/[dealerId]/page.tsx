@@ -11,13 +11,27 @@ interface PageProps {
     dark?: string;
     layout?: string;
     preview?: string; // Allow preview mode without widget_enabled
+    debug?: string;   // Debug mode for troubleshooting
   }>;
 }
 
 export default async function EmbedPage({ params, searchParams }: PageProps) {
   const { dealerId } = await params;
   const query = await searchParams;
-  const supabase = await createClient();
+  
+  // Debug mode shows error details
+  const isDebug = query.debug === "1";
+  
+  let supabase;
+  try {
+    supabase = await createClient();
+  } catch (e) {
+    console.error("[Embed] Supabase client creation failed:", e);
+    if (isDebug) {
+      return <div className="p-4 text-red-500">Error: Failed to create Supabase client</div>;
+    }
+    notFound();
+  }
 
   // Get dealer
   const { data: dealer, error: dealerError } = await supabase
@@ -26,9 +40,22 @@ export default async function EmbedPage({ params, searchParams }: PageProps) {
     .eq("id", dealerId)
     .single();
 
+  // Debug output
+  if (isDebug) {
+    return (
+      <div className="p-4 font-mono text-sm space-y-2">
+        <div>dealerId: {dealerId}</div>
+        <div>preview: {query.preview || "not set"}</div>
+        <div>dealerError: {dealerError ? JSON.stringify(dealerError) : "none"}</div>
+        <div>dealer: {dealer ? JSON.stringify(dealer, null, 2) : "null"}</div>
+      </div>
+    );
+  }
+
   // Allow preview mode (from settings page) even if widget not enabled yet
   const isPreview = query.preview === "1";
   if (dealerError || !dealer || (!dealer.widget_enabled && !isPreview)) {
+    console.error("[Embed] 404 reason:", { dealerError, dealer: !!dealer, widget_enabled: dealer?.widget_enabled, isPreview });
     notFound();
   }
 

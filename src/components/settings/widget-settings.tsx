@@ -299,7 +299,7 @@ export function WidgetSettings({ dealerId, initialEnabled, initialConfig }: Widg
             <CardContent>
               <div className="border rounded-lg overflow-hidden">
                 <iframe
-                  src={`/embed/${dealerId}?primary=${config.primary_color?.replace('#', '')}&font=${config.font_family}&style=${config.button_style}&dark=${config.dark_mode ? '1' : '0'}&layout=${config.layout}&preview=1`}
+                  src={`https://dealeros.ch/embed/${dealerId}?primary=${config.primary_color?.replace('#', '')}&font=${config.font_family}&style=${config.button_style}&dark=${config.dark_mode ? '1' : '0'}&layout=${config.layout}&preview=1`}
                   className="w-full min-h-[400px] border-0"
                 />
               </div>
