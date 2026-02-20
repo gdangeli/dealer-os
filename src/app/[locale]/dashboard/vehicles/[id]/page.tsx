@@ -27,7 +27,19 @@ export default async function EditVehiclePage({
   }
 
   // Dealer holen (mit Impersonation-Support)
-  const dealer = await getCurrentDealer();
+  let dealer;
+  try {
+    dealer = await getCurrentDealer();
+  } catch (e) {
+    console.error("Error getting dealer:", e);
+    // Fallback to direct query
+    const { data: fallbackDealer } = await supabase
+      .from("dealers")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+    dealer = fallbackDealer;
+  }
 
   if (!dealer?.id) {
     return (
