@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/dialog";
 import { EmailTemplateManager } from "@/components/email/email-template-manager";
 import { TeamManagement } from "@/components/settings/team-management";
+import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
 
 // Types
 interface Dealer {
@@ -407,6 +408,19 @@ function UserSettingsForm({
 
   return (
     <div className="space-y-6">
+      {/* Sprache */}
+      <Card>
+        <CardHeader>
+          <CardTitle>🌐 Sprache</CardTitle>
+          <CardDescription>
+            Wählen Sie Ihre bevorzugte Sprache für die Benutzeroberfläche.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LanguageSwitcher />
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>Benutzerdaten</CardTitle>

@@ -3,7 +3,6 @@ import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { LogoutButton } from "./logout-button";
-import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
 import { NavLink } from "@/components/dashboard/nav-link";
 import { MobileSidebarToggle } from "@/components/dashboard/mobile-sidebar-toggle";
 import { BottomNav } from "@/components/mobile/bottom-nav";
@@ -172,7 +171,6 @@ export default async function DashboardLayout({
           )}
           <NavLink href="/dashboard/settings" icon="⚙️">Einstellungen</NavLink>
           <NavLink href="/dashboard/help" icon="❓">Hilfe</NavLink>
-          <LanguageSwitcher />
           <LogoutButton />
         </div>
       </MobileSidebarToggle>
