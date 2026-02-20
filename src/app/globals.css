@@ -142,3 +142,169 @@
 .animate-fadeIn {
   animation: fadeIn 0.4s ease-out forwards;
 }
+
+/* UX Polish Animations */
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.2s ease-out forwards;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-200;
+}
+
+.card-hover:hover {
+  @apply shadow-lg -translate-y-0.5;
+}
+
+/* Loading shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, 
+    theme('colors.slate.200') 0%, 
+    theme('colors.slate.100') 50%, 
+    theme('colors.slate.200') 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Smooth page transitions */
+.page-transition {
+  @apply animate-in fade-in-0 slide-in-from-bottom-2 duration-300;
+}
+
+/* Focus styles */
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2;
+}
+
+/* Mobile sidebar overlay */
+@media (max-width: 1023px) {
+  .sidebar-open {
+    @apply fixed inset-0 z-40;
+  }
+  
+  .sidebar-overlay {
+    @apply fixed inset-0 bg-black/50 z-30;
+  }
+}
+
+/* Safe area insets for iOS */
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.safe-area-pt {
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+/* Mobile-friendly touch targets */
+@media (max-width: 1023px) {
+  /* Ensure minimum 44px touch targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Prevent text selection on interactive elements */
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  
+  /* Improve scrolling on iOS */
+  .scroll-smooth {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Bottom padding for bottom nav */
+  .pb-bottom-nav {
+    padding-bottom: 80px;
+  }
+}
+
+/* Pull to refresh indicator area */
+.ptr-element {
+  @apply absolute top-0 left-0 right-0 flex items-center justify-center;
+  height: 60px;
+  transform: translateY(-100%);
+  transition: transform 0.2s ease;
+}
+
+.ptr-element.active {
+  transform: translateY(0);
+}
+
+/* Mobile card improvements */
+@media (max-width: 640px) {
+  .mobile-card {
+    @apply rounded-none border-x-0;
+  }
+  
+  .mobile-full-width {
+    @apply -mx-4 px-4;
+  }
+}
+
+/* Swipe action container */
+.swipe-container {
+  overflow-x: hidden;
+  position: relative;
+}
+
+.swipe-content {
+  transition: transform 0.2s ease-out;
+}
+
+.swipe-actions {
+  @apply absolute top-0 right-0 h-full flex items-center;
+  transform: translateX(100%);
+}

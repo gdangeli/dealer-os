@@ -23,6 +23,42 @@ const nextConfig: NextConfig = {
     // Minimize layout shift
     minimumCacheTTL: 31536000, // 1 year cache
   },
+  
+  // Performance optimizations
+  experimental: {
+    // Optimize package imports
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+  },
+  
+  // Compression
+  compress: true,
+  
+  // Production optimizations
+  poweredByHeader: false,
+  
+  // Headers for better caching
+  async headers() {
+    return [
+      {
+        source: '/:all*(svg|jpg|jpeg|png|gif|ico|webp|avif)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

@@ -4,6 +4,9 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { LogoutButton } from "./logout-button";
 import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
+import { NavLink } from "@/components/dashboard/nav-link";
+import { MobileSidebarToggle } from "@/components/dashboard/mobile-sidebar-toggle";
+import { BottomNav } from "@/components/mobile/bottom-nav";
 import { LocationFilterWrapper } from "@/components/locations/location-filter-wrapper";
 import { getImpersonationInfo } from "@/lib/auth/get-current-dealer";
 import { ImpersonationBanner } from "@/components/admin/impersonation-banner";
@@ -118,11 +121,11 @@ export default async function DashboardLayout({
         </div>
       )}
       
-      {/* Sidebar */}
-      <aside className="fixed left-0 top-0 w-64 h-screen bg-white border-r border-slate-200 flex flex-col">
+      {/* Sidebar with Mobile Toggle */}
+      <MobileSidebarToggle>
         <div className="p-4 border-b border-slate-200">
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <span className="text-2xl">🚗</span>
+          <Link href="/dashboard" className="flex items-center gap-2 group">
+            <span className="text-2xl transition-transform group-hover:scale-110 duration-200">🚗</span>
             <span className="text-xl font-bold">Dealer OS</span>
           </Link>
           <Badge variant="secondary" className="mt-2">Beta</Badge>
@@ -135,32 +138,33 @@ export default async function DashboardLayout({
           </div>
         )}
         
-        <nav className="flex-1 p-4 space-y-1">
-          <NavLink href="/dashboard" icon="📊">Übersicht</NavLink>
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto" aria-label="Hauptnavigation">
+          <NavLink href="/dashboard" icon="📊" exact>Übersicht</NavLink>
           <NavLink href="/dashboard/vehicles" icon="🚙">Bestand</NavLink>
           <NavLink href="/dashboard/leads" icon="💬">Anfragen</NavLink>
           <NavLink href="/dashboard/whatsapp" icon="💬">WhatsApp</NavLink>
           
-          <div className="pt-3 pb-1">
+          <div className="pt-4 pb-2">
             <span className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Verkauf</span>
           </div>
           <NavLink href="/dashboard/customers" icon="👥">Kunden</NavLink>
           <NavLink href="/dashboard/quotes" icon="📄">Offerten</NavLink>
           <NavLink href="/dashboard/invoices" icon="🧾">Rechnungen</NavLink>
           
-          <div className="pt-3 pb-1">
+          <div className="pt-4 pb-2">
             <span className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Kommunikation</span>
           </div>
           <NavLink href="/dashboard/email-templates" icon="📧">E-Mail-Vorlagen</NavLink>
           
-          <div className="pt-3 pb-1">
+          <div className="pt-4 pb-2">
             <span className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Analyse</span>
           </div>
           <NavLink href="/dashboard/analytics" icon="📈">Auswertungen</NavLink>
         </nav>
 
         <div className="p-4 border-t border-slate-200 space-y-1">
-          <div className="text-sm text-slate-600 mb-2 truncate">
+          <div className="text-sm text-slate-600 mb-3 truncate px-3 py-1 bg-slate-50 rounded-lg">
+            <span className="text-xs text-slate-400 block">Angemeldet als</span>
             {dealer?.company_name || user.email}
           </div>
           {isPlatformAdmin && (
@@ -171,24 +175,15 @@ export default async function DashboardLayout({
           <LanguageSwitcher />
           <LogoutButton />
         </div>
-      </aside>
+      </MobileSidebarToggle>
 
       {/* Main Content */}
-      <main className="ml-64 p-8">
+      <main className="lg:ml-64 p-4 lg:p-8 pt-16 lg:pt-8 pb-20 lg:pb-8 min-h-screen page-transition">
         {children}
       </main>
-    </div>
-  );
-}
 
-function NavLink({ href, icon, children }: { href: string; icon: string; children: React.ReactNode }) {
-  return (
-    <Link 
-      href={href}
-      className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
-    >
-      <span>{icon}</span>
-      <span>{children}</span>
-    </Link>
+      {/* Bottom Navigation for Mobile */}
+      <BottomNav />
+    </div>
   );
 }
