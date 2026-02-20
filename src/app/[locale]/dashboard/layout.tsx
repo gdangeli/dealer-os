@@ -168,7 +168,7 @@ export default async function DashboardLayout({
             <span className="text-xs text-slate-400 block">Angemeldet als</span>
             {dealer?.company_name || user.email}
           </div>
-          {isPlatformAdmin && (
+          {isPlatformAdmin && !isImpersonating && (
             <NavLink href="/admin" icon="👑">Admin Dashboard</NavLink>
           )}
           <NavLink href="/dashboard/settings" icon="⚙️">Einstellungen</NavLink>
