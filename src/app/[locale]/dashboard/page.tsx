@@ -5,7 +5,7 @@ import Link from "next/link";
 import { WidgetGrid } from "@/components/dashboard/widget-grid";
 import { saveDashboardConfig } from "./actions";
 import { DEFAULT_WIDGETS } from "@/components/dashboard/types";
-import { getCurrentDealer } from "@/lib/auth/get-current-dealer";
+import { getCurrentDealer, getImpersonationInfo } from "@/lib/auth/get-current-dealer";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -17,8 +17,11 @@ export default async function DashboardPage() {
   // Get dealer profile via team_members
   const dealer = await getCurrentDealer();
 
-  // Redirect to onboarding if not completed
-  if (dealer && !dealer.onboarding_completed) {
+  // Check if impersonating (skip onboarding redirect when impersonating)
+  const impersonation = await getImpersonationInfo();
+
+  // Redirect to onboarding if not completed (skip if impersonating)
+  if (dealer && !dealer.onboarding_completed && !impersonation) {
     redirect('/onboarding');
   }
 
