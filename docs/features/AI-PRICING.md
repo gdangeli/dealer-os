@@ -2,7 +2,11 @@
 
 > **Stand:** Februar 2026  
 > **Autor:** AI/ML Research Team  
-> **Status:** Research Complete
+> **Status:** 📋 Research Complete – Feature ZURÜCKGESTELLT
+> 
+> ⚠️ **Hinweis:** Diese Dokumentation beschreibt einen MÖGLICHEN Implementierungsweg. 
+> Das Feature wurde in der Roadmap nach hinten priorisiert. Diese Docs dienen als 
+> Referenz für die zukünftige Implementierung.
 
 ---
 

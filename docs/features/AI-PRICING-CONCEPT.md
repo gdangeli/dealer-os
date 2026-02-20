@@ -2,7 +2,11 @@
 
 > **Stand:** Februar 2026  
 > **Version:** 1.0  
+> **Status:** 📋 Feature ZURÜCKGESTELLT
 > **Basis:** [AI-PRICING.md](./AI-PRICING.md) Research
+>
+> ⚠️ **Hinweis:** Dieses Konzept beschreibt einen MÖGLICHEN Implementierungsweg.
+> Das Feature wurde in der Roadmap nach hinten priorisiert.
 
 ---
 
