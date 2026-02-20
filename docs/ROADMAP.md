@@ -99,6 +99,24 @@ Diese Features sind konzeptionell vorbereitet, aber nicht priorisiert:
 
 ---
 
+## 💡 MÖGLICHE ERWEITERUNGEN
+
+Ideen für zukünftige Versionen — noch nicht geplant:
+
+| # | Feature | Aufwand | Beschreibung |
+|---|---------|---------|--------------|
+| 1 | **Mobile App** | XL | Native iOS/Android für unterwegs |
+| 2 | **Probefahrt-Buchung** | S | Online-Terminbuchung für Kunden |
+| 3 | **Fahrzeug-Bewertung öffentlich** | S | Inzahlungnahme-Rechner auf Händler-Website |
+| 4 | **Website-Widget** | M | Fahrzeuge auf eigener Website einbinden |
+| 5 | **Automatische Foto-Optimierung** | S | Hintergrund entfernen, Bilder verbessern |
+| 6 | **Dokumenten-Management** | M | Fahrzeugpapiere, Kaufverträge digital |
+| 7 | **SMS-Benachrichtigungen** | S | Zusätzlich zu WhatsApp/E-Mail |
+
+**Aufwand-Legende:** S = Small (1-2 Tage), M = Medium (3-5 Tage), L = Large (1-2 Wochen), XL = Extra Large (3+ Wochen)
+
+---
+
 ## 📅 Release-Historie
 
 | Version | Datum | Highlights |
