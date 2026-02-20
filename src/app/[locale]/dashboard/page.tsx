@@ -79,15 +79,15 @@ export default async function DashboardPage() {
 
   return (
     <div data-testid="dashboard">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Guten Tag{dealer?.contact_name ? `, ${dealer.contact_name}` : ''}!</h1>
-          <p className="text-slate-600">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Guten Tag{dealer?.contact_name ? `, ${dealer.contact_name}` : ''}!</h1>
+          <p className="text-slate-600 text-sm sm:text-base">
             Hier ist Ihre Übersicht für heute.
           </p>
         </div>
-        <Link href="/dashboard/vehicles/new">
-          <Button>+ Fahrzeug erfassen</Button>
+        <Link href="/dashboard/vehicles/new" className="self-start sm:self-auto">
+          <Button size="sm" className="sm:size-default">+ Fahrzeug erfassen</Button>
         </Link>
       </div>
 
