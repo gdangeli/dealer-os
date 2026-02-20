@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { VehicleForm } from "@/components/vehicles/vehicle-form";
 import { Vehicle } from "@/types/vehicle";
 import { DeleteVehicleButton } from "./delete-button";
+import { getCurrentDealer } from "@/lib/auth/get-current-dealer";
 
 interface EditVehiclePageProps {
   params: Promise<{ id: string }>;
@@ -16,7 +17,7 @@ export default async function EditVehiclePage({
   const supabase = await createClient();
   const { id } = await params;
 
-  // User und Dealer holen
+  // User prüfen
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -25,12 +26,8 @@ export default async function EditVehiclePage({
     redirect("/login");
   }
 
-  // Dealer-ID aus der dealers-Tabelle holen
-  const { data: dealer } = await supabase
-    .from("dealers")
-    .select("id")
-    .eq("user_id", user.id)
-    .single();
+  // Dealer holen (mit Impersonation-Support)
+  const dealer = await getCurrentDealer();
 
   if (!dealer?.id) {
     return (
