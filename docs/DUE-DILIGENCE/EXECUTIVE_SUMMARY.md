@@ -5,7 +5,7 @@
 
 ---
 
-## 🎯 Unternehmensprofil | Company Profile
+## 🎯 Company Profile
 
 ### DE
 **DealerOS** ist eine moderne B2B SaaS-Plattform für Schweizer Autohändler (Garagen, Occasionshändler, kleine bis mittlere Autohäuser). Die Plattform vereint Fahrzeugverwaltung, Lead-Management, CRM, Offerten-/Rechnungsstellung und Business Analytics in einer einzigen, benutzerfreundlichen Lösung.
@@ -17,14 +17,14 @@
 
 ## 📊 Key Investment Highlights
 
-| Metric | Status |
-|--------|--------|
-| **Product Stage** | Beta / Growth Phase |
-| **Target Market** | Switzerland (primary), DACH expansion ready |
-| **Business Model** | SaaS Subscription (Monthly) |
-| **Tech Stack** | Modern (Next.js 16, TypeScript, Supabase, Vercel) |
+| Area | Highlight |
+|------|-----------|
+| **Product** | Production-ready, feature-complete core platform |
+| **Technology** | Modern stack (Next.js 16, TypeScript, Supabase) |
+| **Market** | Underserved niche (small/medium Swiss car dealers) |
 | **Scalability** | Cloud-native, globally deployable |
-| **Localization** | 5 Languages (DE, EN, FR, IT, SR) |
+| **Localization** | 5 Languages ready (DE, EN, FR, IT, SR) |
+| **Cost Structure** | Low burn (serverless, ~$50-70/month infrastructure) |
 
 ---
 
@@ -46,19 +46,19 @@
 - Reduce admin time by 50%+
 - Professional appearance with branded quotes/invoices
 - WhatsApp integration (preferred channel in Switzerland)
-- Multi-platform vehicle publishing (AutoScout24, tutti.ch, etc.)
+- Multi-platform vehicle publishing (AutoScout24, tutti.ch export)
 
 **Competitive Advantage:**
-- **Swiss-focused:** Built for Swiss market requirements (DSGVO/nDSG, CHF, local integrations)
-- **Modern UX:** Unlike legacy dealer management systems
-- **Affordable:** 5-10x cheaper than enterprise DMS solutions
-- **All-in-one:** No need for separate CRM, invoicing, analytics tools
+- 🇨🇭 **Swiss-focused:** Built for Swiss market (DSGVO/nDSG, CHF, Bexio)
+- ✨ **Modern UX:** Unlike legacy dealer management systems
+- 💰 **Affordable:** 5-10x cheaper than enterprise DMS solutions
+- 🔗 **All-in-one:** No need for separate CRM, invoicing, analytics
 
 ---
 
 ## 🌍 Market Opportunity
 
-### Swiss Market
+### Swiss Market (TAM)
 
 | Metric | Value |
 |--------|-------|
@@ -73,7 +73,7 @@
 - **Average Revenue per User (ARPU):** 150 CHF/month (blended)
 - **SAM:** ~5.4M CHF ARR (at 100% penetration)
 
-### DACH Expansion
+### DACH Expansion Potential
 
 | Market | Potential Dealers |
 |--------|-------------------|
@@ -85,24 +85,28 @@
 
 ---
 
-## 🚀 Growth Strategy
+## 🚀 Product Status
 
-### Phase 1: Switzerland (Current)
-- Beta users → Paying customers conversion
-- Word-of-mouth in dealer networks
-- Local SEO (dealeros.ch)
-- Swiss automotive association partnerships
+### Core Modules (✅ Live)
 
-### Phase 2: DACH Expansion (2026-2027)
-- mobile.de integration
-- German language marketing
-- Austrian market entry
-- Strategic partnerships with regional dealer associations
+| Module | Status | Description |
+|--------|--------|-------------|
+| Vehicle Management | ✅ Live | Full CRUD, multi-image, CSV import |
+| Lead Management | ✅ Live | List + Kanban, timeline, follow-ups |
+| Customer CRM | ✅ Live | Full customer database |
+| Quotes | ✅ Live | Professional PDF generation |
+| Invoices | ✅ Live | Payment tracking, Bexio sync |
+| Dashboard | ✅ Live | Configurable KPI widgets |
+| WhatsApp | ✅ Live | Templates, auto-reply |
+| Multi-Location | ✅ Live | Multiple dealership sites |
+| Multi-User | ✅ Live | Team members with roles |
+| Billing | ✅ Live | Stripe subscriptions |
 
-### Phase 3: Feature Expansion (2027+)
-- AI-powered pricing recommendations
-- B2B dealer-to-dealer marketplace
-- API for third-party integrations
+### Planned Features (Roadmap)
+
+- AutoScout24 API integration (Q2 2025)
+- mobile.de integration (Q3 2025)
+- AI price recommendations (2026)
 - Mobile app (PWA)
 
 ---
@@ -110,9 +114,13 @@
 ## 💰 Financial Overview
 
 ### Current Status
-- **Stage:** Pre-revenue / Early beta
-- **Funding:** Bootstrapped
-- **Burn Rate:** Minimal (serverless infrastructure)
+
+| Metric | Value |
+|--------|-------|
+| **Stage** | Pre-revenue / Beta |
+| **Funding** | Bootstrapped |
+| **Monthly Infrastructure Cost** | ~$50-70 |
+| **Monthly Burn Rate** | Minimal |
 
 ### Unit Economics (Projected)
 
@@ -133,61 +141,32 @@
 | 2027 | 500 | 75,000 | 900,000 |
 | 2028 | 1,500 | 225,000 | 2,700,000 |
 
-*Assumptions: 60% Professional, 30% Business, 10% Starter (free)*
-
 ---
 
 ## 🏆 Competitive Landscape
 
-### Direct Competitors
+| Competitor | Price | Full CRM | Quotes/Invoices | Modern UX |
+|------------|-------|----------|-----------------|-----------|
+| **DealerOS** | 129-229 CHF | ✅ | ✅ | ✅ |
+| AutoScout24 Pro | 300-500+ CHF | ❌ | ❌ | ⚠️ |
+| Enterprise DMS | 1000+ CHF | ✅ | ✅ | ❌ |
+| Excel/Manual | Free | ❌ | ❌ | ❌ |
 
-| Competitor | Strengths | Weaknesses |
-|------------|-----------|------------|
-| **Autoscout24 Pro** | Brand, reach | High cost, not all-in-one |
-| **AMAG WebTool** | Enterprise features | Complex, expensive |
-| **Excel/Manual** | Free, familiar | Inefficient, error-prone |
-
-### DealerOS Differentiation
-✅ Modern, mobile-friendly UX  
-✅ Affordable (10x cheaper than enterprise)  
-✅ Swiss-built, Swiss-focused  
-✅ All-in-one platform  
-✅ WhatsApp-native communication  
+**DealerOS Differentiation:**
+- Only affordable all-in-one solution for small dealers
+- WhatsApp-native (critical for Swiss market)
+- Modern tech enabling faster feature development
 
 ---
 
-## 👥 Team
+## 🔗 Document Navigation
 
-*[To be filled with actual team information]*
-
-| Role | Name | Background |
-|------|------|------------|
-| Founder/CEO | [Name] | [Background] |
-| CTO | [Name] | [Background] |
-| Sales/BD | [Name] | [Background] |
-
----
-
-## 📁 Due Diligence Documents
-
-This folder contains comprehensive documentation for potential acquirers:
-
-1. [Executive Summary](./EXECUTIVE_SUMMARY.md) ← You are here
-2. [Technical Overview](./TECHNICAL_OVERVIEW.md)
-3. [Product Features](./PRODUCT_FEATURES.md)
-4. [Financial Metrics](./FINANCIAL_METRICS.md)
-5. [Customer Data](./CUSTOMER_DATA.md)
-6. [Legal & IP](./LEGAL_IP.md)
-7. [Team & Operations](./TEAM_OPERATIONS.md)
-
----
-
-## 📧 Contact
-
-**For inquiries regarding acquisition or investment:**
-
-- Email: [m-and-a@dealeros.ch]
-- Website: [https://dealeros.ch](https://dealeros.ch)
+| Section | Focus |
+|---------|-------|
+| [1-FINANCIAL/](./1-FINANCIAL/) | Revenue, unit economics, projections |
+| [2-LEGAL/](./2-LEGAL/) | Corporate, IP, compliance |
+| [3-TECHNICAL/](./3-TECHNICAL/) | Architecture, security, infrastructure |
+| [4-OPERATIONAL/](./4-OPERATIONAL/) | Team, processes, transition |
 
 ---
 
