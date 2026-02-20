@@ -10,7 +10,36 @@ _Nächste geplante Features_
 
 ---
 
-## [0.10.0] - 2026-02-19
+## [0.11.0] - 2025-02-20
+
+### Added
+- **Admin Dashboard** — Platform-Admin Übersicht für alle Dealers
+  - Dealer-Tabelle mit Plan, Status, Team-Grösse, Fahrzeuge (04ab450)
+  - **Impersonate-Funktion** — Als Dealer einloggen für Support (0ccd4cb)
+  - **Dealer hinzufügen** — Manuelle Erstellung neuer Dealers (71a1aa0)
+  - **CSV-Export** — Dealer-Daten exportieren (71a1aa0)
+  - Plan-Statistiken und Verteilung
+- **Multi-User/Teams** — Mehrere Benutzer pro Dealer-Account
+  - Team-Verwaltung UI in Settings (3994bbd)
+  - Rollen-System (Owner, Admin, Mitarbeiter) (aa0b2f1)
+  - Team-Member Einladungen
+  - Dealer-Resolution über team_members (906e42b)
+  - API Routes für Multi-User aktualisiert (7e5e0f4)
+- Neuer Blog-Artikel: Kundenbindung für Garagisten (69bbb4b)
+- Docs-Link im Admin Dashboard
+
+### Fixed
+- Impersonate überspringt Onboarding-Redirect, öffnet in neuem Tab (7e6c8c4, 9c8d7e6)
+- Admin Client für Team-Member User Details (3b75e0c)
+- Supabase Joins Type Errors — separate Queries (76c8ee9)
+- Enterprise Plan null prices in Billing UI (329c9b7)
+- robots.txt 500 Error behoben (3d7df58)
+- www Subdomain in Sitemap URLs für Search Console (3bc08f4)
+- i18n Terminologie-Konsistenz (c649d01)
+
+---
+
+## [0.10.0] - 2025-02-19
 
 ### Added
 - **Hilfe-Center** — Umfassende In-App-Dokumentation mit FAQ und Guides (aad773c)

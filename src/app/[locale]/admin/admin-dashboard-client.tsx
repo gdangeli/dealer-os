@@ -303,6 +303,20 @@ export function AdminDashboardClient({ dealers: initialDealers, stats: initialSt
               >
                 Export CSV
               </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full"
+                asChild
+              >
+                <a 
+                  href="https://github.com/gdangeli/dealer-os/tree/main/docs" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  📚 Dokumentation
+                </a>
+              </Button>
             </CardContent>
           </Card>
         </div>

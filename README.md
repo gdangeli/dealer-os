@@ -27,6 +27,19 @@
 - **PDF-Export** — Druckfertige PDFs für Offerten und Rechnungen
 - **Bexio-Integration** — Synchronisation mit Schweizer Buchhaltungs-Software
 
+### 👥 Multi-User & Teams
+- **Team-Verwaltung** — Mehrere Benutzer pro Dealer-Account
+- **Rollen-System** — Owner, Admin, Mitarbeiter mit unterschiedlichen Berechtigungen
+- **Team-Einladungen** — Neue Mitarbeiter per E-Mail einladen
+- **Aktivitäts-Tracking** — Letzte Aktivität pro Team-Mitglied
+
+### 👑 Admin Dashboard (Platform-Admin)
+- **Dealer-Übersicht** — Alle Dealers mit Plan, Status, Team-Grösse
+- **Impersonate-Funktion** — Als Dealer einloggen für Support-Zwecke
+- **Dealer hinzufügen** — Manuelle Dealer-Erstellung durch Admin
+- **CSV-Export** — Dealer-Daten exportieren
+- **Plan-Statistiken** — Verteilung nach Subscription-Plan
+
 ### Analytics & Reporting
 - **Dashboard** — KPIs auf einen Blick (Bestand, Umsatz, Standzeit)
 - **Verkaufs-Statistiken** — Trends und Performance-Analyse
@@ -45,9 +58,9 @@
 
 | Plan | Preis | Fahrzeuge | Benutzer | Features |
 |------|-------|-----------|----------|----------|
-| **Starter** | Gratis | 10 | 1 | Basis-CRM, Standzeit-Tracking |
-| **Professional** | 129 CHF/Mt | Unbegrenzt | 1 | + WhatsApp, AI-Pricing, alle Kanäle |
-| **Business** | 229 CHF/Mt | Unbegrenzt | 3 | + Bexio, Multi-Standort, API |
+| **Starter** | **GRATIS** | 10 | 1 | Basis-CRM, Standzeit-Tracking |
+| **Pro** | 129 CHF/Mt | Unbegrenzt | 1 | + WhatsApp, AI-Pricing, alle Kanäle |
+| **Business** | 229 CHF/Mt | Unbegrenzt | 3 | + Bexio, Multi-Standort, Teams, API |
 
 ## 🛠 Tech Stack
 
@@ -125,17 +138,19 @@ BEXIO_REDIRECT_URI=
 src/
 ├── app/
 │   ├── [locale]/           # i18n Routing
+│   │   ├── admin/          # Platform Admin Dashboard
 │   │   ├── dashboard/      # Main App
 │   │   │   ├── analytics/  # Analytics Dashboard
 │   │   │   ├── customers/  # CRM
 │   │   │   ├── invoices/   # Rechnungen
 │   │   │   ├── leads/      # Lead Management
 │   │   │   ├── quotes/     # Offerten
-│   │   │   ├── settings/   # Einstellungen (Billing, Bexio)
+│   │   │   ├── settings/   # Einstellungen (Billing, Bexio, Team)
 │   │   │   ├── vehicles/   # Fahrzeugverwaltung
 │   │   │   └── whatsapp/   # WhatsApp Integration
 │   │   └── (public)/       # Landing, Blog, etc.
 │   ├── api/                # API Routes
+│   │   ├── admin/          # Admin APIs (impersonate, dealers)
 │   │   ├── bexio/          # Bexio OAuth & Sync
 │   │   ├── notifications/  # Email Notifications
 │   │   ├── stripe/         # Billing Webhooks
@@ -174,6 +189,7 @@ Weitere Dokumentation in `docs/`:
 - [Stripe Setup](docs/STRIPE_SETUP.md)
 - [Storage Setup](docs/STORAGE_SETUP.md)
 - [Testing Guide](docs/TESTING.md)
+- [Test Procedures](docs/TEST-PROCEDURES.md)
 - [Vehicle Import](docs/VEHICLE_IMPORT.md)
 - [Dashboard Widgets](docs/dashboard-widgets.md)
 
