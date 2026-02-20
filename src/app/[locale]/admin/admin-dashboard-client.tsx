@@ -121,7 +121,8 @@ export function AdminDashboardClient({ dealers: initialDealers, stats: initialSt
       });
       
       if (response.ok) {
-        router.push('/dashboard');
+        // Open in new tab
+        window.open('/dashboard', '_blank');
       } else {
         const error = await response.json();
         alert(`Fehler: ${error.error}`);

@@ -75,11 +75,6 @@ export default async function DashboardLayout({
     dealer = newDealer;
   }
 
-  // Redirect to onboarding if not completed
-  if (dealer && !dealer.onboarding_completed) {
-    redirect('/onboarding');
-  }
-
   // Check if user is platform admin
   const { data: platformAdmin } = await supabase
     .from('platform_admins')
@@ -89,7 +84,7 @@ export default async function DashboardLayout({
   
   const isPlatformAdmin = !!platformAdmin;
 
-  // Check for impersonation
+  // Check for impersonation BEFORE onboarding redirect
   const impersonation = await getImpersonationInfo();
   let isImpersonating = false;
   let impersonatedDealerName = '';
@@ -107,6 +102,11 @@ export default async function DashboardLayout({
       dealer = impersonatedDealer;
       impersonatedDealerName = impersonatedDealer.company_name || 'Unbekannt';
     }
+  }
+
+  // Redirect to onboarding if not completed (skip if impersonating)
+  if (dealer && !dealer.onboarding_completed && !isImpersonating) {
+    redirect('/onboarding');
   }
 
   return (
