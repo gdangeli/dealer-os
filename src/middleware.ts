@@ -8,7 +8,8 @@ export const config = {
   // - API routes
   // - Static files (/_next, /images, etc.)
   // - Favicon and other root files
+  // - Embed routes (public widget)
   matcher: [
-    '/((?!api|_next|_vercel|.*\\..*).*)',
+    '/((?!api|_next|_vercel|embed|.*\\..*).*)',
   ],
 };
