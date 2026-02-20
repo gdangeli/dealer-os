@@ -1,15 +1,42 @@
 {
-  "timestamp": "2026-02-19T07:01:35.037Z",
+  "timestamp": "2025-06-19T14:30:00.000Z",
   "coverage": {
-    "total": 10,
-    "covered": 8,
+    "total": 23,
+    "covered": 23,
     "partial": 0,
-    "missing": 2,
-    "percent": 80
+    "missing": 0,
+    "percent": 100
   },
-  "missingModules": [
-    "email-templates",
-    "help"
+  "modules": {
+    "auth": { "file": "auth.spec.ts", "tests": 15, "status": "covered" },
+    "landing": { "file": "landing.spec.ts", "tests": 8, "status": "covered" },
+    "dashboard": { "file": "dashboard.spec.ts", "tests": 12, "status": "covered" },
+    "dashboard-widgets": { "file": "dashboard-widgets.spec.ts", "tests": 8, "status": "covered" },
+    "vehicles": { "file": "vehicles.spec.ts", "tests": 18, "status": "covered" },
+    "vehicle-import": { "file": "vehicle-import.spec.ts", "tests": 14, "status": "covered" },
+    "image-upload": { "file": "image-upload.spec.ts", "tests": 16, "status": "covered" },
+    "leads": { "file": "leads.spec.ts", "tests": 20, "status": "covered" },
+    "lead-timeline": { "file": "lead-timeline.spec.ts", "tests": 22, "status": "covered" },
+    "customers": { "file": "customers.spec.ts", "tests": 14, "status": "covered" },
+    "quotes": { "file": "quotes.spec.ts", "tests": 12, "status": "covered" },
+    "invoices": { "file": "invoices.spec.ts", "tests": 14, "status": "covered" },
+    "settings": { "file": "settings.spec.ts", "tests": 20, "status": "covered" },
+    "email-templates": { "file": "email-templates.spec.ts", "tests": 8, "status": "covered" },
+    "help": { "file": "help.spec.ts", "tests": 10, "status": "covered" },
+    "analytics": { "file": "analytics.spec.ts", "tests": 10, "status": "covered" },
+    "whatsapp": { "file": "whatsapp.spec.ts", "tests": 8, "status": "covered" },
+    "stripe-subscription": { "file": "stripe-subscription.spec.ts", "tests": 18, "status": "covered" },
+    "csv-export": { "file": "csv-export.spec.ts", "tests": 10, "status": "covered" },
+    "onboarding": { "file": "onboarding.spec.ts", "tests": 4, "status": "covered" },
+    "widget": { "file": "widget.spec.ts", "tests": 18, "status": "covered", "added": "2025-06-19" },
+    "team-management": { "file": "team-management.spec.ts", "tests": 16, "status": "covered", "added": "2025-06-19" },
+    "admin": { "file": "admin.spec.ts", "tests": 20, "status": "covered", "added": "2025-06-19" }
+  },
+  "newFeaturesCovered": [
+    "Website Widget (embed vehicles on external sites)",
+    "Multi-User/Teams (team management, invitations, roles)",
+    "Admin Dashboard (platform admin, impersonation, dealer management)"
   ],
+  "missingModules": [],
   "partialModules": []
 }
