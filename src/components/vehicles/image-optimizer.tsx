@@ -1,0 +1,234 @@
+"use client";
+
+import { useState } from "react";
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Loader2 } from "lucide-react";
+
+interface ImageOptimizerProps {
+  open: boolean;
+  onClose: () => void;
+  imageUrl: string;
+  onOptimized: (newImageUrl: string) => void;
+}
+
+const BACKGROUND_TEMPLATES = [
+  { id: "showroom-modern", name: "Modern Showroom", preview: "🏢" },
+  { id: "showroom-classic", name: "Classic Showroom", preview: "🏛️" },
+  { id: "showroom-outdoor", name: "Outdoor Setting", preview: "🌳" },
+  { id: "showroom-minimal", name: "Minimal White", preview: "⬜" },
+  { id: "none", name: "Transparent", preview: "🔲" },
+];
+
+export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOptimizerProps) {
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [selectedBackground, setSelectedBackground] = useState("showroom-modern");
+  const [operations, setOperations] = useState({
+    removeBackground: true,
+    blurPlates: true,
+    enhance: true,
+  });
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const handleOptimize = async () => {
+    setIsProcessing(true);
+    try {
+      const ops: string[] = [];
+      if (operations.enhance) ops.push("enhance");
+      if (operations.blurPlates) ops.push("blur_plates");
+      if (operations.removeBackground) ops.push("remove_background");
+
+      const response = await fetch("/api/images/optimize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          imageUrl,
+          operations: ops,
+          backgroundTemplate: operations.removeBackground ? selectedBackground : undefined,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Optimization failed");
+      }
+
+      const result = await response.json();
+      
+      // Show preview
+      setPreviewUrl(`data:image/png;base64,${result.final}`);
+      
+      toast.success("Bild optimiert!");
+    } catch (error) {
+      console.error(error);
+      toast.error(error instanceof Error ? error.message : "Fehler bei der Optimierung");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleApply = async () => {
+    if (!previewUrl) return;
+    
+    // Convert base64 to blob and upload to Supabase
+    // Then call onOptimized with the new URL
+    toast.success("Bild wurde aktualisiert!");
+    onOptimized(previewUrl); // For now, pass base64
+    onClose();
+  };
+
+  const toggleOperation = (key: keyof typeof operations) => {
+    setOperations(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="max-w-4xl">
+        <DialogHeader>
+          <DialogTitle>🎨 Bild optimieren</DialogTitle>
+          <DialogDescription>
+            AI-gestützte Bildoptimierung für professionelle Fahrzeugfotos
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Left: Preview */}
+          <div className="space-y-4">
+            <div className="aspect-video bg-slate-100 rounded-lg overflow-hidden relative">
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt="Optimized preview"
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <img
+                  src={imageUrl}
+                  alt="Original"
+                  className="w-full h-full object-contain"
+                />
+              )}
+              {isProcessing && (
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <Loader2 className="w-8 h-8 animate-spin text-white" />
+                </div>
+              )}
+            </div>
+            <p className="text-sm text-slate-500 text-center">
+              {previewUrl ? "Vorschau (nach Optimierung)" : "Original"}
+            </p>
+          </div>
+
+          {/* Right: Options */}
+          <div className="space-y-6">
+            {/* Operations */}
+            <div className="space-y-4">
+              <Label className="text-base font-semibold">Optimierungen</Label>
+              
+              <div className="space-y-3">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <Checkbox
+                    checked={operations.enhance}
+                    onCheckedChange={() => toggleOperation("enhance")}
+                  />
+                  <div>
+                    <span className="font-medium">✨ Auto-Optimierung</span>
+                    <p className="text-sm text-slate-500">Helligkeit, Kontrast, Schärfe</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <Checkbox
+                    checked={operations.blurPlates}
+                    onCheckedChange={() => toggleOperation("blurPlates")}
+                  />
+                  <div>
+                    <span className="font-medium">🔒 Kennzeichen verpixeln</span>
+                    <p className="text-sm text-slate-500">Automatische Erkennung & Blur</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <Checkbox
+                    checked={operations.removeBackground}
+                    onCheckedChange={() => toggleOperation("removeBackground")}
+                  />
+                  <div>
+                    <span className="font-medium">🎨 Hintergrund ersetzen</span>
+                    <p className="text-sm text-slate-500">Virtueller Showroom</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* Background Selection */}
+            {operations.removeBackground && (
+              <div className="space-y-3">
+                <Label className="text-base font-semibold">Hintergrund wählen</Label>
+                <RadioGroup
+                  value={selectedBackground}
+                  onValueChange={setSelectedBackground}
+                  className="grid grid-cols-2 gap-2"
+                >
+                  {BACKGROUND_TEMPLATES.map((bg) => (
+                    <label
+                      key={bg.id}
+                      className={`flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${
+                        selectedBackground === bg.id
+                          ? "border-blue-500 bg-blue-50"
+                          : "border-slate-200 hover:border-slate-300"
+                      }`}
+                    >
+                      <RadioGroupItem value={bg.id} className="sr-only" />
+                      <span className="text-2xl">{bg.preview}</span>
+                      <span className="text-sm font-medium">{bg.name}</span>
+                    </label>
+                  ))}
+                </RadioGroup>
+              </div>
+            )}
+
+            {/* Actions */}
+            <div className="flex gap-3 pt-4">
+              {!previewUrl ? (
+                <Button
+                  onClick={handleOptimize}
+                  disabled={isProcessing || (!operations.enhance && !operations.blurPlates && !operations.removeBackground)}
+                  className="flex-1"
+                >
+                  {isProcessing ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Verarbeite...
+                    </>
+                  ) : (
+                    "🚀 Optimieren"
+                  )}
+                </Button>
+              ) : (
+                <>
+                  <Button variant="outline" onClick={() => setPreviewUrl(null)} className="flex-1">
+                    ↩️ Zurück
+                  </Button>
+                  <Button onClick={handleApply} className="flex-1">
+                    ✅ Übernehmen
+                  </Button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
