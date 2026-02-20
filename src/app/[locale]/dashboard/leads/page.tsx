@@ -462,13 +462,13 @@ export default function LeadsPage() {
   return (
     <div>
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Kundenanfragen</h1>
-          <p className="text-slate-600">Behalten Sie den Überblick über alle Interessenten</p>
+          <p className="text-slate-600 text-sm sm:text-base">Behalten Sie den Überblick über alle Interessenten</p>
         </div>
-        <Link href="/dashboard/leads/new">
-          <Button>+ Anfrage erfassen</Button>
+        <Link href="/dashboard/leads/new" className="self-start sm:self-auto">
+          <Button size="sm" className="sm:size-default">+ Anfrage erfassen</Button>
         </Link>
       </div>
 

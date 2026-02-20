@@ -166,28 +166,28 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Link href="/dashboard/leads" className="text-slate-500 hover:text-slate-700">
+            <Link href="/dashboard/leads" className="text-slate-500 hover:text-slate-700 text-sm">
               ← Zurück
             </Link>
           </div>
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
             {lead.first_name} {lead.last_name}
           </h1>
-          <p className="text-slate-600">
+          <p className="text-slate-600 text-sm sm:text-base">
             Anfrage vom {formatDate(lead.created_at)} • {leadSourceLabels[lead.source]}
           </p>
         </div>
-        <Badge className={`${leadStatusColors[lead.status]} text-lg px-4 py-2`}>
+        <Badge className={`${leadStatusColors[lead.status]} text-sm sm:text-lg px-3 sm:px-4 py-1 sm:py-2 self-start`}>
           {leadStatusLabels[lead.status]}
         </Badge>
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Main Content */}
-        <div className="col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 sm:space-y-6">
           {/* Kontaktdaten */}
           <Card>
             <CardHeader>

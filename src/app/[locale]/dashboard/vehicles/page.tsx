@@ -108,75 +108,75 @@ export default async function VehiclesPage({
   return (
     <div>
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Ihr Bestand</h1>
-          <p className="text-slate-600">
+          <p className="text-slate-600 text-sm sm:text-base">
             Alle Fahrzeuge auf einen Blick
           </p>
         </div>
         <div className="flex gap-2">
           <Link href="/dashboard/vehicles/import">
-            <Button variant="outline">📄 CSV/Excel Import</Button>
+            <Button variant="outline" size="sm" className="text-xs sm:text-sm">📄 Import</Button>
           </Link>
           <Link href="/dashboard/vehicles/new">
-            <Button>+ Fahrzeug erfassen</Button>
+            <Button size="sm" className="text-xs sm:text-sm">+ Erfassen</Button>
           </Link>
         </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-600">
+          <CardHeader className="pb-1 sm:pb-2 pt-3 sm:pt-4 px-3 sm:px-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-slate-600">
               Gesamt
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.total}</div>
+          <CardContent className="px-3 sm:px-4 pb-3 sm:pb-4">
+            <div className="text-xl sm:text-2xl font-bold">{stats.total}</div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-green-600">
+          <CardHeader className="pb-1 sm:pb-2 pt-3 sm:pt-4 px-3 sm:px-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-green-600">
               An Lager
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+          <CardContent className="px-3 sm:px-4 pb-3 sm:pb-4">
+            <div className="text-xl sm:text-2xl font-bold text-green-600">
               {stats.inStock}
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-yellow-600">
+          <CardHeader className="pb-1 sm:pb-2 pt-3 sm:pt-4 px-3 sm:px-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-yellow-600">
               Reserviert
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">
+          <CardContent className="px-3 sm:px-4 pb-3 sm:pb-4">
+            <div className="text-xl sm:text-2xl font-bold text-yellow-600">
               {stats.reserved}
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-500">
+          <CardHeader className="pb-1 sm:pb-2 pt-3 sm:pt-4 px-3 sm:px-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-slate-500">
               Verkauft
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-slate-500">{stats.sold}</div>
+          <CardContent className="px-3 sm:px-4 pb-3 sm:pb-4">
+            <div className="text-xl sm:text-2xl font-bold text-slate-500">{stats.sold}</div>
           </CardContent>
         </Card>
       </div>
 
       {/* Filter */}
       <Card className="mb-6">
-        <CardContent className="pt-6">
-          <div className="flex items-center gap-4">
+        <CardContent className="pt-4 sm:pt-6 px-3 sm:px-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             <span className="text-sm font-medium text-slate-600">
               Anzeigen:
             </span>
