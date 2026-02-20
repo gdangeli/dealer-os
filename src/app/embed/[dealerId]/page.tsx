@@ -10,6 +10,7 @@ interface PageProps {
     style?: string;
     dark?: string;
     layout?: string;
+    preview?: string; // Allow preview mode without widget_enabled
   }>;
 }
 
@@ -25,7 +26,9 @@ export default async function EmbedPage({ params, searchParams }: PageProps) {
     .eq("id", dealerId)
     .single();
 
-  if (dealerError || !dealer || !dealer.widget_enabled) {
+  // Allow preview mode (from settings page) even if widget not enabled yet
+  const isPreview = query.preview === "1";
+  if (dealerError || !dealer || (!dealer.widget_enabled && !isPreview)) {
     notFound();
   }
 
