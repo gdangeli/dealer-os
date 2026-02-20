@@ -10,7 +10,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.12.0] - 2025-02-21
+## [0.12.0] - 2026-02-21
 
 ### Added
 - **Website Widget** — Fahrzeuge auf externen Websites einbetten (6c21324)
@@ -40,7 +40,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.11.0] - 2025-02-20
+## [0.11.0] - 2026-02-20
 
 ### Added
 - **Admin Dashboard** — Platform-Admin Übersicht für alle Dealers
@@ -69,7 +69,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.10.0] - 2025-02-19
+## [0.10.0] - 2026-02-19
 
 ### Added
 - **Hilfe-Center** — Umfassende In-App-Dokumentation mit FAQ und Guides (aad773c)
@@ -94,7 +94,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.9.0] - 2025-02-18
+## [0.9.0] - 2026-02-18
 
 ### Added
 - **Bexio-Integration** komplett implementiert
@@ -111,7 +111,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.8.0] - 2025-02-17
+## [0.8.0] - 2026-02-17
 
 ### Added
 - **Offerten-Modul** — Vollständiges CRUD mit Status-Tracking
@@ -127,7 +127,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.7.0] - 2025-02-16
+## [0.7.0] - 2026-02-16
 
 ### Added
 - **WhatsApp Business Integration** — Phase 1 & 2
@@ -147,7 +147,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.6.0] - 2025-02-15
+## [0.6.0] - 2026-02-15
 
 ### Added
 - **Landing Page Redesign** — Modern Minimalist (Sky Blue/Indigo)
@@ -165,7 +165,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.5.0] - 2025-02-14
+## [0.5.0] - 2026-02-14
 
 ### Added
 - **Stripe Billing Integration**
@@ -180,7 +180,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.4.0] - 2025-02-13
+## [0.4.0] - 2026-02-13
 
 ### Added
 - **Vehicle Import** — CSV/Excel Import für Fahrzeuge
@@ -189,7 +189,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.3.0] - 2025-02-12
+## [0.3.0] - 2026-02-12
 
 ### Added
 - **Lead Management** — Anfragen-Inbox
@@ -199,7 +199,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.2.0] - 2025-02-10
+## [0.2.0] - 2026-02-10
 
 ### Added
 - **Fahrzeugverwaltung** — CRUD, Fotos, Zustand
@@ -208,7 +208,7 @@ _Nächste geplante Features_
 
 ---
 
-## [0.1.0] - 2025-02-08
+## [0.1.0] - 2026-02-08
 
 ### Added
 - Initiales Projekt-Setup

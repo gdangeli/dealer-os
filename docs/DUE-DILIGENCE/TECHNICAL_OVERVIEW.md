@@ -422,8 +422,17 @@ dealer-os/
 │   │   │   ├── (auth)/      # Auth pages
 │   │   │   ├── dashboard/   # Main app
 │   │   │   └── ...
-│   │   └── api/             # API routes
+│   │   ├── api/             # API routes
+│   │   └── embed/           # Public widget embed
+│   │       └── [dealerId]/  # Per-dealer widget
 │   ├── components/          # React components
+│   │   ├── dashboard/       # Dashboard widgets
+│   │   ├── mobile/          # Mobile-specific components
+│   │   │   ├── bottom-nav.tsx
+│   │   │   ├── swipe-action.tsx
+│   │   │   └── responsive-list.tsx
+│   │   ├── settings/        # Settings UI (incl. widget config)
+│   │   └── ui/              # shadcn/ui base components
 │   ├── lib/                 # Utilities
 │   ├── types/               # TypeScript types
 │   └── i18n/                # i18n config
@@ -435,6 +444,61 @@ dealer-os/
 ├── messages/                # i18n translations
 ├── public/                  # Static assets
 └── docs/                    # Documentation
+```
+
+---
+
+## 📱 Mobile Architecture
+
+### Responsive Strategy
+
+DealerOS uses a **mobile-first progressive enhancement** approach:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    MOBILE UI COMPONENTS                      │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  BottomNav (lg:hidden)                                      │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │  🏠 Übersicht  🚗 Bestand  👥 Anfragen  📄 Offerten  ⚙️ │  │
+│  └───────────────────────────────────────────────────────┘  │
+│                                                              │
+│  SwipeActionRow                                             │
+│  ┌──────────────────────────────┬─────────────────────────┐ │
+│  │  Row Content                 │  🗑️ Delete  ✏️ Edit    │ │
+│  │  ← swipe to reveal actions   │  (revealed on swipe)   │ │
+│  └──────────────────────────────┴─────────────────────────┘ │
+│                                                              │
+│  ResponsiveList                                             │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │  📷  Title                            Value      >     │  │
+│  │       Subtitle / meta                                 │  │
+│  └───────────────────────────────────────────────────────┘  │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Mobile Components
+
+| Component | Purpose | Breakpoint |
+|-----------|---------|------------|
+| `BottomNav` | iOS/Android-style tab bar | Hidden on `lg:` |
+| `SwipeActionRow` | Touch gestures for actions | Hidden on `lg:` |
+| `ResponsiveList` | Native-feel list items | All screens |
+
+### Touch Interactions
+
+- **Swipe threshold:** 80px to reveal actions
+- **Action width:** 80px per action button
+- **Transitions:** 200ms ease-out for smooth feel
+- **Safe areas:** CSS `safe-area-pb` for iPhone home bar
+
+### Locale-Aware Navigation
+
+Bottom nav automatically strips locale prefix for route matching:
+```typescript
+const normalizedPath = pathname.replace(/^\/(de|en|fr|it|sr)/, '');
 ```
 
 ---
