@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Table,
   TableBody,
@@ -21,6 +22,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 interface Dealer {
   id: string;
@@ -69,10 +78,23 @@ const statusColors: Record<string, string> = {
   suspended: 'bg-red-100 text-red-800',
 };
 
-export function AdminDashboardClient({ dealers, stats, currentUserId }: AdminDashboardClientProps) {
+export function AdminDashboardClient({ dealers: initialDealers, stats: initialStats, currentUserId }: AdminDashboardClientProps) {
+  const [dealers, setDealers] = useState(initialDealers);
+  const [stats, setStats] = useState(initialStats);
   const [search, setSearch] = useState('');
   const [planFilter, setPlanFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  // Add Dealer Modal State
+  const [addDealerOpen, setAddDealerOpen] = useState(false);
+  const [addDealerForm, setAddDealerForm] = useState({
+    company_name: '',
+    contact_name: '',
+    email: '',
+    plan: 'beta',
+  });
+  const [addDealerLoading, setAddDealerLoading] = useState(false);
+  const [addDealerError, setAddDealerError] = useState<string | null>(null);
 
   const filteredDealers = dealers.filter(dealer => {
     const matchesSearch = 
@@ -110,6 +132,101 @@ export function AdminDashboardClient({ dealers, stats, currentUserId }: AdminDas
     } finally {
       setImpersonating(null);
     }
+  };
+
+  const handleAddDealer = async () => {
+    setAddDealerLoading(true);
+    setAddDealerError(null);
+
+    try {
+      const response = await fetch('/api/admin/dealers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(addDealerForm),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setAddDealerError(data.error || 'Failed to create dealer');
+        return;
+      }
+
+      // Add new dealer to the list
+      const newDealer: Dealer = {
+        ...data.dealer,
+        teamCount: 0,
+        vehicleCount: 0,
+      };
+      setDealers([newDealer, ...dealers]);
+
+      // Update stats
+      setStats({
+        ...stats,
+        totalDealers: stats.totalDealers + 1,
+        planBreakdown: {
+          ...stats.planBreakdown,
+          [addDealerForm.plan]: (stats.planBreakdown[addDealerForm.plan as keyof typeof stats.planBreakdown] || 0) + 1,
+        },
+      });
+
+      // Reset form and close modal
+      setAddDealerForm({
+        company_name: '',
+        contact_name: '',
+        email: '',
+        plan: 'beta',
+      });
+      setAddDealerOpen(false);
+    } catch (error) {
+      console.error('Add dealer error:', error);
+      setAddDealerError('Ein unerwarteter Fehler ist aufgetreten');
+    } finally {
+      setAddDealerLoading(false);
+    }
+  };
+
+  const handleExportCSV = () => {
+    // CSV headers
+    const headers = ['Firma', 'Kontakt', 'Email', 'Plan', 'Status', 'Team', 'Fahrzeuge', 'Erstellt'];
+    
+    // Build CSV rows from filtered dealers
+    const rows = filteredDealers.map(dealer => [
+      dealer.company_name || '',
+      dealer.contact_name || '',
+      dealer.email || '',
+      dealer.subscription_plan || '',
+      dealer.status || '',
+      dealer.teamCount.toString(),
+      dealer.vehicleCount.toString(),
+      new Date(dealer.created_at).toLocaleDateString('de-CH'),
+    ]);
+
+    // Escape values for CSV
+    const escapeCSV = (value: string) => {
+      if (value.includes(',') || value.includes('"') || value.includes('\n')) {
+        return `"${value.replace(/"/g, '""')}"`;
+      }
+      return value;
+    };
+
+    // Build CSV content
+    const csvContent = [
+      headers.map(escapeCSV).join(','),
+      ...rows.map(row => row.map(escapeCSV).join(',')),
+    ].join('\n');
+
+    // Create and download file
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    const date = new Date().toISOString().split('T')[0];
+    link.setAttribute('href', url);
+    link.setAttribute('download', `dealeros-dealers-${date}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -169,10 +286,20 @@ export function AdminDashboardClient({ dealers, stats, currentUserId }: AdminDas
               <CardDescription>Quick Actions</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
-              <Button variant="outline" size="sm" className="w-full" disabled>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full"
+                onClick={() => setAddDealerOpen(true)}
+              >
                 + Dealer hinzufügen
               </Button>
-              <Button variant="outline" size="sm" className="w-full" disabled>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full"
+                onClick={handleExportCSV}
+              >
                 Export CSV
               </Button>
             </CardContent>
@@ -291,6 +418,92 @@ export function AdminDashboardClient({ dealers, stats, currentUserId }: AdminDas
           </CardContent>
         </Card>
       </div>
+
+      {/* Add Dealer Modal */}
+      <Dialog open={addDealerOpen} onOpenChange={setAddDealerOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Neuen Dealer hinzufügen</DialogTitle>
+            <DialogDescription>
+              Erstelle einen neuen Dealer manuell. Der Dealer kann sich danach mit der angegebenen E-Mail registrieren.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            {addDealerError && (
+              <div className="bg-red-50 text-red-700 px-4 py-2 rounded-md text-sm">
+                {addDealerError}
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <Label htmlFor="company_name">Firmenname *</Label>
+              <Input
+                id="company_name"
+                value={addDealerForm.company_name}
+                onChange={(e) => setAddDealerForm({ ...addDealerForm, company_name: e.target.value })}
+                placeholder="Autohaus Müller AG"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="contact_name">Kontaktperson</Label>
+              <Input
+                id="contact_name"
+                value={addDealerForm.contact_name}
+                onChange={(e) => setAddDealerForm({ ...addDealerForm, contact_name: e.target.value })}
+                placeholder="Max Müller"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email">E-Mail *</Label>
+              <Input
+                id="email"
+                type="email"
+                value={addDealerForm.email}
+                onChange={(e) => setAddDealerForm({ ...addDealerForm, email: e.target.value })}
+                placeholder="info@autohaus-mueller.ch"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="plan">Plan *</Label>
+              <Select 
+                value={addDealerForm.plan} 
+                onValueChange={(value) => setAddDealerForm({ ...addDealerForm, plan: value })}
+              >
+                <SelectTrigger id="plan">
+                  <SelectValue placeholder="Plan wählen" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="beta">Beta</SelectItem>
+                  <SelectItem value="starter">Starter</SelectItem>
+                  <SelectItem value="pro">Pro</SelectItem>
+                  <SelectItem value="business">Business</SelectItem>
+                  <SelectItem value="enterprise">Enterprise</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setAddDealerOpen(false)}
+              disabled={addDealerLoading}
+            >
+              Abbrechen
+            </Button>
+            <Button
+              onClick={handleAddDealer}
+              disabled={addDealerLoading || !addDealerForm.company_name || !addDealerForm.email}
+            >
+              {addDealerLoading ? 'Erstelle...' : 'Dealer erstellen'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
