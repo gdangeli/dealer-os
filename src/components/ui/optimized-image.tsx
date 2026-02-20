@@ -48,6 +48,23 @@ export function OptimizedImage({
   const defaultBlur =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88P/BfwYABQwC/7Tjf5YAAAAASUVORK5CYII=";
 
+  // Guard against empty/invalid src
+  if (!src || src === '') {
+    return (
+      <div
+        className={cn(
+          "flex items-center justify-center bg-slate-100",
+          containerClassName
+        )}
+        style={fill ? undefined : { width, height }}
+      >
+        <div className="text-slate-400 text-center p-4">
+          <span className="text-xs">Kein Bild</span>
+        </div>
+      </div>
+    );
+  }
+
   if (hasError) {
     return (
       <div
