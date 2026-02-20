@@ -26,6 +26,7 @@ import {
 import { EmailTemplateManager } from "@/components/email/email-template-manager";
 import { TeamManagement } from "@/components/settings/team-management";
 import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
+import { WidgetSettings } from "@/components/settings/widget-settings";
 
 // Types
 interface Dealer {
@@ -45,6 +46,8 @@ interface Dealer {
   notification_quote_expiry?: boolean;
   notification_quote_expiry_days?: number;
   notification_invoice_overdue?: boolean;
+  widget_enabled?: boolean;
+  widget_config?: Record<string, any>;
 }
 
 interface SettingsClientProps {
@@ -111,6 +114,7 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
             <TabsTrigger value="notifications" className="whitespace-nowrap text-xs sm:text-sm">🔔 Alerts</TabsTrigger>
             <TabsTrigger value="email-templates" className="whitespace-nowrap text-xs sm:text-sm">✉️ E-Mails</TabsTrigger>
             <TabsTrigger value="channels" className="whitespace-nowrap text-xs sm:text-sm">📡 Kanäle</TabsTrigger>
+            <TabsTrigger value="widget" className="whitespace-nowrap text-xs sm:text-sm">🌐 Widget</TabsTrigger>
             <TabsTrigger value="billing" className="whitespace-nowrap text-xs sm:text-sm">💳 Abo</TabsTrigger>
             <TabsTrigger value="danger" className="whitespace-nowrap text-xs sm:text-sm">⚠️ Gefahr</TabsTrigger>
           </TabsList>
@@ -165,6 +169,15 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
         {/* Inserate-Kanäle Tab */}
         <TabsContent value="channels">
           <ChannelsPlaceholder />
+        </TabsContent>
+
+        {/* Website-Widget Tab */}
+        <TabsContent value="widget">
+          <WidgetSettings
+            dealerId={dealer.id}
+            initialEnabled={dealer.widget_enabled || false}
+            initialConfig={dealer.widget_config || {}}
+          />
         </TabsContent>
 
         {/* Abo & Rechnung Tab */}
