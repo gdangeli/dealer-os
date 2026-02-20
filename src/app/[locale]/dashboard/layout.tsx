@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { LogoutButton } from "./logout-button";
 import { NavLink } from "@/components/dashboard/nav-link";
+import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
 import { MobileSidebarToggle } from "@/components/dashboard/mobile-sidebar-toggle";
 import { BottomNav } from "@/components/mobile/bottom-nav";
 import { LocationFilterWrapper } from "@/components/locations/location-filter-wrapper";
@@ -127,7 +127,9 @@ export default async function DashboardLayout({
             <span className="text-2xl transition-transform group-hover:scale-110 duration-200">🚗</span>
             <span className="text-xl font-bold">Dealer OS</span>
           </Link>
-          <Badge variant="secondary" className="mt-2">Beta</Badge>
+          <div className="mt-2">
+            <LanguageSwitcher />
+          </div>
         </div>
 
         {/* Location Filter */}
