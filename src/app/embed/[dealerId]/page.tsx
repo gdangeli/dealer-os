@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { notFound } from "next/navigation";
 import { EmbedClient } from "./embed-client";
 
@@ -22,13 +22,14 @@ export default async function EmbedPage({ params, searchParams }: PageProps) {
   // Debug mode shows error details
   const isDebug = query.debug === "1";
   
+  // Use admin client to bypass RLS - embed is a public endpoint
   let supabase;
   try {
-    supabase = await createClient();
+    supabase = createAdminClient();
   } catch (e) {
-    console.error("[Embed] Supabase client creation failed:", e);
+    console.error("[Embed] Supabase admin client creation failed:", e);
     if (isDebug) {
-      return <div className="p-4 text-red-500">Error: Failed to create Supabase client</div>;
+      return <div className="p-4 text-red-500">Error: Failed to create Supabase client - {String(e)}</div>;
     }
     notFound();
   }
