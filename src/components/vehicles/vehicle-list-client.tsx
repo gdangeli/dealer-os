@@ -224,26 +224,27 @@ export function VehicleListClient({ vehicles }: VehicleListClientProps) {
       </div>
 
       {/* Tabelle */}
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-12">
-              <Checkbox
-                checked={allSelected}
-                // @ts-expect-error - indeterminate ist ein gültiges HTML Attribut
-                indeterminate={someSelected}
-                onCheckedChange={toggleSelectAll}
-                aria-label="Alle auswählen"
-              />
-            </TableHead>
-            <TableHead className="w-16">Bild</TableHead>
-            <TableHead>Fahrzeug</TableHead>
-            <TableHead>Preis</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Standzeit</TableHead>
-            <TableHead className="text-right">Aktionen</TableHead>
-          </TableRow>
-        </TableHeader>
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
+        <Table className="min-w-[600px]">
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-10 sm:w-12">
+                <Checkbox
+                  checked={allSelected}
+                  // @ts-expect-error - indeterminate ist ein gültiges HTML Attribut
+                  indeterminate={someSelected}
+                  onCheckedChange={toggleSelectAll}
+                  aria-label="Alle auswählen"
+                />
+              </TableHead>
+              <TableHead className="w-12 sm:w-16">Bild</TableHead>
+              <TableHead>Fahrzeug</TableHead>
+              <TableHead>Preis</TableHead>
+              <TableHead className="hidden sm:table-cell">Status</TableHead>
+              <TableHead className="hidden md:table-cell">Standzeit</TableHead>
+              <TableHead className="text-right">Aktionen</TableHead>
+            </TableRow>
+          </TableHeader>
         <TableBody>
           {vehicles.map((vehicle: VehicleWithImages) => {
             const daysOnLot = calculateDaysOnLot(vehicle.created_at);
@@ -312,12 +313,12 @@ export function VehicleListClient({ vehicles }: VehicleListClientProps) {
                     </div>
                   )}
                 </TableCell>
-                <TableCell>
+                <TableCell className="hidden sm:table-cell">
                   <Badge className={statusColors[vehicle.status]}>
                     {statusLabels[vehicle.status]}
                   </Badge>
                 </TableCell>
-                <TableCell>
+                <TableCell className="hidden md:table-cell">
                   <span
                     className={`font-medium ${
                       isLongStanding ? "text-orange-600" : ""
@@ -340,7 +341,8 @@ export function VehicleListClient({ vehicles }: VehicleListClientProps) {
             );
           })}
         </TableBody>
-      </Table>
+        </Table>
+      </div>
     </div>
   );
 }

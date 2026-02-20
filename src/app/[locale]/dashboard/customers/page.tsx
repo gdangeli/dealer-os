@@ -81,72 +81,74 @@ export default async function CustomersPage({
       {/* Customers List */}
       {customers && customers.length > 0 ? (
         <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('type')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('email')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('phone')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('city')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('createdAt')}
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {customers.map((customer: Customer) => (
-                <tr
-                  key={customer.id}
-                  className="hover:bg-gray-50 cursor-pointer"
-                >
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <Link href={`/dashboard/customers/${customer.id}`} className="flex items-center">
-                      {customer.customer_type === 'company' ? (
-                        <BuildingOfficeIcon className="w-5 h-5 text-gray-400" />
-                      ) : (
-                        <UserIcon className="w-5 h-5 text-gray-400" />
-                      )}
-                    </Link>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <Link href={`/dashboard/customers/${customer.id}`} className="block">
-                      <div className="font-medium text-gray-900">
-                        {getCustomerDisplayName(customer)}
-                      </div>
-                      {customer.customer_type === 'company' && (
-                        <div className="text-sm text-gray-500">
-                          {customer.first_name} {customer.last_name}
-                        </div>
-                      )}
-                    </Link>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-600">
-                    {customer.email || '-'}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-600">
-                    {customer.phone || customer.mobile || '-'}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-600">
-                    {customer.city ? `${customer.postal_code} ${customer.city}` : '-'}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-500 text-sm">
-                    {new Date(customer.created_at).toLocaleDateString('de-CH')}
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('type')}
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('email')}
+                  </th>
+                  <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('phone')}
+                  </th>
+                  <th className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('city')}
+                  </th>
+                  <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('createdAt')}
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {customers.map((customer: Customer) => (
+                  <tr
+                    key={customer.id}
+                    className="hover:bg-gray-50 cursor-pointer"
+                  >
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                      <Link href={`/dashboard/customers/${customer.id}`} className="flex items-center">
+                        {customer.customer_type === 'company' ? (
+                          <BuildingOfficeIcon className="w-5 h-5 text-gray-400" />
+                        ) : (
+                          <UserIcon className="w-5 h-5 text-gray-400" />
+                        )}
+                      </Link>
+                    </td>
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                      <Link href={`/dashboard/customers/${customer.id}`} className="block">
+                        <div className="font-medium text-gray-900">
+                          {getCustomerDisplayName(customer)}
+                        </div>
+                        {customer.customer_type === 'company' && (
+                          <div className="text-sm text-gray-500">
+                            {customer.first_name} {customer.last_name}
+                          </div>
+                        )}
+                      </Link>
+                    </td>
+                    <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap text-gray-600">
+                      {customer.email || '-'}
+                    </td>
+                    <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-gray-600">
+                      {customer.phone || customer.mobile || '-'}
+                    </td>
+                    <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-gray-600">
+                      {customer.city ? `${customer.postal_code} ${customer.city}` : '-'}
+                    </td>
+                    <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap text-gray-500 text-sm">
+                      {new Date(customer.created_at).toLocaleDateString('de-CH')}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {/* Pagination */}
           {totalPages > 1 && (

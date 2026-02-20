@@ -87,60 +87,62 @@ export default async function QuotesPage({
       {/* Quotes List */}
       {quotes && quotes.length > 0 ? (
         <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('quoteNumber')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('customer')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('amount')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('status')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('validUntil')}
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {quotes.map((quote: Quote & { customer: any }) => (
-                <tr
-                  key={quote.id}
-                  className="hover:bg-gray-50"
-                >
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <Link href={`/dashboard/quotes/${quote.id}`} className="font-medium text-blue-600 hover:text-blue-800">
-                      {quote.quote_number}
-                    </Link>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <Link href={`/dashboard/quotes/${quote.id}`}>
-                      {quote.customer ? getCustomerDisplayName(quote.customer) : '-'}
-                    </Link>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap font-medium">
-                    {formatCHF(quote.total)}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${getQuoteStatusColor(quote.status)}`}>
-                      {getQuoteStatusLabel(quote.status)}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-500">
-                    {quote.valid_until 
-                      ? new Date(quote.valid_until).toLocaleDateString('de-CH')
-                      : '-'
-                    }
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('quoteNumber')}
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('customer')}
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('amount')}
+                  </th>
+                  <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('status')}
+                  </th>
+                  <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('validUntil')}
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {quotes.map((quote: Quote & { customer: any }) => (
+                  <tr
+                    key={quote.id}
+                    className="hover:bg-gray-50"
+                  >
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                      <Link href={`/dashboard/quotes/${quote.id}`} className="font-medium text-blue-600 hover:text-blue-800">
+                        {quote.quote_number}
+                      </Link>
+                    </td>
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                      <Link href={`/dashboard/quotes/${quote.id}`}>
+                        {quote.customer ? getCustomerDisplayName(quote.customer) : '-'}
+                      </Link>
+                    </td>
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap font-medium">
+                      {formatCHF(quote.total)}
+                    </td>
+                    <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap">
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${getQuoteStatusColor(quote.status)}`}>
+                        {getQuoteStatusLabel(quote.status)}
+                      </span>
+                    </td>
+                    <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-gray-500">
+                      {quote.valid_until 
+                        ? new Date(quote.valid_until).toLocaleDateString('de-CH')
+                        : '-'
+                      }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {/* Pagination */}
           {totalPages > 1 && (

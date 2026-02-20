@@ -87,77 +87,79 @@ export default async function InvoicesPage({
       {/* Invoices List */}
       {invoices && invoices.length > 0 ? (
         <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('invoiceNumber')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Kunde
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Total
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('paidAmount')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('dueDate')}
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {invoices.map((invoice: Invoice & { customer: any }) => {
-                const isOverdue = invoice.due_date && 
-                  new Date(invoice.due_date) < new Date() && 
-                  invoice.status !== 'paid' && 
-                  invoice.status !== 'cancelled';
-                
-                return (
-                  <tr
-                    key={invoice.id}
-                    className={`hover:bg-gray-50 ${isOverdue ? 'bg-red-50' : ''}`}
-                  >
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <Link href={`/dashboard/invoices/${invoice.id}`} className="font-medium text-blue-600 hover:text-blue-800">
-                        {invoice.invoice_number}
-                      </Link>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <Link href={`/dashboard/invoices/${invoice.id}`}>
-                        {invoice.customer ? getCustomerDisplayName(invoice.customer) : '-'}
-                      </Link>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap font-medium">
-                      {formatCHF(invoice.total)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={invoice.paid_amount > 0 ? 'text-green-600' : 'text-gray-400'}>
-                        {formatCHF(invoice.paid_amount)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                        isOverdue ? 'bg-red-100 text-red-800' : getInvoiceStatusColor(invoice.status)
-                      }`}>
-                        {isOverdue ? 'Überfällig' : getInvoiceStatusLabel(invoice.status)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-500">
-                      {invoice.due_date 
-                        ? new Date(invoice.due_date).toLocaleDateString('de-CH')
-                        : '-'
-                      }
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('invoiceNumber')}
+                  </th>
+                  <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Kunde
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Total
+                  </th>
+                  <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('paidAmount')}
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('dueDate')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {invoices.map((invoice: Invoice & { customer: any }) => {
+                  const isOverdue = invoice.due_date && 
+                    new Date(invoice.due_date) < new Date() && 
+                    invoice.status !== 'paid' && 
+                    invoice.status !== 'cancelled';
+                  
+                  return (
+                    <tr
+                      key={invoice.id}
+                      className={`hover:bg-gray-50 ${isOverdue ? 'bg-red-50' : ''}`}
+                    >
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                        <Link href={`/dashboard/invoices/${invoice.id}`} className="font-medium text-blue-600 hover:text-blue-800">
+                          {invoice.invoice_number}
+                        </Link>
+                      </td>
+                      <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap">
+                        <Link href={`/dashboard/invoices/${invoice.id}`}>
+                          {invoice.customer ? getCustomerDisplayName(invoice.customer) : '-'}
+                        </Link>
+                      </td>
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap font-medium">
+                        {formatCHF(invoice.total)}
+                      </td>
+                      <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap">
+                        <span className={invoice.paid_amount > 0 ? 'text-green-600' : 'text-gray-400'}>
+                          {formatCHF(invoice.paid_amount)}
+                        </span>
+                      </td>
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                          isOverdue ? 'bg-red-100 text-red-800' : getInvoiceStatusColor(invoice.status)
+                        }`}>
+                          {isOverdue ? 'Überfällig' : getInvoiceStatusLabel(invoice.status)}
+                        </span>
+                      </td>
+                      <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-gray-500">
+                        {invoice.due_date 
+                          ? new Date(invoice.due_date).toLocaleDateString('de-CH')
+                          : '-'
+                        }
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
 
           {/* Pagination */}
           {totalPages > 1 && (

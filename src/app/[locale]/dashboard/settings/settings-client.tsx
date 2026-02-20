@@ -102,17 +102,19 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
       </div>
 
       <Tabs defaultValue="company" className="space-y-6">
-        <TabsList className="bg-white border flex-wrap h-auto gap-1 p-1">
-          <TabsTrigger value="company">🏢 Firmenprofil</TabsTrigger>
-          <TabsTrigger value="locations">📍 Standorte</TabsTrigger>
-          <TabsTrigger value="user">👤 Benutzer</TabsTrigger>
-          <TabsTrigger value="team">👥 Team</TabsTrigger>
-          <TabsTrigger value="notifications">🔔 Benachrichtigungen</TabsTrigger>
-          <TabsTrigger value="email-templates">✉️ E-Mail-Vorlagen</TabsTrigger>
-          <TabsTrigger value="channels">📡 Kanäle</TabsTrigger>
-          <TabsTrigger value="billing">💳 Abo</TabsTrigger>
-          <TabsTrigger value="danger">⚠️ Gefahrenzone</TabsTrigger>
-        </TabsList>
+        <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+          <TabsList className="bg-white border inline-flex w-max sm:w-auto sm:flex-wrap h-auto gap-1 p-1">
+            <TabsTrigger value="company" className="whitespace-nowrap text-xs sm:text-sm">🏢 Firma</TabsTrigger>
+            <TabsTrigger value="locations" className="whitespace-nowrap text-xs sm:text-sm">📍 Standorte</TabsTrigger>
+            <TabsTrigger value="user" className="whitespace-nowrap text-xs sm:text-sm">👤 Benutzer</TabsTrigger>
+            <TabsTrigger value="team" className="whitespace-nowrap text-xs sm:text-sm">👥 Team</TabsTrigger>
+            <TabsTrigger value="notifications" className="whitespace-nowrap text-xs sm:text-sm">🔔 Alerts</TabsTrigger>
+            <TabsTrigger value="email-templates" className="whitespace-nowrap text-xs sm:text-sm">✉️ E-Mails</TabsTrigger>
+            <TabsTrigger value="channels" className="whitespace-nowrap text-xs sm:text-sm">📡 Kanäle</TabsTrigger>
+            <TabsTrigger value="billing" className="whitespace-nowrap text-xs sm:text-sm">💳 Abo</TabsTrigger>
+            <TabsTrigger value="danger" className="whitespace-nowrap text-xs sm:text-sm">⚠️ Gefahr</TabsTrigger>
+          </TabsList>
+        </div>
 
         {/* Firmenprofil Tab */}
         <TabsContent value="company">
