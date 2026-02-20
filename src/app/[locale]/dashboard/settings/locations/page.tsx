@@ -37,7 +37,7 @@ export default async function LocationsSettingsPage() {
   return (
     <div className="max-w-4xl">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">📍 Standorte verwalten</h1>
+        <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">📍 Standorte verwalten</h1>
         <p className="text-slate-600">
           Verwalten Sie Ihre Filialstandorte für Fahrzeuge, Leads und Kunden.
         </p>

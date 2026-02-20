@@ -46,7 +46,7 @@ export default async function ImportVehiclesPage() {
           </Button>
         </Link>
         <div>
-          <h1 className="text-3xl font-bold">Fahrzeuge importieren</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Fahrzeuge importieren</h1>
           <p className="text-slate-600">
             CSV oder Excel-Datei hochladen und mehrere Fahrzeuge auf einmal importieren
           </p>

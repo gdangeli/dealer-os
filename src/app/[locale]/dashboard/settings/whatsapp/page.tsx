@@ -32,7 +32,7 @@ export default async function WhatsAppSettingsPage() {
   return (
     <div className="max-w-4xl">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">WhatsApp Business</h1>
+        <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">WhatsApp Business</h1>
         <p className="text-slate-600">
           Verwalten Sie Ihre WhatsApp Business Integration
         </p>

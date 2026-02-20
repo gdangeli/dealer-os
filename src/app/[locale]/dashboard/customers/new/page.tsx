@@ -25,7 +25,7 @@ export default async function NewCustomerPage() {
           <ArrowLeftIcon className="w-5 h-5 text-gray-600" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{t('newCustomer')}</h1>
+          <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{t('newCustomer')}</h1>
         </div>
       </div>
 

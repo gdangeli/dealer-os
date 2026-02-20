@@ -85,7 +85,7 @@ export default async function EditVehiclePage({
             </Button>
           </Link>
           <div>
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
               {vehicle.make} {vehicle.model}
             </h1>
             <p className="text-slate-600">

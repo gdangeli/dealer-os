@@ -110,7 +110,7 @@ export default async function VehiclesPage({
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Ihr Bestand</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Ihr Bestand</h1>
           <p className="text-slate-600">
             Alle Fahrzeuge auf einen Blick
           </p>

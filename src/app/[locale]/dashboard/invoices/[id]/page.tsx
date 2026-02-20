@@ -58,7 +58,7 @@ export default async function InvoiceDetailPage({
           </Link>
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">
                 {invoice.invoice_number}
               </h1>
               <span className={`px-2 py-1 text-xs font-medium rounded-full ${

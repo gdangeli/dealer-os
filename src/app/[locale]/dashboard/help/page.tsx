@@ -68,8 +68,8 @@ export default function HelpPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">{t("title")}</h1>
-        <p className="text-slate-600 mb-6">{t("subtitle")}</p>
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">{t("title")}</h1>
+        <p className="text-slate-600 text-sm sm:text-base mb-6">{t("subtitle")}</p>
         
         {/* Search */}
         <div className="relative">

@@ -464,7 +464,7 @@ export default function LeadsPage() {
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Kundenanfragen</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Kundenanfragen</h1>
           <p className="text-slate-600">Behalten Sie den Überblick über alle Interessenten</p>
         </div>
         <Link href="/dashboard/leads/new">

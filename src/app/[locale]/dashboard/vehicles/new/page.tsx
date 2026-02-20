@@ -46,7 +46,7 @@ export default async function NewVehiclePage() {
           </Button>
         </Link>
         <div>
-          <h1 className="text-3xl font-bold">Fahrzeug erfassen</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Fahrzeug erfassen</h1>
           <p className="text-slate-600">
             Tragen Sie die wichtigsten Daten ein – fertig in 2 Minuten.
           </p>

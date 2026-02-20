@@ -390,14 +390,14 @@ export default function EmailTemplatesPage() {
   return (
     <div>
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-bold">E-Mail-Vorlagen</h1>
-          <p className="text-slate-600">Vorlagen für schnelle Kundenantworten mit Platzhaltern</p>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">E-Mail-Vorlagen</h1>
+          <p className="text-slate-600 text-sm sm:text-base">Vorlagen für schnelle Kundenantworten mit Platzhaltern</p>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => setEditingTemplate(null)}>
+            <Button onClick={() => setEditingTemplate(null)} size="sm" className="self-start sm:self-auto">
               + Neue Vorlage
             </Button>
           </DialogTrigger>

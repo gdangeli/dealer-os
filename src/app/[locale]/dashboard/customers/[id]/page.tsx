@@ -62,7 +62,7 @@ export default async function CustomerDetailPage({
             <ArrowLeftIcon className="w-5 h-5 text-gray-600" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">
               {getCustomerDisplayName(customer as Customer)}
             </h1>
             {customer.customer_type === 'company' && (
@@ -90,7 +90,7 @@ export default async function CustomerDetailPage({
               <DocumentTextIcon className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{quoteCount || 0}</p>
+              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{quoteCount || 0}</p>
               <p className="text-sm text-gray-500">Offerten</p>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default async function CustomerDetailPage({
               <DocumentCurrencyEuroIcon className="w-5 h-5 text-green-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{invoiceCount || 0}</p>
+              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{invoiceCount || 0}</p>
               <p className="text-sm text-gray-500">Rechnungen</p>
             </div>
           </div>

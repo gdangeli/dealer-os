@@ -173,7 +173,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
               ← Zurück
             </Link>
           </div>
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
             {lead.first_name} {lead.last_name}
           </h1>
           <p className="text-slate-600">

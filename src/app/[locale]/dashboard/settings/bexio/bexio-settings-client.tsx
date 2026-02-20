@@ -188,7 +188,7 @@ export function BexioSettingsClient({ dealer: initialDealer, stats: initialStats
           </a>
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Bexio-Integration</h1>
+          <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">Bexio-Integration</h1>
           <p className="text-slate-600">Verbinden Sie DealerOS mit Ihrer Bexio-Buchhaltung</p>
         </div>
       </div>

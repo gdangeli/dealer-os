@@ -107,7 +107,7 @@ export function BillingClient({ dealer }: BillingClientProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Abonnement & Abrechnung</h1>
+        <h1 className="text-lg sm:text-xl lg:text-2xl font-bold">Abonnement & Abrechnung</h1>
         <p className="text-slate-600">Verwalten Sie Ihr Abo und Ihre Zahlungsmethoden.</p>
       </div>
 

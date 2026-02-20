@@ -97,7 +97,7 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Einstellungen</h1>
+        <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">Einstellungen</h1>
         <p className="text-slate-600">Verwalten Sie Ihr Konto und Ihre Präferenzen.</p>
       </div>
 
