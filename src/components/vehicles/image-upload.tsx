@@ -21,7 +21,8 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/client";
-import { Upload, X, GripVertical, Star, Loader2, CheckCircle, Maximize2 } from "lucide-react";
+import { Upload, X, GripVertical, Star, Loader2, CheckCircle, Maximize2, Wand2 } from "lucide-react";
+import { ImageOptimizer } from "./image-optimizer";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { ImageLightbox } from "./image-lightbox";
 import { 
@@ -59,12 +60,14 @@ function SortableImage({
   onRemove,
   onSetMain,
   onViewFullscreen,
+  onOptimize,
   isUploading,
 }: {
   image: VehicleImage;
   onRemove: (id: string) => void;
   onSetMain: (id: string) => void;
   onViewFullscreen: () => void;
+  onOptimize: (id: string) => void;
   isUploading?: boolean;
 }) {
   const {
@@ -151,6 +154,18 @@ function SortableImage({
             </button>
           )}
           
+          {/* AI Optimize Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onOptimize(image.id);
+            }}
+            className="p-1.5 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
+            title="🎨 KI Bild-Optimierung"
+          >
+            <Wand2 className="w-4 h-4" />
+          </button>
+
           {/* Drag Handle */}
           <button
             {...attributes}
@@ -200,6 +215,8 @@ export function ImageUpload({
   } | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [optimizerOpen, setOptimizerOpen] = useState(false);
+  const [optimizingImage, setOptimizingImage] = useState<VehicleImage | null>(null);
 
   const MAX_IMAGES = 30;
   const MAX_SIZE_MB = 10; // Input max size
@@ -524,6 +541,41 @@ export function ImageUpload({
     }
   };
 
+  const handleOptimize = (imageId: string) => {
+    const image = images.find(img => img.id === imageId);
+    if (image && !image.isNew) {
+      setOptimizingImage(image);
+      setOptimizerOpen(true);
+    }
+  };
+
+  const handleOptimized = async (newImageUrl: string) => {
+    if (!optimizingImage) return;
+    
+    // Update the image URL in state
+    const updatedImages = images.map(img => 
+      img.id === optimizingImage.id 
+        ? { ...img, url: newImageUrl }
+        : img
+    );
+    setImages(updatedImages);
+    
+    // Update in database if needed
+    if (vehicleId && !optimizingImage.isNew) {
+      await supabase
+        .from("vehicle_images")
+        .update({ url: newImageUrl })
+        .eq("id", optimizingImage.id);
+    }
+    
+    if (onImagesChange) {
+      onImagesChange(updatedImages);
+    }
+    
+    setOptimizingImage(null);
+    setOptimizerOpen(false);
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -608,6 +660,7 @@ export function ImageUpload({
                     image={image}
                     onRemove={handleRemove}
                     onSetMain={handleSetMain}
+                    onOptimize={handleOptimize}
                     onViewFullscreen={() => openLightbox(index)}
                     isUploading={uploadingIds.has(image.id)}
                   />
@@ -620,7 +673,7 @@ export function ImageUpload({
         {/* Helper Text */}
         {images.length > 0 && (
           <p className="text-sm text-slate-500">
-            💡 Klicken Sie auf ein Bild für Vollansicht • Ziehen zum Sortieren • ⭐ für Hauptbild
+            💡 Klick für Vollansicht • Ziehen zum Sortieren • ⭐ Hauptbild • 🪄 KI-Optimierung
           </p>
         )}
       </CardContent>
@@ -633,6 +686,19 @@ export function ImageUpload({
         onOpenChange={setLightboxOpen}
         onSetMain={handleSetMain}
       />
+
+      {/* AI Image Optimizer */}
+      {optimizingImage && (
+        <ImageOptimizer
+          open={optimizerOpen}
+          onClose={() => {
+            setOptimizerOpen(false);
+            setOptimizingImage(null);
+          }}
+          imageUrl={optimizingImage.url}
+          onOptimized={handleOptimized}
+        />
+      )}
     </Card>
   );
 }
