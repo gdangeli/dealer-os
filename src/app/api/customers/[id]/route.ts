@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { NextRequest, NextResponse } from 'next/server';
 import { CustomerFormData } from '@/types/billing';
+import { getCurrentDealer, getImpersonationInfo } from '@/lib/auth/get-current-dealer';
 
 // GET /api/customers/[id] - Get a single customer
 export async function GET(
@@ -16,11 +18,21 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { data: customer, error } = await supabase
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
+    const { data: customer, error } = await queryClient
       .from('customers')
       .select('*')
       .eq('id', id)
-      .eq('dealer_id', user.id)
+      .eq('dealer_id', dealer.id)
       .single();
 
     if (error) {
@@ -52,6 +64,16 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
     const body: Partial<CustomerFormData> = await request.json();
 
     // Validate if company type
@@ -62,7 +84,7 @@ export async function PUT(
       );
     }
 
-    const { data: customer, error } = await supabase
+    const { data: customer, error } = await queryClient
       .from('customers')
       .update({
         customer_type: body.customer_type,
@@ -80,7 +102,7 @@ export async function PUT(
         location_id: body.location_id || null,
       })
       .eq('id', id)
-      .eq('dealer_id', user.id)
+      .eq('dealer_id', dealer.id)
       .select()
       .single();
 
@@ -113,13 +135,23 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
     // Check if customer has quotes or invoices
-    const { count: quoteCount } = await supabase
+    const { count: quoteCount } = await queryClient
       .from('quotes')
       .select('*', { count: 'exact', head: true })
       .eq('customer_id', id);
 
-    const { count: invoiceCount } = await supabase
+    const { count: invoiceCount } = await queryClient
       .from('invoices')
       .select('*', { count: 'exact', head: true })
       .eq('customer_id', id);
@@ -131,11 +163,11 @@ export async function DELETE(
       );
     }
 
-    const { error } = await supabase
+    const { error } = await queryClient
       .from('customers')
       .delete()
       .eq('id', id)
-      .eq('dealer_id', user.id);
+      .eq('dealer_id', dealer.id);
 
     if (error) {
       console.error('Error deleting customer:', error);

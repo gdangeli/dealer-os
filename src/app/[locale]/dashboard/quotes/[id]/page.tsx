@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { redirect, notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ import {
   PencilIcon
 } from '@heroicons/react/24/outline';
 import { QuoteActions } from './QuoteActions';
+import { getCurrentDealer, getImpersonationInfo } from '@/lib/auth/get-current-dealer';
 
 export default async function QuoteDetailPage({
   params,
@@ -29,8 +31,18 @@ export default async function QuoteDetailPage({
     redirect('/login');
   }
 
+  // Get dealer with impersonation support
+  const dealer = await getCurrentDealer();
+  if (!dealer) {
+    redirect('/login');
+  }
+
+  // Check if impersonating - use admin client to bypass RLS
+  const impersonation = await getImpersonationInfo();
+  const queryClient = impersonation ? createAdminClient() : supabase;
+
   // Fetch quote with customer and items
-  const { data: quote, error } = await supabase
+  const { data: quote, error } = await queryClient
     .from('quotes')
     .select(`
       *,
@@ -38,7 +50,7 @@ export default async function QuoteDetailPage({
       items:quote_items(*)
     `)
     .eq('id', id)
-    .eq('dealer_id', user.id)
+    .eq('dealer_id', dealer.id)
     .single();
 
   if (error || !quote) {

@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { redirect, notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
@@ -11,6 +12,7 @@ import {
   DocumentCurrencyEuroIcon,
   CloudIcon
 } from '@heroicons/react/24/outline';
+import { getCurrentDealer, getImpersonationInfo } from '@/lib/auth/get-current-dealer';
 
 export default async function CustomerDetailPage({
   params,
@@ -26,12 +28,22 @@ export default async function CustomerDetailPage({
     redirect('/login');
   }
 
+  // Get dealer with impersonation support
+  const dealer = await getCurrentDealer();
+  if (!dealer) {
+    redirect('/login');
+  }
+
+  // Check if impersonating - use admin client to bypass RLS
+  const impersonation = await getImpersonationInfo();
+  const queryClient = impersonation ? createAdminClient() : supabase;
+
   // Fetch customer
-  const { data: customer, error } = await supabase
+  const { data: customer, error } = await queryClient
     .from('customers')
     .select('*')
     .eq('id', id)
-    .eq('dealer_id', user.id)
+    .eq('dealer_id', dealer.id)
     .single();
 
   if (error || !customer) {
@@ -40,11 +52,11 @@ export default async function CustomerDetailPage({
 
   // Fetch quote and invoice counts
   const [{ count: quoteCount }, { count: invoiceCount }] = await Promise.all([
-    supabase
+    queryClient
       .from('quotes')
       .select('*', { count: 'exact', head: true })
       .eq('customer_id', id),
-    supabase
+    queryClient
       .from('invoices')
       .select('*', { count: 'exact', head: true })
       .eq('customer_id', id),

@@ -1,9 +1,11 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Customer, getCustomerDisplayName } from '@/types/billing';
 import { PlusIcon, MagnifyingGlassIcon, UserIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
+import { getCurrentDealer, getImpersonationInfo } from '@/lib/auth/get-current-dealer';
 
 export default async function CustomersPage({
   searchParams,
@@ -19,6 +21,16 @@ export default async function CustomersPage({
     redirect('/login');
   }
 
+  // Get dealer with impersonation support
+  const dealer = await getCurrentDealer();
+  if (!dealer) {
+    redirect('/login');
+  }
+
+  // Check if impersonating - use admin client to bypass RLS
+  const impersonation = await getImpersonationInfo();
+  const queryClient = impersonation ? createAdminClient() : supabase;
+
   const page = parseInt(params.page || '1');
   const limit = 20;
   const offset = (page - 1) * limit;
@@ -26,10 +38,10 @@ export default async function CustomersPage({
 
   const locationFilter = params.location;
   
-  let query = supabase
+  let query = queryClient
     .from('customers')
     .select('*', { count: 'exact' })
-    .eq('dealer_id', user.id)
+    .eq('dealer_id', dealer.id)
     .order('created_at', { ascending: false })
     .range(offset, offset + limit - 1);
 

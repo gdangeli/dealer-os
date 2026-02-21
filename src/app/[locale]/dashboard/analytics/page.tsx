@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -21,6 +22,7 @@ import {
 import { TimeRangeFilter } from "@/components/analytics/time-range-filter";
 import { type TimeRange, getTimeRangeDays, getTimeRangeLabel } from "@/lib/analytics/time-range";
 import { ExportButton } from "@/components/analytics/export-button";
+import { getCurrentDealer, getImpersonationInfo } from "@/lib/auth/get-current-dealer";
 
 // Helper: Calculate days in stock
 function calculateDaysInStock(acquiredAt: string | null): number {
@@ -77,11 +79,12 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const { data: dealer } = await supabase
-    .from("dealers")
-    .select("id")
-    .eq("user_id", user.id)
-    .single();
+  // Get dealer with impersonation support
+  const dealer = await getCurrentDealer();
+  
+  // Check if impersonating - use admin client to bypass RLS
+  const impersonation = await getImpersonationInfo();
+  const queryClient = impersonation ? createAdminClient() : supabase;
 
   if (!dealer?.id) {
     return (
@@ -104,14 +107,14 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
   // === LOAD DATA ===
   
   // All vehicles
-  const { data: allVehicles } = await supabase
+  const { data: allVehicles } = await queryClient
     .from("vehicles")
     .select("*")
     .eq("dealer_id", dealer.id);
   const vehicles = allVehicles || [];
 
   // Leads in range
-  const { data: allLeads } = await supabase
+  const { data: allLeads } = await queryClient
     .from("leads")
     .select("*")
     .eq("dealer_id", dealer.id);
@@ -121,7 +124,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
   const leadsWonInRange = leadsInRange.filter(l => l.status === "won");
 
   // Quotes (Offers)
-  const { data: allQuotes } = await supabase
+  const { data: allQuotes } = await queryClient
     .from("quotes")
     .select("*")
     .eq("dealer_id", dealer.id);
@@ -132,7 +135,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
   const acceptedQuotesInRange = quotesInRange.filter(q => q.status === "accepted" || q.status === "invoiced");
 
   // Invoices
-  const { data: allInvoices } = await supabase
+  const { data: allInvoices } = await queryClient
     .from("invoices")
     .select("*")
     .eq("dealer_id", dealer.id);

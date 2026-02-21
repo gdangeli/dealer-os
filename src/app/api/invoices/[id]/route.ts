@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { NextRequest, NextResponse } from 'next/server';
 import { toRappen } from '@/types/billing';
+import { getCurrentDealer, getImpersonationInfo } from '@/lib/auth/get-current-dealer';
 
 // GET /api/invoices/[id] - Get a single invoice with items
 export async function GET(
@@ -16,7 +18,17 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { data: invoice, error } = await supabase
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
+    const { data: invoice, error } = await queryClient
       .from('invoices')
       .select(`
         *,
@@ -25,7 +37,7 @@ export async function GET(
         payments(*)
       `)
       .eq('id', id)
-      .eq('dealer_id', user.id)
+      .eq('dealer_id', dealer.id)
       .single();
 
     if (error) {
@@ -57,6 +69,16 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
     const body = await request.json();
 
     // Handle payment recording
@@ -64,7 +86,7 @@ export async function PUT(
       const paymentAmount = toRappen(body.payment.amount);
       
       // Create payment record
-      const { error: paymentError } = await supabase
+      const { error: paymentError } = await queryClient
         .from('payments')
         .insert({
           invoice_id: id,
@@ -81,7 +103,7 @@ export async function PUT(
       }
 
       // Get invoice and calculate new paid amount
-      const { data: invoice } = await supabase
+      const { data: invoice } = await queryClient
         .from('invoices')
         .select('total, paid_amount')
         .eq('id', id)
@@ -91,7 +113,7 @@ export async function PUT(
         const newPaidAmount = (invoice.paid_amount || 0) + paymentAmount;
         const newStatus = newPaidAmount >= invoice.total ? 'paid' : 'partial';
         
-        await supabase
+        await queryClient
           .from('invoices')
           .update({ 
             paid_amount: newPaidAmount,
@@ -111,7 +133,7 @@ export async function PUT(
       } else if (body.status === 'paid') {
         updateData.paid_at = new Date().toISOString();
         // Get invoice total and set paid_amount
-        const { data: invoice } = await supabase
+        const { data: invoice } = await queryClient
           .from('invoices')
           .select('total')
           .eq('id', id)
@@ -121,15 +143,15 @@ export async function PUT(
         }
       }
 
-      await supabase
+      await queryClient
         .from('invoices')
         .update(updateData)
         .eq('id', id)
-        .eq('dealer_id', user.id);
+        .eq('dealer_id', dealer.id);
     }
 
     // Fetch updated invoice
-    const { data: invoice, error } = await supabase
+    const { data: invoice, error } = await queryClient
       .from('invoices')
       .select(`
         *,
@@ -138,7 +160,7 @@ export async function PUT(
         payments(*)
       `)
       .eq('id', id)
-      .eq('dealer_id', user.id)
+      .eq('dealer_id', dealer.id)
       .single();
 
     if (error) {
@@ -166,12 +188,22 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
     // Check if invoice is a draft
-    const { data: existingInvoice } = await supabase
+    const { data: existingInvoice } = await queryClient
       .from('invoices')
       .select('status')
       .eq('id', id)
-      .eq('dealer_id', user.id)
+      .eq('dealer_id', dealer.id)
       .single();
 
     if (!existingInvoice) {
@@ -185,11 +217,11 @@ export async function DELETE(
       );
     }
 
-    const { error } = await supabase
+    const { error } = await queryClient
       .from('invoices')
       .delete()
       .eq('id', id)
-      .eq('dealer_id', user.id);
+      .eq('dealer_id', dealer.id);
 
     if (error) {
       console.error('Error deleting invoice:', error);

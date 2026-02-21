@@ -1,10 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { redirect, notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Invoice, InvoiceItem, Payment, getCustomerDisplayName, getInvoiceStatusLabel, getInvoiceStatusColor, formatCHF } from '@/types/billing';
 import { ArrowLeftIcon, CloudIcon } from '@heroicons/react/24/outline';
 import { InvoiceActions } from './InvoiceActions';
+import { getCurrentDealer, getImpersonationInfo } from '@/lib/auth/get-current-dealer';
 
 export default async function InvoiceDetailPage({
   params,
@@ -20,8 +22,18 @@ export default async function InvoiceDetailPage({
     redirect('/login');
   }
 
+  // Get dealer with impersonation support
+  const dealer = await getCurrentDealer();
+  if (!dealer) {
+    redirect('/login');
+  }
+
+  // Check if impersonating - use admin client to bypass RLS
+  const impersonation = await getImpersonationInfo();
+  const queryClient = impersonation ? createAdminClient() : supabase;
+
   // Fetch invoice with customer, items, and payments
-  const { data: invoice, error } = await supabase
+  const { data: invoice, error } = await queryClient
     .from('invoices')
     .select(`
       *,
@@ -30,7 +42,7 @@ export default async function InvoiceDetailPage({
       payments(*)
     `)
     .eq('id', id)
-    .eq('dealer_id', user.id)
+    .eq('dealer_id', dealer.id)
     .single();
 
   if (error || !invoice) {

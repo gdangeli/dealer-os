@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { NextRequest, NextResponse } from 'next/server';
 import { toRappen } from '@/types/billing';
+import { getCurrentDealer, getImpersonationInfo } from '@/lib/auth/get-current-dealer';
 
 // GET /api/invoices - List all invoices
 export async function GET(request: NextRequest) {
@@ -12,19 +14,29 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
     const searchParams = request.nextUrl.searchParams;
     const status = searchParams.get('status');
     const customerId = searchParams.get('customer_id');
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    let query = supabase
+    let query = queryClient
       .from('invoices')
       .select(`
         *,
         customer:customers(id, first_name, last_name, company_name, customer_type)
       `, { count: 'exact' })
-      .eq('dealer_id', user.id)
+      .eq('dealer_id', dealer.id)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
 
@@ -59,16 +71,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
     const body = await request.json();
 
     // If creating from quote
     if (body.quote_id) {
       // Fetch quote with items
-      const { data: quote, error: quoteError } = await supabase
+      const { data: quote, error: quoteError } = await queryClient
         .from('quotes')
         .select(`*, items:quote_items(*)`)
         .eq('id', body.quote_id)
-        .eq('dealer_id', user.id)
+        .eq('dealer_id', dealer.id)
         .single();
 
       if (quoteError || !quote) {
@@ -80,18 +102,18 @@ export async function POST(request: NextRequest) {
       }
 
       // Generate invoice number
-      const { data: invoiceNumber } = await supabase
-        .rpc('generate_invoice_number', { p_dealer_id: user.id });
+      const { data: invoiceNumber } = await queryClient
+        .rpc('generate_invoice_number', { p_dealer_id: dealer.id });
 
       // Calculate due date (30 days from now)
       const dueDate = new Date();
       dueDate.setDate(dueDate.getDate() + 30);
 
       // Create invoice from quote
-      const { data: invoice, error: invoiceError } = await supabase
+      const { data: invoice, error: invoiceError } = await queryClient
         .from('invoices')
         .insert({
-          dealer_id: user.id,
+          dealer_id: dealer.id,
           customer_id: quote.customer_id,
           quote_id: quote.id,
           invoice_number: invoiceNumber,
@@ -129,17 +151,17 @@ export async function POST(request: NextRequest) {
           vehicle_id: item.vehicle_id,
         }));
 
-        await supabase.from('invoice_items').insert(invoiceItems);
+        await queryClient.from('invoice_items').insert(invoiceItems);
       }
 
       // Update quote status to invoiced
-      await supabase
+      await queryClient
         .from('quotes')
         .update({ status: 'invoiced' })
         .eq('id', quote.id);
 
       // Fetch complete invoice
-      const { data: completeInvoice } = await supabase
+      const { data: completeInvoice } = await queryClient
         .from('invoices')
         .select(`
           *,
@@ -162,8 +184,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate invoice number
-    const { data: invoiceNumber } = await supabase
-      .rpc('generate_invoice_number', { p_dealer_id: user.id });
+    const { data: invoiceNumber } = await queryClient
+      .rpc('generate_invoice_number', { p_dealer_id: dealer.id });
 
     // Calculate totals
     let subtotal = 0;
@@ -195,10 +217,10 @@ export async function POST(request: NextRequest) {
     const dueDate = new Date();
     dueDate.setDate(dueDate.getDate() + 30);
 
-    const { data: invoice, error: invoiceError } = await supabase
+    const { data: invoice, error: invoiceError } = await queryClient
       .from('invoices')
       .insert({
-        dealer_id: user.id,
+        dealer_id: dealer.id,
         customer_id: body.customer_id,
         invoice_number: invoiceNumber,
         status: 'draft',
@@ -226,10 +248,10 @@ export async function POST(request: NextRequest) {
       invoice_id: invoice.id,
     }));
 
-    await supabase.from('invoice_items').insert(itemsWithInvoiceId);
+    await queryClient.from('invoice_items').insert(itemsWithInvoiceId);
 
     // Fetch complete invoice
-    const { data: completeInvoice } = await supabase
+    const { data: completeInvoice } = await queryClient
       .from('invoices')
       .select(`
         *,

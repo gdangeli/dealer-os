@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -14,11 +15,15 @@ export default async function DashboardPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
 
-  // Get dealer profile via team_members
+  // Get dealer profile via team_members (handles impersonation)
   const dealer = await getCurrentDealer();
 
-  // Check if impersonating (skip onboarding redirect when impersonating)
+  // Check if impersonating
   const impersonation = await getImpersonationInfo();
+  const isImpersonating = !!impersonation;
+
+  // Use admin client when impersonating to bypass RLS
+  const queryClient = isImpersonating ? createAdminClient() : supabase;
 
   // Redirect to onboarding if not completed (skip if impersonating)
   if (dealer && !dealer.onboarding_completed && !impersonation) {
@@ -26,26 +31,26 @@ export default async function DashboardPage() {
   }
 
   // Get vehicle stats
-  const { count: totalVehicles } = await supabase
+  const { count: totalVehicles } = await queryClient
     .from('vehicles')
     .select('*', { count: 'exact', head: true })
     .eq('dealer_id', dealer?.id);
 
-  const { count: inStockVehicles } = await supabase
+  const { count: inStockVehicles } = await queryClient
     .from('vehicles')
     .select('*', { count: 'exact', head: true })
     .eq('dealer_id', dealer?.id)
     .eq('status', 'in_stock');
 
   // Get new leads count
-  const { count: newLeads } = await supabase
+  const { count: newLeads } = await queryClient
     .from('leads')
     .select('*', { count: 'exact', head: true })
     .eq('dealer_id', dealer?.id)
     .eq('status', 'new');
 
   // Get recent leads
-  const { data: recentLeads } = await supabase
+  const { data: recentLeads } = await queryClient
     .from('leads')
     .select(`
       *,
@@ -59,7 +64,7 @@ export default async function DashboardPage() {
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
   
-  const { data: longStanding } = await supabase
+  const { data: longStanding } = await queryClient
     .from('vehicles')
     .select('*')
     .eq('dealer_id', dealer?.id)

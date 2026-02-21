@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { NextRequest, NextResponse } from 'next/server';
 import { QuoteFormData, toRappen } from '@/types/billing';
+import { getCurrentDealer, getImpersonationInfo } from '@/lib/auth/get-current-dealer';
 
 // GET /api/quotes - List all quotes
 export async function GET(request: NextRequest) {
@@ -12,19 +14,29 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
     const searchParams = request.nextUrl.searchParams;
     const status = searchParams.get('status');
     const customerId = searchParams.get('customer_id');
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    let query = supabase
+    let query = queryClient
       .from('quotes')
       .select(`
         *,
         customer:customers(id, first_name, last_name, company_name, customer_type)
       `, { count: 'exact' })
-      .eq('dealer_id', user.id)
+      .eq('dealer_id', dealer.id)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
 
@@ -59,6 +71,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
     const body: QuoteFormData = await request.json();
 
     // Validate required fields
@@ -71,8 +93,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate quote number
-    const { data: quoteNumberData, error: numError } = await supabase
-      .rpc('generate_quote_number', { p_dealer_id: user.id });
+    const { data: quoteNumberData, error: numError } = await queryClient
+      .rpc('generate_quote_number', { p_dealer_id: dealer.id });
 
     if (numError) {
       console.error('Error generating quote number:', numError);
@@ -108,10 +130,10 @@ export async function POST(request: NextRequest) {
     const total = netAmount + vatAmount;
 
     // Create quote
-    const { data: quote, error: quoteError } = await supabase
+    const { data: quote, error: quoteError } = await queryClient
       .from('quotes')
       .insert({
-        dealer_id: user.id,
+        dealer_id: dealer.id,
         customer_id: body.customer_id,
         lead_id: body.lead_id || null,
         quote_number: quoteNumberData,
@@ -144,19 +166,19 @@ export async function POST(request: NextRequest) {
       quote_id: quote.id,
     }));
 
-    const { error: itemsError } = await supabase
+    const { error: itemsError } = await queryClient
       .from('quote_items')
       .insert(itemsWithQuoteId);
 
     if (itemsError) {
       console.error('Error creating quote items:', itemsError);
       // Rollback quote
-      await supabase.from('quotes').delete().eq('id', quote.id);
+      await queryClient.from('quotes').delete().eq('id', quote.id);
       return NextResponse.json({ error: itemsError.message }, { status: 500 });
     }
 
     // Fetch complete quote with items
-    const { data: completeQuote } = await supabase
+    const { data: completeQuote } = await queryClient
       .from('quotes')
       .select(`
         *,

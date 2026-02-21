@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { NextRequest, NextResponse } from 'next/server';
 import { CustomerFormData } from '@/types/billing';
+import { getCurrentDealer, getImpersonationInfo } from '@/lib/auth/get-current-dealer';
 
 // GET /api/customers - List all customers
 export async function GET(request: NextRequest) {
@@ -12,15 +14,25 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
     const searchParams = request.nextUrl.searchParams;
     const search = searchParams.get('search');
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    let query = supabase
+    let query = queryClient
       .from('customers')
       .select('*', { count: 'exact' })
-      .eq('dealer_id', user.id)
+      .eq('dealer_id', dealer.id)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
 
@@ -60,6 +72,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get dealer with impersonation support
+    const dealer = await getCurrentDealer();
+    if (!dealer) {
+      return NextResponse.json({ error: 'Dealer not found' }, { status: 404 });
+    }
+
+    // Use admin client when impersonating to bypass RLS
+    const impersonation = await getImpersonationInfo();
+    const queryClient = impersonation ? createAdminClient() : supabase;
+
     const body: CustomerFormData = await request.json();
 
     // Validate required fields
@@ -78,10 +100,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { data: customer, error } = await supabase
+    const { data: customer, error } = await queryClient
       .from('customers')
       .insert({
-        dealer_id: user.id,
+        dealer_id: dealer.id,
         customer_type: body.customer_type || 'private',
         company_name: body.company_name || null,
         salutation: body.salutation || null,
