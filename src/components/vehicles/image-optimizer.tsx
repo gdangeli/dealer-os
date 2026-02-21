@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -22,15 +23,8 @@ interface ImageOptimizerProps {
   onOptimized: (newImageUrl: string) => void;
 }
 
-const BACKGROUND_TEMPLATES = [
-  { id: "showroom-modern", name: "Modern Showroom", preview: "🏢" },
-  { id: "showroom-classic", name: "Classic Showroom", preview: "🏛️" },
-  { id: "showroom-outdoor", name: "Outdoor Setting", preview: "🌳" },
-  { id: "showroom-minimal", name: "Minimal White", preview: "⬜" },
-  { id: "none", name: "Transparent", preview: "🔲" },
-];
-
 export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOptimizerProps) {
+  const t = useTranslations("photoAI");
   const [isProcessing, setIsProcessing] = useState(false);
   const [selectedBackground, setSelectedBackground] = useState("showroom-modern");
   const [operations, setOperations] = useState({
@@ -39,6 +33,14 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
     enhance: true,
   });
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const BACKGROUND_TEMPLATES = [
+    { id: "showroom-modern", name: t("backgrounds.showroomModern"), preview: "🏢" },
+    { id: "showroom-classic", name: t("backgrounds.showroomClassic"), preview: "🏛️" },
+    { id: "showroom-outdoor", name: t("backgrounds.showroomOutdoor"), preview: "🌳" },
+    { id: "showroom-minimal", name: t("backgrounds.showroomMinimal"), preview: "⬜" },
+    { id: "none", name: t("backgrounds.transparent"), preview: "🔲" },
+  ];
 
   const handleOptimize = async () => {
     setIsProcessing(true);
@@ -68,10 +70,10 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
       // Show preview
       setPreviewUrl(`data:image/png;base64,${result.final}`);
       
-      toast.success("Bild optimiert!");
+      toast.success(t("success"));
     } catch (error) {
       console.error(error);
-      toast.error(error instanceof Error ? error.message : "Fehler bei der Optimierung");
+      toast.error(error instanceof Error ? error.message : t("error"));
     } finally {
       setIsProcessing(false);
     }
@@ -82,7 +84,7 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
     
     // Convert base64 to blob and upload to Supabase
     // Then call onOptimized with the new URL
-    toast.success("Bild wurde aktualisiert!");
+    toast.success(t("applied"));
     onOptimized(previewUrl); // For now, pass base64
     onClose();
   };
@@ -95,9 +97,9 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
     <Dialog open={open} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-4xl">
         <DialogHeader>
-          <DialogTitle>🎨 Bild optimieren</DialogTitle>
+          <DialogTitle>🎨 {t("title")}</DialogTitle>
           <DialogDescription>
-            AI-gestützte Bildoptimierung für professionelle Fahrzeugfotos
+            {t("subtitle")}
           </DialogDescription>
         </DialogHeader>
 
@@ -125,7 +127,7 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
               )}
             </div>
             <p className="text-sm text-slate-500 text-center">
-              {previewUrl ? "Vorschau (nach Optimierung)" : "Original"}
+              {previewUrl ? t("previewOptimized") : t("previewOriginal")}
             </p>
           </div>
 
@@ -133,7 +135,7 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
           <div className="space-y-6">
             {/* Operations */}
             <div className="space-y-4">
-              <Label className="text-base font-semibold">Optimierungen</Label>
+              <Label className="text-base font-semibold">{t("operations")}</Label>
               
               <div className="space-y-3">
                 <label className="flex items-center gap-3 cursor-pointer">
@@ -142,8 +144,8 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
                     onCheckedChange={() => toggleOperation("enhance")}
                   />
                   <div>
-                    <span className="font-medium">✨ Auto-Optimierung</span>
-                    <p className="text-sm text-slate-500">Helligkeit, Kontrast, Schärfe</p>
+                    <span className="font-medium">✨ {t("enhance")}</span>
+                    <p className="text-sm text-slate-500">{t("enhanceDesc")}</p>
                   </div>
                 </label>
 
@@ -153,8 +155,8 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
                     onCheckedChange={() => toggleOperation("blurPlates")}
                   />
                   <div>
-                    <span className="font-medium">🔒 Kennzeichen verpixeln</span>
-                    <p className="text-sm text-slate-500">Automatische Erkennung & Blur</p>
+                    <span className="font-medium">🔒 {t("blurPlates")}</span>
+                    <p className="text-sm text-slate-500">{t("blurPlatesDesc")}</p>
                   </div>
                 </label>
 
@@ -164,8 +166,8 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
                     onCheckedChange={() => toggleOperation("removeBackground")}
                   />
                   <div>
-                    <span className="font-medium">🎨 Hintergrund ersetzen</span>
-                    <p className="text-sm text-slate-500">Virtueller Showroom</p>
+                    <span className="font-medium">🎨 {t("removeBackground")}</span>
+                    <p className="text-sm text-slate-500">{t("removeBackgroundDesc")}</p>
                   </div>
                 </label>
               </div>
@@ -174,7 +176,7 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
             {/* Background Selection */}
             {operations.removeBackground && (
               <div className="space-y-3">
-                <Label className="text-base font-semibold">Hintergrund wählen</Label>
+                <Label className="text-base font-semibold">{t("selectBackground")}</Label>
                 <RadioGroup
                   value={selectedBackground}
                   onValueChange={setSelectedBackground}
@@ -209,19 +211,19 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
                   {isProcessing ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Verarbeite...
+                      {t("processing")}
                     </>
                   ) : (
-                    "🚀 Optimieren"
+                    <>🚀 {t("optimize")}</>
                   )}
                 </Button>
               ) : (
                 <>
                   <Button variant="outline" onClick={() => setPreviewUrl(null)} className="flex-1">
-                    ↩️ Zurück
+                    ↩️ {t("back")}
                   </Button>
                   <Button onClick={handleApply} className="flex-1">
-                    ✅ Übernehmen
+                    ✅ {t("apply")}
                   </Button>
                 </>
               )}

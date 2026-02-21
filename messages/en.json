@@ -376,6 +376,34 @@
       "other": "Other"
     }
   },
+  "photoAI": {
+    "title": "Optimize Image",
+    "subtitle": "AI-powered image optimization for professional vehicle photos",
+    "operations": "Optimizations",
+    "enhance": "Auto-Enhance",
+    "enhanceDesc": "Brightness, contrast, sharpness",
+    "blurPlates": "Blur License Plates",
+    "blurPlatesDesc": "Automatic detection & blur",
+    "removeBackground": "Replace Background",
+    "removeBackgroundDesc": "Virtual showroom",
+    "selectBackground": "Select Background",
+    "backgrounds": {
+      "showroomModern": "Modern Showroom",
+      "showroomClassic": "Classic Showroom",
+      "showroomOutdoor": "Outdoor Setting",
+      "showroomMinimal": "Minimal White",
+      "transparent": "Transparent"
+    },
+    "previewOriginal": "Original",
+    "previewOptimized": "Preview (after optimization)",
+    "processing": "Processing...",
+    "optimize": "Optimize",
+    "back": "Back",
+    "apply": "Apply",
+    "success": "Image optimized!",
+    "applied": "Image has been updated!",
+    "error": "Optimization failed"
+  },
   "bexio": {
     "title": "Bexio Integration",
     "subtitle": "Connect DealerOS with your Bexio accounting",

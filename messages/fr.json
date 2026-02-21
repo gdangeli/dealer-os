@@ -376,6 +376,34 @@
       "other": "Autre"
     }
   },
+  "photoAI": {
+    "title": "Optimiser l'image",
+    "subtitle": "Optimisation d'image par IA pour des photos de véhicules professionnelles",
+    "operations": "Optimisations",
+    "enhance": "Auto-amélioration",
+    "enhanceDesc": "Luminosité, contraste, netteté",
+    "blurPlates": "Flouter les plaques",
+    "blurPlatesDesc": "Détection automatique & flou",
+    "removeBackground": "Remplacer l'arrière-plan",
+    "removeBackgroundDesc": "Showroom virtuel",
+    "selectBackground": "Choisir l'arrière-plan",
+    "backgrounds": {
+      "showroomModern": "Showroom moderne",
+      "showroomClassic": "Showroom classique",
+      "showroomOutdoor": "Setting extérieur",
+      "showroomMinimal": "Blanc minimaliste",
+      "transparent": "Transparent"
+    },
+    "previewOriginal": "Original",
+    "previewOptimized": "Aperçu (après optimisation)",
+    "processing": "Traitement...",
+    "optimize": "Optimiser",
+    "back": "Retour",
+    "apply": "Appliquer",
+    "success": "Image optimisée!",
+    "applied": "L'image a été mise à jour!",
+    "error": "Échec de l'optimisation"
+  },
   "bexio": {
     "title": "Intégration Bexio",
     "subtitle": "Connectez DealerOS à votre comptabilité Bexio",
