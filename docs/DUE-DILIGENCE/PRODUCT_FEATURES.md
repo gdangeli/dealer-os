@@ -316,6 +316,43 @@
 
 ---
 
+### 15. Photo AI / Image Optimizer
+
+**Status:** ✅ Live
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Background Removal | ✅ | AI-powered background extraction |
+| Virtual Showroom | ✅ | Professional background templates |
+| Auto-Enhancement | ✅ | Brightness, contrast, sharpness |
+| License Plate Blur | 🚧 | Auto-detection & blur (in progress) |
+| Preview & Apply | ✅ | Before/after comparison |
+| Batch Processing | 📋 | Multiple images at once |
+
+**AI Capabilities:**
+- **Background Removal:** Uses Replicate's rembg model for clean cutouts
+- **Virtual Showroom:** 4 professional background templates
+  - 🏢 Modern Showroom
+  - 🏛️ Classic Showroom
+  - 🌳 Outdoor Setting
+  - ⬜ Minimalist White
+- **Enhancement:** Real-ESRGAN for 2x upscaling & quality improvement
+- **Privacy:** Auto license plate detection (coming soon)
+
+**Integration:**
+- Accessible from vehicle image gallery
+- One-click optimization button on each photo
+- Real-time preview before applying changes
+- Processed images saved to Supabase Storage
+
+**Technical Stack:**
+- Replicate API for ML model inference
+- rembg model for background removal
+- Real-ESRGAN for image enhancement
+- Server-side processing via Next.js API routes
+
+---
+
 ## 🔌 Integrations
 
 | Integration | Status | Description |
@@ -325,6 +362,7 @@
 | **Resend** | ✅ Live | Transactional emails |
 | **Bexio** | ✅ Live | Swiss accounting sync |
 | **WhatsApp Business** | ✅ Live | Customer messaging |
+| **Replicate AI** | ✅ Live | Photo AI (background removal, enhancement) |
 | AutoScout24 API | 📋 Planned | Direct publishing |
 | mobile.de API | 📋 Planned | German market |
 | tutti.ch API | 📋 Planned | Swiss classifieds |

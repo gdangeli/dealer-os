@@ -71,6 +71,7 @@
 | **Supabase Storage** | Latest | File Storage (Images) |
 | **Stripe** | 20.3.1 | Payments & Subscriptions |
 | **Resend** | 6.9.2 | Transactional Email |
+| **Replicate** | Latest | AI Image Processing (rembg, Real-ESRGAN) |
 
 ### Infrastructure
 
@@ -286,6 +287,12 @@ The embed system allows dealers to display their inventory on external websites:
 - **Default:** German (`de`)
 - **Translation Files:** JSON in `/messages/[locale].json`
 
+### Recent Additions
+
+- **Photo AI translations:** All languages (DE/EN/FR/IT) have complete photoAI namespace
+- **Namespace structure:** Modular JSON with namespaces per feature area
+- **100% coverage:** All UI strings translated, no hardcoded text
+
 ---
 
 ## 🚀 Deployment & Infrastructure
@@ -330,6 +337,75 @@ GitHub Push → Vercel Build → Preview Deploy
 
 ---
 
+## 🤖 AI Services Integration
+
+### Photo AI / Image Optimizer
+
+DealerOS uses **Replicate** for AI-powered image processing:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    PHOTO AI ARCHITECTURE                     │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Vehicle Image Upload                                       │
+│         │                                                   │
+│         ▼                                                   │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │  /api/images/optimize (Next.js API Route)           │   │
+│  │  ├── Auth verification                              │   │
+│  │  ├── Operation selection (enhance/remove_bg/blur)   │   │
+│  │  └── Sequential processing                          │   │
+│  └───────────────────┬─────────────────────────────────┘   │
+│                      │                                      │
+│         ┌────────────┴────────────┐                        │
+│         ▼                         ▼                        │
+│  ┌────────────────┐       ┌────────────────────┐          │
+│  │   rembg        │       │   Real-ESRGAN      │          │
+│  │  (Background   │       │   (Enhancement/    │          │
+│  │   Removal)     │       │    Upscaling)      │          │
+│  └───────┬────────┘       └────────┬───────────┘          │
+│          │                         │                       │
+│          └─────────┬───────────────┘                       │
+│                    ▼                                       │
+│         ┌──────────────────────────────────────┐           │
+│         │  Supabase Storage (vehicle-images)   │           │
+│         │  └── /optimized/{timestamp}.png      │           │
+│         └──────────────────────────────────────┘           │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Replicate Integration
+
+| Component | Purpose |
+|-----------|---------|
+| `src/lib/replicate.ts` | API client for Replicate |
+| `src/app/api/images/optimize/route.ts` | Image processing endpoint |
+| `src/components/vehicles/image-optimizer.tsx` | UI component |
+
+### AI Models Used
+
+| Model | Purpose | Provider |
+|-------|---------|----------|
+| **rembg** | Background removal | cjwbw/rembg |
+| **Real-ESRGAN** | Image upscaling & enhancement | nightmareai/real-esrgan |
+
+### Operations Supported
+
+1. **Background Removal:** Clean cutout of vehicle
+2. **Virtual Showroom:** Composite with professional backgrounds
+3. **Auto-Enhancement:** Brightness, contrast, sharpness optimization
+4. **License Plate Blur:** Planned (auto-detection)
+
+### Cost Model
+
+- Replicate charges per prediction (~$0.001-0.01 per operation)
+- Average per vehicle: 1-3 images × 2 operations ≈ $0.02-0.06
+- Included in dealer subscription (fair use policy)
+
+---
+
 ## 📊 Monitoring & Observability
 
 ### Current Setup
@@ -358,15 +434,33 @@ GitHub Push → Vercel Build → Preview Deploy
 | **Unit Tests** | Vitest | Core utilities |
 | **E2E Tests** | Playwright | Critical user flows |
 
-### E2E Test Modules
+### E2E Test Coverage
 
-- Authentication (login, register, logout)
-- Vehicle management (CRUD, images, import)
-- Lead management (list, kanban, timeline)
-- Quotes & Invoices
-- Settings & Profile
-- WhatsApp integration
-- Analytics & Dashboard
+**24 test files** covering all major features:
+
+| Module | Test File | Coverage |
+|--------|-----------|----------|
+| Authentication | `auth.spec.ts` | Login, register, logout, session |
+| Vehicles | `vehicles.spec.ts`, `image-upload.spec.ts` | CRUD, images, gallery |
+| Vehicle Import | `vehicle-import.spec.ts` | CSV/Excel import |
+| **Photo AI** | `photo-ai.spec.ts` | AI optimization, background removal |
+| Leads | `leads.spec.ts`, `lead-timeline.spec.ts` | List, kanban, timeline |
+| Customers | `customers.spec.ts` | CRM operations |
+| Quotes | `quotes.spec.ts` | Quote workflow |
+| Invoices | `invoices.spec.ts` | Invoice workflow |
+| Dashboard | `dashboard.spec.ts`, `dashboard-widgets.spec.ts` | Widgets, analytics |
+| Analytics | `analytics.spec.ts` | Charts, reports |
+| Settings | `settings.spec.ts` | Profile, company |
+| Team | `team-management.spec.ts` | Multi-user, invites |
+| Widget | `widget.spec.ts` | Embed system |
+| WhatsApp | `whatsapp.spec.ts` | Integration |
+| Email Templates | `email-templates.spec.ts` | Template management |
+| Help Center | `help.spec.ts` | Documentation |
+| Stripe | `stripe-subscription.spec.ts` | Billing |
+| Admin | `admin.spec.ts` | Admin dashboard |
+| Onboarding | `onboarding.spec.ts` | Setup wizard |
+| Landing | `landing.spec.ts` | Public pages |
+| CSV Export | `csv-export.spec.ts` | Data export |
 
 ### Running Tests
 
@@ -519,12 +613,13 @@ const normalizedPath = pathname.replace(/^\/(de|en|fr|it|sr)/, '');
 
 - [x] Modern, maintainable tech stack
 - [x] Type-safe codebase (TypeScript)
-- [x] Automated testing (E2E + Unit)
+- [x] Automated testing (E2E + Unit) — **24 test files**
 - [x] CI/CD pipeline
 - [x] Row-level security
 - [x] Scalable infrastructure
-- [x] Multi-language support
+- [x] Multi-language support (5 languages, 100% coverage)
 - [x] Mobile-responsive
+- [x] AI/ML integration (Replicate API)
 - [x] Documentation
 - [ ] SOC 2 compliance (roadmap)
 - [ ] Penetration testing (recommended)
