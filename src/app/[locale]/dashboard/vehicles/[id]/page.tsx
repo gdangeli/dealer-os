@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { VehicleForm } from "@/components/vehicles/vehicle-form";
 import { Vehicle } from "@/types/vehicle";
 import { DeleteVehicleButton } from "./delete-button";
-import { getCurrentDealer } from "@/lib/auth/get-current-dealer";
+import { getCurrentDealer, getImpersonationInfo } from "@/lib/auth/get-current-dealer";
 
 interface EditVehiclePageProps {
   params: Promise<{ id: string }>;
@@ -26,6 +26,13 @@ export default async function EditVehiclePage({
   if (!user) {
     redirect("/login");
   }
+
+  // Check for impersonation first
+  const impersonation = await getImpersonationInfo();
+  const isImpersonating = !!impersonation;
+  
+  // Use admin client if impersonating (bypasses RLS)
+  const queryClient = isImpersonating ? createAdminClient() : supabase;
 
   // Dealer holen (mit Impersonation-Support)
   let dealer;
@@ -54,10 +61,6 @@ export default async function EditVehiclePage({
       </div>
     );
   }
-
-  // Use admin client if impersonating (bypasses RLS)
-  const isImpersonating = 'isImpersonating' in dealer && dealer.isImpersonating;
-  const queryClient = isImpersonating ? createAdminClient() : supabase;
 
   // Fahrzeug laden
   const { data: vehicle, error } = await queryClient

@@ -10,7 +10,7 @@ import {
 } from "@/types/vehicle";
 import { VehicleStatusFilter } from "./status-filter";
 import { VehicleListClient } from "@/components/vehicles/vehicle-list-client";
-import { getCurrentDealer } from "@/lib/auth/get-current-dealer";
+import { getCurrentDealer, getImpersonationInfo } from "@/lib/auth/get-current-dealer";
 
 interface SearchParams {
   status?: string;
@@ -34,6 +34,13 @@ export default async function VehiclesPage({
   if (!user) {
     redirect("/login");
   }
+
+  // Check for impersonation first
+  const impersonation = await getImpersonationInfo();
+  const isImpersonating = !!impersonation;
+  
+  // Use admin client if impersonating (bypasses RLS)
+  const queryClient = isImpersonating ? createAdminClient() : supabase;
 
   // Dealer holen (mit Impersonation-Support)
   let dealer;
@@ -62,10 +69,6 @@ export default async function VehiclesPage({
       </div>
     );
   }
-
-  // Use admin client if impersonating (bypasses RLS)
-  const isImpersonating = 'isImpersonating' in dealer && dealer.isImpersonating;
-  const queryClient = isImpersonating ? createAdminClient() : supabase;
 
   // Fahrzeuge mit Hauptbild laden
   let query = queryClient
