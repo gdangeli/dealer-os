@@ -39,6 +39,12 @@ export default async function VehiclesPage({
   const impersonation = await getImpersonationInfo();
   const isImpersonating = !!impersonation;
   
+  console.log("[VehiclesPage] Debug:", {
+    userId: user.id,
+    impersonation,
+    isImpersonating,
+  });
+  
   // Use admin client if impersonating (bypasses RLS)
   const queryClient = isImpersonating ? createAdminClient() : supabase;
 
