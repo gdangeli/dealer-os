@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/client";
+// API routes are used instead of direct Supabase client for impersonation support
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,7 +27,6 @@ export default function NewLeadPage() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(false);
-  const supabase = createClient();
 
   // Form state
   const [firstName, setFirstName] = useState("");
@@ -46,34 +45,31 @@ export default function NewLeadPage() {
   }, []);
 
   async function fetchVehicles() {
-    const { data, error } = await supabase
-      .from("vehicles")
-      .select("id, make, model, first_registration, asking_price")
-      .order("make", { ascending: true });
-
-    if (error) {
+    try {
+      const response = await fetch('/api/vehicles');
+      if (response.ok) {
+        const data = await response.json();
+        setVehicles(data.vehicles || []);
+      }
+    } catch (error) {
       console.error("Error fetching vehicles:", error);
-    } else {
-      setVehicles(data || []);
     }
   }
 
   async function fetchLocations() {
-    const { data, error } = await supabase
-      .from("locations")
-      .select("*")
-      .order("is_main", { ascending: false })
-      .order("name", { ascending: true });
-
-    if (error) {
-      console.error("Error fetching locations:", error);
-    } else {
-      setLocations(data || []);
-      // Set default to main location
-      if (data && data.length > 0) {
-        const mainLocation = data.find(l => l.is_main) || data[0];
-        setLocationId(mainLocation.id);
+    try {
+      const response = await fetch('/api/locations');
+      if (response.ok) {
+        const data = await response.json();
+        setLocations(data.locations || []);
+        // Set default to main location
+        if (data.locations && data.locations.length > 0) {
+          const mainLocation = data.locations.find((l: Location) => l.is_main) || data.locations[0];
+          setLocationId(mainLocation.id);
+        }
       }
+    } catch (error) {
+      console.error("Error fetching locations:", error);
     }
   }
 
@@ -87,28 +83,29 @@ export default function NewLeadPage() {
 
     setLoading(true);
 
-    const { data, error } = await supabase
-      .from("leads")
-      .insert({
-        first_name: firstName,
-        last_name: lastName,
-        email: email || null,
-        phone: phone || null,
-        source,
-        vehicle_id: vehicleId || null,
-        location_id: locationId || null,
-        message: message || null,
-        notes: notes || null,
-        status: "new",
-      })
-      .select()
-      .single();
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email || null,
+          phone: phone || null,
+          source,
+          vehicle_id: vehicleId || null,
+          location_id: locationId || null,
+          message: message || null,
+          notes: notes || null,
+        }),
+      });
 
-    if (error) {
-      console.error("Error creating lead:", error);
-      alert("Fehler beim Erstellen der Anfrage");
-      setLoading(false);
-    } else {
+      if (!response.ok) {
+        throw new Error('Failed to create lead');
+      }
+
+      const { lead: data } = await response.json();
+
       // Trigger email notification (fire-and-forget)
       triggerNewLeadNotification({
         dealer_id: data.dealer_id,
@@ -121,6 +118,11 @@ export default function NewLeadPage() {
       }).catch(console.error);
 
       router.push(`/dashboard/leads/${data.id}`);
+    } catch (error) {
+      console.error("Error creating lead:", error);
+      alert("Fehler beim Erstellen der Anfrage");
+    } finally {
+      setLoading(false);
     }
   }
 

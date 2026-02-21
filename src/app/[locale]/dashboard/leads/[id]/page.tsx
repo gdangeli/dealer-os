@@ -3,7 +3,7 @@
 import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/client";
+// API routes are used instead of direct Supabase client for impersonation support
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -28,7 +28,6 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
   const [deleting, setDeleting] = useState(false);
   const [showEmailComposer, setShowEmailComposer] = useState(false);
   const [scoreBreakdown, setScoreBreakdown] = useState<LeadScoreBreakdown | null>(null);
-  const supabase = createClient();
 
   // Form state
   const [firstName, setFirstName] = useState("");
@@ -46,84 +45,84 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
   async function fetchLead() {
     setLoading(true);
     
-    const { data, error } = await supabase
-      .from("leads")
-      .select(`
-        *,
-        vehicle:vehicles(id, make, model, first_registration, asking_price)
-      `)
-      .eq("id", id)
-      .single();
+    try {
+      const response = await fetch(`/api/leads/${id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch lead');
+      }
+      
+      const { lead: data, activities } = await response.json();
 
-    if (error) {
+      // Berechne Score
+      const breakdown = calculateLeadScore(data, activities || []);
+      setScoreBreakdown(breakdown);
+
+      setLead(data);
+      setFirstName(data.first_name);
+      setLastName(data.last_name);
+      setEmail(data.email || "");
+      setPhone(data.phone || "");
+      setStatus(data.status);
+      setNotes(data.notes || "");
+      setNextFollowup(data.next_followup ? data.next_followup.split("T")[0] : "");
+    } catch (error) {
       console.error("Error fetching lead:", error);
       router.push("/dashboard/leads");
-      return;
+    } finally {
+      setLoading(false);
     }
-
-    // Lade Aktivitäten für Score-Berechnung
-    const { data: activities } = await supabase
-      .from("lead_activities")
-      .select("id, lead_id, type, created_at")
-      .eq("lead_id", id);
-
-    // Berechne Score
-    const breakdown = calculateLeadScore(data, activities || []);
-    setScoreBreakdown(breakdown);
-
-    setLead(data);
-    setFirstName(data.first_name);
-    setLastName(data.last_name);
-    setEmail(data.email || "");
-    setPhone(data.phone || "");
-    setStatus(data.status);
-    setNotes(data.notes || "");
-    setNextFollowup(data.next_followup ? data.next_followup.split("T")[0] : "");
-    setLoading(false);
   }
 
   async function handleSave() {
     setSaving(true);
     
-    const { error } = await supabase
-      .from("leads")
-      .update({
-        first_name: firstName,
-        last_name: lastName,
-        email: email || null,
-        phone: phone || null,
-        status,
-        notes: notes || null,
-        next_followup: nextFollowup || null,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", id);
+    try {
+      const response = await fetch(`/api/leads/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email || null,
+          phone: phone || null,
+          status,
+          notes: notes || null,
+          next_followup: nextFollowup || null,
+        }),
+      });
 
-    if (error) {
-      console.error("Error updating lead:", error);
-      alert("Speichern fehlgeschlagen. Bitte erneut versuchen.");
-    } else {
+      if (!response.ok) {
+        throw new Error('Failed to update lead');
+      }
+
       await fetchLead();
       alert("Gespeichert!");
+    } catch (error) {
+      console.error("Error updating lead:", error);
+      alert("Speichern fehlgeschlagen. Bitte erneut versuchen.");
+    } finally {
+      setSaving(false);
     }
-    setSaving(false);
   }
 
   async function handleDelete() {
     if (!confirm("Diese Anfrage endgültig löschen?")) return;
     
     setDeleting(true);
-    const { error } = await supabase
-      .from("leads")
-      .delete()
-      .eq("id", id);
+    try {
+      const response = await fetch(`/api/leads/${id}`, {
+        method: 'DELETE',
+      });
 
-    if (error) {
+      if (!response.ok) {
+        throw new Error('Failed to delete lead');
+      }
+
+      router.push("/dashboard/leads");
+    } catch (error) {
       console.error("Error deleting lead:", error);
       alert("Löschen fehlgeschlagen. Bitte erneut versuchen.");
       setDeleting(false);
-    } else {
-      router.push("/dashboard/leads");
     }
   }
 
