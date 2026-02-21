@@ -15,6 +15,13 @@
 - **Fahrzeug-Export** — Inserate für verschiedene Plattformen generieren
 - **Website Widget** — Fahrzeuge auf externen Websites einbetten mit anpassbarem Design
 
+### 🤖 Photo AI (NEU)
+- **Hintergrund entfernen** — KI-basierte Freistellung mit Replicate API
+- **Virtueller Showroom** — Professionelle Hintergründe automatisch einfügen
+- **Bildverbesserung** — Auto-Optimierung von Helligkeit, Kontrast und Schärfe
+- **Kennzeichen verpixeln** — Automatische Erkennung und Blur (geplant)
+- **Upscaling** — Bildqualität mit Real-ESRGAN verbessern
+
 ### CRM & Kommunikation
 - **Kunden-Verwaltung** — Vollständiges CRM mit Kontakthistorie
 - **Lead-Management** — Anfragen zentral verwalten
@@ -80,6 +87,7 @@
 - **i18n:** [next-intl](https://next-intl-docs.vercel.app)
 - **Testing:** [Vitest](https://vitest.dev) + [Playwright](https://playwright.dev)
 - **Video:** [Remotion](https://remotion.dev)
+- **AI/ML:** [Replicate](https://replicate.com) (Image Processing)
 - **Hosting:** [Vercel](https://vercel.com)
 
 ## 🚀 Getting Started
@@ -137,6 +145,9 @@ STRIPE_WEBHOOK_SECRET=
 BEXIO_CLIENT_ID=
 BEXIO_CLIENT_SECRET=
 BEXIO_REDIRECT_URI=
+
+# Optional: Photo AI (Replicate)
+REPLICATE_API_TOKEN=
 ```
 
 ## 📁 Project Structure
@@ -199,6 +210,7 @@ Weitere Dokumentation in `docs/`:
 - [Test Procedures](docs/TEST-PROCEDURES.md)
 - [Vehicle Import](docs/VEHICLE_IMPORT.md)
 - [Dashboard Widgets](docs/dashboard-widgets.md)
+- [Photo AI](docs/features/PHOTO-AI.md)
 
 ## 🚢 Deployment
 

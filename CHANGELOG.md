@@ -10,6 +10,28 @@ _Nächste geplante Features_
 
 ---
 
+## [0.13.0] - 2026-02-21
+
+### Added
+- **🤖 Photo AI / Image Optimizer** — KI-gestützte Bildbearbeitung für Fahrzeugfotos
+  - Hintergrund entfernen mit Replicate API (rembg) (da2eab0)
+  - Virtueller Showroom: Professionelle Hintergründe einfügen (Modern, Classic, Outdoor, Minimal)
+  - Bildverbesserung/Upscaling mit Real-ESRGAN (17c92d4)
+  - Kennzeichen-Blur vorbereitet (geplant)
+  - AI Optimizer Button in Fahrzeug-Bearbeitung (f288bee)
+- E2E Tests für Photo AI / Image Optimizer (b5469f7)
+
+### Fixed
+- Error Handling für `getCurrentDealer` in Vehicle Edit Page (589f73a)
+- Impersonation Support für Vehicle Edit Page (2a0b95d)
+- Empty/invalid image src crash prevention (4254be8)
+- Missing radio-group component hinzugefügt (443458c)
+- Admin Dashboard Link während Impersonation ausgeblendet (9c9372f)
+- Admin client für Embed Page (RLS bypass) (059d905)
+- Absolute URL für Widget Preview + Debug Mode (f110bef)
+
+---
+
 ## [0.12.0] - 2026-02-21
 
 ### Added
