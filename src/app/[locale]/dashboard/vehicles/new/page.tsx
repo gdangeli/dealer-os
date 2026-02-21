@@ -3,11 +3,12 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { VehicleForm } from "@/components/vehicles/vehicle-form";
+import { getCurrentDealer } from "@/lib/auth/get-current-dealer";
 
 export default async function NewVehiclePage() {
   const supabase = await createClient();
 
-  // User und Dealer holen
+  // User prüfen
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -16,12 +17,20 @@ export default async function NewVehiclePage() {
     redirect("/login");
   }
 
-  // Dealer-ID aus der dealers-Tabelle holen
-  const { data: dealer } = await supabase
-    .from("dealers")
-    .select("id")
-    .eq("user_id", user.id)
-    .single();
+  // Dealer holen (mit Impersonation-Support)
+  let dealer;
+  try {
+    dealer = await getCurrentDealer();
+  } catch (e) {
+    console.error("Error getting dealer:", e);
+    // Fallback to direct query
+    const { data: fallbackDealer } = await supabase
+      .from("dealers")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+    dealer = fallbackDealer;
+  }
 
   if (!dealer?.id) {
     return (
@@ -40,11 +49,9 @@ export default async function NewVehiclePage() {
     <div>
       {/* Header */}
       <div className="flex items-center gap-4 mb-8">
-        <Link href="/dashboard/vehicles">
-          <Button variant="ghost" size="sm">
-            ← Zurück
-          </Button>
-        </Link>
+        <Button variant="ghost" size="sm" asChild>
+          <Link href="/dashboard/vehicles">← Zurück</Link>
+        </Button>
         <div>
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Fahrzeug erfassen</h1>
           <p className="text-slate-600">
