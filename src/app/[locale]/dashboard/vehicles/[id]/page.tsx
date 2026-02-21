@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -54,8 +55,12 @@ export default async function EditVehiclePage({
     );
   }
 
+  // Use admin client if impersonating (bypasses RLS)
+  const isImpersonating = 'isImpersonating' in dealer && dealer.isImpersonating;
+  const queryClient = isImpersonating ? createAdminClient() : supabase;
+
   // Fahrzeug laden
-  const { data: vehicle, error } = await supabase
+  const { data: vehicle, error } = await queryClient
     .from("vehicles")
     .select("*")
     .eq("id", id)
@@ -67,7 +72,7 @@ export default async function EditVehiclePage({
   }
 
   // Bilder laden
-  const { data: images } = await supabase
+  const { data: images } = await queryClient
     .from("vehicle_images")
     .select("*")
     .eq("vehicle_id", id)

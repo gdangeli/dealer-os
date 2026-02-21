@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import {
 } from "@/types/vehicle";
 import { VehicleStatusFilter } from "./status-filter";
 import { VehicleListClient } from "@/components/vehicles/vehicle-list-client";
+import { getCurrentDealer } from "@/lib/auth/get-current-dealer";
 
 interface SearchParams {
   status?: string;
@@ -24,7 +26,7 @@ export default async function VehiclesPage({
   const supabase = await createClient();
   const params = await searchParams;
 
-  // User und Dealer holen
+  // User prüfen
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -33,12 +35,20 @@ export default async function VehiclesPage({
     redirect("/login");
   }
 
-  // Dealer-ID aus der dealers-Tabelle holen (user_id referenziert auth.users)
-  const { data: dealer } = await supabase
-    .from("dealers")
-    .select("id")
-    .eq("user_id", user.id)
-    .single();
+  // Dealer holen (mit Impersonation-Support)
+  let dealer;
+  try {
+    dealer = await getCurrentDealer();
+  } catch (e) {
+    console.error("Error getting dealer:", e);
+    // Fallback to direct query
+    const { data: fallbackDealer } = await supabase
+      .from("dealers")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+    dealer = fallbackDealer;
+  }
 
   if (!dealer?.id) {
     return (
@@ -53,8 +63,12 @@ export default async function VehiclesPage({
     );
   }
 
+  // Use admin client if impersonating (bypasses RLS)
+  const isImpersonating = 'isImpersonating' in dealer && dealer.isImpersonating;
+  const queryClient = isImpersonating ? createAdminClient() : supabase;
+
   // Fahrzeuge mit Hauptbild laden
-  let query = supabase
+  let query = queryClient
     .from("vehicles")
     .select(`
       *,
