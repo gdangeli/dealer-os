@@ -86,9 +86,9 @@ export default async function DashboardPage() {
             Hier ist Ihre Übersicht für heute.
           </p>
         </div>
-        <Link href="/dashboard/vehicles/new" className="self-start sm:self-auto">
-          <Button size="sm" className="sm:size-default">+ Fahrzeug erfassen</Button>
-        </Link>
+        <Button size="sm" className="sm:size-default self-start sm:self-auto" asChild>
+          <Link href="/dashboard/vehicles/new">+ Fahrzeug erfassen</Link>
+        </Button>
       </div>
 
       <WidgetGrid

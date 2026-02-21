@@ -96,11 +96,9 @@ export default async function EditVehiclePage({
       {/* Header */}
       <div className="flex justify-between items-start mb-8">
         <div className="flex items-center gap-4">
-          <Link href="/dashboard/vehicles">
-            <Button variant="ghost" size="sm">
-              ← Zurück
-            </Button>
-          </Link>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/dashboard/vehicles">← Zurück</Link>
+          </Button>
           <div>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
               {vehicle.make} {vehicle.model}

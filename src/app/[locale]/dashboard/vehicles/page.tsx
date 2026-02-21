@@ -133,12 +133,12 @@ export default async function VehiclesPage({
           </p>
         </div>
         <div className="flex gap-2">
-          <Link href="/dashboard/vehicles/import">
-            <Button variant="outline" size="sm" className="text-xs sm:text-sm">📄 Import</Button>
-          </Link>
-          <Link href="/dashboard/vehicles/new">
-            <Button size="sm" className="text-xs sm:text-sm">+ Erfassen</Button>
-          </Link>
+          <Button variant="outline" size="sm" className="text-xs sm:text-sm" asChild>
+            <Link href="/dashboard/vehicles/import">📄 Import</Link>
+          </Button>
+          <Button size="sm" className="text-xs sm:text-sm" asChild>
+            <Link href="/dashboard/vehicles/new">+ Erfassen</Link>
+          </Button>
         </div>
       </div>
 
@@ -219,9 +219,9 @@ export default async function VehiclesPage({
                   : "Erfassen Sie jetzt Ihr erstes Fahrzeug."}
               </p>
               {!statusFilter && (
-                <Link href="/dashboard/vehicles/new">
-                  <Button className="mt-4">+ Erstes Fahrzeug erfassen</Button>
-                </Link>
+                <Button className="mt-4" asChild>
+                  <Link href="/dashboard/vehicles/new">+ Erstes Fahrzeug erfassen</Link>
+                </Button>
               )}
             </div>
           )}
