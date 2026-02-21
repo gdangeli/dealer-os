@@ -31,13 +31,6 @@ export default async function EditVehiclePage({
   const impersonation = await getImpersonationInfo();
   const isImpersonating = !!impersonation;
   
-  console.log("[VehicleDetailPage] Debug:", {
-    vehicleId: id,
-    userId: user.id,
-    impersonation,
-    isImpersonating,
-  });
-  
   // Use admin client if impersonating (bypasses RLS)
   const queryClient = isImpersonating ? createAdminClient() : supabase;
 
@@ -55,11 +48,6 @@ export default async function EditVehiclePage({
       .single();
     dealer = fallbackDealer;
   }
-
-  console.log("[VehicleDetailPage] Dealer result:", {
-    dealerId: dealer?.id,
-    dealerRole: dealer && 'role' in dealer ? dealer.role : 'unknown',
-  });
 
   if (!dealer?.id) {
     return (
@@ -81,13 +69,6 @@ export default async function EditVehiclePage({
     .eq("id", id)
     .eq("dealer_id", dealer.id) // Sicherheitscheck
     .single();
-
-  console.log("[VehicleDetailPage] Vehicle query:", {
-    vehicleId: id,
-    dealerId: dealer.id,
-    vehicleFound: !!vehicle,
-    error: error?.message,
-  });
 
   if (error || !vehicle) {
     notFound();
