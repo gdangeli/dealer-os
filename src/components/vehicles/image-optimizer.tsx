@@ -73,8 +73,8 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
 
       const result = await response.json();
       
-      // Show preview
-      setPreviewUrl(`data:image/png;base64,${result.final}`);
+      // Show preview - result.final is already a URL from Replicate
+      setPreviewUrl(result.final);
       
       toast.success(t("success"));
     } catch (error) {
@@ -90,31 +90,22 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
     
     setIsProcessing(true);
     try {
-      // Convert base64 to blob
-      const response = await fetch(previewUrl);
-      const blob = await response.blob();
-      
-      // Create a File object
-      const timestamp = Date.now();
-      const filename = `optimized-${timestamp}.png`;
-      const file = new File([blob], filename, { type: 'image/png' });
-      
-      // Upload to our API which handles Supabase storage
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('originalUrl', imageUrl);
-      
-      const uploadResponse = await fetch('/api/images/upload-optimized', {
+      // previewUrl is a Replicate URL - download and re-upload to Supabase
+      const response = await fetch('/api/images/upload-optimized', {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sourceUrl: previewUrl,
+          originalUrl: imageUrl,
+        }),
       });
       
-      if (!uploadResponse.ok) {
-        const error = await uploadResponse.json();
+      if (!response.ok) {
+        const error = await response.json();
         throw new Error(error.error || 'Upload failed');
       }
       
-      const { url: newUrl } = await uploadResponse.json();
+      const { url: newUrl } = await response.json();
       
       toast.success(t("applied"));
       onOptimized(newUrl);

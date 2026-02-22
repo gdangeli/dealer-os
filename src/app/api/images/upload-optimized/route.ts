@@ -11,13 +11,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const formData = await request.formData();
-    const file = formData.get('file') as File;
-    const originalUrl = formData.get('originalUrl') as string;
+    const body = await request.json();
+    const { sourceUrl, originalUrl } = body;
     
-    if (!file) {
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
+    if (!sourceUrl) {
+      return NextResponse.json({ error: "No source URL provided" }, { status: 400 });
     }
+
+    // Download the image from Replicate (or other source)
+    const imageResponse = await fetch(sourceUrl);
+    if (!imageResponse.ok) {
+      return NextResponse.json({ error: "Failed to download image" }, { status: 500 });
+    }
+    const imageBuffer = await imageResponse.arrayBuffer();
+    const buffer = new Uint8Array(imageBuffer);
 
     // Extract vehicle ID from original URL if possible
     // URL format: .../vehicle-images/{vehicleId}/{filename}
@@ -33,10 +40,6 @@ export async function POST(request: NextRequest) {
     const timestamp = Date.now();
     const randomStr = Math.random().toString(36).substring(7);
     const filename = `${vehicleId}/optimized-${timestamp}-${randomStr}.png`;
-
-    // Convert File to ArrayBuffer
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = new Uint8Array(arrayBuffer);
 
     // Upload to Supabase Storage
     const { error: uploadError } = await supabase.storage
