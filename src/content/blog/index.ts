@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-02-25",
     author: "Dealer OS Team",
     keywords: ["Fahrzeugfotos", "Autohandel", "AutoScout24", "Inserate", "Fotografie", "Occasionen"],
-    content: \`
+    content: `
 ## Der erste Eindruck zählt – und er ist digital
 
 Scrollen Sie einmal durch AutoScout24. Bei welchen Inseraten bleiben Sie hängen? Genau: Bei denen mit professionellen, ansprechenden Fotos. Bei dunklen, unscharfen Handy-Schnappschüssen scrollt man weiter.
@@ -255,7 +255,7 @@ Fangen Sie beim nächsten Fahrzeug an. Achten Sie auf Licht, Sauberkeit und die 
 ---
 
 *Mit Dealer OS laden Sie Ihre Fotos einmal hoch und veröffentlichen sie automatisch auf allen Plattformen – einheitlich und professionell. [Jetzt kostenlos testen](/de/register)*
-\`,
+`,
   },
   // Artikel 41 - 2026-02-24
   {
