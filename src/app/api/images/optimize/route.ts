@@ -3,61 +3,146 @@ import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { removeBackground, upscaleImage } from '@/lib/replicate';
 import sharp from 'sharp';
-import path from 'path';
 
-// Background templates in public folder
-const BACKGROUND_TEMPLATES: Record<string, string> = {
-  'showroom-modern': 'showroom-modern.jpg',
-  'showroom-classic': 'showroom-classic.jpg',
-  'showroom-outdoor': 'showroom-outdoor.jpg',
-  'showroom-minimal': 'showroom-minimal.jpg',
-};
+// Studio background dimensions
+const STUDIO_WIDTH = 1920;
+const STUDIO_HEIGHT = 1280;
 
 /**
- * Composite a foreground image (with transparency) onto a background
+ * Create AMAG-style studio background with gradient
  */
-async function compositeImages(
-  foregroundUrl: string,
-  backgroundTemplate: string
+async function createStudioBackground(): Promise<Buffer> {
+  // Create a clean white-to-gray gradient like AMAG uses
+  const svg = `
+    <svg width="${STUDIO_WIDTH}" height="${STUDIO_HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#f5f5f5"/>
+          <stop offset="50%" stop-color="#f0f0f0"/>
+          <stop offset="75%" stop-color="#e8e8e8"/>
+          <stop offset="100%" stop-color="#e0e0e0"/>
+        </linearGradient>
+        <!-- Floor gradient for depth -->
+        <linearGradient id="floor" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#e5e5e5"/>
+          <stop offset="100%" stop-color="#d8d8d8"/>
+        </linearGradient>
+      </defs>
+      <!-- Background -->
+      <rect width="100%" height="100%" fill="url(#bg)"/>
+      <!-- Floor area (bottom 40%) -->
+      <rect y="${STUDIO_HEIGHT * 0.6}" width="100%" height="${STUDIO_HEIGHT * 0.4}" fill="url(#floor)"/>
+      <!-- Subtle horizon line -->
+      <line x1="0" y1="${STUDIO_HEIGHT * 0.6}" x2="${STUDIO_WIDTH}" y2="${STUDIO_HEIGHT * 0.6}" 
+            stroke="#d0d0d0" stroke-width="1" opacity="0.5"/>
+    </svg>
+  `;
+  
+  return sharp(Buffer.from(svg)).png().toBuffer();
+}
+
+/**
+ * Create a realistic shadow from the car's silhouette
+ */
+async function createCarShadow(
+  carBuffer: Buffer,
+  carWidth: number,
+  carHeight: number
 ): Promise<Buffer> {
-  // Fetch the foreground image (car with transparent background)
+  // Extract alpha channel to get car silhouette
+  const { data, info } = await sharp(carBuffer)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  
+  // Create shadow from alpha channel
+  // Shadow is flattened (compressed vertically) and shifted down
+  const shadowHeight = Math.round(carHeight * 0.15); // Shadow is 15% of car height
+  const shadowWidth = carWidth;
+  
+  // Create shadow as a dark semi-transparent ellipse that follows car shape
+  const shadowSvg = `
+    <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="shadow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+          <stop offset="0%" stop-color="#000000" stop-opacity="0.25"/>
+          <stop offset="60%" stop-color="#000000" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="${shadowWidth / 2}" cy="${shadowHeight / 2}" 
+               rx="${shadowWidth * 0.45}" ry="${shadowHeight * 0.4}" 
+               fill="url(#shadow)"/>
+    </svg>
+  `;
+  
+  return sharp(Buffer.from(shadowSvg))
+    .png()
+    .toBuffer();
+}
+
+/**
+ * Composite car with shadow onto studio background (AMAG style)
+ */
+async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
+  // Fetch the car image (with transparent background)
   const fgResponse = await fetch(foregroundUrl);
   const fgBuffer = Buffer.from(await fgResponse.arrayBuffer());
   
-  // Get background image path
-  const bgFilename = BACKGROUND_TEMPLATES[backgroundTemplate];
-  if (!bgFilename) {
-    throw new Error(`Unknown background template: ${backgroundTemplate}`);
-  }
+  // Get car dimensions
+  const carMeta = await sharp(fgBuffer).metadata();
+  const carOrigWidth = carMeta.width || 1000;
+  const carOrigHeight = carMeta.height || 600;
   
-  // Load background from public folder
-  const bgPath = path.join(process.cwd(), 'public', 'backgrounds', bgFilename);
+  // Resize car to fit nicely (70% of studio width)
+  const targetWidth = Math.round(STUDIO_WIDTH * 0.70);
+  const scale = targetWidth / carOrigWidth;
+  const targetHeight = Math.round(carOrigHeight * scale);
   
-  // Get dimensions of both images
-  const fgMeta = await sharp(fgBuffer).metadata();
-  const bgImage = sharp(bgPath);
-  const bgMeta = await bgImage.metadata();
-  
-  // Resize foreground to fit nicely on background (80% width, positioned at bottom)
-  const targetWidth = Math.round((bgMeta.width || 1920) * 0.75);
-  const resizedFg = await sharp(fgBuffer)
-    .resize(targetWidth, null, { fit: 'inside' })
+  const resizedCar = await sharp(fgBuffer)
+    .resize(targetWidth, targetHeight, { fit: 'inside' })
+    .png()
     .toBuffer();
   
-  const resizedMeta = await sharp(resizedFg).metadata();
+  const resizedMeta = await sharp(resizedCar).metadata();
+  const finalCarWidth = resizedMeta.width || targetWidth;
+  const finalCarHeight = resizedMeta.height || targetHeight;
   
-  // Calculate position (centered horizontally, sitting on the "floor" ~35% from bottom)
-  const left = Math.round(((bgMeta.width || 1920) - (resizedMeta.width || targetWidth)) / 2);
-  const top = Math.round((bgMeta.height || 1280) * 0.30); // Position car so it sits on the floor line
+  // Create studio background
+  const background = await createStudioBackground();
   
-  // Composite
-  const result = await sharp(bgPath)
-    .composite([{
-      input: resizedFg,
-      left,
-      top,
-    }])
-    .jpeg({ quality: 90 })
+  // Create shadow
+  const shadow = await createCarShadow(resizedCar, finalCarWidth, finalCarHeight);
+  const shadowMeta = await sharp(shadow).metadata();
+  
+  // Calculate positions
+  // Car sits at the horizon line (60% from top)
+  const horizonY = Math.round(STUDIO_HEIGHT * 0.6);
+  
+  // Car bottom should be at horizon + small offset
+  const carTop = horizonY - finalCarHeight + Math.round(finalCarHeight * 0.05);
+  const carLeft = Math.round((STUDIO_WIDTH - finalCarWidth) / 2);
+  
+  // Shadow position (directly under car, on the floor)
+  const shadowTop = horizonY - Math.round((shadowMeta.height || 50) * 0.3);
+  const shadowLeft = carLeft + Math.round(finalCarWidth * 0.025); // Slightly offset for realism
+  
+  // Composite: background → shadow → car
+  const result = await sharp(background)
+    .composite([
+      {
+        input: shadow,
+        left: shadowLeft,
+        top: shadowTop,
+        blend: 'multiply',
+      },
+      {
+        input: resizedCar,
+        left: carLeft,
+        top: carTop,
+      },
+    ])
+    .jpeg({ quality: 92 })
     .toBuffer();
   
   return result;
@@ -95,14 +180,14 @@ export async function POST(request: NextRequest) {
         const noBgUrl = await removeBackground(resultUrl);
         results.background_removed = noBgUrl;
         
-        // If a background template is selected, composite the images
+        // If any background template is selected (not transparent), create studio composite
         if (backgroundTemplate && backgroundTemplate !== 'none' && backgroundTemplate !== 'transparent') {
           try {
-            // Composite car onto showroom background
-            const compositedBuffer = await compositeImages(noBgUrl, backgroundTemplate);
+            // Create AMAG-style studio composite with shadow
+            const compositedBuffer = await createStudioComposite(noBgUrl);
             
             // Upload composited image to Supabase Storage
-            const fileName = `composited/${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`;
+            const fileName = `studio/${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`;
             const { data: uploadData, error: uploadError } = await adminClient
               .storage
               .from('vehicle-images')
