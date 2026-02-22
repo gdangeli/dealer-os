@@ -96,7 +96,12 @@ export function ImageLightbox({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open, goNext, goPrev, onOpenChange]);
 
-  if (!currentImage) return null;
+  console.log('[ImageLightbox] Render:', { open, currentIndex, imagesLength: images.length, currentImage: currentImage?.url?.substring(0, 60) });
+  
+  if (!currentImage) {
+    console.warn('[ImageLightbox] No current image! Index:', currentIndex, 'Images:', images.length);
+    return null;
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

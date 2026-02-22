@@ -548,10 +548,14 @@ export function ImageUpload({
   };
 
   const openLightbox = (index: number) => {
+    console.log('[openLightbox] Called with index:', index, 'images length:', images.length, 'image:', images[index]);
     // Only open lightbox for uploaded images (not temp/uploading ones)
     if (!images[index]?.isNew) {
+      console.log('[openLightbox] Opening lightbox at index:', index);
       setLightboxIndex(index);
       setLightboxOpen(true);
+    } else {
+      console.log('[openLightbox] Image is new, not opening lightbox');
     }
   };
 
