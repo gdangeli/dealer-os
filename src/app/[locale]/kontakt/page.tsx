@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+
+export const metadata: Metadata = {
+  title: "Kontakt - Dealer OS",
+  description: "Kontaktieren Sie das Dealer OS Team. Wir helfen Ihnen gerne bei Fragen zur Garagensoftware für Schweizer Autohändler. E-Mail, Telefon oder Live-Chat.",
+  alternates: {
+    canonical: "https://www.dealeros.ch/de/kontakt",
+  },
+};
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

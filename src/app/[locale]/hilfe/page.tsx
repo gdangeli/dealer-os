@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+
+export const metadata: Metadata = {
+  title: "Hilfe & Support - Dealer OS",
+  description: "Finden Sie Antworten auf Ihre Fragen zu Dealer OS. Anleitungen, FAQs und direkter Kontakt zu unserem Support-Team für Schweizer Autohändler.",
+  alternates: {
+    canonical: "https://www.dealeros.ch/de/hilfe",
+  },
+};
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

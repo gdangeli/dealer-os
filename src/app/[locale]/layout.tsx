@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: "website",
       locale: locale === "de" ? "de_CH" : locale,
-      url: "https://dealeros.ch",
+      url: "https://www.dealeros.ch",
       siteName: "Dealer OS",
       title: metadata.title,
       description: metadata.description,
@@ -67,13 +67,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       follow: true,
     },
     alternates: {
-      canonical: `https://dealeros.ch/${locale}`,
+      canonical: `https://www.dealeros.ch/${locale}`,
       languages: {
-        de: "https://dealeros.ch/de",
-        en: "https://dealeros.ch/en",
-        fr: "https://dealeros.ch/fr",
-        it: "https://dealeros.ch/it",
-        sr: "https://dealeros.ch/sr",
+        de: "https://www.dealeros.ch/de",
+        en: "https://www.dealeros.ch/en",
+        fr: "https://www.dealeros.ch/fr",
+        it: "https://www.dealeros.ch/it",
+        sr: "https://www.dealeros.ch/sr",
       },
     },
   };

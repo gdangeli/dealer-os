@@ -9,14 +9,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   
   // Generate URLs for all locales
   locales.forEach((locale) => {
-    const localePrefix = locale === defaultLocale ? '' : `/${locale}`;
-    
-    // Homepage
+    // Homepage - always include with locale prefix for consistency
     pages.push({
       url: `${baseUrl}/${locale}`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: locale === defaultLocale ? 1 : 0.9,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}`])
+        ),
+      },
     });
     
     // Blog index
@@ -25,16 +28,57 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/blog`])
+        ),
+      },
     });
     
-    // Static pages
-    const staticPages = ['impressum', 'datenschutz', 'agb'];
-    staticPages.forEach((page) => {
+    // Hilfe (Support) page
+    pages.push({
+      url: `${baseUrl}/${locale}/hilfe`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/hilfe`])
+        ),
+      },
+    });
+    
+    // Kontakt page
+    pages.push({
+      url: `${baseUrl}/${locale}/kontakt`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/kontakt`])
+        ),
+      },
+    });
+    
+    // Static legal pages
+    const staticPages = [
+      { slug: 'impressum', priority: 0.3 },
+      { slug: 'datenschutz', priority: 0.3 },
+      { slug: 'agb', priority: 0.3 },
+    ];
+    
+    staticPages.forEach(({ slug, priority }) => {
       pages.push({
-        url: `${baseUrl}/${locale}/${page}`,
+        url: `${baseUrl}/${locale}/${slug}`,
         lastModified: new Date(),
         changeFrequency: 'yearly',
-        priority: 0.3,
+        priority,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/${slug}`])
+          ),
+        },
       });
     });
     
@@ -46,6 +90,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(post.publishedAt),
         changeFrequency: 'monthly',
         priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/blog/${post.slug}`])
+          ),
+        },
       });
     });
   });

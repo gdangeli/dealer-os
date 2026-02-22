@@ -3,8 +3,11 @@ import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 
 export const metadata: Metadata = {
-  title: 'Impressum',
-  description: 'Impressum und rechtliche Informationen zu Dealer OS',
+  title: 'Impressum - Dealer OS',
+  description: 'Impressum und rechtliche Informationen zu Dealer OS - der Garagensoftware für Schweizer Autohändler. Kontaktadresse, verantwortliche Person und Haftungsausschluss.',
+  alternates: {
+    canonical: 'https://www.dealeros.ch/de/impressum',
+  },
 };
 
 type Props = {

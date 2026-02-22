@@ -3,8 +3,11 @@ import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 
 export const metadata: Metadata = {
-  title: 'Allgemeine Geschäftsbedingungen (AGB)',
-  description: 'AGB von Dealer OS - Nutzungsbedingungen für die Händlersoftware',
+  title: 'AGB - Dealer OS',
+  description: 'Allgemeine Geschäftsbedingungen von Dealer OS - Nutzungsbedingungen, Abonnement, Preise und Vertragsbedingungen für die Schweizer Garagensoftware.',
+  alternates: {
+    canonical: 'https://www.dealeros.ch/de/agb',
+  },
 };
 
 type Props = {

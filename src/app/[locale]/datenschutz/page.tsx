@@ -3,8 +3,11 @@ import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 
 export const metadata: Metadata = {
-  title: 'Datenschutzerklärung',
-  description: 'Datenschutzerklärung von Dealer OS - Wie wir Ihre Daten schützen',
+  title: 'Datenschutzerklärung - Dealer OS',
+  description: 'Datenschutzerklärung von Dealer OS - Erfahren Sie, wie wir Ihre Daten schützen. DSGVO-konforme Datenverarbeitung mit Swiss Hosting. Ihre Rechte und unsere Verpflichtungen.',
+  alternates: {
+    canonical: 'https://www.dealeros.ch/de/datenschutz',
+  },
 };
 
 type Props = {
