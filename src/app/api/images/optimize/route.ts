@@ -5,7 +5,8 @@ import { removeBackground, upscaleImage } from '@/lib/replicate';
 import sharp from 'sharp';
 
 /**
- * Create AMAG-style studio composite
+ * Create AMAG-style studio composite with contour shadow
+ * Shadow follows the car's bottom edge, not a simple ellipse
  */
 async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   // Fetch the car image
@@ -18,7 +19,6 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   const outputHeight = carMeta.height || 800;
   
   // Sharpen the car edges by thresholding alpha channel
-  // This removes the semi-transparent halo from rembg
   const sharpCar = await sharp(fgBuffer)
     .ensureAlpha()
     .raw()
@@ -58,48 +58,57 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   `;
   const background = await sharp(Buffer.from(bgSvg)).png().toBuffer();
   
-  // Find where the car actually ends (bottom-most non-transparent pixel)
-  let carBottomY = outputHeight;
-  for (let y = info.height - 1; y >= 0; y--) {
-    let hasPixel = false;
-    for (let x = 0; x < info.width; x++) {
+  // === CONTOUR SHADOW ===
+  // Find the bottom contour of the car (for each x, find the lowest visible pixel)
+  const bottomContour: number[] = new Array(info.width).fill(-1);
+  
+  for (let x = 0; x < info.width; x++) {
+    for (let y = info.height - 1; y >= 0; y--) {
       const idx = (y * info.width + x) * 4 + 3;
       if (pixels[idx] > 128) {
-        hasPixel = true;
+        bottomContour[x] = y;
         break;
       }
     }
-    if (hasPixel) {
-      carBottomY = y;
-      break;
+  }
+  
+  // Create shadow by drawing the contour and blurring it
+  // We'll create a grayscale image where the contour line is white
+  const shadowCanvas = new Uint8Array(info.width * info.height * 4);
+  
+  // Draw the bottom contour as a thick line (shadow base)
+  const shadowThickness = 8; // pixels thick
+  for (let x = 0; x < info.width; x++) {
+    const contourY = bottomContour[x];
+    if (contourY > 0) {
+      // Draw shadow below the contour point
+      for (let dy = 0; dy < shadowThickness; dy++) {
+        const y = contourY + dy;
+        if (y < info.height) {
+          const idx = (y * info.width + x) * 4;
+          // Gradient: darker near contour, lighter below
+          const intensity = Math.round(80 * (1 - dy / shadowThickness));
+          shadowCanvas[idx] = 0;     // R
+          shadowCanvas[idx + 1] = 0; // G
+          shadowCanvas[idx + 2] = 0; // B
+          shadowCanvas[idx + 3] = intensity; // A
+        }
+      }
     }
   }
   
-  // Shadow like ceiling light: directly under the car, soft and centered
-  const shadowWidth = Math.round(outputWidth * 0.55);
-  const shadowHeight = 60; // Taller for softer gradient
-  const shadowY = carBottomY - 10; // Just slightly overlapping car bottom
+  // Create the shadow image and blur it for soft edges
+  const shadowImage = await sharp(Buffer.from(shadowCanvas), {
+    raw: { width: info.width, height: info.height, channels: 4 }
+  })
+    .blur(12) // Soft gaussian blur
+    .png()
+    .toBuffer();
   
-  const shadowSvg = `
-    <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="shadow" cx="50%" cy="30%" rx="50%" ry="70%">
-          <stop offset="0%" stop-color="#000" stop-opacity="0.22"/>
-          <stop offset="40%" stop-color="#000" stop-opacity="0.12"/>
-          <stop offset="70%" stop-color="#000" stop-opacity="0.05"/>
-          <stop offset="100%" stop-color="#000" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <ellipse cx="${shadowWidth/2}" cy="${shadowHeight * 0.35}" rx="${shadowWidth/2}" ry="${shadowHeight * 0.6}" fill="url(#shadow)"/>
-    </svg>
-  `;
-  const shadow = await sharp(Buffer.from(shadowSvg)).png().toBuffer();
-  const shadowLeft = Math.round((outputWidth - shadowWidth) / 2);
-  
-  // Composite
+  // Composite: background + shadow + car
   const result = await sharp(background)
     .composite([
-      { input: shadow, left: shadowLeft, top: shadowY, blend: 'multiply' },
+      { input: shadowImage, left: 0, top: 0, blend: 'multiply' },
       { input: sharpenedCar, left: 0, top: 0 },
     ])
     .jpeg({ quality: 95 })
