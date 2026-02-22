@@ -2,17 +2,32 @@ import { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 
-export const metadata: Metadata = {
-  title: 'AGB - Dealer OS',
-  description: 'Allgemeine Geschäftsbedingungen von Dealer OS - Nutzungsbedingungen, Abonnement, Preise und Vertragsbedingungen für die Schweizer Garagensoftware.',
-  alternates: {
-    canonical: 'https://www.dealeros.ch/de/agb',
-  },
-};
-
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'AGB - Dealer OS',
+    description: 'Allgemeine Geschäftsbedingungen von Dealer OS - Nutzungsbedingungen, Abonnement, Preise und Vertragsbedingungen für die Schweizer Garagensoftware.',
+    alternates: {
+      canonical: `https://www.dealeros.ch/${locale}/agb`,
+      languages: {
+        de: 'https://www.dealeros.ch/de/agb',
+        en: 'https://www.dealeros.ch/en/agb',
+        fr: 'https://www.dealeros.ch/fr/agb',
+        it: 'https://www.dealeros.ch/it/agb',
+      },
+    },
+    openGraph: {
+      title: 'AGB - Dealer OS',
+      description: 'Allgemeine Geschäftsbedingungen von Dealer OS für die Schweizer Garagensoftware.',
+      url: `https://www.dealeros.ch/${locale}/agb`,
+      images: [{ url: 'https://www.dealeros.ch/images/og-default.png', width: 1200, height: 630 }],
+    },
+  };
+}
 
 export default async function AGBPage({ params }: Props) {
   const { locale } = await params;

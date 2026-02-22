@@ -27,7 +27,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const post = getBlogPostBySlug(slug);
   
   if (!post) {
@@ -36,16 +36,36 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
+  const url = `https://www.dealeros.ch/${locale}/blog/${slug}`;
+
   return {
     title: `${post.title} | Dealer OS Blog`,
     description: post.excerpt,
     keywords: post.keywords.join(", "),
+    alternates: {
+      canonical: url,
+      languages: {
+        de: `https://www.dealeros.ch/de/blog/${slug}`,
+        en: `https://www.dealeros.ch/en/blog/${slug}`,
+        fr: `https://www.dealeros.ch/fr/blog/${slug}`,
+        it: `https://www.dealeros.ch/it/blog/${slug}`,
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: "article",
+      url,
       publishedTime: post.publishedAt,
       authors: [post.author],
+      images: [
+        {
+          url: post.image || "https://www.dealeros.ch/images/og-default.png",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
   };
 }

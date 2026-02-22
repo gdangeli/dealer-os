@@ -4,13 +4,32 @@ import { setRequestLocale } from "next-intl/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
-export const metadata: Metadata = {
-  title: "Kontakt - Dealer OS",
-  description: "Kontaktieren Sie das Dealer OS Team. Wir helfen Ihnen gerne bei Fragen zur Garagensoftware für Schweizer Autohändler. E-Mail, Telefon oder Live-Chat.",
-  alternates: {
-    canonical: "https://www.dealeros.ch/de/kontakt",
-  },
+type MetaProps = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: MetaProps): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: "Kontakt - Dealer OS",
+    description: "Kontaktieren Sie das Dealer OS Team. Wir helfen Ihnen gerne bei Fragen zur Garagensoftware für Schweizer Autohändler. E-Mail, Telefon oder Live-Chat.",
+    alternates: {
+      canonical: `https://www.dealeros.ch/${locale}/kontakt`,
+      languages: {
+        de: "https://www.dealeros.ch/de/kontakt",
+        en: "https://www.dealeros.ch/en/kontakt",
+        fr: "https://www.dealeros.ch/fr/kontakt",
+        it: "https://www.dealeros.ch/it/kontakt",
+      },
+    },
+    openGraph: {
+      title: "Kontakt - Dealer OS",
+      description: "Kontaktieren Sie das Dealer OS Team für Fragen zur Garagensoftware.",
+      url: `https://www.dealeros.ch/${locale}/kontakt`,
+      images: [{ url: "https://www.dealeros.ch/images/og-default.png", width: 1200, height: 630 }],
+    },
+  };
+}
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

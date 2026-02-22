@@ -2,17 +2,32 @@ import { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 
-export const metadata: Metadata = {
-  title: 'Datenschutzerklärung - Dealer OS',
-  description: 'Datenschutzerklärung von Dealer OS - Erfahren Sie, wie wir Ihre Daten schützen. DSGVO-konforme Datenverarbeitung mit Swiss Hosting. Ihre Rechte und unsere Verpflichtungen.',
-  alternates: {
-    canonical: 'https://www.dealeros.ch/de/datenschutz',
-  },
-};
-
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'Datenschutzerklärung - Dealer OS',
+    description: 'Datenschutzerklärung von Dealer OS - Erfahren Sie, wie wir Ihre Daten schützen. DSGVO-konforme Datenverarbeitung mit Swiss Hosting. Ihre Rechte und unsere Verpflichtungen.',
+    alternates: {
+      canonical: `https://www.dealeros.ch/${locale}/datenschutz`,
+      languages: {
+        de: 'https://www.dealeros.ch/de/datenschutz',
+        en: 'https://www.dealeros.ch/en/datenschutz',
+        fr: 'https://www.dealeros.ch/fr/datenschutz',
+        it: 'https://www.dealeros.ch/it/datenschutz',
+      },
+    },
+    openGraph: {
+      title: 'Datenschutzerklärung - Dealer OS',
+      description: 'Datenschutzerklärung von Dealer OS - Erfahren Sie, wie wir Ihre Daten schützen.',
+      url: `https://www.dealeros.ch/${locale}/datenschutz`,
+      images: [{ url: 'https://www.dealeros.ch/images/og-default.png', width: 1200, height: 630 }],
+    },
+  };
+}
 
 export default async function DatenschutzPage({ params }: Props) {
   const { locale } = await params;

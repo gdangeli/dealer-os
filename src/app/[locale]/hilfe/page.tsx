@@ -4,13 +4,32 @@ import { setRequestLocale } from "next-intl/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
-export const metadata: Metadata = {
-  title: "Hilfe & Support - Dealer OS",
-  description: "Finden Sie Antworten auf Ihre Fragen zu Dealer OS. Anleitungen, FAQs und direkter Kontakt zu unserem Support-Team für Schweizer Autohändler.",
-  alternates: {
-    canonical: "https://www.dealeros.ch/de/hilfe",
-  },
+type MetaProps = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: MetaProps): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: "Hilfe & Support - Dealer OS",
+    description: "Finden Sie Antworten auf Ihre Fragen zu Dealer OS. Anleitungen, FAQs und direkter Kontakt zu unserem Support-Team für Schweizer Autohändler.",
+    alternates: {
+      canonical: `https://www.dealeros.ch/${locale}/hilfe`,
+      languages: {
+        de: "https://www.dealeros.ch/de/hilfe",
+        en: "https://www.dealeros.ch/en/hilfe",
+        fr: "https://www.dealeros.ch/fr/hilfe",
+        it: "https://www.dealeros.ch/it/hilfe",
+      },
+    },
+    openGraph: {
+      title: "Hilfe & Support - Dealer OS",
+      description: "Finden Sie Antworten auf Ihre Fragen zu Dealer OS.",
+      url: `https://www.dealeros.ch/${locale}/hilfe`,
+      images: [{ url: "https://www.dealeros.ch/images/og-default.png", width: 1200, height: 630 }],
+    },
+  };
+}
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

@@ -1,14 +1,17 @@
 import { MetadataRoute } from 'next';
 import { getAllBlogPosts } from '@/content/blog';
-import { locales, defaultLocale } from '@/i18n/config';
+import { defaultLocale } from '@/i18n/config';
+
+// Only include fully translated locales in sitemap
+const sitemapLocales = ['de', 'en', 'fr', 'it'] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.dealeros.ch';
   
   const pages: MetadataRoute.Sitemap = [];
   
-  // Generate URLs for all locales
-  locales.forEach((locale) => {
+  // Generate URLs for fully translated locales only
+  sitemapLocales.forEach((locale) => {
     // Homepage - always include with locale prefix for consistency
     pages.push({
       url: `${baseUrl}/${locale}`,
@@ -17,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: locale === defaultLocale ? 1 : 0.9,
       alternates: {
         languages: Object.fromEntries(
-          locales.map((l) => [l, `${baseUrl}/${l}`])
+          sitemapLocales.map((l) => [l, `${baseUrl}/${l}`])
         ),
       },
     });
@@ -30,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       alternates: {
         languages: Object.fromEntries(
-          locales.map((l) => [l, `${baseUrl}/${l}/blog`])
+          sitemapLocales.map((l) => [l, `${baseUrl}/${l}/blog`])
         ),
       },
     });
@@ -43,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
       alternates: {
         languages: Object.fromEntries(
-          locales.map((l) => [l, `${baseUrl}/${l}/hilfe`])
+          sitemapLocales.map((l) => [l, `${baseUrl}/${l}/hilfe`])
         ),
       },
     });
@@ -56,7 +59,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
       alternates: {
         languages: Object.fromEntries(
-          locales.map((l) => [l, `${baseUrl}/${l}/kontakt`])
+          sitemapLocales.map((l) => [l, `${baseUrl}/${l}/kontakt`])
         ),
       },
     });
@@ -76,7 +79,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority,
         alternates: {
           languages: Object.fromEntries(
-            locales.map((l) => [l, `${baseUrl}/${l}/${slug}`])
+            sitemapLocales.map((l) => [l, `${baseUrl}/${l}/${slug}`])
           ),
         },
       });
@@ -92,7 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.7,
         alternates: {
           languages: Object.fromEntries(
-            locales.map((l) => [l, `${baseUrl}/${l}/blog/${post.slug}`])
+            sitemapLocales.map((l) => [l, `${baseUrl}/${l}/blog/${post.slug}`])
           ),
         },
       });

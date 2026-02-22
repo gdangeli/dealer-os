@@ -51,16 +51,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     creator: "Dealer OS",
     openGraph: {
       type: "website",
-      locale: locale === "de" ? "de_CH" : locale,
-      url: "https://www.dealeros.ch",
+      locale: locale === "de" ? "de_CH" : locale === "fr" ? "fr_CH" : locale === "it" ? "it_CH" : locale,
+      url: `https://www.dealeros.ch/${locale}`,
       siteName: "Dealer OS",
       title: metadata.title,
       description: metadata.description,
+      images: [
+        {
+          url: "https://www.dealeros.ch/images/og-default.png",
+          width: 1200,
+          height: 630,
+          alt: "Dealer OS - Die smarte Lösung für Schweizer Autohändler",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: metadata.title,
       description: metadata.description,
+      images: ["https://www.dealeros.ch/images/og-default.png"],
     },
     robots: {
       index: true,
@@ -73,7 +82,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         en: "https://www.dealeros.ch/en",
         fr: "https://www.dealeros.ch/fr",
         it: "https://www.dealeros.ch/it",
-        sr: "https://www.dealeros.ch/sr",
+        // Serbian excluded until translations complete
       },
     },
   };

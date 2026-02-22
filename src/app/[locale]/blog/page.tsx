@@ -39,7 +39,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         en: "https://www.dealeros.ch/en/blog",
         fr: "https://www.dealeros.ch/fr/blog",
         it: "https://www.dealeros.ch/it/blog",
-        sr: "https://www.dealeros.ch/sr/blog",
       },
     },
     openGraph: {
@@ -47,6 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: descriptions[locale] || descriptions.de,
       type: "website",
       url: `https://www.dealeros.ch/${locale}/blog`,
+      images: [
+        {
+          url: "https://www.dealeros.ch/images/og-default.png",
+          width: 1200,
+          height: 630,
+          alt: "Dealer OS Blog",
+        },
+      ],
     },
   };
 }

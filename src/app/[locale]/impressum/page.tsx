@@ -2,17 +2,32 @@ import { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 
-export const metadata: Metadata = {
-  title: 'Impressum - Dealer OS',
-  description: 'Impressum und rechtliche Informationen zu Dealer OS - der Garagensoftware für Schweizer Autohändler. Kontaktadresse, verantwortliche Person und Haftungsausschluss.',
-  alternates: {
-    canonical: 'https://www.dealeros.ch/de/impressum',
-  },
-};
-
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'Impressum - Dealer OS',
+    description: 'Impressum und rechtliche Informationen zu Dealer OS - der Garagensoftware für Schweizer Autohändler. Kontaktadresse, verantwortliche Person und Haftungsausschluss.',
+    alternates: {
+      canonical: `https://www.dealeros.ch/${locale}/impressum`,
+      languages: {
+        de: 'https://www.dealeros.ch/de/impressum',
+        en: 'https://www.dealeros.ch/en/impressum',
+        fr: 'https://www.dealeros.ch/fr/impressum',
+        it: 'https://www.dealeros.ch/it/impressum',
+      },
+    },
+    openGraph: {
+      title: 'Impressum - Dealer OS',
+      description: 'Impressum und rechtliche Informationen zu Dealer OS - der Garagensoftware für Schweizer Autohändler.',
+      url: `https://www.dealeros.ch/${locale}/impressum`,
+      images: [{ url: 'https://www.dealeros.ch/images/og-default.png', width: 1200, height: 630 }],
+    },
+  };
+}
 
 export default async function ImpressumPage({ params }: Props) {
   const { locale } = await params;
