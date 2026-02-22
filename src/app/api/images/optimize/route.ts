@@ -75,10 +75,10 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
     }
   }
   
-  // Shadow positioned right at the car's bottom
+  // Shadow positioned DIRECTLY at the car's bottom (no gap!)
   const shadowWidth = Math.round(outputWidth * 0.6);
-  const shadowHeight = 30;
-  const shadowY = carBottomY + 5; // Just below the car
+  const shadowHeight = 25;
+  const shadowY = carBottomY - Math.round(shadowHeight * 0.4); // Overlap with car bottom
   
   const shadowSvg = `
     <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
