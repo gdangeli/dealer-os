@@ -98,15 +98,23 @@ function SortableImage({
         image.is_main ? "border-blue-500" : "border-slate-200"
       } overflow-hidden aspect-[4/3]`}
     >
-      {/* Optimized Image with next/image */}
-      <OptimizedImage
-        src={image.url}
-        alt="Fahrzeugbild"
-        fill
-        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 200px"
-        priority={image.position === 0}
-        className="object-cover"
-      />
+      {/* Optimized Image with next/image - wrapped in clickable div */}
+      <div 
+        className="absolute inset-0 cursor-pointer z-0"
+        onClick={() => {
+          console.log('[SortableImage] Image clicked! Calling onViewFullscreen');
+          onViewFullscreen();
+        }}
+      >
+        <OptimizedImage
+          src={image.url}
+          alt="Fahrzeugbild"
+          fill
+          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 200px"
+          priority={image.position === 0}
+          className="object-cover pointer-events-none"
+        />
+      </div>
 
       {/* Uploading Overlay */}
       {isUploading && (
@@ -131,20 +139,18 @@ function SortableImage({
         </div>
       )}
 
-      {/* Hover Controls */}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors">
-        {/* Fullscreen Button - Clickable area */}
-        <button
-          onClick={onViewFullscreen}
-          className="absolute inset-0 w-full h-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-        >
+      {/* Hover Controls - overlay for visual effect only */}
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors z-10 pointer-events-none">
+        {/* Fullscreen icon indicator (visual only) */}
+        <div className="absolute inset-0 w-full h-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="p-3 bg-white/90 rounded-full shadow-lg">
             <Maximize2 className="w-5 h-5 text-slate-700" />
           </div>
-        </button>
-        
-        {/* Top Controls Row */}
-        <div className="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+        </div>
+      </div>
+      
+      {/* Top Controls Row - buttons need pointer-events-auto */}
+      <div className="absolute top-2 right-2 z-20 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           {/* Set as Main Button */}
           {!image.is_main && (
             <button
@@ -193,7 +199,6 @@ function SortableImage({
             <X className="w-4 h-4" />
           </button>
         </div>
-      </div>
 
       {/* Position Number */}
       <div className="absolute bottom-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
