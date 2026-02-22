@@ -5,55 +5,10 @@ import { removeBackground, upscaleImage } from '@/lib/replicate';
 import sharp from 'sharp';
 
 /**
- * Create AMAG-style shadow from car silhouette
- * The shadow is derived from the car's actual shape, flipped and compressed
- */
-async function createSilhouetteShadow(carBuffer: Buffer, carWidth: number, carHeight: number): Promise<Buffer> {
-  // Create shadow from car silhouette:
-  // 1. Extract alpha channel (car shape)
-  // 2. Fill with dark color
-  // 3. Flip vertically
-  // 4. Compress vertically (flatten)
-  // 5. Blur for softness
-  // 6. Reduce opacity
-  
-  const shadowHeight = Math.round(carHeight * 0.15); // Shadow is 15% of car height
-  
-  // Create silhouette: extract shape, fill black, flip, compress
-  const silhouette = await sharp(carBuffer)
-    .ensureAlpha()
-    .extractChannel('alpha')
-    .negate() // Invert so car area is white
-    .resize(carWidth, shadowHeight, { fit: 'fill' }) // Compress vertically
-    .flip() // Flip vertically for reflection effect
-    .blur(8) // Soft blur
-    .toBuffer();
-  
-  // Create the shadow with proper opacity
-  const shadow = await sharp({
-    create: {
-      width: carWidth,
-      height: shadowHeight,
-      channels: 4,
-      background: { r: 0, g: 0, b: 0, alpha: 0 }
-    }
-  })
-    .composite([{
-      input: await sharp(silhouette)
-        .ensureAlpha()
-        .modulate({ brightness: 0.3 }) // Darken
-        .toBuffer(),
-      blend: 'over'
-    }])
-    .png()
-    .toBuffer();
-  
-  return shadow;
-}
-
-/**
  * Create AMAG-style studio composite
- * Shadow is derived from car silhouette, positioned at contact point
+ * - Clean white gradient background
+ * - Soft contact shadow directly under car
+ * - Car positioned low (wheels near bottom)
  */
 async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   // Fetch the car image
@@ -74,15 +29,14 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   const carWidth = carMeta.width || outputWidth;
   const carHeight = carMeta.height || outputHeight;
   
-  // Create background - clean white to light gray gradient
+  // Create background - clean white to subtle gray
   const bgSvg = `
     <svg width="${outputWidth}" height="${outputHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#ffffff"/>
-          <stop offset="60%" stop-color="#fafafa"/>
-          <stop offset="85%" stop-color="#f0f0f0"/>
-          <stop offset="100%" stop-color="#e8e8e8"/>
+          <stop offset="70%" stop-color="#f8f8f8"/>
+          <stop offset="100%" stop-color="#eeeeee"/>
         </linearGradient>
       </defs>
       <rect width="100%" height="100%" fill="url(#bg)"/>
@@ -90,37 +44,45 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   `;
   const background = await sharp(Buffer.from(bgSvg)).png().toBuffer();
   
-  // Create silhouette-based shadow
-  let shadow: Buffer;
-  let shadowHeight: number;
-  try {
-    shadow = await createSilhouetteShadow(trimmedCar, carWidth, carHeight);
-    shadowHeight = Math.round(carHeight * 0.15);
-  } catch {
-    // Fallback to simple ellipse shadow if silhouette fails
-    shadowHeight = Math.round(carHeight * 0.08);
-    const shadowSvg = `
-      <svg width="${carWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="shadow" cx="50%" cy="50%" rx="50%" ry="50%">
-            <stop offset="0%" stop-color="#000" stop-opacity="0.2"/>
-            <stop offset="100%" stop-color="#000" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="${carWidth/2}" cy="${shadowHeight/2}" rx="${carWidth*0.45}" ry="${shadowHeight*0.45}" fill="url(#shadow)"/>
-      </svg>
-    `;
-    shadow = await sharp(Buffer.from(shadowSvg)).blur(2).png().toBuffer();
-  }
-  
-  // Position car: centered, wheels near bottom (90% of image)
-  const wheelLineY = Math.round(outputHeight * 0.90);
+  // Position car: centered, wheels at 92% of image height
+  const wheelLineY = Math.round(outputHeight * 0.92);
   const carLeft = Math.round((outputWidth - carWidth) / 2);
   const carTop = wheelLineY - carHeight;
   
-  // Shadow starts RIGHT at the bottom of the car (contact point)
-  const shadowTop = wheelLineY - Math.round(shadowHeight * 0.1); // Slight overlap
-  const shadowLeft = carLeft;
+  // Create soft contact shadow - gradient that fades from center
+  // Shadow width matches car, very short height
+  const shadowWidth = Math.round(carWidth * 0.85);
+  const shadowHeight = Math.round(carHeight * 0.05); // Very thin
+  
+  const shadowSvg = `
+    <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="shadowV" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#000" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="shadowH" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+          <stop offset="15%" stop-color="#000" stop-opacity="1"/>
+          <stop offset="85%" stop-color="#000" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+        </linearGradient>
+        <mask id="hMask">
+          <rect width="100%" height="100%" fill="url(#shadowH)"/>
+        </mask>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#shadowV)" mask="url(#hMask)"/>
+    </svg>
+  `;
+  
+  const shadow = await sharp(Buffer.from(shadowSvg))
+    .blur(3)
+    .png()
+    .toBuffer();
+  
+  // Shadow position: directly under car, at wheel line
+  const shadowLeft = Math.round((outputWidth - shadowWidth) / 2);
+  const shadowTop = wheelLineY;
   
   // Composite: background → shadow → car
   const result = await sharp(background)
