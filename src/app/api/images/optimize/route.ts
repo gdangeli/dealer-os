@@ -58,57 +58,41 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   `;
   const background = await sharp(Buffer.from(bgSvg)).png().toBuffer();
   
-  // === CONTOUR SHADOW ===
-  // Find the bottom contour of the car (for each x, find the lowest visible pixel)
-  const bottomContour: number[] = new Array(info.width).fill(-1);
+  // === SILHOUETTE SHADOW (AMAG style) ===
+  // Create shadow from the car's alpha channel:
+  // 1. Make car silhouette black
+  // 2. Shift down slightly
+  // 3. Blur heavily
+  // 4. Reduce opacity
   
-  for (let x = 0; x < info.width; x++) {
-    for (let y = info.height - 1; y >= 0; y--) {
-      const idx = (y * info.width + x) * 4 + 3;
-      if (pixels[idx] > 128) {
-        bottomContour[x] = y;
-        break;
-      }
+  // Create black silhouette from car's alpha
+  const shadowPixels = new Uint8Array(info.width * info.height * 4);
+  for (let i = 0; i < pixels.length; i += 4) {
+    const alpha = pixels[i + 3];
+    if (alpha > 128) {
+      shadowPixels[i] = 0;       // R - black
+      shadowPixels[i + 1] = 0;   // G - black
+      shadowPixels[i + 2] = 0;   // B - black
+      shadowPixels[i + 3] = 180; // A - strong shadow base
     }
   }
   
-  // Create shadow by drawing the contour and blurring it
-  // We'll create a grayscale image where the contour line is white
-  const shadowCanvas = new Uint8Array(info.width * info.height * 4);
-  
-  // Draw the bottom contour as a thick line (shadow base)
-  const shadowThickness = 8; // pixels thick
-  for (let x = 0; x < info.width; x++) {
-    const contourY = bottomContour[x];
-    if (contourY > 0) {
-      // Draw shadow below the contour point
-      for (let dy = 0; dy < shadowThickness; dy++) {
-        const y = contourY + dy;
-        if (y < info.height) {
-          const idx = (y * info.width + x) * 4;
-          // Gradient: darker near contour, lighter below
-          const intensity = Math.round(80 * (1 - dy / shadowThickness));
-          shadowCanvas[idx] = 0;     // R
-          shadowCanvas[idx + 1] = 0; // G
-          shadowCanvas[idx + 2] = 0; // B
-          shadowCanvas[idx + 3] = intensity; // A
-        }
-      }
-    }
-  }
-  
-  // Create the shadow image and blur it for soft edges
-  const shadowImage = await sharp(Buffer.from(shadowCanvas), {
+  // Create shadow: blur it and shift down
+  const shadowBase = await sharp(Buffer.from(shadowPixels), {
     raw: { width: info.width, height: info.height, channels: 4 }
   })
-    .blur(12) // Soft gaussian blur
+    .blur(25) // Heavy blur for soft shadow
     .png()
     .toBuffer();
   
-  // Composite: background + shadow + car
+  // The shadow needs to be positioned lower and compressed vertically
+  // We'll composite it shifted down
+  const shadowShiftY = 15; // pixels to shift shadow down
+  
+  // Composite: background + shadow (shifted down) + car
   const result = await sharp(background)
     .composite([
-      { input: shadowImage, left: 0, top: 0, blend: 'multiply' },
+      { input: shadowBase, left: 0, top: shadowShiftY, blend: 'multiply' },
       { input: sharpenedCar, left: 0, top: 0 },
     ])
     .jpeg({ quality: 95 })
