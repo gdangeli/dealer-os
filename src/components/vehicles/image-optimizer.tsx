@@ -88,11 +88,43 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
   const handleApply = async () => {
     if (!previewUrl) return;
     
-    // Convert base64 to blob and upload to Supabase
-    // Then call onOptimized with the new URL
-    toast.success(t("applied"));
-    onOptimized(previewUrl); // For now, pass base64
-    onClose();
+    setIsProcessing(true);
+    try {
+      // Convert base64 to blob
+      const response = await fetch(previewUrl);
+      const blob = await response.blob();
+      
+      // Create a File object
+      const timestamp = Date.now();
+      const filename = `optimized-${timestamp}.png`;
+      const file = new File([blob], filename, { type: 'image/png' });
+      
+      // Upload to our API which handles Supabase storage
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('originalUrl', imageUrl);
+      
+      const uploadResponse = await fetch('/api/images/upload-optimized', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      if (!uploadResponse.ok) {
+        const error = await uploadResponse.json();
+        throw new Error(error.error || 'Upload failed');
+      }
+      
+      const { url: newUrl } = await uploadResponse.json();
+      
+      toast.success(t("applied"));
+      onOptimized(newUrl);
+      onClose();
+    } catch (error) {
+      console.error('Error applying optimized image:', error);
+      toast.error(error instanceof Error ? error.message : t("error"));
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const toggleOperation = (key: keyof typeof operations) => {
