@@ -5,117 +5,84 @@ import { removeBackground, upscaleImage } from '@/lib/replicate';
 import sharp from 'sharp';
 
 /**
- * Create realistic contact shadow (AMAG style)
- * Shadow is directly under the car, darkest at contact point
- */
-async function createContactShadow(
-  carWidth: number,
-  carHeight: number
-): Promise<Buffer> {
-  // Shadow dimensions - wide and flat, directly under car
-  const shadowWidth = Math.round(carWidth * 0.9);
-  const shadowHeight = Math.round(carHeight * 0.08); // Very flat shadow
-  
-  // Create multi-layer shadow for realism
-  const svg = `
-    <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <!-- Main contact shadow - darkest in center -->
-        <radialGradient id="contactShadow" cx="50%" cy="30%" rx="50%" ry="70%">
-          <stop offset="0%" stop-color="#000000" stop-opacity="0.35"/>
-          <stop offset="40%" stop-color="#000000" stop-opacity="0.20"/>
-          <stop offset="70%" stop-color="#000000" stop-opacity="0.08"/>
-          <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <!-- Shadow ellipse -->
-      <ellipse cx="${shadowWidth / 2}" cy="${shadowHeight * 0.4}" 
-               rx="${shadowWidth * 0.48}" ry="${shadowHeight * 0.5}" 
-               fill="url(#contactShadow)"/>
-    </svg>
-  `;
-  
-  // Apply blur for softness
-  return sharp(Buffer.from(svg))
-    .blur(3)
-    .png()
-    .toBuffer();
-}
-
-/**
  * Create AMAG-style studio composite
- * Car keeps original dimensions - background adapts to car size
+ * - Same dimensions as input image
+ * - Car trimmed and positioned so wheels touch ground
+ * - Contact shadow directly under wheels
  */
 async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   // Fetch the car image (with transparent background)
   const fgResponse = await fetch(foregroundUrl);
   const fgBuffer = Buffer.from(await fgResponse.arrayBuffer());
   
-  // Get car dimensions - DO NOT RESIZE
-  const carMeta = await sharp(fgBuffer).metadata();
-  const finalCarWidth = carMeta.width || 1000;
-  const finalCarHeight = carMeta.height || 600;
+  // Get original dimensions BEFORE any processing
+  const originalMeta = await sharp(fgBuffer).metadata();
+  const outputWidth = originalMeta.width || 1200;
+  const outputHeight = originalMeta.height || 800;
   
-  // Output dimensions based on car size (add padding for background)
-  const paddingX = Math.round(finalCarWidth * 0.15); // 15% padding on each side
-  const paddingTop = Math.round(finalCarHeight * 0.1); // 10% padding top
-  const paddingBottom = Math.round(finalCarHeight * 0.25); // 25% padding bottom for floor/shadow
+  // Trim transparent pixels to get actual car bounds
+  const trimmedCar = await sharp(fgBuffer)
+    .trim({ threshold: 10 })
+    .toBuffer();
   
-  const outputWidth = finalCarWidth + (paddingX * 2);
-  const outputHeight = finalCarHeight + paddingTop + paddingBottom;
+  const trimmedMeta = await sharp(trimmedCar).metadata();
+  const carWidth = trimmedMeta.width || outputWidth;
+  const carHeight = trimmedMeta.height || outputHeight;
   
-  // Create background with dynamic size
+  // Create AMAG-style background (same size as original image)
+  // Floor starts at 75% from top
+  const floorY = Math.round(outputHeight * 0.75);
+  
   const bgSvg = `
     <svg width="${outputWidth}" height="${outputHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#fafafa"/>
-          <stop offset="60%" stop-color="#f5f5f5"/>
-          <stop offset="100%" stop-color="#ebebeb"/>
+          <stop offset="0%" stop-color="#f8f8f8"/>
+          <stop offset="70%" stop-color="#f3f3f3"/>
+          <stop offset="100%" stop-color="#ededed"/>
         </linearGradient>
         <linearGradient id="floor" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#e8e8e8"/>
-          <stop offset="100%" stop-color="#e0e0e0"/>
+          <stop offset="0%" stop-color="#e9e9e9"/>
+          <stop offset="100%" stop-color="#e2e2e2"/>
         </linearGradient>
       </defs>
       <rect width="100%" height="100%" fill="url(#bg)"/>
-      <rect y="${outputHeight - paddingBottom}" width="100%" height="${paddingBottom}" fill="url(#floor)"/>
+      <rect y="${floorY}" width="100%" height="${outputHeight - floorY}" fill="url(#floor)"/>
     </svg>
   `;
   const background = await sharp(Buffer.from(bgSvg)).png().toBuffer();
   
-  // Create shadow
-  const shadow = await createContactShadow(finalCarWidth, finalCarHeight);
-  const shadowMeta = await sharp(shadow).metadata();
-  const shadowWidth = shadowMeta.width || finalCarWidth;
-  const shadowHeight = shadowMeta.height || 50;
+  // Create contact shadow - wide ellipse directly under car
+  const shadowWidth = Math.round(carWidth * 0.85);
+  const shadowHeight = Math.round(carHeight * 0.06);
   
-  // Position calculations
-  // Floor line is where padding bottom starts
-  const floorY = outputHeight - paddingBottom;
+  const shadowSvg = `
+    <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="shadow" cx="50%" cy="40%" rx="50%" ry="60%">
+          <stop offset="0%" stop-color="#000" stop-opacity="0.3"/>
+          <stop offset="50%" stop-color="#000" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="${shadowWidth/2}" cy="${shadowHeight/2}" rx="${shadowWidth*0.48}" ry="${shadowHeight*0.45}" fill="url(#shadow)"/>
+    </svg>
+  `;
+  const shadow = await sharp(Buffer.from(shadowSvg)).blur(2).png().toBuffer();
   
-  // Car position - centered horizontally, bottom at floor line
-  const carLeft = paddingX;
-  const carTop = floorY - finalCarHeight + Math.round(finalCarHeight * 0.02); // Tiny ground offset
+  // Position car: centered horizontally, bottom touching floor line
+  const carLeft = Math.round((outputWidth - carWidth) / 2);
+  const carTop = floorY - carHeight;
   
-  // Shadow sits directly on floor, centered under car
-  const shadowTop = floorY - Math.round(shadowHeight * 0.5);
-  const shadowLeft = carLeft + Math.round((finalCarWidth - shadowWidth) / 2);
+  // Position shadow: centered under car, on the floor
+  const shadowLeft = Math.round((outputWidth - shadowWidth) / 2);
+  const shadowTop = floorY - Math.round(shadowHeight * 0.4);
   
-  // Composite: background → shadow → car (original size)
+  // Composite: background → shadow → car
   const result = await sharp(background)
     .composite([
-      {
-        input: shadow,
-        left: shadowLeft,
-        top: shadowTop,
-        blend: 'multiply',
-      },
-      {
-        input: fgBuffer, // Use original car buffer, not resized
-        left: carLeft,
-        top: carTop,
-      },
+      { input: shadow, left: shadowLeft, top: shadowTop, blend: 'multiply' },
+      { input: trimmedCar, left: carLeft, top: carTop },
     ])
     .jpeg({ quality: 92 })
     .toBuffer();
@@ -128,18 +95,13 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
     const adminClient = createAdminClient();
     
-    // Verify auth
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = await request.json();
-    const { 
-      imageUrl,
-      operations = ['enhance'],
-      backgroundTemplate,
-    } = body;
+    const { imageUrl, operations = ['enhance'], backgroundTemplate } = body;
 
     if (!imageUrl) {
       return NextResponse.json({ error: 'No image URL provided' }, { status: 400 });
@@ -148,38 +110,28 @@ export async function POST(request: NextRequest) {
     let resultUrl = imageUrl;
     const results: Record<string, string> = {};
 
-    // Process operations in order
     for (const op of operations) {
       if (op === 'remove_background') {
-        // Remove background using Replicate
         const noBgUrl = await removeBackground(resultUrl);
         results.background_removed = noBgUrl;
         
-        // If any background template is selected (not transparent), create studio composite
         if (backgroundTemplate && backgroundTemplate !== 'none' && backgroundTemplate !== 'transparent') {
           try {
-            // Create AMAG-style studio composite with shadow
             const compositedBuffer = await createStudioComposite(noBgUrl);
             
-            // Upload composited image to Supabase Storage
             const fileName = `studio/${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`;
             const { data: uploadData, error: uploadError } = await adminClient
               .storage
               .from('vehicle-images')
-              .upload(fileName, compositedBuffer, {
-                contentType: 'image/jpeg',
-              });
+              .upload(fileName, compositedBuffer, { contentType: 'image/jpeg' });
             
             if (!uploadError && uploadData) {
-              const { data: publicUrl } = adminClient
-                .storage
+              const { data: publicUrl } = adminClient.storage
                 .from('vehicle-images')
                 .getPublicUrl(fileName);
-              
               resultUrl = publicUrl.publicUrl;
               results.composited = resultUrl;
             } else {
-              console.error('Failed to upload composited image:', uploadError);
               resultUrl = noBgUrl;
             }
           } catch (compError) {
@@ -202,9 +154,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Optionally save to Supabase Storage
-    const saveToStorage = body.saveToStorage;
-    if (saveToStorage && resultUrl.startsWith('http')) {
+    if (body.saveToStorage && resultUrl.startsWith('http')) {
       const imageResponse = await fetch(resultUrl);
       const imageBuffer = await imageResponse.arrayBuffer();
       const fileName = `optimized/${Date.now()}-${Math.random().toString(36).slice(2)}.png`;
@@ -212,25 +162,17 @@ export async function POST(request: NextRequest) {
       const { data: uploadData, error: uploadError } = await adminClient
         .storage
         .from('vehicle-images')
-        .upload(fileName, imageBuffer, {
-          contentType: 'image/png',
-        });
+        .upload(fileName, imageBuffer, { contentType: 'image/png' });
       
       if (!uploadError && uploadData) {
-        const { data: publicUrl } = adminClient
-          .storage
+        const { data: publicUrl } = adminClient.storage
           .from('vehicle-images')
           .getPublicUrl(fileName);
-        
         resultUrl = publicUrl.publicUrl;
       }
     }
 
-    return NextResponse.json({
-      success: true,
-      images: results,
-      final: resultUrl,
-    });
+    return NextResponse.json({ success: true, images: results, final: resultUrl });
 
   } catch (error) {
     console.error('Image optimization error:', error);
