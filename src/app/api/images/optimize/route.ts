@@ -4,37 +4,35 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { removeBackground, upscaleImage } from '@/lib/replicate';
 import sharp from 'sharp';
 
-// Studio background dimensions
-const STUDIO_WIDTH = 1920;
-const STUDIO_HEIGHT = 1280;
+// Output dimensions (4:3 aspect ratio like AMAG)
+const OUTPUT_WIDTH = 1200;
+const OUTPUT_HEIGHT = 900;
 
 /**
- * Create AMAG-style studio background with gradient
+ * Create AMAG-style studio background
+ * Clean white gradient with subtle floor
  */
 async function createStudioBackground(): Promise<Buffer> {
-  // Create a clean white-to-gray gradient like AMAG uses
+  // AMAG style: very clean white at top, subtle gray at bottom
   const svg = `
-    <svg width="${STUDIO_WIDTH}" height="${STUDIO_HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+    <svg width="${OUTPUT_WIDTH}" height="${OUTPUT_HEIGHT}" xmlns="http://www.w3.org/2000/svg">
       <defs>
+        <!-- Very subtle top-to-bottom gradient -->
         <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#f5f5f5"/>
-          <stop offset="50%" stop-color="#f0f0f0"/>
-          <stop offset="75%" stop-color="#e8e8e8"/>
-          <stop offset="100%" stop-color="#e0e0e0"/>
+          <stop offset="0%" stop-color="#fafafa"/>
+          <stop offset="60%" stop-color="#f5f5f5"/>
+          <stop offset="100%" stop-color="#ebebeb"/>
         </linearGradient>
-        <!-- Floor gradient for depth -->
+        <!-- Floor gradient (bottom 35%) -->
         <linearGradient id="floor" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#e5e5e5"/>
-          <stop offset="100%" stop-color="#d8d8d8"/>
+          <stop offset="0%" stop-color="#e8e8e8"/>
+          <stop offset="100%" stop-color="#e0e0e0"/>
         </linearGradient>
       </defs>
       <!-- Background -->
       <rect width="100%" height="100%" fill="url(#bg)"/>
-      <!-- Floor area (bottom 40%) -->
-      <rect y="${STUDIO_HEIGHT * 0.6}" width="100%" height="${STUDIO_HEIGHT * 0.4}" fill="url(#floor)"/>
-      <!-- Subtle horizon line -->
-      <line x1="0" y1="${STUDIO_HEIGHT * 0.6}" x2="${STUDIO_WIDTH}" y2="${STUDIO_HEIGHT * 0.6}" 
-            stroke="#d0d0d0" stroke-width="1" opacity="0.5"/>
+      <!-- Floor -->
+      <rect y="${OUTPUT_HEIGHT * 0.65}" width="100%" height="${OUTPUT_HEIGHT * 0.35}" fill="url(#floor)"/>
     </svg>
   `;
   
@@ -42,47 +40,45 @@ async function createStudioBackground(): Promise<Buffer> {
 }
 
 /**
- * Create a realistic shadow from the car's silhouette
+ * Create realistic contact shadow (AMAG style)
+ * Shadow is directly under the car, darkest at contact point
  */
-async function createCarShadow(
-  carBuffer: Buffer,
+async function createContactShadow(
   carWidth: number,
   carHeight: number
 ): Promise<Buffer> {
-  // Extract alpha channel to get car silhouette
-  const { data, info } = await sharp(carBuffer)
-    .ensureAlpha()
-    .raw()
-    .toBuffer({ resolveWithObject: true });
+  // Shadow dimensions - wide and flat, directly under car
+  const shadowWidth = Math.round(carWidth * 0.9);
+  const shadowHeight = Math.round(carHeight * 0.08); // Very flat shadow
   
-  // Create shadow from alpha channel
-  // Shadow is flattened (compressed vertically) and shifted down
-  const shadowHeight = Math.round(carHeight * 0.15); // Shadow is 15% of car height
-  const shadowWidth = carWidth;
-  
-  // Create shadow as a dark semi-transparent ellipse that follows car shape
-  const shadowSvg = `
+  // Create multi-layer shadow for realism
+  const svg = `
     <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="shadow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-          <stop offset="0%" stop-color="#000000" stop-opacity="0.25"/>
-          <stop offset="60%" stop-color="#000000" stop-opacity="0.15"/>
+        <!-- Main contact shadow - darkest in center -->
+        <radialGradient id="contactShadow" cx="50%" cy="30%" rx="50%" ry="70%">
+          <stop offset="0%" stop-color="#000000" stop-opacity="0.35"/>
+          <stop offset="40%" stop-color="#000000" stop-opacity="0.20"/>
+          <stop offset="70%" stop-color="#000000" stop-opacity="0.08"/>
           <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
         </radialGradient>
       </defs>
-      <ellipse cx="${shadowWidth / 2}" cy="${shadowHeight / 2}" 
-               rx="${shadowWidth * 0.45}" ry="${shadowHeight * 0.4}" 
-               fill="url(#shadow)"/>
+      <!-- Shadow ellipse -->
+      <ellipse cx="${shadowWidth / 2}" cy="${shadowHeight * 0.4}" 
+               rx="${shadowWidth * 0.48}" ry="${shadowHeight * 0.5}" 
+               fill="url(#contactShadow)"/>
     </svg>
   `;
   
-  return sharp(Buffer.from(shadowSvg))
+  // Apply blur for softness
+  return sharp(Buffer.from(svg))
+    .blur(3)
     .png()
     .toBuffer();
 }
 
 /**
- * Composite car with shadow onto studio background (AMAG style)
+ * Create AMAG-style studio composite
  */
 async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   // Fetch the car image (with transparent background)
@@ -94,38 +90,43 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   const carOrigWidth = carMeta.width || 1000;
   const carOrigHeight = carMeta.height || 600;
   
-  // Resize car to fit nicely (70% of studio width)
-  const targetWidth = Math.round(STUDIO_WIDTH * 0.70);
-  const scale = targetWidth / carOrigWidth;
-  const targetHeight = Math.round(carOrigHeight * scale);
+  // Resize car to fit (75% of output width max)
+  const maxCarWidth = Math.round(OUTPUT_WIDTH * 0.75);
+  const scale = Math.min(maxCarWidth / carOrigWidth, 1);
+  const carWidth = Math.round(carOrigWidth * scale);
+  const carHeight = Math.round(carOrigHeight * scale);
   
   const resizedCar = await sharp(fgBuffer)
-    .resize(targetWidth, targetHeight, { fit: 'inside' })
+    .resize(carWidth, carHeight, { fit: 'inside' })
     .png()
     .toBuffer();
   
-  const resizedMeta = await sharp(resizedCar).metadata();
-  const finalCarWidth = resizedMeta.width || targetWidth;
-  const finalCarHeight = resizedMeta.height || targetHeight;
+  const finalMeta = await sharp(resizedCar).metadata();
+  const finalCarWidth = finalMeta.width || carWidth;
+  const finalCarHeight = finalMeta.height || carHeight;
   
-  // Create studio background
+  // Create background
   const background = await createStudioBackground();
   
   // Create shadow
-  const shadow = await createCarShadow(resizedCar, finalCarWidth, finalCarHeight);
+  const shadow = await createContactShadow(finalCarWidth, finalCarHeight);
   const shadowMeta = await sharp(shadow).metadata();
+  const shadowWidth = shadowMeta.width || finalCarWidth;
+  const shadowHeight = shadowMeta.height || 50;
   
-  // Calculate positions
-  // Car sits at the horizon line (60% from top)
-  const horizonY = Math.round(STUDIO_HEIGHT * 0.6);
+  // Position calculations
+  // Floor line is at 65% from top
+  const floorY = Math.round(OUTPUT_HEIGHT * 0.65);
   
-  // Car bottom should be at horizon + small offset
-  const carTop = horizonY - finalCarHeight + Math.round(finalCarHeight * 0.05);
-  const carLeft = Math.round((STUDIO_WIDTH - finalCarWidth) / 2);
+  // Car bottom should sit exactly on the floor line
+  // Adjust for the fact that car images often have some padding at bottom
+  const carBottom = floorY + Math.round(finalCarHeight * 0.02); // Tiny offset to "ground" it
+  const carTop = carBottom - finalCarHeight;
+  const carLeft = Math.round((OUTPUT_WIDTH - finalCarWidth) / 2);
   
-  // Shadow position (directly under car, on the floor)
-  const shadowTop = horizonY - Math.round((shadowMeta.height || 50) * 0.3);
-  const shadowLeft = carLeft + Math.round(finalCarWidth * 0.025); // Slightly offset for realism
+  // Shadow sits directly on floor, centered under car
+  const shadowTop = floorY - Math.round(shadowHeight * 0.5);
+  const shadowLeft = carLeft + Math.round((finalCarWidth - shadowWidth) / 2);
   
   // Composite: background → shadow → car
   const result = await sharp(background)
@@ -205,11 +206,11 @@ export async function POST(request: NextRequest) {
               results.composited = resultUrl;
             } else {
               console.error('Failed to upload composited image:', uploadError);
-              resultUrl = noBgUrl; // Fallback to transparent version
+              resultUrl = noBgUrl;
             }
           } catch (compError) {
             console.error('Compositing error:', compError);
-            resultUrl = noBgUrl; // Fallback to transparent version
+            resultUrl = noBgUrl;
           }
         } else {
           resultUrl = noBgUrl;
@@ -217,15 +218,12 @@ export async function POST(request: NextRequest) {
       }
       
       if (op === 'enhance' || op === 'upscale') {
-        // Upscale/enhance using Real-ESRGAN
         const enhancedUrl = await upscaleImage(resultUrl, 2);
         results.enhanced = enhancedUrl;
         resultUrl = enhancedUrl;
       }
       
       if (op === 'blur_plates') {
-        // TODO: Implement license plate detection and blur
-        // For now, skip this operation
         results.plates_blurred = resultUrl;
       }
     }
@@ -233,7 +231,6 @@ export async function POST(request: NextRequest) {
     // Optionally save to Supabase Storage
     const saveToStorage = body.saveToStorage;
     if (saveToStorage && resultUrl.startsWith('http')) {
-      // Download and save to Supabase
       const imageResponse = await fetch(resultUrl);
       const imageBuffer = await imageResponse.arrayBuffer();
       const fileName = `optimized/${Date.now()}-${Math.random().toString(36).slice(2)}.png`;
