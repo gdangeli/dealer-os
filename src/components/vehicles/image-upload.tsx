@@ -57,6 +57,7 @@ interface ImageUploadProps {
 // Sortable Image Component with next/image
 function SortableImage({
   image,
+  dragVersion = 0,
   onRemove,
   onSetMain,
   onViewFullscreen,
@@ -64,6 +65,7 @@ function SortableImage({
   isUploading,
 }: {
   image: VehicleImage;
+  dragVersion?: number;
   onRemove: (id: string) => void;
   onSetMain: (id: string) => void;
   onViewFullscreen: () => void;
@@ -107,6 +109,7 @@ function SortableImage({
         }}
       >
         <OptimizedImage
+          key={`${image.id}-${image.position}-v${dragVersion}`}
           src={image.url}
           alt="Fahrzeugbild"
           fill
@@ -227,6 +230,8 @@ export function ImageUpload({
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [optimizerOpen, setOptimizerOpen] = useState(false);
   const [optimizingImage, setOptimizingImage] = useState<VehicleImage | null>(null);
+  // Counter to force re-render after drag operations
+  const [dragVersion, setDragVersion] = useState(0);
 
   const MAX_IMAGES = 30;
   const MAX_SIZE_MB = 10; // Input max size
@@ -472,6 +477,8 @@ export function ImageUpload({
         is_main: idx === 0,
       }));
 
+      // Force re-render of image components by incrementing version
+      setDragVersion(v => v + 1);
       setImages(newImages);
 
       // Update positions in database
@@ -681,6 +688,7 @@ export function ImageUpload({
                   <SortableImage
                     key={image.id}
                     image={image}
+                    dragVersion={dragVersion}
                     onRemove={handleRemove}
                     onSetMain={handleSetMain}
                     onOptimize={handleOptimize}
