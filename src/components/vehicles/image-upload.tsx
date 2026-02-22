@@ -85,6 +85,11 @@ function SortableImage({
     opacity: isDragging ? 0.5 : 1,
   };
 
+  // Debug: log image URL
+  if (process.env.NODE_ENV === 'development' || true) {
+    console.log('[SortableImage] Rendering image:', { id: image.id, url: image.url?.substring(0, 80), position: image.position, isNew: image.isNew });
+  }
+
   return (
     <div
       ref={setNodeRef}
@@ -259,6 +264,7 @@ export function ImageUpload({
       return;
     }
 
+    console.log('[ImageUpload] Loaded images from DB:', data?.length, data?.map(img => ({ id: img.id, url: img.url?.substring(0, 60), position: img.position })));
     setImages(data || []);
   };
 
