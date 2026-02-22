@@ -4,41 +4,6 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { removeBackground, upscaleImage } from '@/lib/replicate';
 import sharp from 'sharp';
 
-// Output dimensions (4:3 aspect ratio like AMAG)
-const OUTPUT_WIDTH = 1200;
-const OUTPUT_HEIGHT = 900;
-
-/**
- * Create AMAG-style studio background
- * Clean white gradient with subtle floor
- */
-async function createStudioBackground(): Promise<Buffer> {
-  // AMAG style: very clean white at top, subtle gray at bottom
-  const svg = `
-    <svg width="${OUTPUT_WIDTH}" height="${OUTPUT_HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <!-- Very subtle top-to-bottom gradient -->
-        <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#fafafa"/>
-          <stop offset="60%" stop-color="#f5f5f5"/>
-          <stop offset="100%" stop-color="#ebebeb"/>
-        </linearGradient>
-        <!-- Floor gradient (bottom 35%) -->
-        <linearGradient id="floor" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#e8e8e8"/>
-          <stop offset="100%" stop-color="#e0e0e0"/>
-        </linearGradient>
-      </defs>
-      <!-- Background -->
-      <rect width="100%" height="100%" fill="url(#bg)"/>
-      <!-- Floor -->
-      <rect y="${OUTPUT_HEIGHT * 0.65}" width="100%" height="${OUTPUT_HEIGHT * 0.35}" fill="url(#floor)"/>
-    </svg>
-  `;
-  
-  return sharp(Buffer.from(svg)).png().toBuffer();
-}
-
 /**
  * Create realistic contact shadow (AMAG style)
  * Shadow is directly under the car, darkest at contact point
@@ -79,34 +44,45 @@ async function createContactShadow(
 
 /**
  * Create AMAG-style studio composite
+ * Car keeps original dimensions - background adapts to car size
  */
 async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   // Fetch the car image (with transparent background)
   const fgResponse = await fetch(foregroundUrl);
   const fgBuffer = Buffer.from(await fgResponse.arrayBuffer());
   
-  // Get car dimensions
+  // Get car dimensions - DO NOT RESIZE
   const carMeta = await sharp(fgBuffer).metadata();
-  const carOrigWidth = carMeta.width || 1000;
-  const carOrigHeight = carMeta.height || 600;
+  const finalCarWidth = carMeta.width || 1000;
+  const finalCarHeight = carMeta.height || 600;
   
-  // Resize car to fit (75% of output width max)
-  const maxCarWidth = Math.round(OUTPUT_WIDTH * 0.75);
-  const scale = Math.min(maxCarWidth / carOrigWidth, 1);
-  const carWidth = Math.round(carOrigWidth * scale);
-  const carHeight = Math.round(carOrigHeight * scale);
+  // Output dimensions based on car size (add padding for background)
+  const paddingX = Math.round(finalCarWidth * 0.15); // 15% padding on each side
+  const paddingTop = Math.round(finalCarHeight * 0.1); // 10% padding top
+  const paddingBottom = Math.round(finalCarHeight * 0.25); // 25% padding bottom for floor/shadow
   
-  const resizedCar = await sharp(fgBuffer)
-    .resize(carWidth, carHeight, { fit: 'inside' })
-    .png()
-    .toBuffer();
+  const outputWidth = finalCarWidth + (paddingX * 2);
+  const outputHeight = finalCarHeight + paddingTop + paddingBottom;
   
-  const finalMeta = await sharp(resizedCar).metadata();
-  const finalCarWidth = finalMeta.width || carWidth;
-  const finalCarHeight = finalMeta.height || carHeight;
-  
-  // Create background
-  const background = await createStudioBackground();
+  // Create background with dynamic size
+  const bgSvg = `
+    <svg width="${outputWidth}" height="${outputHeight}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#fafafa"/>
+          <stop offset="60%" stop-color="#f5f5f5"/>
+          <stop offset="100%" stop-color="#ebebeb"/>
+        </linearGradient>
+        <linearGradient id="floor" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#e8e8e8"/>
+          <stop offset="100%" stop-color="#e0e0e0"/>
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#bg)"/>
+      <rect y="${outputHeight - paddingBottom}" width="100%" height="${paddingBottom}" fill="url(#floor)"/>
+    </svg>
+  `;
+  const background = await sharp(Buffer.from(bgSvg)).png().toBuffer();
   
   // Create shadow
   const shadow = await createContactShadow(finalCarWidth, finalCarHeight);
@@ -115,20 +91,18 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   const shadowHeight = shadowMeta.height || 50;
   
   // Position calculations
-  // Floor line is at 65% from top
-  const floorY = Math.round(OUTPUT_HEIGHT * 0.65);
+  // Floor line is where padding bottom starts
+  const floorY = outputHeight - paddingBottom;
   
-  // Car bottom should sit exactly on the floor line
-  // Adjust for the fact that car images often have some padding at bottom
-  const carBottom = floorY + Math.round(finalCarHeight * 0.02); // Tiny offset to "ground" it
-  const carTop = carBottom - finalCarHeight;
-  const carLeft = Math.round((OUTPUT_WIDTH - finalCarWidth) / 2);
+  // Car position - centered horizontally, bottom at floor line
+  const carLeft = paddingX;
+  const carTop = floorY - finalCarHeight + Math.round(finalCarHeight * 0.02); // Tiny ground offset
   
   // Shadow sits directly on floor, centered under car
   const shadowTop = floorY - Math.round(shadowHeight * 0.5);
   const shadowLeft = carLeft + Math.round((finalCarWidth - shadowWidth) / 2);
   
-  // Composite: background → shadow → car
+  // Composite: background → shadow → car (original size)
   const result = await sharp(background)
     .composite([
       {
@@ -138,7 +112,7 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
         blend: 'multiply',
       },
       {
-        input: resizedCar,
+        input: fgBuffer, // Use original car buffer, not resized
         left: carLeft,
         top: carTop,
       },
