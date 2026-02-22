@@ -573,9 +573,12 @@ export function ImageUpload({
 
   const handleOptimize = (imageId: string) => {
     const image = images.find(img => img.id === imageId);
-    if (image && !image.isNew) {
+    console.log('[handleOptimize] Image:', imageId, image?.url?.substring(0, 80));
+    if (image && !image.isNew && image.url && !image.url.startsWith('blob:')) {
       setOptimizingImage(image);
       setOptimizerOpen(true);
+    } else {
+      console.warn('[handleOptimize] Cannot optimize - image is new or has blob URL');
     }
   };
 

@@ -34,6 +34,12 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
   });
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
+  // Guard against invalid imageUrl
+  if (!imageUrl || imageUrl.startsWith('blob:')) {
+    console.warn('[ImageOptimizer] Invalid imageUrl:', imageUrl?.substring(0, 50));
+    return null;
+  }
+
   const BACKGROUND_TEMPLATES = [
     { id: "showroom-modern", name: t("backgrounds.showroomModern"), preview: "🏢" },
     { id: "showroom-classic", name: t("backgrounds.showroomClassic"), preview: "🏛️" },
@@ -95,7 +101,7 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
 
   return (
     <Dialog open={open} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-4xl">
+      <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>🎨 {t("title")}</DialogTitle>
           <DialogDescription>
