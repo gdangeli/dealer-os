@@ -30,9 +30,9 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   const carHeight = carMeta.height || outputHeight;
   
   // AMAG-style background: wall + floor with visible transition
-  // Wall: light gray (#f5f5f5), Floor: slightly darker (#e0e0e0)
-  // Transition at 65% from top (slightly above wheel level)
-  const transitionY = Math.round(outputHeight * 0.65);
+  // Wall: light gray, Floor: slightly darker
+  // Transition at 35% from top (as shown by red line reference)
+  const transitionY = Math.round(outputHeight * 0.35);
   
   const bgSvg = `
     <svg width="${outputWidth}" height="${outputHeight}" xmlns="http://www.w3.org/2000/svg">
@@ -61,17 +61,17 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   const carLeft = Math.round((outputWidth - carWidth) / 2);
   const carTop = wheelLineY - carHeight;
   
-  // AMAG-style contact shadow - visible but soft
-  const shadowWidth = Math.round(carWidth * 0.9);
-  const shadowHeight = Math.round(carHeight * 0.12); // Taller for visibility
+  // AMAG-style contact shadow - MORE visible
+  const shadowWidth = Math.round(carWidth * 0.95);
+  const shadowHeight = Math.round(carHeight * 0.15);
   
   const shadowSvg = `
     <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="shadow" cx="50%" cy="0%" rx="50%" ry="100%">
-          <stop offset="0%" stop-color="#000" stop-opacity="0.25"/>
-          <stop offset="30%" stop-color="#000" stop-opacity="0.15"/>
-          <stop offset="60%" stop-color="#000" stop-opacity="0.06"/>
+          <stop offset="0%" stop-color="#000" stop-opacity="0.4"/>
+          <stop offset="20%" stop-color="#000" stop-opacity="0.25"/>
+          <stop offset="50%" stop-color="#000" stop-opacity="0.12"/>
           <stop offset="100%" stop-color="#000" stop-opacity="0"/>
         </radialGradient>
       </defs>
