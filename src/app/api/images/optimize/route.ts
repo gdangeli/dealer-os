@@ -6,95 +6,74 @@ import sharp from 'sharp';
 
 /**
  * Create AMAG-style studio composite
- * - Clean white gradient background
- * - Soft contact shadow directly under car
- * - Car positioned low (wheels near bottom)
  */
 async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   // Fetch the car image
   const fgResponse = await fetch(foregroundUrl);
   const fgBuffer = Buffer.from(await fgResponse.arrayBuffer());
   
-  // Get original dimensions
-  const originalMeta = await sharp(fgBuffer).metadata();
-  const outputWidth = originalMeta.width || 1200;
-  const outputHeight = originalMeta.height || 800;
+  // Get original dimensions - keep exactly as is for sharp edges
+  const carMeta = await sharp(fgBuffer).metadata();
+  const carWidth = carMeta.width || 1200;
+  const carHeight = carMeta.height || 800;
   
-  // Trim transparent pixels
-  const trimmedCar = await sharp(fgBuffer)
-    .trim({ threshold: 10 })
-    .toBuffer();
+  // Output same size as input
+  const outputWidth = carWidth;
+  const outputHeight = carHeight;
   
-  const carMeta = await sharp(trimmedCar).metadata();
-  const carWidth = carMeta.width || outputWidth;
-  const carHeight = carMeta.height || outputHeight;
-  
-  // AMAG-style background: wall + floor with visible transition
-  // Wall: light gray, Floor: slightly darker
-  // Transition at 35% from top (as shown by red line reference)
+  // Transition at 35% from top
   const transitionY = Math.round(outputHeight * 0.35);
   
+  // Background: wall + floor
   const bgSvg = `
     <svg width="${outputWidth}" height="${outputHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <!-- Wall gradient (top) -->
         <linearGradient id="wall" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#f8f8f8"/>
           <stop offset="100%" stop-color="#f0f0f0"/>
         </linearGradient>
-        <!-- Floor gradient (bottom) -->
         <linearGradient id="floor" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#e8e8e8"/>
           <stop offset="100%" stop-color="#dedede"/>
         </linearGradient>
       </defs>
-      <!-- Wall -->
       <rect width="100%" height="${transitionY}" fill="url(#wall)"/>
-      <!-- Floor -->
       <rect y="${transitionY}" width="100%" height="${outputHeight - transitionY}" fill="url(#floor)"/>
     </svg>
   `;
   const background = await sharp(Buffer.from(bgSvg)).png().toBuffer();
   
-  // Position car: centered, wheels at ~85% (above the floor transition)
-  const wheelLineY = Math.round(outputHeight * 0.85);
-  const carLeft = Math.round((outputWidth - carWidth) / 2);
-  const carTop = wheelLineY - carHeight;
-  
-  // AMAG-style contact shadow - MORE visible
-  const shadowWidth = Math.round(carWidth * 0.95);
-  const shadowHeight = Math.round(carHeight * 0.15);
+  // Shadow: simple dark ellipse, clearly visible
+  const shadowWidth = Math.round(carWidth * 0.7);
+  const shadowHeight = Math.round(carHeight * 0.06);
   
   const shadowSvg = `
     <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="shadow" cx="50%" cy="0%" rx="50%" ry="100%">
-          <stop offset="0%" stop-color="#000" stop-opacity="0.4"/>
-          <stop offset="20%" stop-color="#000" stop-opacity="0.25"/>
-          <stop offset="50%" stop-color="#000" stop-opacity="0.12"/>
+        <radialGradient id="shadow" cx="50%" cy="50%" rx="50%" ry="50%">
+          <stop offset="0%" stop-color="#000" stop-opacity="0.3"/>
+          <stop offset="50%" stop-color="#000" stop-opacity="0.15"/>
           <stop offset="100%" stop-color="#000" stop-opacity="0"/>
         </radialGradient>
       </defs>
-      <ellipse cx="${shadowWidth/2}" cy="0" rx="${shadowWidth/2}" ry="${shadowHeight}" fill="url(#shadow)"/>
+      <ellipse cx="${shadowWidth/2}" cy="${shadowHeight/2}" rx="${shadowWidth/2}" ry="${shadowHeight/2}" fill="url(#shadow)"/>
     </svg>
   `;
+  const shadow = await sharp(Buffer.from(shadowSvg)).png().toBuffer();
   
-  const shadow = await sharp(Buffer.from(shadowSvg))
-    .blur(2)
-    .png()
-    .toBuffer();
-  
-  // Shadow position: directly under car at wheel contact point
+  // Position shadow at bottom of image (where wheels would be)
+  // For rembg output, the car usually fills most of the image
   const shadowLeft = Math.round((outputWidth - shadowWidth) / 2);
-  const shadowTop = wheelLineY - Math.round(shadowHeight * 0.1);
+  const shadowTop = Math.round(outputHeight * 0.88); // Near bottom
   
+  // Car positioned at origin (0,0) - same size as output
   // Composite: background → shadow → car
   const result = await sharp(background)
     .composite([
       { input: shadow, left: shadowLeft, top: shadowTop, blend: 'multiply' },
-      { input: trimmedCar, left: carLeft, top: carTop },
+      { input: fgBuffer, left: 0, top: 0 }, // Car at original position, sharp edges
     ])
-    .jpeg({ quality: 92 })
+    .jpeg({ quality: 95 }) // Higher quality
     .toBuffer();
   
   return result;
