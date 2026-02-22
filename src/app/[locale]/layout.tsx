@@ -82,7 +82,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         en: "https://www.dealeros.ch/en",
         fr: "https://www.dealeros.ch/fr",
         it: "https://www.dealeros.ch/it",
-        // Serbian excluded until translations complete
+        sr: "https://www.dealeros.ch/sr",
       },
     },
   };

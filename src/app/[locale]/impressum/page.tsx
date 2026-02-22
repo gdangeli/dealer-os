@@ -17,7 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         de: 'https://www.dealeros.ch/de/impressum',
         en: 'https://www.dealeros.ch/en/impressum',
         fr: 'https://www.dealeros.ch/fr/impressum',
-        it: 'https://www.dealeros.ch/it/impressum',
+        it: 'https://www.dealeros.ch/it',
+        sr: 'https://www.dealeros.ch/sr/impressum',
       },
     },
     openGraph: {

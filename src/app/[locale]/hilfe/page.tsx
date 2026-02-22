@@ -19,7 +19,8 @@ export async function generateMetadata({ params }: MetaProps): Promise<Metadata>
         de: "https://www.dealeros.ch/de/hilfe",
         en: "https://www.dealeros.ch/en/hilfe",
         fr: "https://www.dealeros.ch/fr/hilfe",
-        it: "https://www.dealeros.ch/it/hilfe",
+        it: "https://www.dealeros.ch/it",
+        sr: "https://www.dealeros.ch/sr/hilfe",
       },
     },
     openGraph: {

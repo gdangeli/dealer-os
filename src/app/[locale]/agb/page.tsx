@@ -17,7 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         de: 'https://www.dealeros.ch/de/agb',
         en: 'https://www.dealeros.ch/en/agb',
         fr: 'https://www.dealeros.ch/fr/agb',
-        it: 'https://www.dealeros.ch/it/agb',
+        it: 'https://www.dealeros.ch/it',
+        sr: 'https://www.dealeros.ch/sr/agb',
       },
     },
     openGraph: {

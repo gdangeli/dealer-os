@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next';
 import { getAllBlogPosts } from '@/content/blog';
 import { defaultLocale } from '@/i18n/config';
 
-// Only include fully translated locales in sitemap
-const sitemapLocales = ['de', 'en', 'fr', 'it'] as const;
+// All fully translated locales (Serbian completed 2026-02-22)
+const sitemapLocales = ['de', 'en', 'fr', 'it', 'sr'] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.dealeros.ch';

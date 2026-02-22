@@ -17,7 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         de: 'https://www.dealeros.ch/de/datenschutz',
         en: 'https://www.dealeros.ch/en/datenschutz',
         fr: 'https://www.dealeros.ch/fr/datenschutz',
-        it: 'https://www.dealeros.ch/it/datenschutz',
+        it: 'https://www.dealeros.ch/it',
+        sr: 'https://www.dealeros.ch/sr/datenschutz',
       },
     },
     openGraph: {

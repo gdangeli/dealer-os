@@ -19,7 +19,8 @@ export async function generateMetadata({ params }: MetaProps): Promise<Metadata>
         de: "https://www.dealeros.ch/de/kontakt",
         en: "https://www.dealeros.ch/en/kontakt",
         fr: "https://www.dealeros.ch/fr/kontakt",
-        it: "https://www.dealeros.ch/it/kontakt",
+        it: "https://www.dealeros.ch/it",
+        sr: "https://www.dealeros.ch/sr/kontakt",
       },
     },
     openGraph: {

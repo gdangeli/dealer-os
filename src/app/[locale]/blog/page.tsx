@@ -38,7 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         de: "https://www.dealeros.ch/de/blog",
         en: "https://www.dealeros.ch/en/blog",
         fr: "https://www.dealeros.ch/fr/blog",
-        it: "https://www.dealeros.ch/it/blog",
+        it: "https://www.dealeros.ch/it",
+        sr: "https://www.dealeros.ch/sr/blog",
       },
     },
     openGraph: {
