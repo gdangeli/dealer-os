@@ -101,7 +101,17 @@
       "listingExport": "Izvoz oglasa",
       "listingExportDesc": "Objavite na AutoScout24, car4you i vašoj web stranici jednim klikom.",
       "swissHosting": "Švajcarski hosting",
-      "swissHostingDesc": "Vaši podaci ostaju u Švajcarskoj. GDPR usklađeno i sigurno šifrovano."
+      "swissHostingDesc": "Vaši podaci ostaju u Švajcarskoj. GDPR usklađeno i sigurno šifrovano.",
+      "whatsappIntegration": "WhatsApp Business",
+      "whatsappIntegrationDesc": "Klijentianfragen direkt über WhatsApp empfangen i beantworten. Mit automatischen Antworten.",
+      "emailAutomation": "E-pošta-Automatisierung",
+      "emailAutomationDesc": "Professionelle E-pošta-Vorlagen i automatische Benachrichtigungen bei neuen Potencijalni klijenti.",
+      "multiLocation": "Multi-Lokacija",
+      "multiLocationDesc": "Mehrere Filialen zentral verwalten. Getrennte Statistiken, gemeinsame Übersicht.",
+      "bexioIntegration": "Bexio-Anbindung",
+      "bexioIntegrationDesc": "Nahtlose Integration sa Ihrer Bexio-Buchhaltung. Klijenti, Ponude i Računi synchronisiert.",
+      "quotesInvoices": "Ponude & Računi",
+      "quotesInvoicesDesc": "Professionelle Angebote erstellen i direkt in Računi umwandeln. Mit QR-Zahlteil."
     },
     "howItWorks": {
       "badge": "Kako funkcioniše",
@@ -257,5 +267,604 @@
     "sort": "Sortiraj",
     "all": "Sve",
     "none": "Ništa"
+  },
+  "customers": {
+    "title": "Klijenti",
+    "subtitle": "Verwalten Sie Ihre Klijentistammdaten",
+    "newCustomer": "Novoer Klijent",
+    "editCustomer": "Klijent bearbeiten",
+    "noCustomers": "Noch keine Klijenti vorhanden",
+    "noCustomersDesc": "Kreiraj Sie Ihren ersten Klijenti, um Ponude i Računi zu erstellen.",
+    "searchPlaceholder": "Ime, E-pošta ili Firma suchen...",
+    "type": "Klijentityp",
+    "private": "Privatnoperson",
+    "company": "Firma",
+    "companyName": "Firmenname",
+    "salutation": "Anrede",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-pošta",
+    "phone": "Telefon",
+    "mobile": "Mobile",
+    "street": "Strasse",
+    "postalCode": "PLZ",
+    "city": "Ort",
+    "country": "Land",
+    "saving": "Sačuvaj...",
+    "save": "Sačuvaj",
+    "create": "Klijent erstellen",
+    "cancel": "Otkaži",
+    "deleteConfirm": "Möchten Sie diesen Klijenti wirklich löschen?",
+    "deleteWarning": "Diese Aktion kann nicht rückgängig gemacht werden.",
+    "quotesCount": "{count} Ponude",
+    "invoicesCount": "{count} Računi",
+    "createdAt": "Erstellt am",
+    "bexioSynced": "Mit Bexio synchronisiert"
+  },
+  "quotes": {
+    "title": "Ponude",
+    "subtitle": "Verwalten Sie Ihre Angebote",
+    "newQuote": "Novoe Ponuda",
+    "editQuote": "Ponuda bearbeiten",
+    "noQuotes": "Noch keine Ponude vorhanden",
+    "noQuotesDesc": "Kreiraj Sie Ihre erste Ponuda za einen Klijenti.",
+    "quoteNumber": "Ponude-Nr.",
+    "customer": "Klijent",
+    "vehicle": "Vozilo",
+    "amount": "Betrag",
+    "status": "Status",
+    "validUntil": "Gültig do",
+    "statusDraft": "Entwurf",
+    "statusSent": "Gesendet",
+    "statusViewed": "Angesehen",
+    "statusAccepted": "Angenommen",
+    "statusRejected": "Abgelehnt",
+    "statusExpired": "Abgelaufen",
+    "statusInvoiced": "Verrechnet",
+    "positions": "Positionen",
+    "addPosition": "Position hinzufügen",
+    "subtotal": "Zwischensumme",
+    "discount": "Rabatt",
+    "tradeIn": "Eintausch",
+    "vat": "MwSt.",
+    "total": "Total",
+    "internalNotes": "Interne Notizen",
+    "customerNotes": "Klijentinotizen",
+    "terms": "Konditionen",
+    "sendByEmail": "Per E-pošta senden",
+    "downloadPdf": "PDF herunterladen",
+    "convertToInvoice": "In Račun umwandeln",
+    "syncToBexio": "Mit Bexio synchronisieren"
+  },
+  "invoices": {
+    "title": "Računi",
+    "subtitle": "Verwalten Sie Ihre Računi",
+    "newInvoice": "Novoe Račun",
+    "editInvoice": "Račun bearbeiten",
+    "noInvoices": "Noch keine Računi vorhanden",
+    "noInvoicesDesc": "Kreiraj Sie Ihre erste Račun.",
+    "invoiceNumber": "Računs-Nr.",
+    "invoiceDate": "Računsdatum",
+    "dueDate": "Fällig am",
+    "statusDraft": "Entwurf",
+    "statusSent": "Gesendet",
+    "statusPaid": "Bezahlt",
+    "statusPartial": "Teilbezahlt",
+    "statusOverdue": "Überfällig",
+    "statusCancelled": "Storniert",
+    "paidAmount": "Bezahlt",
+    "openAmount": "Offen",
+    "paymentTerms": "Zahlungsbedingungen",
+    "recordPayment": "Zahlung erfassen",
+    "markAsPaid": "Als bezahlt markieren",
+    "sendReminder": "Mahnung senden"
+  },
+  "billing": {
+    "itemTypes": {
+      "vehicle": "Vozilo",
+      "accessory": "Zubehör",
+      "service": "Dienstleistung",
+      "warranty": "Garantie",
+      "discount": "Rabatt",
+      "other": "Sonstiges"
+    },
+    "paymentMethods": {
+      "bank_transfer": "Banküberweisung",
+      "cash": "Barzahlung",
+      "card": "Karte",
+      "twint": "TWINT",
+      "other": "Sonstiges"
+    }
+  },
+  "photoAI": {
+    "title": "Bild optimieren",
+    "subtitle": "AI-gestützte Bildoptimierung za professionelle Vozilofotos",
+    "operations": "Optimierungen",
+    "enhance": "Auto-Optimierung",
+    "enhanceDesc": "Helligkeit, Kontrast, Schärfe",
+    "blurPlates": "Kennzeichen verpixeln",
+    "blurPlatesDesc": "Automatische Erkennung & Blur",
+    "removeBackground": "Hintergri ersetzen",
+    "removeBackgroundDesc": "Virtueller Showroom",
+    "selectBackground": "Hintergri wählen",
+    "backgrounds": {
+      "showroomModern": "Miliner Showroom",
+      "showroomClassic": "Klassischer Showroom",
+      "showroomOutdoor": "Outdoor Setting",
+      "showroomMinimal": "Minimalistisch Weiss",
+      "transparent": "Transparent"
+    },
+    "previewOriginal": "Original",
+    "previewOptimized": "Vorschau (nach Optimierung)",
+    "processing": "Verarbeite...",
+    "optimize": "Optimieren",
+    "back": "Zurück",
+    "apply": "Übernehmen",
+    "success": "Bild optimiert!",
+    "applied": "Bild wurde aktualisiert!",
+    "error": "Fehler bei der Optimierung"
+  },
+  "bexio": {
+    "title": "Bexio-Integration",
+    "subtitle": "Verbinden Sie DealerOS sa Ihrer Bexio-Buchhaltung",
+    "notConnected": "Nicht verbien",
+    "connected": "Verbien sa {company}",
+    "connect": "Mit Bexio verbinden",
+    "disconnect": "Verbindung trennen",
+    "lastSync": "Letzte Synchronisation",
+    "syncNow": "Jetzt synchronisieren",
+    "autoSync": "Automatische Synchronisation",
+    "autoSyncCustomers": "Klijenti automatisch synchronisieren",
+    "autoSyncQuotes": "Ponude automatisch synchronisieren",
+    "autoSyncInvoices": "Računi automatisch synchronisieren",
+    "defaultVatRate": "Standard-MwSt.-Satz"
+  },
+  "help": {
+    "title": "Hilfe & Dokumentation",
+    "subtitle": "Finden Sie Anleitungen i Tipps za alle Funktionen od Dealer OS",
+    "searchPlaceholder": "Pretraži Sie nach Themen...",
+    "stepsTitle": "Schritt za Schritt",
+    "tipsTitle": "Tipps",
+    "backToOverview": "Zurück zur Übersicht",
+    "stillNeedHelp": "Noch Fragen?",
+    "quickStart": {
+      "title": "Novo bei Dealer OS?",
+      "description": "Lernen Sie in 5 Minuten die wichtigsten Funktionen kennen.",
+      "link": "Erste Schritte ansehen"
+    },
+    "support": {
+      "title": "Brauchen Sie Hilfe?",
+      "description": "Unser Support-Team hilft Ihnen gerne weiter.",
+      "button": "Support kontaktieren"
+    },
+    "categories": {
+      "getting-started": {
+        "title": "Erste Schritte",
+        "description": "Grilagen i Navigation in Dealer OS",
+        "articles": {
+          "first-steps": {
+            "title": "Erste Schritte sa Dealer OS",
+            "description": "Lernen Sie die Grilagen i machen Sie sich sa dem System vertraut.",
+            "content": "<p>Willkommen bei Dealer OS! Diese Anleitung hilft Ihnen, schnell produktiv zu werden.</p><h3>Was ist Dealer OS?</h3><p>Dealer OS ist eine All-in-One-Software za Švajcarskaer Autohändler i Garagisten. Sie vereint Voziloverwaltung, Klijentimanagement, Ponude, Računi i Auswertungen in einer Plattform.</p><h3>Die wichtigsten Bereiche</h3><ul><li><strong>Übersicht:</strong> Ihr Kontrolna tabla sa den wichtigsten Kennzahlen</li><li><strong>Bestand:</strong> Sve Ihre Vozila verwalten</li><li><strong>Anfragen:</strong> Potencijalni klijenti i Klijentianfragen bearbeiten</li><li><strong>Klijenti:</strong> Klijentistammdaten pflegen</li><li><strong>Ponude & Računi:</strong> Angebote erstellen i fakturieren</li></ul>",
+            "steps": [
+              "Melden Sie sich mit Ihren Zugangsdaten an",
+              "Vervollständigen Sie Ihr Firmenprofil unter Einstellungen",
+              "Erfassen Sie Ihr erstes Fahrzeug im Bestand",
+              "Legen Sie Ihre ersten Kunden an",
+              "Erkunden Sie das Dashboard für einen Überblick"
+            ],
+            "tips": [
+              "Beginnen Sie mit wenigen Fahrzeugen zum Testen",
+              "Nutzen Sie die Suchfunktion für schnellen Zugriff",
+              "Aktivieren Sie E-Mail-Benachrichtigungen für wichtige Updates"
+            ]
+          },
+          "navigation": {
+            "title": "Navigation & Aufbau",
+            "description": "So finden Sie sich in Dealer OS zurecht.",
+            "content": "<p>Dealer OS ist übersichtlich aufgebaut. Links finden Sie die Hauptnavigation, rechts den Arbeitsbereich.</p><h3>Seitenleiste (links)</h3><p>Die Seitenleiste enthält alle Hauptbereiche. Sie ist in logische Gruppen unterteilt:</p><ul><li><strong>Übersicht & Bestand:</strong> Tägliche Arbeit sa Vozilan</li><li><strong>Verkauf:</strong> Klijenti, Ponude, Računi</li><li><strong>Kommunikation:</strong> E-pošta-Vorlagen, WhatsApp</li><li><strong>Analyse:</strong> Auswertungen i Reports</li></ul><h3>Lokacija-Filter</h3><p>Wenn Sie mehrere Lokacijae haben, können Sie oben in der Seitenleiste zwischen Lokacijaen wechseln ili alle anzeigen.</p>",
+            "tips": [
+              "Klicken Sie auf das Logo, um zur Übersicht zurückzukehren",
+              "Der Standort-Filter wirkt sich auf alle Ansichten aus",
+              "Nutzen Sie den Sprachwechsler für Ihre bevorzugte Sprache"
+            ]
+          },
+          "settings-overview": {
+            "title": "Podešavanja einrichten",
+            "description": "Passen Sie Dealer OS an Ihre Bedürfnisse an.",
+            "content": "<p>In den Podešavanja konfigurieren Sie Dealer OS za Ihr Unternehmen.</p><h3>Wichtige Podešavanja</h3><ul><li><strong>Firmenprofil:</strong> Ime, Adresa, Logo za Dokumente</li><li><strong>Lokacijae:</strong> Mehrere Filialen verwalten</li><li><strong>Benutzer:</strong> Teamsaglieder einladen</li><li><strong>Integrationen:</strong> Bexio, WhatsApp i mehr verbinden</li><li><strong>E-pošta-Vorlagen:</strong> Standardtexte anpassen</li></ul>",
+            "steps": [
+              "Gehen Sie zu Einstellungen in der Seitenleiste",
+              "Wählen Sie 'Firmenprofil' und ergänzen Sie Ihre Daten",
+              "Laden Sie Ihr Logo hoch (wird auf Offerten/Rechnungen angezeigt)",
+              "Richten Sie bei Bedarf weitere Standorte ein",
+              "Verbinden Sie Integrationen wie Bexio"
+            ]
+          }
+        }
+      },
+      "vehicles": {
+        "title": "Vozilobestand",
+        "description": "Vozila erfassen, verwalten i verkaufen",
+        "articles": {
+          "add-vehicle": {
+            "title": "Vozilo erfassen",
+            "description": "So fügen Sie ein neues Vozilo zu Ihrem Bestand hinzu.",
+            "content": "<p>Ein neues Vozilo zu erfassen dauert nur wenige Minuten. Geben Sie die wichtigsten Daten ein – der Rest kann später ergänzt werden.</p><h3>Pflichtfelder</h3><ul><li><strong>Marka & Model:</strong> z.B. BMW 320d</li><li><strong>Erstzulassung:</strong> Für Altersberechnung</li><li><strong>Kilometristand:</strong> Aktueller Stand</li><li><strong>Cena:</strong> Verkaufspreis (VK)</li></ul><h3>Optionale Angaben</h3><p>Je mehr Daten Sie erfassen, desto aussagekräftiger werden Ihre Auswertungen: Einkaufspreis, Aufbereitungskosten, Zusatzausstattung etc.</p>",
+            "steps": [
+              "Klicken Sie auf 'Bestand' in der Seitenleiste",
+              "Klicken Sie auf 'Neues Fahrzeug'",
+              "Füllen Sie die Pflichtfelder aus",
+              "Ergänzen Sie optionale Angaben nach Bedarf",
+              "Klicken Sie auf 'Speichern'"
+            ],
+            "tips": [
+              "Erfassen Sie den Einkaufspreis für Margenberechnung",
+              "Je vollständiger die Daten, desto besser die Auswertungen",
+              "Fahrzeugstatus wird automatisch auf 'Verfügbar' gesetzt"
+            ]
+          },
+          "edit-vehicle": {
+            "title": "Vozilo bearbeiten",
+            "description": "Vozilodaten aktualisieren i Status ändern.",
+            "content": "<p>Halten Sie Ihre Vozilodaten aktuell. Cenaänderungen, Statuswechsel ili zusätzliche Informationen können jederzeit angepasst werden.</p><h3>Vozilostatus</h3><ul><li><strong>Verfügbar:</strong> Im aktiven Verkauf</li><li><strong>Reserviert:</strong> Für einen Klijenti vorgemerkt</li><li><strong>Verkauft:</strong> Erfolgreich abgeschlossen</li></ul><h3>Cenahistorie</h3><p>Jede Cenaänderung wird protokolliert. So sehen Sie später, wie sich der Cena entwickelt hat.</p>",
+            "steps": [
+              "Öffnen Sie das Fahrzeug aus der Bestandsliste",
+              "Klicken Sie auf 'Bearbeiten'",
+              "Ändern Sie die gewünschten Felder",
+              "Speichern Sie die Änderungen"
+            ],
+            "tips": [
+              "Nutzen Sie 'Reserviert' wenn ein Kunde Interesse zeigt",
+              "Dokumentieren Sie Gründe für Preisänderungen in den Notizen"
+            ]
+          },
+          "vehicle-photos": {
+            "title": "Fotos hochladen",
+            "description": "Vozilobilder hinzufügen i verwalten.",
+            "content": "<p>Gute Fotos sind entscheidend za den Verkauf. Učitaj Sie mehrere Bilder pro Vozilo hoch.</p><h3>Empfohlene Aufnahmen</h3><ul><li>Front i Heck (schräg)</li><li>Beide Seiten</li><li>Innenraum (Cockpit, Sitze, Kofferraum)</li><li>Besondere Ausstattung</li><li>Eventuelle Mängel (za Transparenz)</li></ul><h3>Bildformate</h3><p>JPG i PNG werden unterstützt. Maximale Dateigrösse: 10 MB pro Bild.</p>",
+            "steps": [
+              "Öffnen Sie das Fahrzeug",
+              "Wechseln Sie zum Tab 'Fotos'",
+              "Klicken Sie auf 'Fotos hochladen' oder ziehen Sie Bilder in den Bereich",
+              "Ordnen Sie die Bilder per Drag & Drop",
+              "Das erste Bild wird als Hauptbild verwendet"
+            ],
+            "tips": [
+              "Fotografieren Sie bei gutem Tageslicht",
+              "8-12 Bilder pro Fahrzeug sind ideal",
+              "Das Hauptbild erscheint in Listen und auf Inseraten"
+            ]
+          },
+          "standtime-alerts": {
+            "title": "Vreme na lageru-Warnungen",
+            "description": "Langsteher erkennen i rechtzeitig handeln.",
+            "content": "<p>Vozila, die lange stehen, binden Kapital i verlieren an Wert. Dealer OS warnt Sie automatisch.</p><h3>Warnstufen</h3><ul><li><strong>30 Tage (Gelb):</strong> Erste Aufmerksamkeit</li><li><strong>60 Tage (Orange):</strong> Cenaanpassung prüfen</li><li><strong>90 Tage (Rot):</strong> Dringender Handlungsbedarf</li></ul><h3>Empfohlene Massnahmen</h3><p>Bei langer Vreme na lageru: Cena anpassen, Inserat optimieren, aktiv bewerben ili an Händler abgeben.</p>",
+            "tips": [
+              "Prüfen Sie wöchentlich Ihre Langsteher",
+              "5% Preisreduktion alle 30 Tage als Richtwert",
+              "Dokumentieren Sie Massnahmen in den Fahrzeugnotizen"
+            ]
+          }
+        }
+      },
+      "leads": {
+        "title": "Anfragen & Potencijalni klijenti",
+        "description": "Klijentianfragen effizient bearbeiten",
+        "articles": {
+          "manage-leads": {
+            "title": "Potencijalni klijenti verwalten",
+            "description": "So behalten Sie den Überblick über alle Anfragen.",
+            "content": "<p>Potencijalni klijenti sind potenzielle Klijenti, die Interesse an einem Vozilo gezeigt haben. Eine schnelle i professionelle Bearbeitung erhöht Ihre Abschlussquote.</p><h3>Potencijalni klijent-Quellen</h3><ul><li>Website-Formular</li><li>E-pošta-Anfragen</li><li>Telefonanrufe (manuell erfasst)</li><li>WhatsApp-Nachrichten</li><li>Inserate-Portale</li></ul><h3>Wichtige Informationen</h3><p>Erfassen Sie bei jedem Potencijalni klijent: Kontaktdaten, interessiertes Vozilo, Budget, Zeitrahmen.</p>",
+            "steps": [
+              "Öffnen Sie 'Anfragen' in der Seitenleiste",
+              "Neue Leads erscheinen oben in der Liste",
+              "Klicken Sie auf einen Lead für Details",
+              "Aktualisieren Sie den Status nach Kontaktaufnahme",
+              "Verknüpfen Sie den Lead mit einem Kunden bei Interesse"
+            ],
+            "tips": [
+              "Antworten Sie innerhalb von 1 Stunde für beste Ergebnisse",
+              "Nutzen Sie Vorlagen für häufige Antworten",
+              "Erfassen Sie auch telefonische Anfragen als Lead"
+            ]
+          },
+          "lead-status": {
+            "title": "Potencijalni klijent-Status verstehen",
+            "description": "Die verschiedenen Phasen einer Klijentianfrage.",
+            "content": "<p>Der Potencijalni klijent-Status zeigt, wo sich ein Interessent im Verkaufsprozess befindet.</p><h3>Status-Übersicht</h3><ul><li><strong>Novo:</strong> Noch nicht bearbeitet</li><li><strong>Kontaktiert:</strong> Erste Antwort gesendet</li><li><strong>Interessiert:</strong> Aktivanes Kaufinteresse</li><li><strong>Besichtigung:</strong> Termin vereinbart</li><li><strong>Verhandlung:</strong> Cenaverhandlung läuft</li><li><strong>Gewonnen:</strong> Verkauf abgeschlossen</li><li><strong>Verloren:</strong> Kein Abschluss</li></ul>",
+            "tips": [
+              "Halten Sie den Status aktuell für aussagekräftige Reports",
+              "Notieren Sie bei 'Verloren' den Grund",
+              "Gewonnene Leads verbessern Ihre Abschlussquote in den Auswertungen"
+            ]
+          },
+          "follow-up": {
+            "title": "Follow-ups & Erinnerungen",
+            "description": "Nema Anfrage vergessen – automatische Nachverfolgung.",
+            "content": "<p>Viele Verkäufe brauchen mehrere Kontakte. Follow-ups helfen Ihnen, am Ball zu bleiben.</p><h3>Follow-up-Regeln</h3><ul><li>Nach Erstantwort: 2-3 Tage warten</li><li>Nach Besichtigung: Am nächsten Tag nachhaken</li><li>Nach Angebot: 1 Woche za Entscheidung geben</li></ul>",
+            "steps": [
+              "Öffnen Sie einen Lead",
+              "Klicken Sie auf 'Erinnerung setzen'",
+              "Wählen Sie Datum und Uhrzeit",
+              "Fügen Sie eine Notiz hinzu (was besprechen?)",
+              "Sie erhalten eine Benachrichtigung zum Zeitpunkt"
+            ],
+            "tips": [
+              "Setzen Sie nach jedem Kontakt gleich das nächste Follow-up",
+              "Morgens zwischen 9-11 Uhr sind Kunden oft gut erreichbar",
+              "Maximal 3 Follow-ups ohne Antwort, dann Status auf 'Verloren'"
+            ]
+          }
+        }
+      },
+      "customers": {
+        "title": "Klijentiverwaltung",
+        "description": "Klijentistamm aufbauen i pflegen",
+        "articles": {
+          "add-customer": {
+            "title": "Klijenti anlegen",
+            "description": "So erfassen Sie einen neuen Klijenti.",
+            "content": "<p>Ein gepflegter Klijentistamm ist die Basis za Ponude, Računi i Wiederholungskäufe.</p><h3>Pflichtfelder</h3><ul><li><strong>Klijentityp:</strong> Privatnoperson ili Firma</li><li><strong>Ime:</strong> Vor- i Nachname ili Firmenname</li><li><strong>E-pošta ili Telefon:</strong> Mindestens ein Kontaktweg</li></ul><h3>Adressdaten</h3><p>Für Ponude i Računi benötigen Sie die vollständige Adresa.</p>",
+            "steps": [
+              "Gehen Sie zu 'Kunden' in der Seitenleiste",
+              "Klicken Sie auf 'Neuer Kunde'",
+              "Wählen Sie den Kundentyp",
+              "Füllen Sie die Kontaktdaten aus",
+              "Ergänzen Sie die Adresse",
+              "Speichern Sie den Kunden"
+            ],
+            "tips": [
+              "Bei Firmen: Erfassen Sie auch einen Ansprechpartner",
+              "Die UID-Nummer bei Firmenkunden für korrekte Rechnungen",
+              "Kunden werden automatisch mit Bexio synchronisiert (wenn verbunden)"
+            ]
+          },
+          "customer-types": {
+            "title": "Privatno- vs. Firmenkien",
+            "description": "Unterschiede bei der Klijentierfassung.",
+            "content": "<p>Je nach Klijentityp gelten unterschiedliche Anforderungen an Dokumente i Računsstellung.</p><h3>Privatnopersonen</h3><ul><li>Anrede, Vor- i Nachname</li><li>Cenae inkl. MwSt.</li><li>Nema UID erforderlich</li></ul><h3>Firmenkien</h3><ul><li>Firmenname + Ansprechpartner</li><li>UID-Nummer za B2B-Računi</li><li>Cenae exkl. MwSt. (optional)</li></ul>",
+            "tips": [
+              "Für Leasingfirmen: Als Firmenkunde mit separatem Fahrernotiz anlegen",
+              "Händlerverkäufe: Eigene Kategorie für Reports"
+            ]
+          },
+          "customer-history": {
+            "title": "Klijentihistorie",
+            "description": "Sve Interaktionen auf einen Blick.",
+            "content": "<p>Die Klijentihistorie zeigt alle vergangenen Interaktionen, Käufe i Dokumente.</p><h3>Was wird gespeichert?</h3><ul><li>Sve Potencijalni klijenti/Anfragen des Klijenti</li><li>Erstellte Ponude</li><li>Ausgestellte Računi</li><li>Gekaufte Vozila</li><li>Notizen i Kommentare</li></ul>",
+            "tips": [
+              "Prüfen Sie die Historie vor einem Gespräch",
+              "Stammkunden verdienen besondere Aufmerksamkeit",
+              "Nutzen Sie Notizen für persönliche Details (Hobbys, Familie)"
+            ]
+          }
+        }
+      },
+      "quotes": {
+        "title": "Ponude",
+        "description": "Professionelle Angebote erstellen",
+        "articles": {
+          "create-quote": {
+            "title": "Ponuda erstellen",
+            "description": "Schritt za Schritt zur professionellen Ponuda.",
+            "content": "<p>Eine gut strukturierte Ponuda erhöht Ihre Abschlussquote. Dealer OS generiert professionelle PDFs sa Ihrem Firmenlogo.</p><h3>Ponude-Bestandteile</h3><ul><li><strong>Klijent:</strong> Aus Klijentistamm auswählen</li><li><strong>Vozilo:</strong> Aus Bestand verknüpfen</li><li><strong>Positionen:</strong> Vozilopreis, Zubehör, Garantie</li><li><strong>Rabatt:</strong> Prozentual ili absolut</li><li><strong>Eintausch:</strong> Inzahlungnahme eines Alt-Vozilos</li></ul>",
+            "steps": [
+              "Gehen Sie zu 'Offerten' → 'Neue Offerte'",
+              "Wählen Sie einen Kunden (oder legen Sie einen neuen an)",
+              "Verknüpfen Sie das interessierte Fahrzeug",
+              "Fügen Sie Positionen hinzu (Zubehör, Garantie, etc.)",
+              "Prüfen Sie den Gesamtbetrag",
+              "Speichern und per E-Mail senden"
+            ],
+            "tips": [
+              "Setzen Sie ein Gültigkeitsdatum (z.B. 14 Tage)",
+              "Fügen Sie Ihre Bankverbindung für Anzahlungen hinzu",
+              "Nutzen Sie die Vorschau vor dem Versand"
+            ]
+          },
+          "quote-positions": {
+            "title": "Positionen hinzufügen",
+            "description": "Vozilo, Zubehör i Dienstleistungen auflisten.",
+            "content": "<p>Eine Ponuda kann mehrere Positionen enthalten. Strukturieren Sie Ihr Angebot übersichtlich.</p><h3>Positions-Typen</h3><ul><li><strong>Vozilo:</strong> Das Hauptfahrzeug</li><li><strong>Zubehör:</strong> Winterräder, Anhängerkupplung, etc.</li><li><strong>Dienstleistung:</strong> Aufbereitung, Lieferung</li><li><strong>Garantie:</strong> Zusätzliche Garantiepakete</li><li><strong>Rabatt:</strong> Cenanachlässe</li></ul>",
+            "tips": [
+              "Listen Sie jede Position separat auf – Transparenz schafft Vertrauen",
+              "Zubehör mit Einstandspreis hinterlegen für Margenberechnung",
+              "Nutzen Sie Rabatt-Positionen statt manueller Preisanpassung"
+            ]
+          },
+          "send-quote": {
+            "title": "Ponuda versenden",
+            "description": "Per E-pošta ili PDF an den Klijenti.",
+            "content": "<p>Versenden Sie Ponude direkt aus Dealer OS. Der Klijent erhält ein professionelles PDF.</p><h3>Versandoptionen</h3><ul><li><strong>E-pošta:</strong> Direkt aus dem System sa Tracking</li><li><strong>PDF-Download:</strong> Zum manuellen Versand ili Ausdruck</li><li><strong>WhatsApp:</strong> Link zur Online-Ansicht</li></ul><h3>Tracking</h3><p>Sie sehen, wann der Klijent die Ponuda geöffnet hat (bei E-pošta-Versand).</p>",
+            "steps": [
+              "Öffnen Sie die fertige Offerte",
+              "Klicken Sie auf 'Per E-Mail senden'",
+              "Prüfen Sie den Empfänger und Betreff",
+              "Passen Sie den Begleittext bei Bedarf an",
+              "Klicken Sie auf 'Senden'"
+            ],
+            "tips": [
+              "Personalisieren Sie den Begleittext",
+              "Rufen Sie 1-2 Tage nach Versand an",
+              "Bei keiner Reaktion: Automatisches Follow-up aktivieren"
+            ]
+          },
+          "convert-invoice": {
+            "title": "Ponuda in Račun umwandeln",
+            "description": "Vom Angebot zur Račun in einem Klick.",
+            "content": "<p>Wenn der Klijent die Ponuda annimmt, wandeln Sie sie in eine Račun um. Sve Daten werden übernommen.</p><h3>Was wird übernommen?</h3><ul><li>Klijentidaten</li><li>Sve Positionen</li><li>Rabatte i Eintausch</li><li>Verknüpftes Vozilo</li></ul>",
+            "steps": [
+              "Öffnen Sie die akzeptierte Offerte",
+              "Setzen Sie den Status auf 'Angenommen'",
+              "Klicken Sie auf 'In Rechnung umwandeln'",
+              "Prüfen Sie die Rechnungsdaten",
+              "Speichern und versenden Sie die Rechnung"
+            ],
+            "tips": [
+              "Offerte bleibt als Referenz erhalten",
+              "Fahrzeugstatus wird automatisch auf 'Verkauft' gesetzt",
+              "Rechnung wird mit Bexio synchronisiert (wenn verbunden)"
+            ]
+          }
+        }
+      },
+      "invoices": {
+        "title": "Računi",
+        "description": "Računsstellung i Zahlungsverfolgung",
+        "articles": {
+          "create-invoice": {
+            "title": "Račun erstellen",
+            "description": "Professionelle Računi generieren.",
+            "content": "<p>Kreiraj Sie Računi manuell ili aus einer angenommenen Ponuda.</p><h3>Računs-Inhalt</h3><ul><li><strong>Računsnummer:</strong> Automatisch vergeben</li><li><strong>Računsdatum:</strong> Standard: heute</li><li><strong>Fälligkeitsdatum:</strong> Nach Ihren Zahlungsbedingungen</li><li><strong>Positionen:</strong> Wie bei Ponude</li></ul><h3>MwSt.-Behandlung</h3><p>Švajcarskaer MwSt. wird automatisch berechnet (8.1%). Für Firmenkien kann exkl. MwSt. ausgewiesen werden.</p>",
+            "steps": [
+              "Gehen Sie zu 'Rechnungen' → 'Neue Rechnung'",
+              "Wählen Sie den Kunden",
+              "Fügen Sie Positionen hinzu",
+              "Prüfen Sie MwSt. und Gesamtbetrag",
+              "Speichern und versenden"
+            ],
+            "tips": [
+              "Für Fahrzeugverkäufe: Immer aus Offerte umwandeln",
+              "QR-Rechnung wird automatisch generiert",
+              "Rechnungsnummer ist fortlaufend und nicht änderbar"
+            ]
+          },
+          "payment-tracking": {
+            "title": "Zahlungen verfolgen",
+            "description": "Zahlungseingänge erfassen i Offenes im Blick.",
+            "content": "<p>Behalten Sie den Überblick über bezahlte i offene Računi.</p><h3>Zahlungsstatus</h3><ul><li><strong>Entwurf:</strong> Noch nicht versendet</li><li><strong>Gesendet:</strong> Beim Klijenti</li><li><strong>Teilbezahlt:</strong> Anzahlung eingegangen</li><li><strong>Bezahlt:</strong> Vollständig beglichen</li><li><strong>Überfällig:</strong> Nach Fälligkeit nicht bezahlt</li></ul>",
+            "steps": [
+              "Öffnen Sie die Rechnung",
+              "Klicken Sie auf 'Zahlung erfassen'",
+              "Geben Sie Betrag und Datum ein",
+              "Wählen Sie die Zahlungsart (Überweisung, Bar, Karte)",
+              "Speichern – Status wird automatisch aktualisiert"
+            ],
+            "tips": [
+              "Erfassen Sie Teilzahlungen separat",
+              "Gleichen Sie regelmässig mit Ihrem Bankkonto ab",
+              "Mit Bexio: Zahlungen werden automatisch synchronisiert"
+            ]
+          },
+          "reminders": {
+            "title": "Mahnungen versenden",
+            "description": "Überfällige Računi einfordern.",
+            "content": "<p>Bei ausbleibender Zahlung hilft ein strukturiertes Mahnwesen.</p><h3>Mahnstufen</h3><ul><li><strong>Zahlungserinnerung:</strong> Freilicher Hinweis nach 7 Tagen</li><li><strong>1. Mahnung:</strong> Nach 14 Tagen, sachlich</li><li><strong>2. Mahnung:</strong> Nach 30 Tagen, sa Fristsetzung</li><li><strong>Letzte Mahnung:</strong> Androhung rechtlicher Schritte</li></ul>",
+            "steps": [
+              "Öffnen Sie die überfällige Rechnung",
+              "Klicken Sie auf 'Mahnung senden'",
+              "Wählen Sie die Mahnstufe",
+              "Passen Sie den Text bei Bedarf an",
+              "Versenden Sie per E-Mail oder drucken Sie aus"
+            ],
+            "tips": [
+              "Rufen Sie vor der ersten Mahnung kurz an",
+              "Dokumentieren Sie alle Mahnungen",
+              "Bei Dauerschuldnern: Keine weiteren Geschäfte ohne Vorauskasse"
+            ]
+          }
+        }
+      },
+      "integrations": {
+        "title": "Integrationen",
+        "description": "Verbinden Sie Dealer OS sa anderen Tools",
+        "articles": {
+          "bexio-setup": {
+            "title": "Bexio verbinden",
+            "description": "Buchhaltung automatisieren sa Bexio.",
+            "content": "<p>Verbinden Sie Dealer OS sa Bexio za automatische Synchronisation od Klijenti, Ponude i Računi.</p><h3>Was wird synchronisiert?</h3><ul><li><strong>Klijenti:</strong> Bidirektional (beide Richtungen)</li><li><strong>Ponude:</strong> Von Dealer OS zu Bexio</li><li><strong>Računi:</strong> Von Dealer OS zu Bexio</li><li><strong>Zahlungen:</strong> Von Bexio zu Dealer OS</li></ul><h3>Voraussetzungen</h3><p>Sie benötigen einen aktiven Bexio-Account i API-Zugang (ab Bexio Pro).</p>",
+            "steps": [
+              "Gehen Sie zu Einstellungen → Integrationen",
+              "Klicken Sie auf 'Mit Bexio verbinden'",
+              "Melden Sie sich bei Bexio an",
+              "Autorisieren Sie den Zugriff",
+              "Konfigurieren Sie die Synchronisations-Einstellungen"
+            ],
+            "tips": [
+              "Testen Sie mit wenigen Datensätzen",
+              "Legen Sie einen Standard-MwSt.-Satz fest",
+              "Prüfen Sie die Kontierung in Bexio"
+            ]
+          },
+          "whatsapp-setup": {
+            "title": "WhatsApp einrichten",
+            "description": "Klijentianfragen über WhatsApp empfangen.",
+            "content": "<p>Verbinden Sie Ihre WhatsApp Business-Nummer sa Dealer OS za direkte Klijentikommunikation.</p><h3>Funktionen</h3><ul><li>Nachrichten direkt im Kontrolna tabla empfangen</li><li>Schnellantworten i Vorlagen</li><li>Automatische Potencijalni klijent-Erstellung</li><li>Medien senden i empfangen</li></ul>",
+            "steps": [
+              "Gehen Sie zu Einstellungen → Integrationen → WhatsApp",
+              "Scannen Sie den QR-Code mit WhatsApp Business",
+              "Warten Sie auf die Verbindungsbestätigung",
+              "Testen Sie mit einer Nachricht an Ihre Nummer"
+            ],
+            "tips": [
+              "Nutzen Sie eine dedizierte Business-Nummer",
+              "Richten Sie automatische Begrüssung ein",
+              "Antworten Sie schnell – WhatsApp-Kunden erwarten das"
+            ]
+          },
+          "email-templates": {
+            "title": "E-pošta-Vorlagen anpassen",
+            "description": "Standardtexte za E-poštas konfigurieren.",
+            "content": "<p>Passen Sie E-pošta-Vorlagen an Ihren Stil an. Vorlagen werden za Ponude, Računi i Mahnungen verwendet.</p><h3>Verfügbare Vorlagen</h3><ul><li>Ponude-Versand</li><li>Računs-Versand</li><li>Zahlungserinnerung</li><li>1./2./3. Mahnung</li><li>Allgemeine Anfrage-Antwort</li></ul><h3>Platzhalter</h3><p>Nutzen Sie Platzhalter wie {'{kienname}'}, {'{fahrzeug}'}, {'{betrag}'} za automatische Personalisierung.</p>",
+            "steps": [
+              "Gehen Sie zu Einstellungen → E-Mail-Vorlagen",
+              "Wählen Sie eine Vorlage zum Bearbeiten",
+              "Passen Sie Betreff und Text an",
+              "Nutzen Sie die verfügbaren Platzhalter",
+              "Speichern und testen Sie mit einer Test-E-Mail"
+            ],
+            "tips": [
+              "Halten Sie E-Mails kurz und persönlich",
+              "Fügen Sie Ihre Signatur mit Kontaktdaten ein",
+              "Testen Sie jede Vorlage vor dem produktiven Einsatz"
+            ]
+          }
+        }
+      },
+      "analytics": {
+        "title": "Auswertungen",
+        "description": "Kennzahlen verstehen i nutzen",
+        "articles": {
+          "dashboard-overview": {
+            "title": "Kontrolna tabla verstehen",
+            "description": "Die wichtigsten Kennzahlen auf einen Blick.",
+            "content": "<p>Das Kontrolna tabla zeigt Ihre wichtigsten KPIs in Echtzeit.</p><h3>Wichtige Kennzahlen</h3><ul><li><strong>Bestand:</strong> Anzahl Vozila, Gesamtwert</li><li><strong>Vreme na lageru Ø:</strong> Durchschnittliche Tage do Verkauf</li><li><strong>Offene Potencijalni klijenti:</strong> Unbearbeitete Anfragen</li><li><strong>Marge Ø:</strong> Durchschnittlicher Gewinn pro Vozilo</li><li><strong>Umsatz:</strong> Monats- i Dahresvergleich</li></ul>",
+            "tips": [
+              "Prüfen Sie das Dashboard täglich morgens",
+              "Rote Zahlen erfordern sofortige Aufmerksamkeit",
+              "Vergleichen Sie Werte mit dem Vormonat"
+            ]
+          },
+          "reports": {
+            "title": "Reports generieren",
+            "description": "Detaillierte Auswertungen erstellen.",
+            "content": "<p>Kreiraj Sie detaillierte Reports za verschiedene Zeiträume i Kategorien.</p><h3>Verfügbare Reports</h3><ul><li><strong>Bestandsreport:</strong> Sve Vozila sa Vreme na lageru i Marge</li><li><strong>Verkaufsreport:</strong> Abgeschlossene Verkäufe im Zeitraum</li><li><strong>Anfragen-Report:</strong> Abschlussquoten i Quellen</li><li><strong>Umsatzreport:</strong> Einnahmen i Entwicklung</li></ul>",
+            "steps": [
+              "Gehen Sie zu Auswertungen → Reports",
+              "Wählen Sie den Report-Typ",
+              "Definieren Sie den Zeitraum",
+              "Optional: Filtern nach Standort oder Kategorie",
+              "Generieren und exportieren Sie den Report"
+            ],
+            "tips": [
+              "Monatsreports am Monatsende für Buchhaltung",
+              "Vergleichen Sie Quartale für Trends",
+              "Exportieren Sie als Excel für weitere Analyse"
+            ]
+          },
+          "export-data": {
+            "title": "Daten exportieren",
+            "description": "Daten za externe Verwendung herunterladen.",
+            "content": "<p>Izvezi Sie Ihre Daten za Buchhaltung, Steuer ili Analyse.</p><h3>Export-Formate</h3><ul><li><strong>Excel (.xlsx):</strong> Für Tabellenkalkulationen</li><li><strong>CSV:</strong> Für Import in andere Systeme</li><li><strong>PDF:</strong> Für Archivierung i Druck</li></ul><h3>Exportierbare Daten</h3><p>Vozila, Klijenti, Ponude, Računi, Potencijalni klijenti – alles kann exportiert werden.</p>",
+            "tips": [
+              "Regelmässige Backups empfohlen",
+              "CSV für Datenimport in andere Software",
+              "PDF-Export für rechtssichere Archivierung"
+            ]
+          }
+        }
+      }
+    }
   }
 }
