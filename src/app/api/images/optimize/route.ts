@@ -12,19 +12,34 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   const fgResponse = await fetch(foregroundUrl);
   const fgBuffer = Buffer.from(await fgResponse.arrayBuffer());
   
-  // Get original dimensions - keep exactly as is for sharp edges
+  // Get dimensions
   const carMeta = await sharp(fgBuffer).metadata();
-  const carWidth = carMeta.width || 1200;
-  const carHeight = carMeta.height || 800;
+  const outputWidth = carMeta.width || 1200;
+  const outputHeight = carMeta.height || 800;
   
-  // Output same size as input
-  const outputWidth = carWidth;
-  const outputHeight = carHeight;
+  // Sharpen the car edges by thresholding alpha channel
+  // This removes the semi-transparent halo from rembg
+  const sharpCar = await sharp(fgBuffer)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  
+  const { data, info } = sharpCar;
+  const pixels = new Uint8Array(data);
+  
+  // Threshold alpha: if > 128, set to 255; else set to 0
+  for (let i = 3; i < pixels.length; i += 4) {
+    pixels[i] = pixels[i] > 128 ? 255 : 0;
+  }
+  
+  const sharpenedCar = await sharp(pixels, {
+    raw: { width: info.width, height: info.height, channels: 4 }
+  }).png().toBuffer();
   
   // Transition at 35% from top
   const transitionY = Math.round(outputHeight * 0.35);
   
-  // Background: wall + floor
+  // Background
   const bgSvg = `
     <svg width="${outputWidth}" height="${outputHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -43,16 +58,34 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   `;
   const background = await sharp(Buffer.from(bgSvg)).png().toBuffer();
   
-  // Shadow: simple dark ellipse, clearly visible
-  const shadowWidth = Math.round(carWidth * 0.7);
-  const shadowHeight = Math.round(carHeight * 0.06);
+  // Find where the car actually ends (bottom-most non-transparent pixel)
+  let carBottomY = outputHeight;
+  for (let y = info.height - 1; y >= 0; y--) {
+    let hasPixel = false;
+    for (let x = 0; x < info.width; x++) {
+      const idx = (y * info.width + x) * 4 + 3;
+      if (pixels[idx] > 128) {
+        hasPixel = true;
+        break;
+      }
+    }
+    if (hasPixel) {
+      carBottomY = y;
+      break;
+    }
+  }
+  
+  // Shadow positioned right at the car's bottom
+  const shadowWidth = Math.round(outputWidth * 0.6);
+  const shadowHeight = 30;
+  const shadowY = carBottomY + 5; // Just below the car
   
   const shadowSvg = `
     <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="shadow" cx="50%" cy="50%" rx="50%" ry="50%">
-          <stop offset="0%" stop-color="#000" stop-opacity="0.3"/>
-          <stop offset="50%" stop-color="#000" stop-opacity="0.15"/>
+          <stop offset="0%" stop-color="#000" stop-opacity="0.25"/>
+          <stop offset="70%" stop-color="#000" stop-opacity="0.1"/>
           <stop offset="100%" stop-color="#000" stop-opacity="0"/>
         </radialGradient>
       </defs>
@@ -60,20 +93,15 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
     </svg>
   `;
   const shadow = await sharp(Buffer.from(shadowSvg)).png().toBuffer();
-  
-  // Position shadow at bottom of image (where wheels would be)
-  // For rembg output, the car usually fills most of the image
   const shadowLeft = Math.round((outputWidth - shadowWidth) / 2);
-  const shadowTop = Math.round(outputHeight * 0.88); // Near bottom
   
-  // Car positioned at origin (0,0) - same size as output
-  // Composite: background → shadow → car
+  // Composite
   const result = await sharp(background)
     .composite([
-      { input: shadow, left: shadowLeft, top: shadowTop, blend: 'multiply' },
-      { input: fgBuffer, left: 0, top: 0 }, // Car at original position, sharp edges
+      { input: shadow, left: shadowLeft, top: shadowY, blend: 'multiply' },
+      { input: sharpenedCar, left: 0, top: 0 },
     ])
-    .jpeg({ quality: 95 }) // Higher quality
+    .jpeg({ quality: 95 })
     .toBuffer();
   
   return result;
