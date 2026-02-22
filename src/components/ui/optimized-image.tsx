@@ -49,7 +49,8 @@ export function OptimizedImage({
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88P/BfwYABQwC/7Tjf5YAAAAASUVORK5CYII=";
 
   // Guard against empty/invalid src
-  if (!src || src === '') {
+  if (!src || src === '' || src === 'undefined' || src === 'null') {
+    console.warn('[OptimizedImage] Invalid src:', src);
     return (
       <div
         className={cn(
@@ -63,6 +64,11 @@ export function OptimizedImage({
         </div>
       </div>
     );
+  }
+  
+  // Guard against blob URLs (they may be revoked)
+  if (src.startsWith('blob:')) {
+    console.warn('[OptimizedImage] Blob URL detected (may be revoked):', src.substring(0, 50));
   }
 
   if (hasError) {
@@ -114,7 +120,10 @@ export function OptimizedImage({
             className
           )}
           onLoad={() => setIsLoading(false)}
-          onError={() => setHasError(true)}
+          onError={(e) => {
+            console.error('[OptimizedImage] Failed to load:', src, e);
+            setHasError(true);
+          }}
           onClick={onClick}
         />
       </div>
@@ -141,7 +150,10 @@ export function OptimizedImage({
           className
         )}
         onLoad={() => setIsLoading(false)}
-        onError={() => setHasError(true)}
+        onError={(e) => {
+          console.error('[OptimizedImage] Failed to load:', src, e);
+          setHasError(true);
+        }}
         onClick={onClick}
       />
     </div>

@@ -230,12 +230,20 @@ export function ImageUpload({
     })
   );
 
-  // Load existing images when vehicleId changes
+  // Load existing images when vehicleId changes or on mount
+  // Always refresh from DB to ensure we have current URLs
   useEffect(() => {
-    if (vehicleId && initialImages.length === 0) {
+    if (vehicleId) {
       loadImages();
     }
   }, [vehicleId]);
+  
+  // Also sync if initialImages changes (e.g., after page navigation)
+  useEffect(() => {
+    if (initialImages.length > 0 && images.length === 0) {
+      setImages(initialImages);
+    }
+  }, [initialImages]);
 
   const loadImages = async () => {
     if (!vehicleId) return;
