@@ -75,21 +75,22 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
     }
   }
   
-  // Shadow positioned DIRECTLY at the car's bottom (no gap!)
-  const shadowWidth = Math.round(outputWidth * 0.6);
-  const shadowHeight = 25;
-  const shadowY = carBottomY - Math.round(shadowHeight * 0.4); // Overlap with car bottom
+  // Shadow like ceiling light: directly under the car, soft and centered
+  const shadowWidth = Math.round(outputWidth * 0.55);
+  const shadowHeight = 60; // Taller for softer gradient
+  const shadowY = carBottomY - 10; // Just slightly overlapping car bottom
   
   const shadowSvg = `
     <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="shadow" cx="50%" cy="50%" rx="50%" ry="50%">
-          <stop offset="0%" stop-color="#000" stop-opacity="0.25"/>
-          <stop offset="70%" stop-color="#000" stop-opacity="0.1"/>
+        <radialGradient id="shadow" cx="50%" cy="30%" rx="50%" ry="70%">
+          <stop offset="0%" stop-color="#000" stop-opacity="0.22"/>
+          <stop offset="40%" stop-color="#000" stop-opacity="0.12"/>
+          <stop offset="70%" stop-color="#000" stop-opacity="0.05"/>
           <stop offset="100%" stop-color="#000" stop-opacity="0"/>
         </radialGradient>
       </defs>
-      <ellipse cx="${shadowWidth/2}" cy="${shadowHeight/2}" rx="${shadowWidth/2}" ry="${shadowHeight/2}" fill="url(#shadow)"/>
+      <ellipse cx="${shadowWidth/2}" cy="${shadowHeight * 0.35}" rx="${shadowWidth/2}" ry="${shadowHeight * 0.6}" fill="url(#shadow)"/>
     </svg>
   `;
   const shadow = await sharp(Buffer.from(shadowSvg)).png().toBuffer();
