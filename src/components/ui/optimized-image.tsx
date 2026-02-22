@@ -48,6 +48,11 @@ export function OptimizedImage({
   const defaultBlur =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88P/BfwYABQwC/7Tjf5YAAAAASUVORK5CYII=";
 
+  // Debug: Log all image loads in development
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[OptimizedImage] Rendering:', { src: src?.substring(0, 80), fill, hasError, isLoading });
+  }
+
   // Guard against empty/invalid src
   if (!src || src === '' || src === 'undefined' || src === 'null') {
     console.warn('[OptimizedImage] Invalid src:', src);
@@ -102,7 +107,7 @@ export function OptimizedImage({
 
   if (fill) {
     return (
-      <div className={cn("relative overflow-hidden", containerClassName)}>
+      <div className={cn("absolute inset-0 overflow-hidden", containerClassName)}>
         <Image
           src={src}
           alt={alt}
