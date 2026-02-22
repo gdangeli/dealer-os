@@ -29,60 +29,64 @@ async function createStudioComposite(foregroundUrl: string): Promise<Buffer> {
   const carWidth = carMeta.width || outputWidth;
   const carHeight = carMeta.height || outputHeight;
   
-  // Create background - clean white to subtle gray
+  // AMAG-style background: wall + floor with visible transition
+  // Wall: light gray (#f5f5f5), Floor: slightly darker (#e0e0e0)
+  // Transition at 65% from top (slightly above wheel level)
+  const transitionY = Math.round(outputHeight * 0.65);
+  
   const bgSvg = `
     <svg width="${outputWidth}" height="${outputHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#ffffff"/>
-          <stop offset="70%" stop-color="#f8f8f8"/>
-          <stop offset="100%" stop-color="#eeeeee"/>
+        <!-- Wall gradient (top) -->
+        <linearGradient id="wall" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#f8f8f8"/>
+          <stop offset="100%" stop-color="#f0f0f0"/>
+        </linearGradient>
+        <!-- Floor gradient (bottom) -->
+        <linearGradient id="floor" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#e8e8e8"/>
+          <stop offset="100%" stop-color="#dedede"/>
         </linearGradient>
       </defs>
-      <rect width="100%" height="100%" fill="url(#bg)"/>
+      <!-- Wall -->
+      <rect width="100%" height="${transitionY}" fill="url(#wall)"/>
+      <!-- Floor -->
+      <rect y="${transitionY}" width="100%" height="${outputHeight - transitionY}" fill="url(#floor)"/>
     </svg>
   `;
   const background = await sharp(Buffer.from(bgSvg)).png().toBuffer();
   
-  // Position car: centered, wheels at 92% of image height
-  const wheelLineY = Math.round(outputHeight * 0.92);
+  // Position car: centered, wheels at ~85% (above the floor transition)
+  const wheelLineY = Math.round(outputHeight * 0.85);
   const carLeft = Math.round((outputWidth - carWidth) / 2);
   const carTop = wheelLineY - carHeight;
   
-  // Create soft contact shadow - gradient that fades from center
-  // Shadow width matches car, very short height
-  const shadowWidth = Math.round(carWidth * 0.85);
-  const shadowHeight = Math.round(carHeight * 0.05); // Very thin
+  // AMAG-style contact shadow - visible but soft
+  const shadowWidth = Math.round(carWidth * 0.9);
+  const shadowHeight = Math.round(carHeight * 0.12); // Taller for visibility
   
   const shadowSvg = `
     <svg width="${shadowWidth}" height="${shadowHeight}" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="shadowV" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#000" stop-opacity="0.12"/>
+        <radialGradient id="shadow" cx="50%" cy="0%" rx="50%" ry="100%">
+          <stop offset="0%" stop-color="#000" stop-opacity="0.25"/>
+          <stop offset="30%" stop-color="#000" stop-opacity="0.15"/>
+          <stop offset="60%" stop-color="#000" stop-opacity="0.06"/>
           <stop offset="100%" stop-color="#000" stop-opacity="0"/>
-        </linearGradient>
-        <linearGradient id="shadowH" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#000" stop-opacity="0"/>
-          <stop offset="15%" stop-color="#000" stop-opacity="1"/>
-          <stop offset="85%" stop-color="#000" stop-opacity="1"/>
-          <stop offset="100%" stop-color="#000" stop-opacity="0"/>
-        </linearGradient>
-        <mask id="hMask">
-          <rect width="100%" height="100%" fill="url(#shadowH)"/>
-        </mask>
+        </radialGradient>
       </defs>
-      <rect width="100%" height="100%" fill="url(#shadowV)" mask="url(#hMask)"/>
+      <ellipse cx="${shadowWidth/2}" cy="0" rx="${shadowWidth/2}" ry="${shadowHeight}" fill="url(#shadow)"/>
     </svg>
   `;
   
   const shadow = await sharp(Buffer.from(shadowSvg))
-    .blur(3)
+    .blur(2)
     .png()
     .toBuffer();
   
-  // Shadow position: directly under car, at wheel line
+  // Shadow position: directly under car at wheel contact point
   const shadowLeft = Math.round((outputWidth - shadowWidth) / 2);
-  const shadowTop = wheelLineY;
+  const shadowTop = wheelLineY - Math.round(shadowHeight * 0.1);
   
   // Composite: background → shadow → car
   const result = await sharp(background)
