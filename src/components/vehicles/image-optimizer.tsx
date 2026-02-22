@@ -210,6 +210,7 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
             <div className="flex gap-3 pt-4">
               {!previewUrl ? (
                 <Button
+                  type="button"
                   onClick={handleOptimize}
                   disabled={isProcessing || (!operations.enhance && !operations.blurPlates && !operations.removeBackground)}
                   className="flex-1"
@@ -225,10 +226,10 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
                 </Button>
               ) : (
                 <>
-                  <Button variant="outline" onClick={() => setPreviewUrl(null)} className="flex-1">
+                  <Button type="button" variant="outline" onClick={() => setPreviewUrl(null)} className="flex-1">
                     ↩️ {t("back")}
                   </Button>
-                  <Button onClick={handleApply} className="flex-1">
+                  <Button type="button" onClick={handleApply} className="flex-1">
                     ✅ {t("apply")}
                   </Button>
                 </>

@@ -157,6 +157,7 @@ function SortableImage({
           {/* Set as Main Button */}
           {!image.is_main && (
             <button
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 onSetMain(image.id);
@@ -170,6 +171,7 @@ function SortableImage({
           
           {/* AI Optimize Button */}
           <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               onOptimize(image.id);
@@ -182,6 +184,7 @@ function SortableImage({
 
           {/* Drag Handle */}
           <button
+            type="button"
             {...attributes}
             {...listeners}
             className="p-1.5 bg-white/90 rounded-lg cursor-grab active:cursor-grabbing"
@@ -192,6 +195,7 @@ function SortableImage({
 
           {/* Remove Button */}
           <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               onRemove(image.id);
