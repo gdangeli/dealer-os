@@ -13,6 +13,250 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 42 - 2026-02-25
+  {
+    slug: "fahrzeugfotos-die-verkaufen-tipps-fuer-autohaendler",
+    title: "Fahrzeugfotos die verkaufen: 10 Tipps für Autohändler",
+    excerpt: "Ein Bild sagt mehr als tausend Worte – und im Online-Autohandel entscheidet es über Klick oder Scroll. So machen Sie Fahrzeugfotos, die Käufer anziehen.",
+    category: "Marketing",
+    readTime: 7,
+    emoji: "📸",
+    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80",
+    publishedAt: "2026-02-25",
+    author: "Dealer OS Team",
+    keywords: ["Fahrzeugfotos", "Autohandel", "AutoScout24", "Inserate", "Fotografie", "Occasionen"],
+    content: \`
+## Der erste Eindruck zählt – und er ist digital
+
+Scrollen Sie einmal durch AutoScout24. Bei welchen Inseraten bleiben Sie hängen? Genau: Bei denen mit professionellen, ansprechenden Fotos. Bei dunklen, unscharfen Handy-Schnappschüssen scrollt man weiter.
+
+**Die Realität in Zahlen:**
+- Inserate mit 15+ Fotos erhalten **3x mehr Anfragen** als solche mit unter 5 Fotos
+- Professionelle Bilder verkürzen die **Standzeit um durchschnittlich 12 Tage**
+- 90% der Käufer entscheiden anhand der Fotos, ob sie überhaupt die Beschreibung lesen
+
+Sie können das beste Auto zum besten Preis haben – wenn die Fotos schlecht sind, sieht es niemand.
+
+## Die 10 goldenen Regeln für Verkaufsfotos
+
+### 1. Sauberkeit ist nicht verhandelbar
+
+Klingt banal, wird trotzdem ignoriert: **Jedes Fahrzeug muss vor dem Fotoshooting gereinigt werden.** Aussen UND innen.
+
+**Checkliste vor dem Shooting:**
+- Aussenwäsche (inklusive Felgen!)
+- Fenster streifenfrei reinigen
+- Innenraum saugen und wischen
+- Armaturenbrett und Kunststoffteile auffrischen
+- Geruch neutralisieren
+- Persönliche Gegenstände entfernen (Parkscheiben, Ladekabel, etc.)
+
+**Zeitaufwand:** 20-30 Minuten. **Wirkung:** Unbezahlbar.
+
+### 2. Licht ist alles
+
+Die beste Kamera nützt nichts bei schlechtem Licht. Die Profis wissen: Das perfekte Licht gibt es gratis – man muss nur den richtigen Moment wählen.
+
+**Die besten Lichtverhältnisse:**
+- **Bewölkter Himmel:** Weiches, gleichmässiges Licht, keine harten Schatten
+- **Früher Morgen / später Nachmittag:** Warmes Licht, schöne Stimmung
+- **Schatten:** Besser als direkte Sonne mit Reflexionen
+
+**Vermeiden Sie:**
+- Mittagssonne (harte Schatten, Überbelichtung)
+- Regen (Tropfen auf der Karosserie)
+- Gegenlicht (dunkles Auto, heller Hintergrund)
+
+### 3. Der Hintergrund macht den Unterschied
+
+Ihr 45'000-Franken-SUV vor der Müllcontainer-Ecke? Keine gute Idee.
+
+**Ideale Hintergründe:**
+- Neutrale Wand oder Fassade
+- Parkplatz ohne andere Autos (früh morgens!)
+- Natur (grün, aber nicht überladen)
+- Ihr Firmengelände (wenn repräsentativ)
+
+**Vermeiden Sie:**
+- Andere Autos im Bild
+- Ablenkende Schilder oder Werbung
+- Unordnung, Müll, Baustellen
+- Ihren privaten Vorgarten (wirkt unprofessionell)
+
+### 4. Die richtigen Winkel
+
+Es gibt Standard-Ansichten, die Käufer erwarten. Halten Sie sich daran:
+
+**Die Pflicht-Perspektiven (Minimum!):**
+1. **Front-Schrägansicht** (45° von vorne-links oder vorne-rechts) – DAS Hauptbild
+2. **Heck-Schrägansicht** (45° von hinten)
+3. **Seitenansicht** (komplett von der Seite)
+4. **Frontansicht** (gerade von vorne)
+5. **Heckansicht** (gerade von hinten)
+
+**Innenraum:**
+6. **Cockpit** (vom Beifahrersitz aus)
+7. **Rücksitzbank** (von der offenen Tür aus)
+8. **Kofferraum** (geöffnet)
+9. **Tacho/Kilometerstand** (wichtig!)
+10. **Infotainment-System**
+
+**Details nach Bedarf:**
+- Motor (wenn sehenswert)
+- Felgen (wenn Alu/besonders)
+- Spezialausstattung (Panoramadach, Leder, etc.)
+- Typenschild (für Verifizierung)
+
+### 5. Die richtige Höhe
+
+Fotografieren Sie auf Höhe der Fahrzeugmitte – ungefähr auf Höhe der Türgriffe. Das entspricht dem natürlichen Blickwinkel eines Menschen.
+
+**Zu tief:** Das Auto wirkt unnatürlich massig
+**Zu hoch:** Das Auto wirkt klein und unbedeutend
+**Goldene Mitte:** Auf Kniehöhe oder leicht darunter
+
+### 6. Smartphone oder Kamera?
+
+Die gute Nachricht: Moderne Smartphones machen erstaunlich gute Fotos. Die schlechte: Sie müssen es richtig machen.
+
+**Smartphone-Tipps:**
+- Kamera-Linse reinigen (Fingerabdrücke!)
+- Hauptkamera verwenden (nicht Selfie-Cam)
+- Querformat für Aussen, Hochformat für Details
+- HDR aktivieren (gleicht Helligkeitsunterschiede aus)
+- NICHT digital zoomen
+- Mit beiden Händen halten oder Stativ nutzen
+
+**Wenn Sie eine Kamera nutzen:**
+- Blende f/5.6 bis f/8 für scharfe Gesamtbilder
+- ISO so niedrig wie möglich (100-400)
+- Brennweite 35-50mm (vermeidet Verzerrungen)
+
+### 7. Konsistenz ist Trumpf
+
+Ihr gesamter Fahrzeugbestand sollte einheitlich fotografiert werden. Das wirkt professionell und baut Vertrauen auf.
+
+**Einheitlich halten:**
+- Gleicher Ort (oder gleichwertige Orte)
+- Gleiche Tageszeit/Lichtverhältnisse
+- Gleiche Reihenfolge der Bilder
+- Gleicher Stil bei der Bearbeitung
+
+**Der Profi-Tipp:** Erstellen Sie einen "Foto-Leitfaden" für Ihr Team mit Beispielbildern.
+
+### 8. Mängel zeigen – aber richtig
+
+Überraschung: Transparenz verkauft! Kunden wissen, dass Occasionen nicht perfekt sind. Was sie hassen: Böse Überraschungen bei der Besichtigung.
+
+**So zeigen Sie Mängel professionell:**
+- Kratzer, Dellen, Steinschläge dokumentieren
+- Bei natürlichem Licht fotografieren (zeigt die echte Grösse)
+- Im Beschreibungstext darauf hinweisen
+- Reparatur-Offerte als Option anbieten
+
+**Der Effekt:** Weniger Zeitverschwendung mit Besichtigungen, die zu nichts führen. Mehr Vertrauen bei ernsthaften Käufern.
+
+### 9. Nachbearbeitung – ja, aber dezent
+
+Ein bisschen Bildbearbeitung ist erlaubt und sinnvoll. Übertreiben sollten Sie es nicht.
+
+**Erlaubt und sinnvoll:**
+- Helligkeit und Kontrast leicht anpassen
+- Weissabgleich korrigieren
+- Horizont gerade richten
+- Seitenverhältnis anpassen
+
+**Tabu:**
+- Mängel wegretuschieren
+- Farben verfälschen
+- Extreme Filter
+- HDR-Overkill (sieht künstlich aus)
+
+**Kostenlose Tools:** Snapseed (Smartphone), GIMP (PC/Mac)
+
+### 10. Die richtige Anzahl
+
+Mehr ist mehr – aber nur bis zu einem gewissen Punkt.
+
+**Optimal:** 15-25 Fotos pro Fahrzeug
+- Genug, um alles zu zeigen
+- Nicht so viele, dass der Käufer aufgibt
+
+**Minimum:** 10 Fotos
+- Darunter fehlt etwas Wichtiges
+
+**Maximum:** 30 Fotos
+- Darüber wird es unübersichtlich
+
+## Der optimale Workflow
+
+### Vor dem Shooting (5 Minuten)
+1. Wetter prüfen (bewölkt = ideal)
+2. Standort vorbereiten
+3. Fahrzeug final checken (Spiegel, Fenster zu, etc.)
+4. Kamera/Smartphone bereit
+
+### Während dem Shooting (10-15 Minuten)
+1. Aussenaufnahmen: alle Winkel systematisch durchgehen
+2. Türen öffnen: Innenraum-Fotos
+3. Details: Tacho, Spezialausstattung, Mängel
+4. Kontrolle: Fotos auf Schärfe und Belichtung prüfen
+
+### Nach dem Shooting (5-10 Minuten)
+1. Beste Bilder auswählen
+2. Leichte Bearbeitung wenn nötig
+3. Einheitlich benennen (Marke_Modell_01.jpg)
+4. In System hochladen
+
+**Total:** 20-30 Minuten pro Fahrzeug
+
+## Häufige Fehler – und wie Sie sie vermeiden
+
+### Fehler 1: Das Hauptbild ist langweilig
+
+Das erste Bild entscheidet über Klick oder Weiter-Scrollen. Eine langweilige Frontansicht? Verpasste Chance.
+
+**Besser:** 45°-Winkel von vorne-links (oder rechts), bei dem das gesamte Fahrzeug attraktiv wirkt.
+
+### Fehler 2: Reflexionen ignorieren
+
+Auf glänzendem Lack spiegelt sich alles: Sie, Ihre Garage, andere Autos.
+
+**Lösung:** Position ändern, bis störende Reflexionen weg sind. Oder: Bewölkter Tag = weniger Reflexionen.
+
+### Fehler 3: Keine einheitliche Serie
+
+Käufer vergleichen Fahrzeuge. Wenn Ihre Bilder jedes Mal anders aussehen, wirkt das chaotisch.
+
+**Lösung:** Fester Prozess, fester Ort, feste Reihenfolge.
+
+### Fehler 4: Das wichtigste Bild fehlt
+
+Bei jedem dritten Inserat fehlt ein Bild des Kilometerstands. Das schafft Misstrauen.
+
+**Lösung:** Checkliste mit allen Pflichtbildern abarbeiten.
+
+## Lohnt sich ein professioneller Fotograf?
+
+**Bei Fahrzeugen über CHF 30'000:** Überlegenswert. CHF 50-100 pro Shooting für wirklich professionelle Bilder können die Standzeit deutlich verkürzen.
+
+**Für den Alltag:** Mit den Tipps oben schaffen Sie 90% der Qualität selbst.
+
+**Hybrid-Lösung:** Für Premium-Fahrzeuge den Profi holen, Alltagsgeschäft selbst machen.
+
+## Fazit: Investieren Sie in Bilder, nicht in Hoffnung
+
+Gute Fahrzeugfotos sind kein Luxus – sie sind die günstigste Verkaufsförderung, die Sie haben können. 30 Minuten Aufwand pro Fahrzeug, null Franken zusätzliche Kosten (Smartphone haben Sie), messbar mehr Anfragen.
+
+Ihre Autos verdienen es, gut auszusehen. Und Ihre Kunden verdienen es, zu sehen, was sie kaufen.
+
+Fangen Sie beim nächsten Fahrzeug an. Achten Sie auf Licht, Sauberkeit und die richtigen Winkel. Der Unterschied wird Sie überraschen.
+
+---
+
+*Mit Dealer OS laden Sie Ihre Fotos einmal hoch und veröffentlichen sie automatisch auf allen Plattformen – einheitlich und professionell. [Jetzt kostenlos testen](/de/register)*
+\`,
+  },
   // Artikel 41 - 2026-02-24
   {
     slug: "kundenbindung-garagisten-stammkunden-gewinnen",
