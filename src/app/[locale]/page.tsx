@@ -30,6 +30,8 @@ import {
   MapPin,
   Link2,
   Receipt,
+  CalendarCheck,
+  ImagePlus,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -237,6 +239,20 @@ function HomePage() {
                 description={t("features.leadManagementDesc")}
                 gradient="from-emerald-500 to-teal-600"
                 image="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80"
+              />
+              <FeatureCard
+                icon={ImagePlus}
+                title={t("features.photoAI")}
+                description={t("features.photoAIDesc")}
+                gradient="from-fuchsia-500 to-pink-600"
+                image="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"
+              />
+              <FeatureCard
+                icon={CalendarCheck}
+                title={t("features.testDriveBooking")}
+                description={t("features.testDriveBookingDesc")}
+                gradient="from-teal-500 to-cyan-600"
+                image="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80"
               />
               <FeatureCard
                 icon={MessageCircle}

@@ -111,7 +111,11 @@
       "bexioIntegration": "Bexio-Anbindung",
       "bexioIntegrationDesc": "Nahtlose Integration mit Ihrer Bexio-Buchhaltung. Kunden, Offerten und Rechnungen synchronisiert.",
       "quotesInvoices": "Offerten & Rechnungen",
-      "quotesInvoicesDesc": "Professionelle Angebote erstellen und direkt in Rechnungen umwandeln. Mit QR-Zahlteil."
+      "quotesInvoicesDesc": "Professionelle Angebote erstellen und direkt in Rechnungen umwandeln. Mit QR-Zahlteil.",
+      "photoAI": "KI-Bildoptimierung",
+      "photoAIDesc": "Professionelle Fahrzeugfotos mit einem Klick. Hintergrund ersetzen, Kennzeichen verpixeln, Bilder optimieren.",
+      "testDriveBooking": "Probefahrt-Buchung",
+      "testDriveBookingDesc": "Online-Terminbuchung für Kunden. Widget für Ihre Website, automatische Benachrichtigungen."
     },
     "howItWorks": {
       "badge": "So funktioniert's",

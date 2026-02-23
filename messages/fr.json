@@ -111,7 +111,11 @@
       "bexioIntegration": "Intégration Bexio",
       "bexioIntegrationDesc": "Intégration transparente avec votre comptabilité Bexio. Clients, devis et factures synchronisés.",
       "quotesInvoices": "Devis & Factures",
-      "quotesInvoicesDesc": "Créez des devis professionnels et convertissez-les directement en factures. Avec bulletin de versement QR."
+      "quotesInvoicesDesc": "Créez des devis professionnels et convertissez-les directement en factures. Avec bulletin de versement QR.",
+      "photoAI": "Optimisation IA des images",
+      "photoAIDesc": "Photos de véhicules professionnelles en un clic. Remplacement de fond, floutage des plaques, amélioration des images.",
+      "testDriveBooking": "Réservation d'essai",
+      "testDriveBookingDesc": "Prise de rendez-vous en ligne pour les clients. Widget pour votre site, notifications automatiques."
     },
     "howItWorks": {
       "badge": "Comment ça marche",

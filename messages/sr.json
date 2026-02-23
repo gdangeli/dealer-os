@@ -111,7 +111,11 @@
       "bexioIntegration": "Bexio-Anbindung",
       "bexioIntegrationDesc": "Nahtlose Integration sa Ihrer Bexio-Buchhaltung. Klijenti, Ponude i Računi synchronisiert.",
       "quotesInvoices": "Ponude & Računi",
-      "quotesInvoicesDesc": "Professionelle Angebote erstellen i direkt in Računi umwandeln. Mit QR-Zahlteil."
+      "quotesInvoicesDesc": "Professionelle Angebote erstellen i direkt in Računi umwandeln. Mit QR-Zahlteil.",
+      "photoAI": "KI-Bildoptimierung",
+      "photoAIDesc": "Professionelle Fahrzeugfotos mit einem Klick. Hintergrund ersetzen, Kennzeichen verpixeln, Bilder optimieren.",
+      "testDriveBooking": "Probefahrt-Buchung",
+      "testDriveBookingDesc": "Online-Terminbuchung für Kunden. Widget für Ihre Website, automatische Benachrichtigungen."
     },
     "howItWorks": {
       "badge": "Kako funkcioniše",

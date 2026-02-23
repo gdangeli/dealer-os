@@ -111,7 +111,11 @@
       "bexioIntegration": "Integrazione Bexio",
       "bexioIntegrationDesc": "Integrazione perfetta con la tua contabilità Bexio. Clienti, preventivi e fatture sincronizzati.",
       "quotesInvoices": "Preventivi & Fatture",
-      "quotesInvoicesDesc": "Crea preventivi professionali e convertili direttamente in fatture. Con bollettino QR."
+      "quotesInvoicesDesc": "Crea preventivi professionali e convertili direttamente in fatture. Con bollettino QR.",
+      "photoAI": "Ottimizzazione immagini IA",
+      "photoAIDesc": "Foto professionali dei veicoli con un clic. Sostituzione sfondo, sfocatura targhe, miglioramento immagini.",
+      "testDriveBooking": "Prenotazione test drive",
+      "testDriveBookingDesc": "Prenotazione appuntamenti online per i clienti. Widget per il tuo sito, notifiche automatiche."
     },
     "howItWorks": {
       "badge": "Come funziona",

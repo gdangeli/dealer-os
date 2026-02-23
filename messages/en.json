@@ -111,7 +111,11 @@
       "bexioIntegration": "Bexio Integration",
       "bexioIntegrationDesc": "Seamless integration with your Bexio accounting. Customers, quotes and invoices synced.",
       "quotesInvoices": "Quotes & Invoices",
-      "quotesInvoicesDesc": "Create professional quotes and convert them directly to invoices. With QR payment slip."
+      "quotesInvoicesDesc": "Create professional quotes and convert them directly to invoices. With QR payment slip.",
+      "photoAI": "AI Image Optimization",
+      "photoAIDesc": "Professional vehicle photos with one click. Replace backgrounds, blur license plates, enhance images.",
+      "testDriveBooking": "Test Drive Booking",
+      "testDriveBookingDesc": "Online appointment booking for customers. Widget for your website, automatic notifications."
     },
     "howItWorks": {
       "badge": "How it works",
