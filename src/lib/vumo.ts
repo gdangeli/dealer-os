@@ -269,3 +269,4 @@ export function mapTemplateToConfig(template: string): VumoConfigKey {
   
   return mapping[template] || 'modern';
 }
+// Env vars update trigger 20260223-145259
