@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealerOS Probefahrt Widget - Demo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .demo-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .demo-header {
+      text-align: center;
+      color: white;
+      margin-bottom: 40px;
+    }
+    .demo-header h1 {
+      margin: 0 0 8px 0;
+      font-size: 2rem;
+    }
+    .demo-header p {
+      margin: 0;
+      opacity: 0.9;
+    }
+    .demo-code {
+      background: #1f2937;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 40px;
+      color: #e5e7eb;
+      overflow-x: auto;
+    }
+    .demo-code h3 {
+      color: white;
+      margin: 0 0 16px 0;
+      font-size: 1rem;
+    }
+    .demo-code pre {
+      margin: 0;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    .demo-code .comment { color: #6b7280; }
+    .demo-code .tag { color: #f472b6; }
+    .demo-code .attr { color: #a78bfa; }
+    .demo-code .string { color: #34d399; }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1>🚗 Probefahrt Widget</h1>
+      <p>Einfach in Ihre Website einbinden</p>
+    </div>
+
+    <div class="demo-code">
+      <h3>Einbindungs-Code:</h3>
+      <pre><span class="comment">&lt;!-- DealerOS Probefahrt Widget --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="string">"dealeros-testdrive"</span>
+     <span class="attr">data-dealer-id</span>=<span class="string">"IHRE_DEALER_ID"</span><span class="tag">&gt;&lt;/div&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"https://dealeros.ch/widget/test-drive.js"</span><span class="tag">&gt;&lt;/script&gt;</span></pre>
+    </div>
+
+    <!-- Demo Widget (replace with your dealer ID) -->
+    <div id="dealeros-testdrive" data-dealer-id="demo"></div>
+  </div>
+
+  <script src="/widget/test-drive.js"></script>
+</body>
+</html>
