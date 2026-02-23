@@ -142,7 +142,7 @@ export async function processImage(
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'image/jpeg',
     },
-    body: imageBuffer,
+    body: new Uint8Array(imageBuffer),
   });
   
   if (!response.ok) {
@@ -215,7 +215,7 @@ export async function analyzeImage(imageBuffer: Buffer): Promise<{
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'image/jpeg',
     },
-    body: imageBuffer,
+    body: new Uint8Array(imageBuffer),
   });
   
   if (!response.ok) {
