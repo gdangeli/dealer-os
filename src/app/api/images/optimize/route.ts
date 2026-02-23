@@ -19,33 +19,22 @@ function selectVumoConfig(options: {
   }
   
   // Map background templates to Vumo configs
-  // Handle various formats: "showroom-classic", "Moderner Showroom", etc.
+  // Frontend sends: showroom-modern, showroom-classic, showroom-outdoor, showroom-minimal, none
   const normalizedTemplate = backgroundTemplate?.toLowerCase().replace(/[\s-]+/g, '_') || '';
   
   const templateMapping: Record<string, VumoConfigKey> = {
-    // Frontend keys (showroom-xxx format)
+    // Frontend keys (exact matches after normalization)
     'showroom_modern': 'modern',
     'showroom_classic': 'classic',
-    'outdoor': 'outdoor',
-    'white': 'white',
-    'transparent': 'white', // Vumo doesn't have transparent, use white
+    'showroom_outdoor': 'outdoor',
+    'showroom_minimal': 'white',
+    'none': 'white', // Transparent → use white background
     
-    // German UI names (with underscores after normalization)
-    'moderner_showroom': 'modern',
-    'klassischer_showroom': 'classic',
-    'outdoor_setting': 'outdoor',
-    'minimalistisch_weiss': 'white',
-    
-    // English variants
-    'modern_showroom': 'modern',
-    'classic_showroom': 'classic',
-    'minimalist': 'white',
-    
-    // Short keys
+    // Fallback variants
     'modern': 'modern',
     'classic': 'classic',
-    'checkered': 'checkered',
-    'led': 'led',
+    'outdoor': 'outdoor',
+    'white': 'white',
   };
   
   console.log(`[Vumo] Template received: "${backgroundTemplate}" -> normalized: "${normalizedTemplate}"`);
