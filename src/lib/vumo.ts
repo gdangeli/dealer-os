@@ -203,6 +203,74 @@ export async function processImageFromUrl(
 }
 
 /**
+ * Process multiple images from URLs (batch processing)
+ * Returns array of results with original URL for mapping
+ */
+export async function processImagesFromUrls(
+  imageUrls: string[],
+  config: VumoConfigKey | string,
+  options?: {
+    customerId?: string;
+  }
+): Promise<Array<{ 
+  originalUrl: string; 
+  urlPhoto: string; 
+  urlMask?: string;
+  error?: string;
+}>> {
+  const token = await getAccessToken();
+  const configName = VUMO_CONFIGS[config as VumoConfigKey] || config;
+  
+  // Prepare batch request
+  const requestBody = imageUrls.map((url, index) => ({
+    url,
+    customerId: options?.customerId || `dealer-os-${index}`,
+  }));
+  
+  console.log(`[Vumo Batch] Processing ${imageUrls.length} images with config: ${configName}`);
+  
+  const response = await fetch(`${VUMO_API_URL}/v2/process/urls/${configName}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody),
+  });
+  
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: response.statusText }));
+    throw new Error(`Vumo batch processing failed: ${error.message || error.errorCode}`);
+  }
+  
+  const result = await response.json();
+  
+  // Map results back to original URLs
+  const results: Array<{ originalUrl: string; urlPhoto: string; urlMask?: string; error?: string }> = [];
+  
+  for (let i = 0; i < imageUrls.length; i++) {
+    const photo = result.photos?.[i];
+    if (photo?.urlPhoto) {
+      results.push({
+        originalUrl: imageUrls[i],
+        urlPhoto: photo.urlPhoto,
+        urlMask: photo.urlMask,
+      });
+    } else {
+      results.push({
+        originalUrl: imageUrls[i],
+        urlPhoto: '',
+        error: photo?.error || 'Processing failed',
+      });
+    }
+  }
+  
+  console.log(`[Vumo Batch] Completed: ${results.filter(r => r.urlPhoto).length}/${imageUrls.length} successful`);
+  
+  return results;
+}
+
+/**
  * Analyze an image (classification, quality check)
  */
 export async function analyzeImage(imageBuffer: Buffer): Promise<{

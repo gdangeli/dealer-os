@@ -35,6 +35,7 @@ import {
   CheckSquare, Square
 } from "lucide-react";
 import { ImageOptimizer } from "./image-optimizer";
+import { BatchOptimizer } from "./batch-optimizer";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { ImageLightbox } from "./image-lightbox";
 import { 
@@ -274,6 +275,7 @@ export function ImageUpload({
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [optimizerOpen, setOptimizerOpen] = useState(false);
   const [optimizingImage, setOptimizingImage] = useState<VehicleImage | null>(null);
+  const [batchOptimizerOpen, setBatchOptimizerOpen] = useState(false);
   const [dragVersion, setDragVersion] = useState(0);
 
   const MAX_IMAGES = 30;
@@ -567,11 +569,53 @@ export function ImageUpload({
   };
 
   const handleOptimizeSelected = () => {
-    // Open optimizer for first selected image
-    const firstSelectedId = Array.from(selectedIds)[0];
-    if (firstSelectedId) {
-      handleOptimize(firstSelectedId);
+    if (selectedIds.size === 0) return;
+    
+    if (selectedIds.size === 1) {
+      // Single image: use regular optimizer
+      const firstSelectedId = Array.from(selectedIds)[0];
+      if (firstSelectedId) {
+        handleOptimize(firstSelectedId);
+      }
+    } else {
+      // Multiple images: use batch optimizer
+      setBatchOptimizerOpen(true);
     }
+  };
+
+  const handleBatchOptimized = async (results: Array<{ id: string; newUrl: string }>) => {
+    // Update image URLs in state
+    const updatedImages = images.map(img => {
+      const result = results.find(r => r.id === img.id);
+      if (result) {
+        return { ...img, url: result.newUrl };
+      }
+      return img;
+    });
+    setImages(updatedImages);
+
+    // Update in database
+    if (vehicleId) {
+      for (const result of results) {
+        await supabase
+          .from("vehicle_images")
+          .update({ url: result.newUrl })
+          .eq("id", result.id);
+      }
+    }
+
+    // Clear selection
+    setSelectedIds(new Set());
+
+    if (onImagesChange) {
+      onImagesChange(updatedImages);
+    }
+  };
+
+  const getSelectedImages = () => {
+    return images
+      .filter(img => selectedIds.has(img.id) && !img.isNew)
+      .map(img => ({ id: img.id, url: img.url }));
   };
 
   const handleSetMain = async (imageId: string) => {
@@ -824,7 +868,7 @@ export function ImageUpload({
         onSetMain={handleSetMain}
       />
 
-      {/* AI Image Optimizer */}
+      {/* AI Image Optimizer (single image) */}
       {optimizingImage && (
         <ImageOptimizer
           open={optimizerOpen}
@@ -836,6 +880,14 @@ export function ImageUpload({
           onOptimized={handleOptimized}
         />
       )}
+
+      {/* Batch AI Optimizer (multiple images) */}
+      <BatchOptimizer
+        open={batchOptimizerOpen}
+        onClose={() => setBatchOptimizerOpen(false)}
+        images={getSelectedImages()}
+        onOptimized={handleBatchOptimized}
+      />
     </Card>
   );
 }
