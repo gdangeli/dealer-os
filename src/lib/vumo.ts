@@ -16,9 +16,13 @@ const VUMO_AUTH_URL = 'https://auth.vumo.ai';
 const VUMO_API_URL = 'https://api.vumography.vumo.ai';
 
 // Credentials from environment
-// TEMPORARY: Hardcoded credentials (bypass env vars completely)
-const VUMO_USERNAME = 'carauktion';
-const VUMO_PASSWORD = 'Wbka4rE6Xs';
+// Vumo credentials from environment
+const VUMO_USERNAME = process.env.VUMO_USERNAME;
+const VUMO_PASSWORD = process.env.VUMO_PASSWORD;
+
+if (!VUMO_USERNAME || !VUMO_PASSWORD) {
+  console.warn('[Vumo] Missing VUMO_USERNAME or VUMO_PASSWORD environment variables');
+}
 
 /**
  * Available Vumo configurations mapped to user-friendly names
@@ -66,7 +70,6 @@ async function getAccessToken(): Promise<string> {
   }
   
   // Get new token
-  console.log("[Vumo Auth] Attempting login with:", VUMO_USERNAME, "system:", "autography");
   const response = await fetch(`${VUMO_AUTH_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
