@@ -143,6 +143,7 @@ export default async function DashboardLayout({
           <NavLink href="/dashboard" icon="📊" exact>Übersicht</NavLink>
           <NavLink href="/dashboard/vehicles" icon="🚙">Bestand</NavLink>
           <NavLink href="/dashboard/leads" icon="💬">Anfragen</NavLink>
+          <NavLink href="/dashboard/test-drives" icon="🚗">Probefahrten</NavLink>
           <NavLink href="/dashboard/whatsapp" icon="💬">WhatsApp</NavLink>
           
           <div className="pt-4 pb-2">

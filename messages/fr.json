@@ -869,5 +869,16 @@
         }
       }
     }
+  },
+  "testDrives": {
+    "title": "Probefahrten",
+    "subtitle": "Terminverwaltung für Probefahrten",
+    "new": "Neue Probefahrt",
+    "upcoming": "Anstehend",
+    "pending": "Ausstehend",
+    "confirmed": "Bestätigt",
+    "completed": "Durchgeführt",
+    "cancelled": "Abgesagt",
+    "noShow": "Nicht erschienen"
   }
 }

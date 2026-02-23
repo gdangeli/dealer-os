@@ -143,3 +143,34 @@ export interface WhatsAppMessage {
   timestamp: string;
   created_at: string;
 }
+
+export interface TestDrive {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  dealer_id: string;
+  vehicle_id?: string;
+  customer_id?: string;
+  customer_name: string;
+  customer_email?: string;
+  customer_phone?: string;
+  scheduled_at: string;
+  duration_minutes: number;
+  status: 'pending' | 'confirmed' | 'completed' | 'cancelled' | 'no_show';
+  notes?: string;
+  cancellation_reason?: string;
+  source: 'website' | 'widget' | 'manual' | 'phone';
+  confirmation_sent_at?: string;
+  reminder_sent_at?: string;
+  // Joined data
+  vehicles?: {
+    make: string;
+    model: string;
+    variant?: string;
+  };
+  customers?: {
+    name: string;
+    email?: string;
+    phone?: string;
+  };
+}
