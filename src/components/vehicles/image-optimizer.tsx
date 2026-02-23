@@ -20,7 +20,7 @@ interface ImageOptimizerProps {
   open: boolean;
   onClose: () => void;
   imageUrl: string;
-  onOptimized: (newImageUrl: string) => void;
+  onOptimized: (newImageUrl: string, originalUrl: string) => void;
 }
 
 export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOptimizerProps) {
@@ -110,7 +110,7 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
       const { url: newUrl } = await response.json();
       
       toast.success(t("applied"));
-      onOptimized(newUrl);
+      onOptimized(newUrl, imageUrl);
       onClose();
     } catch (error) {
       console.error('Error applying optimized image:', error);

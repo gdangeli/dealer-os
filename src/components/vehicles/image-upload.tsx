@@ -32,7 +32,7 @@ import { createClient } from "@/lib/supabase/client";
 import { 
   Upload, X, GripVertical, Star, Loader2, CheckCircle, 
   Maximize2, Wand2, MoreHorizontal, Trash2, ImageIcon,
-  CheckSquare, Square
+  CheckSquare, Square, RotateCcw
 } from "lucide-react";
 import { ImageOptimizer } from "./image-optimizer";
 import { BatchOptimizer } from "./batch-optimizer";
@@ -48,6 +48,7 @@ import {
 interface VehicleImage {
   id: string;
   url: string;
+  original_url?: string | null;
   storage_path: string;
   position: number;
   is_main: boolean;
@@ -77,8 +78,10 @@ function SortableImage({
   onSetMain,
   onViewFullscreen,
   onOptimize,
+  onToggleOriginal,
   isUploading,
   showCheckbox,
+  showingOriginal,
 }: {
   image: VehicleImage;
   dragVersion?: number;
@@ -88,8 +91,10 @@ function SortableImage({
   onSetMain: (id: string) => void;
   onViewFullscreen: () => void;
   onOptimize: (id: string) => void;
+  onToggleOriginal: (id: string) => void;
   isUploading?: boolean;
   showCheckbox: boolean;
+  showingOriginal: boolean;
 }) {
   const {
     attributes,
@@ -150,8 +155,8 @@ function SortableImage({
         onClick={() => onViewFullscreen()}
       >
         <OptimizedImage
-          key={`${image.id}-${image.position}-v${dragVersion}`}
-          src={image.url}
+          key={`${image.id}-${image.position}-v${dragVersion}-${showingOriginal ? 'orig' : 'opt'}`}
+          src={showingOriginal && image.original_url ? image.original_url : image.url}
           alt="Fahrzeugbild"
           fill
           sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 200px"
@@ -159,6 +164,26 @@ function SortableImage({
           className="object-cover pointer-events-none"
         />
       </div>
+
+      {/* Before/After Toggle Button (only for optimized images) */}
+      {image.original_url && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleOriginal(image.id);
+          }}
+          className={`absolute top-2 left-2 z-20 flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full transition-colors ${
+            showingOriginal
+              ? "bg-orange-500 text-white"
+              : "bg-purple-500 text-white"
+          }`}
+          title={showingOriginal ? "Zeige optimiertes Bild" : "Zeige Original"}
+        >
+          <RotateCcw className="w-3 h-3" />
+          {showingOriginal ? "Original" : "Optimiert"}
+        </button>
+      )}
 
       {/* Uploading Overlay */}
       {isUploading && (
@@ -176,9 +201,9 @@ function SortableImage({
         </div>
       )}
 
-      {/* Main Badge */}
+      {/* Main Badge - position adjusts if there's an original toggle */}
       {image.is_main && (
-        <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 z-10">
+        <div className={`absolute ${image.original_url ? 'top-9' : 'top-2'} left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 z-10`}>
           <Star className="w-3 h-3" /> Hauptbild
         </div>
       )}
@@ -278,6 +303,7 @@ export function ImageUpload({
   const [batchOptimizerOpen, setBatchOptimizerOpen] = useState(false);
   const [batchProcessingCount, setBatchProcessingCount] = useState(0);
   const [dragVersion, setDragVersion] = useState(0);
+  const [showingOriginals, setShowingOriginals] = useState<Set<string>>(new Set());
 
   const MAX_IMAGES = 30;
   const MAX_SIZE_MB = 10;
@@ -677,12 +703,15 @@ export function ImageUpload({
     }
   };
 
-  const handleOptimized = async (newImageUrl: string) => {
+  const handleOptimized = async (newImageUrl: string, originalUrl: string) => {
     if (!optimizingImage) return;
+    
+    // Store original URL (only if not already set - first optimization)
+    const originalToStore = optimizingImage.original_url || originalUrl;
     
     const updatedImages = images.map(img => 
       img.id === optimizingImage.id 
-        ? { ...img, url: newImageUrl }
+        ? { ...img, url: newImageUrl, original_url: originalToStore }
         : img
     );
     setImages(updatedImages);
@@ -690,7 +719,10 @@ export function ImageUpload({
     if (vehicleId && !optimizingImage.isNew) {
       await supabase
         .from("vehicle_images")
-        .update({ url: newImageUrl })
+        .update({ 
+          url: newImageUrl,
+          original_url: originalToStore 
+        })
         .eq("id", optimizingImage.id);
     }
     
@@ -700,6 +732,18 @@ export function ImageUpload({
     
     setOptimizingImage(null);
     setOptimizerOpen(false);
+  };
+
+  const toggleOriginalView = (imageId: string) => {
+    setShowingOriginals(prev => {
+      const next = new Set(prev);
+      if (next.has(imageId)) {
+        next.delete(imageId);
+      } else {
+        next.add(imageId);
+      }
+      return next;
+    });
   };
 
   return (
@@ -850,9 +894,11 @@ export function ImageUpload({
                     onRemove={handleRemove}
                     onSetMain={handleSetMain}
                     onOptimize={handleOptimize}
+                    onToggleOriginal={toggleOriginalView}
                     onViewFullscreen={() => openLightbox(index)}
                     isUploading={uploadingIds.has(image.id)}
                     showCheckbox={hasSelection}
+                    showingOriginal={showingOriginals.has(image.id)}
                   />
                 ))}
               </div>
