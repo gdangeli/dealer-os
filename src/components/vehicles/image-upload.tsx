@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { useDropzone } from "react-dropzone";
+import { useState, useCallback, useEffect, useRef } from "react";
 import {
   DndContext,
   closestCenter,
@@ -20,8 +19,21 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Checkbox } from "@/components/ui/checkbox";
 import { createClient } from "@/lib/supabase/client";
-import { Upload, X, GripVertical, Star, Loader2, CheckCircle, Maximize2, Wand2 } from "lucide-react";
+import { 
+  Upload, X, GripVertical, Star, Loader2, CheckCircle, 
+  Maximize2, Wand2, MoreHorizontal, Trash2, ImageIcon,
+  CheckSquare, Square
+} from "lucide-react";
 import { ImageOptimizer } from "./image-optimizer";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { ImageLightbox } from "./image-lightbox";
@@ -54,23 +66,29 @@ interface ImageUploadProps {
   initialImages?: VehicleImage[];
 }
 
-// Sortable Image Component with next/image
+// Sortable Image Component with selection checkbox
 function SortableImage({
   image,
   dragVersion = 0,
+  isSelected,
+  onToggleSelect,
   onRemove,
   onSetMain,
   onViewFullscreen,
   onOptimize,
   isUploading,
+  showCheckbox,
 }: {
   image: VehicleImage;
   dragVersion?: number;
+  isSelected: boolean;
+  onToggleSelect: (id: string) => void;
   onRemove: (id: string) => void;
   onSetMain: (id: string) => void;
   onViewFullscreen: () => void;
   onOptimize: (id: string) => void;
   isUploading?: boolean;
+  showCheckbox: boolean;
 }) {
   const {
     attributes,
@@ -87,26 +105,48 @@ function SortableImage({
     opacity: isDragging ? 0.5 : 1,
   };
 
-  // Debug: log image URL
-  if (process.env.NODE_ENV === 'development' || true) {
-    console.log('[SortableImage] Rendering image:', { id: image.id, url: image.url?.substring(0, 80), position: image.position, isNew: image.isNew });
-  }
-
   return (
     <div
       ref={setNodeRef}
       style={style}
       className={`relative group bg-white rounded-lg border-2 ${
-        image.is_main ? "border-blue-500" : "border-slate-200"
+        isSelected 
+          ? "border-blue-500 ring-2 ring-blue-200" 
+          : image.is_main 
+            ? "border-blue-500" 
+            : "border-slate-200"
       } overflow-hidden aspect-[4/3]`}
     >
-      {/* Optimized Image with next/image - wrapped in clickable div */}
+      {/* Selection Checkbox */}
+      <div 
+        className={`absolute top-2 right-2 z-30 transition-opacity ${
+          showCheckbox || isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+        }`}
+      >
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleSelect(image.id);
+          }}
+          className={`p-1 rounded ${
+            isSelected 
+              ? 'bg-blue-500 text-white' 
+              : 'bg-white/90 text-slate-600 hover:bg-white'
+          }`}
+        >
+          {isSelected ? (
+            <CheckSquare className="w-5 h-5" />
+          ) : (
+            <Square className="w-5 h-5" />
+          )}
+        </button>
+      </div>
+
+      {/* Optimized Image */}
       <div 
         className="absolute inset-0 cursor-pointer z-0"
-        onClick={() => {
-          console.log('[SortableImage] Image clicked! Calling onViewFullscreen');
-          onViewFullscreen();
-        }}
+        onClick={() => onViewFullscreen()}
       >
         <OptimizedImage
           key={`${image.id}-${image.position}-v${dragVersion}`}
@@ -121,15 +161,15 @@ function SortableImage({
 
       {/* Uploading Overlay */}
       {isUploading && (
-        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center z-20">
           <Loader2 className="w-8 h-8 text-white animate-spin" />
           <span className="text-white text-xs mt-2">Komprimiere...</span>
         </div>
       )}
 
-      {/* Compression Info Badge (show briefly after upload) */}
+      {/* Compression Info Badge */}
       {image.compressionInfo && image.compressionInfo.savings > 0 && (
-        <div className="absolute bottom-8 left-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full flex items-center gap-1 opacity-90">
+        <div className="absolute bottom-8 left-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full flex items-center gap-1 opacity-90 z-10">
           <CheckCircle className="w-3 h-3" />
           -{image.compressionInfo.savings}%
         </div>
@@ -137,14 +177,13 @@ function SortableImage({
 
       {/* Main Badge */}
       {image.is_main && (
-        <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+        <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 z-10">
           <Star className="w-3 h-3" /> Hauptbild
         </div>
       )}
 
-      {/* Hover Controls - overlay for visual effect only */}
+      {/* Hover Controls Overlay */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors z-10 pointer-events-none">
-        {/* Fullscreen icon indicator (visual only) */}
         <div className="absolute inset-0 w-full h-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="p-3 bg-white/90 rounded-full shadow-lg">
             <Maximize2 className="w-5 h-5 text-slate-700" />
@@ -152,9 +191,15 @@ function SortableImage({
         </div>
       </div>
       
-      {/* Top Controls Row - buttons need pointer-events-auto */}
-      <div className="absolute top-2 right-2 z-20 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          {/* Set as Main Button */}
+      {/* Bottom Controls Row */}
+      <div className="absolute bottom-2 left-2 right-2 z-20 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+        {/* Position Number */}
+        <div className="bg-black/60 text-white text-xs px-2 py-1 rounded">
+          {image.position + 1}
+        </div>
+        
+        {/* Action Buttons */}
+        <div className="flex items-center gap-1">
           {!image.is_main && (
             <button
               type="button"
@@ -165,11 +210,10 @@ function SortableImage({
               className="p-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
               title="Als Hauptbild setzen"
             >
-              <Star className="w-4 h-4" />
+              <Star className="w-3 h-3" />
             </button>
           )}
           
-          {/* AI Optimize Button */}
           <button
             type="button"
             onClick={(e) => {
@@ -179,10 +223,9 @@ function SortableImage({
             className="p-1.5 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
             title="🎨 KI Bild-Optimierung"
           >
-            <Wand2 className="w-4 h-4" />
+            <Wand2 className="w-3 h-3" />
           </button>
 
-          {/* Drag Handle */}
           <button
             type="button"
             {...attributes}
@@ -190,10 +233,9 @@ function SortableImage({
             className="p-1.5 bg-white/90 rounded-lg cursor-grab active:cursor-grabbing"
             title="Ziehen zum Sortieren"
           >
-            <GripVertical className="w-4 h-4 text-slate-600" />
+            <GripVertical className="w-3 h-3 text-slate-600" />
           </button>
 
-          {/* Remove Button */}
           <button
             type="button"
             onClick={(e) => {
@@ -203,13 +245,9 @@ function SortableImage({
             className="p-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600"
             title="Bild löschen"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3 h-3" />
           </button>
         </div>
-
-      {/* Position Number */}
-      <div className="absolute bottom-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
-        {image.position + 1}
       </div>
     </div>
   );
@@ -222,7 +260,9 @@ export function ImageUpload({
   initialImages = [],
 }: ImageUploadProps) {
   const supabase = createClient();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState<VehicleImage[]>(initialImages);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [uploading, setUploading] = useState(false);
   const [uploadingIds, setUploadingIds] = useState<Set<string>>(new Set());
   const [error, setError] = useState<string | null>(null);
@@ -234,13 +274,12 @@ export function ImageUpload({
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [optimizerOpen, setOptimizerOpen] = useState(false);
   const [optimizingImage, setOptimizingImage] = useState<VehicleImage | null>(null);
-  // Counter to force re-render after drag operations
   const [dragVersion, setDragVersion] = useState(0);
 
   const MAX_IMAGES = 30;
-  const MAX_SIZE_MB = 10; // Input max size
-  const TARGET_SIZE_MB = 2; // Target compressed size
-  const MAX_DIMENSION = 2400; // Max width/height
+  const MAX_SIZE_MB = 10;
+  const TARGET_SIZE_MB = 2;
+  const MAX_DIMENSION = 2400;
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -249,15 +288,15 @@ export function ImageUpload({
     })
   );
 
-  // Load existing images when vehicleId changes or on mount
-  // Always refresh from DB to ensure we have current URLs
+  const hasSelection = selectedIds.size > 0;
+
+  // Load existing images
   useEffect(() => {
     if (vehicleId) {
       loadImages();
     }
   }, [vehicleId]);
   
-  // Also sync if initialImages changes (e.g., after page navigation)
   useEffect(() => {
     if (initialImages.length > 0 && images.length === 0) {
       setImages(initialImages);
@@ -278,7 +317,6 @@ export function ImageUpload({
       return;
     }
 
-    console.log('[ImageUpload] Loaded images from DB:', data?.length, data?.map(img => ({ id: img.id, url: img.url?.substring(0, 60), position: img.position })));
     setImages(data || []);
   };
 
@@ -288,34 +326,29 @@ export function ImageUpload({
     compressionInfo?: CompressedImage
   ): Promise<VehicleImage | null> => {
     if (!vehicleId) {
-      setError("Bitte speichern Sie das Fahrzeug zuerst, bevor Sie Bilder hochladen.");
+      setError("Bitte speichern Sie das Fahrzeug zuerst.");
       return null;
     }
 
-    // Use .webp extension for compressed images
     const fileExt = file.name.split(".").pop()?.toLowerCase() || 'webp';
     const fileName = `${vehicleId}/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
 
-    // Upload to Supabase Storage with cache headers
     const { error: uploadError } = await supabase.storage
       .from("vehicle-images")
       .upload(fileName, file, {
-        cacheControl: "31536000", // 1 year cache
+        cacheControl: "31536000",
         contentType: file.type,
         upsert: false,
       });
 
     if (uploadError) {
-      console.error("Upload error:", uploadError);
       throw new Error(`Upload fehlgeschlagen: ${uploadError.message}`);
     }
 
-    // Get public URL
     const { data: { publicUrl } } = supabase.storage
       .from("vehicle-images")
       .getPublicUrl(fileName);
 
-    // Insert into database
     const isMain = images.length === 0 && position === 0;
     const { data: imageRecord, error: dbError } = await supabase
       .from("vehicle_images")
@@ -330,12 +363,10 @@ export function ImageUpload({
       .single();
 
     if (dbError) {
-      // Rollback: delete uploaded file
       await supabase.storage.from("vehicle-images").remove([fileName]);
       throw new Error(`Datenbankfehler: ${dbError.message}`);
     }
 
-    // Add compression info to the record for display
     if (compressionInfo) {
       return {
         ...imageRecord,
@@ -350,123 +381,111 @@ export function ImageUpload({
     return imageRecord;
   };
 
-  const onDrop = useCallback(
-    async (acceptedFiles: File[]) => {
-      if (!vehicleId) {
-        setError("Bitte speichern Sie das Fahrzeug zuerst, bevor Sie Bilder hochladen.");
-        return;
-      }
+  const handleFileSelect = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    
+    if (!vehicleId) {
+      setError("Bitte speichern Sie das Fahrzeug zuerst.");
+      return;
+    }
 
-      const remainingSlots = MAX_IMAGES - images.length;
-      if (remainingSlots <= 0) {
-        setError(`Maximum von ${MAX_IMAGES} Bildern erreicht.`);
-        return;
-      }
+    const remainingSlots = MAX_IMAGES - images.length;
+    if (remainingSlots <= 0) {
+      setError(`Maximum von ${MAX_IMAGES} Bildern erreicht.`);
+      return;
+    }
 
-      const filesToUpload = acceptedFiles.slice(0, remainingSlots);
-      if (filesToUpload.length < acceptedFiles.length) {
-        setError(`Nur ${filesToUpload.length} von ${acceptedFiles.length} Bildern wurden hinzugefügt (Maximum: ${MAX_IMAGES}).`);
-      }
+    const acceptedFiles = Array.from(files).filter(file => {
+      const ext = file.name.split('.').pop()?.toLowerCase();
+      return ['jpg', 'jpeg', 'png', 'webp', 'heic', 'heif'].includes(ext || '');
+    });
 
-      setUploading(true);
-      setError(null);
+    const filesToUpload = acceptedFiles.slice(0, remainingSlots);
+    if (filesToUpload.length < acceptedFiles.length) {
+      setError(`Nur ${filesToUpload.length} von ${acceptedFiles.length} Bildern wurden hinzugefügt.`);
+    }
 
-      // Create temporary preview images
-      const tempImages: VehicleImage[] = filesToUpload.map((file, index) => ({
-        id: `temp-${Date.now()}-${index}`,
-        url: URL.createObjectURL(file),
-        storage_path: "",
-        position: images.length + index,
-        is_main: images.length === 0 && index === 0,
-        isNew: true,
-        file,
-      }));
+    setUploading(true);
+    setError(null);
 
-      const tempIds = new Set(tempImages.map((img) => img.id));
-      setUploadingIds(tempIds);
-      setImages((prev) => [...prev, ...tempImages]);
+    // Create temporary preview images
+    const tempImages: VehicleImage[] = filesToUpload.map((file, index) => ({
+      id: `temp-${Date.now()}-${index}`,
+      url: URL.createObjectURL(file),
+      storage_path: "",
+      position: images.length + index,
+      is_main: images.length === 0 && index === 0,
+      isNew: true,
+      file,
+    }));
 
-      // Compress and upload each file
-      const uploadedImages: VehicleImage[] = [];
-      const errors: string[] = [];
-      let totalOriginal = 0;
-      let totalCompressed = 0;
+    const tempIds = new Set(tempImages.map((img) => img.id));
+    setUploadingIds(tempIds);
+    setImages((prev) => [...prev, ...tempImages]);
 
-      for (let i = 0; i < tempImages.length; i++) {
-        const tempImage = tempImages[i];
-        try {
-          // Compress image before upload
-          const compressed = await compressImage(
-            tempImage.file!,
-            TARGET_SIZE_MB,
-            MAX_DIMENSION
-          );
-          
-          totalOriginal += compressed.originalSize;
-          totalCompressed += compressed.compressedSize;
+    // Compress and upload
+    const uploadedImages: VehicleImage[] = [];
+    const errors: string[] = [];
+    let totalOriginal = 0;
+    let totalCompressed = 0;
 
-          console.log(
-            `Compressed ${tempImage.file!.name}: ${formatFileSize(compressed.originalSize)} → ${formatFileSize(compressed.compressedSize)} (${calculateSavings(compressed.originalSize, compressed.compressedSize)}% saved)`
-          );
+    for (let i = 0; i < tempImages.length; i++) {
+      const tempImage = tempImages[i];
+      try {
+        const compressed = await compressImage(
+          tempImage.file!,
+          TARGET_SIZE_MB,
+          MAX_DIMENSION
+        );
+        
+        totalOriginal += compressed.originalSize;
+        totalCompressed += compressed.compressedSize;
 
-          const uploaded = await uploadImage(
-            compressed.file, 
-            tempImage.position,
-            compressed
-          );
-          if (uploaded) {
-            uploadedImages.push(uploaded);
-          }
-        } catch (err) {
-          errors.push(tempImage.file!.name);
-          console.error(`Error uploading ${tempImage.file!.name}:`, err);
+        const uploaded = await uploadImage(
+          compressed.file, 
+          tempImage.position,
+          compressed
+        );
+        if (uploaded) {
+          uploadedImages.push(uploaded);
         }
+      } catch (err) {
+        errors.push(tempImage.file!.name);
+        console.error(`Error uploading ${tempImage.file!.name}:`, err);
       }
+    }
 
-      // Replace temp images with uploaded ones
-      setImages((prev) => {
-        const filtered = prev.filter((img) => !img.isNew);
-        return [...filtered, ...uploadedImages].sort((a, b) => a.position - b.position);
-      });
+    // Replace temp images with uploaded ones
+    setImages((prev) => {
+      const filtered = prev.filter((img) => !img.isNew);
+      return [...filtered, ...uploadedImages].sort((a, b) => a.position - b.position);
+    });
 
-      setUploadingIds(new Set());
-      setUploading(false);
+    setUploadingIds(new Set());
+    setUploading(false);
 
-      // Show compression stats
-      if (totalOriginal > 0) {
-        setCompressionStats({ totalOriginal, totalCompressed });
-        // Clear stats after 5 seconds
-        setTimeout(() => setCompressionStats(null), 5000);
-      }
+    if (totalOriginal > 0) {
+      setCompressionStats({ totalOriginal, totalCompressed });
+      setTimeout(() => setCompressionStats(null), 5000);
+    }
 
-      if (errors.length > 0) {
-        setError(`Upload fehlgeschlagen für: ${errors.join(", ")}`);
-      }
+    if (errors.length > 0) {
+      setError(`Upload fehlgeschlagen für: ${errors.join(", ")}`);
+    }
 
-      // Notify parent
-      if (onImagesChange) {
-        const finalImages = images
-          .filter((img) => !img.isNew)
-          .concat(uploadedImages)
-          .sort((a, b) => a.position - b.position);
-        onImagesChange(finalImages);
-      }
-    },
-    [images, vehicleId, onImagesChange]
-  );
+    if (onImagesChange) {
+      const finalImages = images
+        .filter((img) => !img.isNew)
+        .concat(uploadedImages)
+        .sort((a, b) => a.position - b.position);
+      onImagesChange(finalImages);
+    }
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      "image/jpeg": [".jpg", ".jpeg"],
-      "image/png": [".png"],
-      "image/webp": [".webp"],
-      "image/heic": [".heic"],
-      "image/heif": [".heif"],
-    },
-    maxSize: MAX_SIZE_MB * 1024 * 1024,
-    disabled: uploading || !vehicleId,
-  });
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
@@ -481,11 +500,9 @@ export function ImageUpload({
         is_main: idx === 0,
       }));
 
-      // Force re-render of image components by incrementing version
       setDragVersion(v => v + 1);
       setImages(newImages);
 
-      // Update positions in database
       if (vehicleId) {
         for (const img of newImages) {
           if (!img.isNew) {
@@ -507,7 +524,6 @@ export function ImageUpload({
     const imageToRemove = images.find((img) => img.id === imageId);
     if (!imageToRemove) return;
 
-    // Remove from state immediately
     const remainingImages = images
       .filter((img) => img.id !== imageId)
       .map((img, idx) => ({
@@ -517,13 +533,16 @@ export function ImageUpload({
       }));
 
     setImages(remainingImages);
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      next.delete(imageId);
+      return next;
+    });
 
-    // Delete from storage and database
     if (!imageToRemove.isNew && imageToRemove.storage_path) {
       await supabase.storage.from("vehicle-images").remove([imageToRemove.storage_path]);
       await supabase.from("vehicle_images").delete().eq("id", imageId);
 
-      // Update positions of remaining images
       for (const img of remainingImages) {
         await supabase
           .from("vehicle_images")
@@ -537,17 +556,32 @@ export function ImageUpload({
     }
   };
 
+  const handleDeleteSelected = async () => {
+    if (selectedIds.size === 0) return;
+    
+    const idsToDelete = Array.from(selectedIds);
+    for (const id of idsToDelete) {
+      await handleRemove(id);
+    }
+    setSelectedIds(new Set());
+  };
+
+  const handleOptimizeSelected = () => {
+    // Open optimizer for first selected image
+    const firstSelectedId = Array.from(selectedIds)[0];
+    if (firstSelectedId) {
+      handleOptimize(firstSelectedId);
+    }
+  };
+
   const handleSetMain = async (imageId: string) => {
-    // Update local state
     const updatedImages = images.map((img) => ({
       ...img,
       is_main: img.id === imageId,
     }));
     setImages(updatedImages);
 
-    // Update in database
     if (vehicleId) {
-      // First, set all images to not main
       for (const img of images) {
         if (!img.isNew) {
           await supabase
@@ -563,33 +597,44 @@ export function ImageUpload({
     }
   };
 
+  const toggleSelect = (imageId: string) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(imageId)) {
+        next.delete(imageId);
+      } else {
+        next.add(imageId);
+      }
+      return next;
+    });
+  };
+
+  const selectAll = () => {
+    setSelectedIds(new Set(images.filter(img => !img.isNew).map(img => img.id)));
+  };
+
+  const deselectAll = () => {
+    setSelectedIds(new Set());
+  };
+
   const openLightbox = (index: number) => {
-    console.log('[openLightbox] Called with index:', index, 'images length:', images.length, 'image:', images[index]);
-    // Only open lightbox for uploaded images (not temp/uploading ones)
     if (!images[index]?.isNew) {
-      console.log('[openLightbox] Opening lightbox at index:', index);
       setLightboxIndex(index);
       setLightboxOpen(true);
-    } else {
-      console.log('[openLightbox] Image is new, not opening lightbox');
     }
   };
 
   const handleOptimize = (imageId: string) => {
     const image = images.find(img => img.id === imageId);
-    console.log('[handleOptimize] Image:', imageId, image?.url?.substring(0, 80));
     if (image && !image.isNew && image.url && !image.url.startsWith('blob:')) {
       setOptimizingImage(image);
       setOptimizerOpen(true);
-    } else {
-      console.warn('[handleOptimize] Cannot optimize - image is new or has blob URL');
     }
   };
 
   const handleOptimized = async (newImageUrl: string) => {
     if (!optimizingImage) return;
     
-    // Update the image URL in state
     const updatedImages = images.map(img => 
       img.id === optimizingImage.id 
         ? { ...img, url: newImageUrl }
@@ -597,7 +642,6 @@ export function ImageUpload({
     );
     setImages(updatedImages);
     
-    // Update in database if needed
     if (vehicleId && !optimizingImage.isNew) {
       await supabase
         .from("vehicle_images")
@@ -615,14 +659,82 @@ export function ImageUpload({
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <span>Fahrzeugbilder</span>
-          <span className="text-sm font-normal text-slate-500">
-            {images.length} / {MAX_IMAGES}
-          </span>
-        </CardTitle>
+      <CardHeader className="pb-4">
+        <div className="flex items-center justify-between">
+          {/* Left: Title + Batch Actions */}
+          <div className="flex items-center gap-3">
+            <CardTitle>Fahrzeugbilder</CardTitle>
+            
+            {/* Batch Actions Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-8">
+                  <MoreHorizontal className="w-4 h-4 mr-1" />
+                  Aktionen
+                  {hasSelection && (
+                    <span className="ml-1 bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                      {selectedIds.size}
+                    </span>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem onClick={selectAll} disabled={images.length === 0}>
+                  <CheckSquare className="w-4 h-4 mr-2" />
+                  Alle auswählen
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={deselectAll} disabled={!hasSelection}>
+                  <Square className="w-4 h-4 mr-2" />
+                  Auswahl aufheben
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  onClick={handleOptimizeSelected} 
+                  disabled={selectedIds.size !== 1}
+                >
+                  <Wand2 className="w-4 h-4 mr-2" />
+                  KI-Optimierung
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={handleDeleteSelected} 
+                  disabled={!hasSelection}
+                  className="text-red-600 focus:text-red-600"
+                >
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Ausgewählte löschen ({selectedIds.size})
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          {/* Right: Upload Button + Counter */}
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-slate-500">
+              {images.length} / {MAX_IMAGES}
+            </span>
+            
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              accept=".jpg,.jpeg,.png,.webp,.heic,.heif"
+              className="hidden"
+              onChange={(e) => handleFileSelect(e.target.files)}
+              disabled={uploading || !vehicleId}
+            />
+            
+            <Button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading || !vehicleId || images.length >= MAX_IMAGES}
+              size="sm"
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              Upload
+            </Button>
+          </div>
+        </div>
       </CardHeader>
+      
       <CardContent className="space-y-4">
         {/* Error Message */}
         {error && (
@@ -649,35 +761,19 @@ export function ImageUpload({
           </div>
         )}
 
-        {/* Dropzone */}
-        <div
-          {...getRootProps()}
-          className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors cursor-pointer ${
-            isDragActive
-              ? "border-blue-500 bg-blue-50"
-              : vehicleId
-              ? "border-slate-300 hover:border-slate-400"
-              : "border-slate-200 bg-slate-50 cursor-not-allowed"
-          }`}
-        >
-          <input {...getInputProps()} />
-          <Upload className={`w-10 h-10 mx-auto mb-3 ${vehicleId ? "text-slate-400" : "text-slate-300"}`} />
-          {isDragActive ? (
-            <p className="text-blue-600 font-medium">Bilder hier ablegen...</p>
-          ) : (
-            <>
-              <p className={`font-medium ${vehicleId ? "text-slate-700" : "text-slate-400"}`}>
-                Bilder hierher ziehen oder klicken
-              </p>
-              <p className="text-sm text-slate-500 mt-1">
-                JPG, PNG, WebP oder HEIC • Max. {MAX_SIZE_MB}MB pro Bild
-              </p>
-              <p className="text-xs text-slate-400 mt-1">
-                ✨ Automatische Kompression & WebP-Konvertierung
-              </p>
-            </>
-          )}
-        </div>
+        {/* Empty State */}
+        {images.length === 0 && vehicleId && (
+          <div 
+            className="border-2 border-dashed border-slate-200 rounded-lg p-12 text-center cursor-pointer hover:border-slate-300 transition-colors"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <ImageIcon className="w-12 h-12 mx-auto mb-4 text-slate-300" />
+            <p className="text-slate-500 font-medium">Noch keine Bilder vorhanden</p>
+            <p className="text-sm text-slate-400 mt-1">
+              Klicken Sie hier oder auf "Upload" um Bilder hinzuzufügen
+            </p>
+          </div>
+        )}
 
         {/* Image Grid */}
         {images.length > 0 && (
@@ -696,11 +792,14 @@ export function ImageUpload({
                     key={image.id}
                     image={image}
                     dragVersion={dragVersion}
+                    isSelected={selectedIds.has(image.id)}
+                    onToggleSelect={toggleSelect}
                     onRemove={handleRemove}
                     onSetMain={handleSetMain}
                     onOptimize={handleOptimize}
                     onViewFullscreen={() => openLightbox(index)}
                     isUploading={uploadingIds.has(image.id)}
+                    showCheckbox={hasSelection}
                   />
                 ))}
               </div>
