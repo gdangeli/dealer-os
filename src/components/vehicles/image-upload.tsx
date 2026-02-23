@@ -690,10 +690,10 @@ export function ImageUpload({
                 <DropdownMenuSeparator />
                 <DropdownMenuItem 
                   onClick={handleOptimizeSelected} 
-                  disabled={selectedIds.size !== 1}
+                  disabled={!hasSelection}
                 >
                   <Wand2 className="w-4 h-4 mr-2" />
-                  KI-Optimierung
+                  KI-Optimierung ({selectedIds.size})
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onClick={handleDeleteSelected} 
