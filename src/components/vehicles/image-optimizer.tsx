@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2 } from "lucide-react";
+import { Loader2, ArrowLeftRight } from "lucide-react";
 
 interface ImageOptimizerProps {
   open: boolean;
@@ -33,6 +33,7 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
     enhance: true,
   });
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [showOriginal, setShowOriginal] = useState(false);
 
   // Guard against invalid imageUrl
   if (!imageUrl || imageUrl.startsWith('blob:')) {
@@ -75,6 +76,7 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
       
       // Show preview - result.final is already a URL from Replicate
       setPreviewUrl(result.final);
+      setShowOriginal(false); // Default to showing optimized result
       
       toast.success(t("success"));
     } catch (error) {
@@ -136,7 +138,7 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
           {/* Left: Preview */}
           <div className="space-y-4">
             <div className="aspect-video bg-slate-100 rounded-lg overflow-hidden relative">
-              {previewUrl ? (
+              {previewUrl && !showOriginal ? (
                 <img
                   src={previewUrl}
                   alt="Optimized preview"
@@ -155,9 +157,46 @@ export function ImageOptimizer({ open, onClose, imageUrl, onOptimized }: ImageOp
                 </div>
               )}
             </div>
-            <p className="text-sm text-slate-500 text-center">
-              {previewUrl ? t("previewOptimized") : t("previewOriginal")}
-            </p>
+            
+            {/* Before/After Toggle */}
+            {previewUrl ? (
+              <div className="flex items-center justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowOriginal(true)}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-l-lg border transition-colors ${
+                    showOriginal 
+                      ? "bg-slate-900 text-white border-slate-900" 
+                      : "bg-white text-slate-600 border-slate-300 hover:bg-slate-50"
+                  }`}
+                >
+                  {t("original")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowOriginal(false)}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-r-lg border-y border-r transition-colors ${
+                    !showOriginal 
+                      ? "bg-slate-900 text-white border-slate-900" 
+                      : "bg-white text-slate-600 border-slate-300 hover:bg-slate-50"
+                  }`}
+                >
+                  {t("optimized")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowOriginal(!showOriginal)}
+                  className="ml-2 p-1.5 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+                  title={t("compareToggle")}
+                >
+                  <ArrowLeftRight className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <p className="text-sm text-slate-500 text-center">
+                {t("previewOriginal")}
+              </p>
+            )}
           </div>
 
           {/* Right: Options */}

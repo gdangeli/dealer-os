@@ -402,7 +402,10 @@
     "apply": "Apply",
     "success": "Image optimized!",
     "applied": "Image has been updated!",
-    "error": "Optimization failed"
+    "error": "Optimization failed",
+    "original": "Original",
+    "optimized": "Optimized",
+    "compareToggle": "Compare"
   },
   "bexio": {
     "title": "Bexio Integration",
