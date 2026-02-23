@@ -10,6 +10,7 @@ import {
   Star,
   ZoomIn,
   ZoomOut,
+  RotateCcw,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -17,6 +18,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 interface LightboxImage {
   id: string;
   url: string;
+  original_url?: string | null;
   position: number;
   is_main: boolean;
 }
@@ -38,12 +40,14 @@ export function ImageLightbox({
 }: ImageLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [showOriginal, setShowOriginal] = useState(false);
 
   // Reset index when opening
   useEffect(() => {
     if (open) {
       setCurrentIndex(initialIndex);
       setIsZoomed(false);
+      setShowOriginal(false);
     }
   }, [open, initialIndex]);
 
@@ -55,6 +59,7 @@ export function ImageLightbox({
     if (hasNext) {
       setCurrentIndex((prev) => prev + 1);
       setIsZoomed(false);
+      setShowOriginal(false);
     }
   }, [hasNext]);
 
@@ -62,12 +67,14 @@ export function ImageLightbox({
     if (hasPrev) {
       setCurrentIndex((prev) => prev - 1);
       setIsZoomed(false);
+      setShowOriginal(false);
     }
   }, [hasPrev]);
 
   const goToIndex = useCallback((index: number) => {
     setCurrentIndex(index);
     setIsZoomed(false);
+    setShowOriginal(false);
   }, []);
 
   // Keyboard navigation
@@ -89,12 +96,18 @@ export function ImageLightbox({
           e.preventDefault();
           setIsZoomed((prev) => !prev);
           break;
+        case "o":
+        case "O":
+          if (currentImage?.original_url) {
+            setShowOriginal((prev) => !prev);
+          }
+          break;
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [open, goNext, goPrev, onOpenChange]);
+  }, [open, goNext, goPrev, onOpenChange, currentImage?.original_url]);
 
   console.log('[ImageLightbox] Render:', { open, currentIndex, imagesLength: images.length, currentImage: currentImage?.url?.substring(0, 60) });
   
@@ -127,6 +140,23 @@ export function ImageLightbox({
           </div>
           
           <div className="flex items-center gap-2">
+            {/* Original/Optimized Toggle */}
+            {currentImage.original_url && (
+              <button
+                onClick={() => setShowOriginal((prev) => !prev)}
+                className={cn(
+                  "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-sm transition-colors",
+                  showOriginal 
+                    ? "bg-orange-500 hover:bg-orange-600" 
+                    : "bg-purple-500 hover:bg-purple-600"
+                )}
+                title="Original/Optimiert umschalten (O)"
+              >
+                <RotateCcw className="w-4 h-4" />
+                {showOriginal ? "Original" : "Optimiert"}
+              </button>
+            )}
+            
             {/* Set as Main Button */}
             {onSetMain && !currentImage.is_main && (
               <button
@@ -200,7 +230,7 @@ export function ImageLightbox({
             )}
           >
             <OptimizedImage
-              src={currentImage.url}
+              src={showOriginal && currentImage.original_url ? currentImage.original_url : currentImage.url}
               alt={`Bild ${currentIndex + 1}`}
               fill
               sizes="100vw"
@@ -243,7 +273,7 @@ export function ImageLightbox({
           
           {/* Keyboard hints */}
           <div className="text-center text-white/50 text-xs mt-2">
-            ← → Navigation • Leertaste Zoom • Esc Schliessen
+            ← → Navigation • Leertaste Zoom • O Original/Optimiert • Esc Schliessen
           </div>
         </div>
       </DialogContent>
