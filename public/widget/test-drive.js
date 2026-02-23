@@ -152,6 +152,16 @@
   }
 
   async function loadVehiclesAndRender(container, dealerId) {
+    // Demo mode - show widget with sample data
+    if (dealerId === 'demo') {
+      render(container, dealerId, { id: 'demo', name: 'Demo Autohaus' }, [
+        { id: 'demo-1', make: 'BMW', model: '320i', variant: 'Touring', asking_price: 34900 },
+        { id: 'demo-2', make: 'VW', model: 'Golf', variant: 'GTI', asking_price: 28500 },
+        { id: 'demo-3', make: 'Audi', model: 'A4', variant: 'Avant', asking_price: 42000 },
+      ]);
+      return;
+    }
+
     try {
       const response = await fetch(`${API_BASE}?dealer_id=${dealerId}`);
       const data = await response.json();
@@ -251,6 +261,23 @@
     form.addEventListener('submit', (e) => handleSubmit(e, container, dealerId));
   }
 
+  function showSuccess(container, isDemo) {
+    const widget = container.querySelector('.dos-widget');
+    widget.innerHTML = `
+      <div class="dos-success">
+        <div class="dos-success-icon">✓</div>
+        <h4>Vielen Dank!</h4>
+        <p>${isDemo 
+          ? 'Dies ist eine Demo. Im Echtbetrieb würde Ihre Anfrage an den Händler gesendet.' 
+          : 'Ihre Probefahrt-Anfrage wurde erfolgreich gesendet.<br>Wir melden uns in Kürze bei Ihnen.'
+        }</p>
+      </div>
+      <div class="dos-powered">
+        Powered by <a href="https://dealeros.ch" target="_blank">DealerOS</a>
+      </div>
+    `;
+  }
+
   async function handleSubmit(e, container, dealerId) {
     e.preventDefault();
     
@@ -282,6 +309,13 @@
     submitBtn.innerHTML = '<div class="dos-spinner"></div> Wird gesendet...';
     errorEl.style.display = 'none';
 
+    // Demo mode - simulate success
+    if (dealerId === 'demo') {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      showSuccess(container, true);
+      return;
+    }
+
     try {
       const response = await fetch(API_BASE, {
         method: 'POST',
@@ -296,17 +330,7 @@
       }
 
       // Success
-      const widget = container.querySelector('.dos-widget');
-      widget.innerHTML = `
-        <div class="dos-success">
-          <div class="dos-success-icon">✓</div>
-          <h4>Vielen Dank!</h4>
-          <p>Ihre Probefahrt-Anfrage wurde erfolgreich gesendet.<br>Wir melden uns in Kürze bei Ihnen.</p>
-        </div>
-        <div class="dos-powered">
-          Powered by <a href="https://dealeros.ch" target="_blank">DealerOS</a>
-        </div>
-      `;
+      showSuccess(container, false);
 
     } catch (error) {
       errorEl.textContent = error.message;
