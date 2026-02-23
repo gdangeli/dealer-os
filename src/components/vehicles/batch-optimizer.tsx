@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -14,8 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Progress } from "@/components/ui/progress";
-import { Loader2, CheckCircle, XCircle, ImageIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 interface BatchImage {
   id: string;
@@ -26,6 +24,7 @@ interface BatchOptimizerProps {
   open: boolean;
   onClose: () => void;
   images: BatchImage[];
+  onProcessingStart: () => void;
   onOptimized: (results: Array<{ id: string; newUrl: string }>) => void;
 }
 
@@ -36,23 +35,25 @@ const BACKGROUND_TEMPLATES = [
   { id: "showroom-minimal", name: "Minimalistisch Weiss", preview: "⬜" },
 ];
 
-export function BatchOptimizer({ open, onClose, images, onOptimized }: BatchOptimizerProps) {
-  const t = useTranslations("photoAI");
-  const [isProcessing, setIsProcessing] = useState(false);
+export function BatchOptimizer({ open, onClose, images, onProcessingStart, onOptimized }: BatchOptimizerProps) {
+  const [isStarting, setIsStarting] = useState(false);
   const [selectedBackground, setSelectedBackground] = useState("showroom-modern");
-  const [progress, setProgress] = useState(0);
-  const [results, setResults] = useState<Array<{
-    id: string;
-    originalUrl: string;
-    newUrl?: string;
-    error?: string;
-  }> | null>(null);
 
-  const handleOptimize = async () => {
-    setIsProcessing(true);
-    setProgress(10);
-    setResults(null);
+  const handleStartProcessing = async () => {
+    setIsStarting(true);
+    
+    // Notify parent that processing has started
+    onProcessingStart();
+    
+    // Close dialog immediately
+    onClose();
+    
+    // Show toast that processing started
+    toast.info(`🎨 ${images.length} Bilder werden im Hintergrund optimiert...`, {
+      duration: 3000,
+    });
 
+    // Process in background
     try {
       const response = await fetch("/api/images/optimize-batch", {
         method: "POST",
@@ -63,68 +64,54 @@ export function BatchOptimizer({ open, onClose, images, onOptimized }: BatchOpti
         }),
       });
 
-      setProgress(80);
-
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.error || "Batch optimization failed");
       }
 
       const data = await response.json();
-      setProgress(100);
-      setResults(data.results);
 
       // Collect successful results
       const successfulResults = data.results
         .filter((r: any) => r.newUrl)
         .map((r: any) => ({ id: r.id, newUrl: r.newUrl }));
 
+      // Notify completion
       if (successfulResults.length > 0) {
-        toast.success(`${successfulResults.length} von ${images.length} Bildern optimiert`);
+        toast.success(`✅ ${successfulResults.length} von ${images.length} Bildern optimiert!`, {
+          duration: 5000,
+          action: {
+            label: "OK",
+            onClick: () => {},
+          },
+        });
+        // Update images
+        onOptimized(successfulResults);
       }
 
       if (data.summary.failed > 0) {
-        toast.error(`${data.summary.failed} Bilder konnten nicht verarbeitet werden`);
+        toast.error(`❌ ${data.summary.failed} Bilder konnten nicht verarbeitet werden`, {
+          duration: 5000,
+        });
       }
 
     } catch (error) {
       console.error(error);
-      toast.error(error instanceof Error ? error.message : "Fehler bei der Batch-Verarbeitung");
-      setResults(null);
+      toast.error(`❌ Fehler: ${error instanceof Error ? error.message : "Verarbeitung fehlgeschlagen"}`, {
+        duration: 5000,
+      });
     } finally {
-      setIsProcessing(false);
+      setIsStarting(false);
     }
   };
-
-  const handleApply = () => {
-    if (!results) return;
-    
-    const successfulResults = results
-      .filter(r => r.newUrl)
-      .map(r => ({ id: r.id, newUrl: r.newUrl! }));
-    
-    onOptimized(successfulResults);
-    onClose();
-  };
-
-  const handleClose = () => {
-    if (!isProcessing) {
-      setResults(null);
-      setProgress(0);
-      onClose();
-    }
-  };
-
-  const successCount = results?.filter(r => r.newUrl).length || 0;
-  const failCount = results?.filter(r => r.error).length || 0;
 
   return (
-    <Dialog open={open} onOpenChange={(open) => !open && handleClose()}>
+    <Dialog open={open} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>🎨 Batch KI-Optimierung</DialogTitle>
           <DialogDescription>
-            {images.length} Bilder werden mit dem gleichen Hintergrund optimiert
+            {images.length} Bilder werden im Hintergrund optimiert. Sie können weiterarbeiten.
           </DialogDescription>
         </DialogHeader>
 
@@ -132,21 +119,12 @@ export function BatchOptimizer({ open, onClose, images, onOptimized }: BatchOpti
           {/* Preview Grid */}
           <div className="grid grid-cols-5 gap-2">
             {images.slice(0, 5).map((img, idx) => (
-              <div key={img.id} className="aspect-square bg-slate-100 rounded-lg overflow-hidden relative">
+              <div key={img.id} className="aspect-square bg-slate-100 rounded-lg overflow-hidden">
                 <img
                   src={img.url}
                   alt={`Bild ${idx + 1}`}
                   className="w-full h-full object-cover"
                 />
-                {results && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                    {results[idx]?.newUrl ? (
-                      <CheckCircle className="w-6 h-6 text-green-400" />
-                    ) : results[idx]?.error ? (
-                      <XCircle className="w-6 h-6 text-red-400" />
-                    ) : null}
-                  </div>
-                )}
               </div>
             ))}
             {images.length > 5 && (
@@ -157,93 +135,50 @@ export function BatchOptimizer({ open, onClose, images, onOptimized }: BatchOpti
           </div>
 
           {/* Background Selection */}
-          {!results && (
-            <div className="space-y-3">
-              <Label className="text-sm font-semibold">Hintergrund wählen</Label>
-              <RadioGroup
-                value={selectedBackground}
-                onValueChange={setSelectedBackground}
-                className="grid grid-cols-2 gap-2"
-                disabled={isProcessing}
-              >
-                {BACKGROUND_TEMPLATES.map((bg) => (
-                  <label
-                    key={bg.id}
-                    className={`flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${
-                      selectedBackground === bg.id
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-slate-200 hover:border-slate-300"
-                    } ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
-                  >
-                    <RadioGroupItem value={bg.id} className="sr-only" />
-                    <span className="text-xl">{bg.preview}</span>
-                    <span className="text-sm font-medium">{bg.name}</span>
-                  </label>
-                ))}
-              </RadioGroup>
-            </div>
-          )}
+          <div className="space-y-3">
+            <Label className="text-sm font-semibold">Hintergrund wählen</Label>
+            <RadioGroup
+              value={selectedBackground}
+              onValueChange={setSelectedBackground}
+              className="grid grid-cols-2 gap-2"
+            >
+              {BACKGROUND_TEMPLATES.map((bg) => (
+                <label
+                  key={bg.id}
+                  className={`flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${
+                    selectedBackground === bg.id
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-slate-200 hover:border-slate-300"
+                  }`}
+                >
+                  <RadioGroupItem value={bg.id} className="sr-only" />
+                  <span className="text-xl">{bg.preview}</span>
+                  <span className="text-sm font-medium">{bg.name}</span>
+                </label>
+              ))}
+            </RadioGroup>
+          </div>
 
-          {/* Progress */}
-          {isProcessing && (
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-slate-600">Verarbeite Bilder...</span>
-                <span className="text-slate-500">{Math.round(progress)}%</span>
-              </div>
-              <Progress value={progress} className="h-2" />
-            </div>
-          )}
-
-          {/* Results Summary */}
-          {results && (
-            <div className="bg-slate-50 rounded-lg p-4 space-y-2">
-              <h4 className="font-semibold text-sm">Ergebnis</h4>
-              <div className="flex gap-4 text-sm">
-                <div className="flex items-center gap-1 text-green-600">
-                  <CheckCircle className="w-4 h-4" />
-                  {successCount} erfolgreich
-                </div>
-                {failCount > 0 && (
-                  <div className="flex items-center gap-1 text-red-600">
-                    <XCircle className="w-4 h-4" />
-                    {failCount} fehlgeschlagen
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
+          {/* Info */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-700">
+            💡 Die Verarbeitung läuft im Hintergrund. Sie erhalten eine Benachrichtigung, wenn die Bilder fertig sind.
+          </div>
         </div>
 
         <DialogFooter>
-          {!results ? (
-            <>
-              <Button variant="outline" onClick={handleClose} disabled={isProcessing}>
-                Abbrechen
-              </Button>
-              <Button onClick={handleOptimize} disabled={isProcessing}>
-                {isProcessing ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Verarbeite...
-                  </>
-                ) : (
-                  <>🚀 {images.length} Bilder optimieren</>
-                )}
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button variant="outline" onClick={handleClose}>
-                Schliessen
-              </Button>
-              {successCount > 0 && (
-                <Button onClick={handleApply}>
-                  ✅ {successCount} Bilder übernehmen
-                </Button>
-              )}
-            </>
-          )}
+          <Button variant="outline" onClick={onClose}>
+            Abbrechen
+          </Button>
+          <Button onClick={handleStartProcessing} disabled={isStarting}>
+            {isStarting ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Starte...
+              </>
+            ) : (
+              <>🚀 Verarbeitung starten</>
+            )}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

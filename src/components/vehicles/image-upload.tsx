@@ -276,6 +276,7 @@ export function ImageUpload({
   const [optimizerOpen, setOptimizerOpen] = useState(false);
   const [optimizingImage, setOptimizingImage] = useState<VehicleImage | null>(null);
   const [batchOptimizerOpen, setBatchOptimizerOpen] = useState(false);
+  const [batchProcessingCount, setBatchProcessingCount] = useState(0);
   const [dragVersion, setDragVersion] = useState(0);
 
   const MAX_IMAGES = 30;
@@ -709,6 +710,14 @@ export function ImageUpload({
           <div className="flex items-center gap-3">
             <CardTitle>Fahrzeugbilder</CardTitle>
             
+            {/* Processing Indicator */}
+            {batchProcessingCount > 0 && (
+              <div className="flex items-center gap-2 text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>Optimierung läuft...</span>
+              </div>
+            )}
+            
             {/* Batch Actions Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -886,7 +895,14 @@ export function ImageUpload({
         open={batchOptimizerOpen}
         onClose={() => setBatchOptimizerOpen(false)}
         images={getSelectedImages()}
-        onOptimized={handleBatchOptimized}
+        onProcessingStart={() => {
+          setBatchProcessingCount(prev => prev + 1);
+          setSelectedIds(new Set()); // Clear selection when processing starts
+        }}
+        onOptimized={(results) => {
+          handleBatchOptimized(results);
+          setBatchProcessingCount(prev => Math.max(0, prev - 1));
+        }}
       />
     </Card>
   );
