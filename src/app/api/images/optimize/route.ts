@@ -19,22 +19,36 @@ function selectVumoConfig(options: {
   }
   
   // Map background templates to Vumo configs
+  // Handle various formats: "Moderner Showroom", "modern_showroom", "modern", etc.
+  const normalizedTemplate = backgroundTemplate?.toLowerCase().replace(/\s+/g, '_') || '';
+  
   const templateMapping: Record<string, VumoConfigKey> = {
-    'modern_showroom': 'modern',
+    // German UI names
     'moderner_showroom': 'modern',
-    'classic_showroom': 'classic',
     'klassischer_showroom': 'classic',
-    'outdoor': 'outdoor',
     'outdoor_setting': 'outdoor',
+    'minimalistisch_weiss': 'white',
+    'transparent': 'white', // Vumo doesn't have transparent, use white for now
+    
+    // English variants
+    'modern_showroom': 'modern',
+    'classic_showroom': 'classic',
+    'outdoor': 'outdoor',
     'white': 'white',
     'minimalist': 'white',
-    'minimalistisch_weiss': 'white',
-    'transparent': 'white', // Vumo doesn't have transparent, use white
+    
+    // Short keys
+    'modern': 'modern',
+    'classic': 'classic',
     'checkered': 'checkered',
     'led': 'led',
   };
   
-  const configKey = templateMapping[backgroundTemplate?.toLowerCase() || ''] || 'modern';
+  console.log(`[Vumo] Template received: "${backgroundTemplate}" -> normalized: "${normalizedTemplate}"`);
+  
+  const configKey = templateMapping[normalizedTemplate] || 'modern';
+  console.log(`[Vumo] Using config key: "${configKey}" -> "${VUMO_CONFIGS[configKey]}"`);
+  
   return VUMO_CONFIGS[configKey];
 }
 
