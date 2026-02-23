@@ -821,6 +821,7 @@ export function ImageUpload({
             />
             
             <Button
+              type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading || !vehicleId || images.length >= MAX_IMAGES}
               size="sm"
