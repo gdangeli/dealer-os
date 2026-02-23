@@ -16,8 +16,9 @@ const VUMO_AUTH_URL = 'https://auth.vumo.ai';
 const VUMO_API_URL = 'https://api.vumography.vumo.ai';
 
 // Credentials from environment
+// TODO: Move back to env vars after debugging
 const VUMO_USERNAME = process.env.VUMO_USERNAME || 'carauktion';
-const VUMO_PASSWORD = process.env.VUMO_PASSWORD || '';
+const VUMO_PASSWORD = process.env.VUMO_PASSWORD || 'Wbka4rE6Xs';
 
 /**
  * Available Vumo configurations mapped to user-friendly names
