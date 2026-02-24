@@ -11,15 +11,23 @@ const PREVIEW_COOKIE = "dealer_os_preview";
 // Paths that should always be accessible (even without preview cookie)
 const PUBLIC_PATHS = [
   "/coming-soon",
-  "/api/unlock",
-  "/api/auth",
+  "/api/",
   "/_next",
   "/images",
   "/favicon",
+  "/auth/",
+  "/embed/",
 ];
 
 function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some((path) => pathname.startsWith(path));
+}
+
+function isApiOrStaticPath(pathname: string): boolean {
+  return pathname.startsWith("/api/") || 
+         pathname.startsWith("/_next") || 
+         pathname.startsWith("/auth/") ||
+         pathname.startsWith("/embed/");
 }
 
 function isComingSoonPath(pathname: string): boolean {
@@ -30,7 +38,12 @@ function isComingSoonPath(pathname: string): boolean {
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip middleware for static files and API routes that should always work
+  // Skip ALL middleware for API routes and static files - don't add locale prefix
+  if (isApiOrStaticPath(pathname)) {
+    return NextResponse.next();
+  }
+
+  // Skip Coming Soon check for public paths but still apply i18n
   if (isPublicPath(pathname)) {
     return intlMiddleware(request);
   }
