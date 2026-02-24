@@ -24,3 +24,30 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({ error: "Invalid key" }, { status: 401 });
 }
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const password = body.password;
+
+    if (password === UNLOCK_PASSWORD) {
+      const response = NextResponse.redirect(new URL("/", request.url), {
+        status: 303, // See Other - standard for POST-redirect-GET
+      });
+      
+      response.cookies.set(COOKIE_NAME, "true", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: COOKIE_MAX_AGE,
+        path: "/",
+      });
+
+      return response;
+    }
+
+    return NextResponse.json({ error: "Invalid password" }, { status: 401 });
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
+}
