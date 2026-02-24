@@ -636,3 +636,157 @@ export function invoiceOverdueEmail(data: InvoiceOverdueEmailData): string {
     </div>
   `);
 }
+
+// ============================================================================
+// Test Drive Notifications
+// ============================================================================
+
+export interface TestDriveBookingEmailData {
+  dealerName: string;
+  customerName: string;
+  customerEmail?: string;
+  customerPhone?: string;
+  vehicleMake?: string;
+  vehicleModel?: string;
+  vehicleVariant?: string;
+  scheduledAt: string; // ISO date string
+  notes?: string;
+  dashboardUrl: string;
+  settingsUrl: string;
+}
+
+export function testDriveBookingDealerEmail(data: TestDriveBookingEmailData): string {
+  const date = new Date(data.scheduledAt);
+  const formattedDate = date.toLocaleDateString('de-CH', { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+  const formattedTime = date.toLocaleTimeString('de-CH', { 
+    hour: '2-digit', 
+    minute: '2-digit' 
+  });
+
+  const vehicleInfo = data.vehicleMake && data.vehicleModel
+    ? `${data.vehicleMake} ${data.vehicleModel}${data.vehicleVariant ? ` ${data.vehicleVariant}` : ''}`
+    : 'Kein bestimmtes Fahrzeug';
+
+  return baseTemplate(`
+    <div class="header" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">
+      <h1>🚗 Neue Probefahrt-Anfrage!</h1>
+    </div>
+    <div class="content">
+      <p>Hallo ${data.dealerName},</p>
+      
+      <p>Sie haben eine neue Probefahrt-Anfrage erhalten:</p>
+      
+      <div class="lead-info" style="background: #ecfeff; border-left-color: #06b6d4;">
+        <p><strong>👤 Kunde:</strong> ${data.customerName}</p>
+        ${data.customerEmail ? `<p><strong>📧 E-Mail:</strong> <a href="mailto:${data.customerEmail}">${data.customerEmail}</a></p>` : ''}
+        ${data.customerPhone ? `<p><strong>📞 Telefon:</strong> <a href="tel:${data.customerPhone}">${data.customerPhone}</a></p>` : ''}
+        <p><strong>🚙 Fahrzeug:</strong> ${vehicleInfo}</p>
+      </div>
+      
+      <div class="stat-box" style="text-align: center; background: #f0fdfa;">
+        <p style="margin: 0; color: #0d9488; font-weight: 600;">📅 Gewünschter Termin</p>
+        <div class="stat-number" style="color: #0891b2; font-size: 22px;">${formattedDate}</div>
+        <div style="font-size: 18px; color: #0d9488;">${formattedTime} Uhr</div>
+      </div>
+      
+      ${data.notes ? `
+        <p><strong>Nachricht des Kunden:</strong></p>
+        <blockquote style="background: #f8fafc; padding: 15px; border-left: 4px solid #06b6d4; margin: 15px 0;">
+          ${data.notes}
+        </blockquote>
+      ` : ''}
+      
+      <div class="warning-box" style="background: #fef3c7; border-left-color: #f59e0b;">
+        <p style="margin: 0;"><strong>💡 Tipp:</strong> Kontaktieren Sie den Kunden zeitnah, um den Termin zu bestätigen.</p>
+      </div>
+      
+      <p style="text-align: center;">
+        <a href="${data.dashboardUrl}" class="button" style="background: #0891b2;">Probefahrt verwalten →</a>
+      </p>
+    </div>
+  `);
+}
+
+export interface TestDriveConfirmationEmailData {
+  customerName: string;
+  dealerName: string;
+  dealerPhone?: string;
+  dealerAddress?: string;
+  vehicleMake?: string;
+  vehicleModel?: string;
+  vehicleVariant?: string;
+  scheduledAt: string;
+}
+
+export function testDriveConfirmationCustomerEmail(data: TestDriveConfirmationEmailData): string {
+  const date = new Date(data.scheduledAt);
+  const formattedDate = date.toLocaleDateString('de-CH', { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+  const formattedTime = date.toLocaleTimeString('de-CH', { 
+    hour: '2-digit', 
+    minute: '2-digit' 
+  });
+
+  const vehicleInfo = data.vehicleMake && data.vehicleModel
+    ? `${data.vehicleMake} ${data.vehicleModel}${data.vehicleVariant ? ` ${data.vehicleVariant}` : ''}`
+    : 'Wird bei Termin besprochen';
+
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  ${STYLES}
+</head>
+<body>
+  <div class="container">
+    <div class="header" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">
+      <h1>🚗 Probefahrt-Anfrage erhalten!</h1>
+    </div>
+    <div class="content">
+      <p>Guten Tag ${data.customerName},</p>
+      
+      <p>Vielen Dank für Ihre Probefahrt-Anfrage! Wir haben diese erhalten und werden uns in Kürze bei Ihnen melden.</p>
+      
+      <div class="stat-box" style="text-align: center; background: #f0fdfa;">
+        <p style="margin: 0; color: #0d9488; font-weight: 600;">📅 Ihr gewünschter Termin</p>
+        <div class="stat-number" style="color: #0891b2; font-size: 22px;">${formattedDate}</div>
+        <div style="font-size: 18px; color: #0d9488;">${formattedTime} Uhr</div>
+      </div>
+      
+      <div class="vehicle-card">
+        <p style="margin: 0;"><strong>🚙 Fahrzeug:</strong> ${vehicleInfo}</p>
+      </div>
+      
+      <div style="background: #f8fafc; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <h4 style="margin: 0 0 15px 0;">📍 ${data.dealerName}</h4>
+        ${data.dealerAddress ? `<p style="margin: 5px 0; color: #64748b;">${data.dealerAddress}</p>` : ''}
+        ${data.dealerPhone ? `<p style="margin: 5px 0;"><a href="tel:${data.dealerPhone}">${data.dealerPhone}</a></p>` : ''}
+      </div>
+      
+      <div class="warning-box" style="background: #dbeafe; border-left-color: #3b82f6;">
+        <p style="margin: 0;"><strong>ℹ️ Hinweis:</strong> Bitte bringen Sie Ihren Führerausweis zur Probefahrt mit.</p>
+      </div>
+      
+      <p>Wir freuen uns auf Ihren Besuch!</p>
+      
+      <p>Mit freundlichen Grüssen,<br><strong>${data.dealerName}</strong></p>
+    </div>
+    <div class="footer">
+      <p>Diese E-Mail wurde automatisch von DealerOS versendet.</p>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+}

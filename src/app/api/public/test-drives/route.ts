@@ -1,11 +1,17 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
+import { sendEmail } from "@/lib/email";
+import { 
+  testDriveBookingDealerEmail, 
+  testDriveConfirmationCustomerEmail 
+} from "@/lib/email/templates";
 
 // Public endpoint for booking test drives (no auth required)
 // Uses service role key to bypass RLS
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://www.dealeros.ch";
 
 export async function POST(request: NextRequest) {
   // CORS headers for widget embedding
@@ -74,11 +80,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // If vehicle_id provided, verify it belongs to the dealer
+    // If vehicle_id provided, verify it belongs to the dealer and get details
+    let vehicleData: { make: string; model: string; variant?: string } | null = null;
     if (vehicle_id) {
       const { data: vehicle, error: vehicleError } = await supabase
         .from("vehicles")
-        .select("id")
+        .select("id, make, model, variant")
         .eq("id", vehicle_id)
         .eq("dealer_id", dealer_id)
         .single();
@@ -89,6 +96,7 @@ export async function POST(request: NextRequest) {
           { status: 404, headers }
         );
       }
+      vehicleData = vehicle;
     }
 
     // Create test drive
@@ -117,8 +125,59 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Send notification email to dealer
-    // TODO: Send confirmation email to customer
+    // Send notification email to dealer
+    if (dealer.email) {
+      const dealerEmailHtml = testDriveBookingDealerEmail({
+        dealerName: dealer.company_name,
+        customerName: customer_name,
+        customerEmail: customer_email,
+        customerPhone: customer_phone,
+        vehicleMake: vehicleData?.make,
+        vehicleModel: vehicleData?.model,
+        vehicleVariant: vehicleData?.variant,
+        scheduledAt: scheduled_at,
+        notes,
+        dashboardUrl: `${APP_URL}/de/dashboard/test-drives`,
+        settingsUrl: `${APP_URL}/de/dashboard/settings`,
+      });
+
+      await sendEmail({
+        to: dealer.email,
+        subject: `🚗 Neue Probefahrt-Anfrage von ${customer_name}`,
+        html: dealerEmailHtml,
+      });
+    }
+
+    // Send confirmation email to customer
+    if (customer_email) {
+      // Get dealer address for the email
+      const { data: dealerDetails } = await supabase
+        .from("dealers")
+        .select("phone, street, zip, city")
+        .eq("id", dealer_id)
+        .single();
+
+      const dealerAddress = dealerDetails?.street && dealerDetails?.zip && dealerDetails?.city
+        ? `${dealerDetails.street}, ${dealerDetails.zip} ${dealerDetails.city}`
+        : undefined;
+
+      const customerEmailHtml = testDriveConfirmationCustomerEmail({
+        customerName: customer_name,
+        dealerName: dealer.company_name,
+        dealerPhone: dealerDetails?.phone,
+        dealerAddress,
+        vehicleMake: vehicleData?.make,
+        vehicleModel: vehicleData?.model,
+        vehicleVariant: vehicleData?.variant,
+        scheduledAt: scheduled_at,
+      });
+
+      await sendEmail({
+        to: customer_email,
+        subject: `Ihre Probefahrt-Anfrage bei ${dealer.company_name}`,
+        html: customerEmailHtml,
+      });
+    }
 
     return NextResponse.json(
       {
