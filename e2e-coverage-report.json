@@ -1,12 +1,14 @@
 {
-  "timestamp": "2026-02-23T07:00:20.659Z",
+  "timestamp": "2026-02-24T07:00:18.565Z",
   "coverage": {
-    "total": 10,
+    "total": 11,
     "covered": 10,
     "partial": 0,
-    "missing": 0,
-    "percent": 100
+    "missing": 1,
+    "percent": 91
   },
-  "missingModules": [],
+  "missingModules": [
+    "test-drives"
+  ],
   "partialModules": []
 }
