@@ -60,8 +60,7 @@ export function QuoteActions({ quote, locale }: QuoteActionsProps) {
     }
   };
 
-  const convertToInvoice = async () => {
-    // TODO: Implement convert to invoice
+  const convertToInvoice = () => {
     router.push(`/${locale}/dashboard/invoices/new?quote=${quote.id}`);
   };
 

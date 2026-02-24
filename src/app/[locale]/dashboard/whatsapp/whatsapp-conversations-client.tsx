@@ -97,9 +97,13 @@ export function WhatsAppConversationsClient({ dealerId }: WhatsAppConversationsC
 
       if (error) throw error;
 
-      // Group by customer phone
-      const conversationMap = new Map<string, Conversation>();
+      // Group by customer phone and calculate unread count
+      const conversationMap = new Map<string, Conversation & { 
+        lastOutboundTime: string | null;
+        inboundAfterOutbound: number;
+      }>();
 
+      // First pass: group messages by customer and find last outbound time
       data?.forEach((msg: any) => {
         const customerPhone = msg.direction === 'inbound' ? msg.from_number : msg.to_number;
         
@@ -113,12 +117,45 @@ export function WhatsAppConversationsClient({ dealerId }: WhatsAppConversationsC
               : null,
             last_message_at: msg.timestamp,
             last_message_content: msg.content,
-            unread_count: 0, // TODO: Track unread messages
+            unread_count: 0,
+            lastOutboundTime: null,
+            inboundAfterOutbound: 0,
           });
+        }
+        
+        const conv = conversationMap.get(customerPhone)!;
+        
+        // Track last outbound message time
+        if (msg.direction === 'outbound' && (!conv.lastOutboundTime || msg.timestamp > conv.lastOutboundTime)) {
+          conv.lastOutboundTime = msg.timestamp;
         }
       });
 
-      setConversations(Array.from(conversationMap.values()));
+      // Second pass: count inbound messages after last outbound (unread)
+      data?.forEach((msg: any) => {
+        const customerPhone = msg.direction === 'inbound' ? msg.from_number : msg.to_number;
+        const conv = conversationMap.get(customerPhone);
+        
+        if (conv && msg.direction === 'inbound') {
+          // If no outbound message ever, or inbound is after last outbound → unread
+          if (!conv.lastOutboundTime || msg.timestamp > conv.lastOutboundTime) {
+            conv.inboundAfterOutbound++;
+          }
+        }
+      });
+
+      // Convert to array and set unread_count
+      const conversationsArray = Array.from(conversationMap.values()).map(conv => ({
+        customer_phone: conv.customer_phone,
+        customer_name: conv.customer_name,
+        lead_id: conv.lead_id,
+        lead_name: conv.lead_name,
+        last_message_at: conv.last_message_at,
+        last_message_content: conv.last_message_content,
+        unread_count: conv.inboundAfterOutbound,
+      }));
+
+      setConversations(conversationsArray);
     } catch (error) {
       console.error('Error loading conversations:', error);
       toast.error('Fehler beim Laden der Konversationen');

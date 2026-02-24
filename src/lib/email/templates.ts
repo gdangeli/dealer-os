@@ -790,3 +790,155 @@ export function testDriveConfirmationCustomerEmail(data: TestDriveConfirmationEm
 </html>
   `;
 }
+
+// Test Drive Status Update Emails
+export interface TestDriveStatusEmailData {
+  customerName: string;
+  dealerName: string;
+  dealerPhone?: string;
+  dealerAddress?: string;
+  vehicleMake?: string;
+  vehicleModel?: string;
+  vehicleVariant?: string;
+  scheduledAt: string;
+  cancellationReason?: string;
+}
+
+export function testDriveConfirmedEmail(data: TestDriveStatusEmailData): string {
+  const date = new Date(data.scheduledAt);
+  const formattedDate = date.toLocaleDateString('de-CH', { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+  const formattedTime = date.toLocaleTimeString('de-CH', { 
+    hour: '2-digit', 
+    minute: '2-digit' 
+  });
+
+  const vehicleInfo = data.vehicleMake && data.vehicleModel
+    ? `${data.vehicleMake} ${data.vehicleModel}${data.vehicleVariant ? ` ${data.vehicleVariant}` : ''}`
+    : 'Wird bei Termin besprochen';
+
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  ${STYLES}
+</head>
+<body>
+  <div class="container">
+    <div class="header" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">
+      <h1>✅ Probefahrt bestätigt!</h1>
+    </div>
+    <div class="content">
+      <p>Guten Tag ${data.customerName},</p>
+      
+      <p>Ihre Probefahrt wurde <strong>bestätigt</strong>. Wir freuen uns auf Ihren Besuch!</p>
+      
+      <div class="stat-box" style="text-align: center; background: #f0fdf4;">
+        <p style="margin: 0; color: #16a34a; font-weight: 600;">📅 Ihr Termin</p>
+        <div class="stat-number" style="color: #22c55e; font-size: 22px;">${formattedDate}</div>
+        <div style="font-size: 18px; color: #16a34a;">${formattedTime} Uhr</div>
+      </div>
+      
+      <div class="vehicle-card">
+        <p style="margin: 0;"><strong>🚙 Fahrzeug:</strong> ${vehicleInfo}</p>
+      </div>
+      
+      <div style="background: #f8fafc; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <h4 style="margin: 0 0 15px 0;">📍 ${data.dealerName}</h4>
+        ${data.dealerAddress ? `<p style="margin: 5px 0; color: #64748b;">${data.dealerAddress}</p>` : ''}
+        ${data.dealerPhone ? `<p style="margin: 5px 0;"><a href="tel:${data.dealerPhone}">${data.dealerPhone}</a></p>` : ''}
+      </div>
+      
+      <div class="warning-box" style="background: #dbeafe; border-left-color: #3b82f6;">
+        <p style="margin: 0;"><strong>📋 Bitte mitbringen:</strong></p>
+        <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+          <li>Gültiger Führerausweis</li>
+          <li>Ausweis/ID</li>
+        </ul>
+      </div>
+      
+      <p>Bei Fragen oder Änderungswünschen erreichen Sie uns jederzeit.</p>
+      
+      <p>Freundliche Grüsse,<br><strong>${data.dealerName}</strong></p>
+    </div>
+    <div class="footer">
+      <p>Diese E-Mail wurde automatisch von DealerOS versendet.</p>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+}
+
+export function testDriveCancelledEmail(data: TestDriveStatusEmailData): string {
+  const date = new Date(data.scheduledAt);
+  const formattedDate = date.toLocaleDateString('de-CH', { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+  const formattedTime = date.toLocaleTimeString('de-CH', { 
+    hour: '2-digit', 
+    minute: '2-digit' 
+  });
+
+  const vehicleInfo = data.vehicleMake && data.vehicleModel
+    ? `${data.vehicleMake} ${data.vehicleModel}${data.vehicleVariant ? ` ${data.vehicleVariant}` : ''}`
+    : '';
+
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  ${STYLES}
+</head>
+<body>
+  <div class="container">
+    <div class="header" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+      <h1>❌ Probefahrt abgesagt</h1>
+    </div>
+    <div class="content">
+      <p>Guten Tag ${data.customerName},</p>
+      
+      <p>Leider müssen wir Ihnen mitteilen, dass Ihre Probefahrt <strong>abgesagt</strong> wurde.</p>
+      
+      <div class="stat-box" style="text-align: center; background: #fef2f2;">
+        <p style="margin: 0; color: #dc2626; font-weight: 600; text-decoration: line-through;">📅 ${formattedDate}</p>
+        <p style="margin: 5px 0; color: #dc2626; text-decoration: line-through;">${formattedTime} Uhr</p>
+        ${vehicleInfo ? `<p style="margin: 5px 0; color: #991b1b;">${vehicleInfo}</p>` : ''}
+      </div>
+      
+      ${data.cancellationReason ? `
+        <div class="warning-box" style="background: #fef3c7; border-left-color: #f59e0b;">
+          <p style="margin: 0;"><strong>Grund:</strong> ${data.cancellationReason}</p>
+        </div>
+      ` : ''}
+      
+      <p>Gerne können Sie einen neuen Termin vereinbaren. Kontaktieren Sie uns:</p>
+      
+      <div style="background: #f8fafc; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <h4 style="margin: 0 0 15px 0;">📍 ${data.dealerName}</h4>
+        ${data.dealerPhone ? `<p style="margin: 5px 0;"><a href="tel:${data.dealerPhone}">${data.dealerPhone}</a></p>` : ''}
+      </div>
+      
+      <p>Wir entschuldigen uns für die Unannehmlichkeiten.</p>
+      
+      <p>Freundliche Grüsse,<br><strong>${data.dealerName}</strong></p>
+    </div>
+    <div class="footer">
+      <p>Diese E-Mail wurde automatisch von DealerOS versendet.</p>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+}

@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
+import { sendEmail } from "@/lib/email";
+import { testDriveConfirmedEmail, testDriveCancelledEmail } from "@/lib/email/templates";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -66,6 +68,13 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     return NextResponse.json({ error: "No valid fields to update" }, { status: 400 });
   }
 
+  // Get current test drive to check status change
+  const { data: currentTestDrive } = await supabase
+    .from("test_drives")
+    .select("status, customer_email, customer_name, scheduled_at, dealer_id")
+    .eq("id", id)
+    .single();
+
   const { data, error } = await supabase
     .from("test_drives")
     .update(updates)
@@ -81,7 +90,51 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // TODO: Send notification if status changed to confirmed/cancelled
+  // Send email notification if status changed to confirmed or cancelled
+  if (currentTestDrive && body.status && currentTestDrive.status !== body.status) {
+    const shouldSendEmail = ['confirmed', 'cancelled'].includes(body.status);
+    
+    if (shouldSendEmail && data.customer_email) {
+      // Get dealer info
+      const { data: dealer } = await supabase
+        .from("dealers")
+        .select("company_name, phone, street, zip, city")
+        .eq("id", data.dealer_id)
+        .single();
+
+      if (dealer) {
+        const dealerAddress = dealer.street && dealer.zip && dealer.city
+          ? `${dealer.street}, ${dealer.zip} ${dealer.city}`
+          : undefined;
+
+        const emailData = {
+          customerName: data.customer_name,
+          dealerName: dealer.company_name,
+          dealerPhone: dealer.phone,
+          dealerAddress,
+          vehicleMake: data.vehicles?.make,
+          vehicleModel: data.vehicles?.model,
+          vehicleVariant: data.vehicles?.variant,
+          scheduledAt: data.scheduled_at,
+          cancellationReason: body.cancellation_reason,
+        };
+
+        if (body.status === 'confirmed') {
+          await sendEmail({
+            to: data.customer_email,
+            subject: `✅ Probefahrt bestätigt - ${dealer.company_name}`,
+            html: testDriveConfirmedEmail(emailData),
+          });
+        } else if (body.status === 'cancelled') {
+          await sendEmail({
+            to: data.customer_email,
+            subject: `Probefahrt abgesagt - ${dealer.company_name}`,
+            html: testDriveCancelledEmail(emailData),
+          });
+        }
+      }
+    }
+  }
 
   return NextResponse.json(data);
 }
