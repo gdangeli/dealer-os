@@ -24,7 +24,7 @@ import {
   Database,
   Receipt,
 } from "lucide-react";
-import Image from "next/image";
+// Image import removed - using CSS gradients instead
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -145,42 +145,7 @@ function HomePage() {
           </div>
         </section>
 
-        {/* Stats Bar */}
-        <section className="py-12 sm:py-16 bg-white border-y border-slate-100">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                  50+
-                </p>
-                <p className="text-sm text-slate-600">{t("socialProof.garagesInBeta")}</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                  2&apos;000+
-                </p>
-                <p className="text-sm text-slate-600">{t("socialProof.vehiclesManaged")}</p>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-1 mb-2">
-                  <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">
-                    4.8
-                  </p>
-                  <Star className="h-6 w-6 fill-amber-400 text-amber-400" />
-                </div>
-                <p className="text-sm text-slate-600">{t("socialProof.customerRating")}</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                  🇨🇭
-                </p>
-                <p className="text-sm text-slate-600">{t("socialProof.swissHosted")}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Features Section with Images */}
+        {/* Features Section */}
         <section id="features" className="py-20 sm:py-28 bg-gradient-to-b from-white to-slate-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
@@ -299,19 +264,22 @@ function HomePage() {
                 quote={t("testimonials.quote1")}
                 name={t("testimonials.name1")}
                 role={t("testimonials.role1")}
-                avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80"
+                initials="MK"
+                gradient="from-sky-400 to-indigo-500"
               />
               <TestimonialCard
                 quote={t("testimonials.quote2")}
                 name={t("testimonials.name2")}
                 role={t("testimonials.role2")}
-                avatar="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&q=80"
+                initials="SB"
+                gradient="from-emerald-400 to-teal-500"
               />
               <TestimonialCard
                 quote={t("testimonials.quote3")}
                 name={t("testimonials.name3")}
                 role={t("testimonials.role3")}
-                avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80"
+                initials="PZ"
+                gradient="from-orange-400 to-red-500"
               />
             </div>
           </div>
@@ -406,17 +374,12 @@ function HomePage() {
           </div>
         </section>
 
-        {/* Final CTA with Background Image */}
-        <section className="py-20 sm:py-28 relative overflow-hidden">
-          {/* Background Image with Overlay */}
+        {/* Final CTA */}
+        <section className="py-20 sm:py-28 bg-gradient-to-br from-sky-500 to-indigo-600 relative overflow-hidden">
+          {/* Decorative blur elements */}
           <div className="absolute inset-0">
-            <Image
-              src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1920&q=80"
-              alt="Luxury Car Interior"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-sky-600/95 via-indigo-600/95 to-indigo-700/95" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl" />
           </div>
 
           {/* Content */}
@@ -432,28 +395,23 @@ function HomePage() {
                 <Button
                   size="lg"
                   asChild
-                  className="h-14 px-10 text-base font-semibold bg-white text-sky-700 hover:bg-sky-50 shadow-2xl rounded-xl"
+                  className="h-14 px-10 text-base font-semibold bg-white text-indigo-600 hover:bg-slate-100 shadow-xl rounded-xl"
                 >
                   <Link href="/register">
                     {t("cta.button")}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-              </div>
-
-              <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-white/90">
-                <div className="flex items-center gap-2">
-                  <Award className="h-5 w-5" />
-                  <span className="text-sm">{t("cta.swissMade")}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="h-5 w-5" />
-                  <span className="text-sm">{t("cta.swissHosting")}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Building2 className="h-5 w-5" />
-                  <span className="text-sm">{t("cta.zurichSupport")}</span>
-                </div>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="h-14 px-10 text-base font-semibold bg-transparent text-white border-2 border-white/30 hover:bg-white/10 rounded-xl"
+                >
+                  <Link href="/kontakt">
+                    Demo vereinbaren
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -526,40 +484,33 @@ function TestimonialCard({
   quote,
   name,
   role,
-  avatar,
+  initials,
+  gradient,
 }: {
   quote: string;
   name: string;
   role: string;
-  avatar: string;
+  initials: string;
+  gradient: string;
 }) {
   return (
-    <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:bg-slate-800 transition-all duration-300 rounded-2xl">
-      <CardContent className="p-6">
-        <div className="flex gap-1 mb-4">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-          ))}
+    <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300">
+      <div className="flex gap-1 mb-4">
+        <span className="text-amber-400">★★★★★</span>
+      </div>
+      <p className="text-white/90 leading-relaxed mb-6">
+        &ldquo;{quote}&rdquo;
+      </p>
+      <div className="flex items-center gap-4">
+        <div className={`w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br ${gradient}`}>
+          <span className="text-white font-bold">{initials}</span>
         </div>
-        <p className="text-slate-300 leading-relaxed mb-6">
-          &ldquo;{quote}&rdquo;
-        </p>
-        <div className="flex items-center gap-3">
-          <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-sky-500/50">
-            <Image
-              src={avatar}
-              alt={name}
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div>
-            <p className="font-semibold text-white">{name}</p>
-            <p className="text-sm text-slate-400">{role}</p>
-          </div>
+        <div>
+          <p className="font-semibold text-white">{name}</p>
+          <p className="text-sm text-slate-400">{role}</p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 

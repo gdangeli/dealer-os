@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Car, Globe } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { locales, localeNames, localeFlags, type Locale } from "@/i18n/config";
 
@@ -18,7 +18,8 @@ export function Header() {
   const navigation = [
     { name: t("features"), href: "/#features" },
     { name: t("pricing"), href: "/#pricing" },
-    { name: t("blog"), href: "/blog" },
+    { name: t("about"), href: "/impressum" },
+    { name: t("contact"), href: "/kontakt" },
   ];
 
   const handleLocaleChange = (newLocale: Locale) => {
@@ -32,10 +33,10 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900">
-              <Car className="h-5 w-5 text-white" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600">
+              <span className="text-white font-bold text-lg">D</span>
             </div>
-            <span className="text-xl font-bold text-slate-900">Dealer OS</span>
+            <span className="text-xl font-bold text-slate-900">DealerOS</span>
           </Link>
 
           {/* Desktop Navigation */}
