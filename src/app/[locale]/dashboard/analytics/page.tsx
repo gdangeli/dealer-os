@@ -742,7 +742,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
               <span className="text-xs sm:text-sm">30-60d: <strong>{over30Days}</strong></span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-orange-500" />
+              <div className="w-3 h-3 rounded-full bg-blue-500" />
               <span className="text-xs sm:text-sm">60-90d: <strong>{over60Days}</strong></span>
             </div>
             <div className="flex items-center gap-2">
@@ -761,7 +761,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
                       vehicle.daysInStock > 90 
                         ? "border-red-200 bg-red-50" 
                         : vehicle.daysInStock > 60 
-                          ? "border-orange-200 bg-orange-50"
+                          ? "border-blue-200 bg-blue-50"
                           : "border-yellow-200 bg-yellow-50"
                     }`}>
                       <div>
@@ -778,7 +778,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
                           vehicle.daysInStock > 90 
                             ? "text-red-600" 
                             : vehicle.daysInStock > 60 
-                              ? "text-orange-600"
+                              ? "text-blue-600"
                               : "text-yellow-600"
                         }`}>
                           {vehicle.daysInStock} Tage
@@ -787,7 +787,7 @@ export default async function AnalyticsPage({ searchParams }: PageProps) {
                           rec.urgency === "high" 
                             ? "text-red-600 font-medium" 
                             : rec.urgency === "medium"
-                              ? "text-orange-600"
+                              ? "text-blue-600"
                               : "text-slate-500"
                         }`}>
                           {rec.text}

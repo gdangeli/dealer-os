@@ -135,7 +135,7 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
         {invoice.due_date && new Date(invoice.due_date) < new Date() && invoice.status !== 'paid' && (
           <button
             disabled={isLoading}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
           >
             <BellAlertIcon className="w-4 h-4" />
             Mahnung senden

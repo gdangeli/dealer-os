@@ -541,8 +541,8 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
         return (
           <div className="space-y-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                <Key className="h-6 w-6 text-orange-600" />
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                <Key className="h-6 w-6 text-blue-600" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-slate-900">Access Token generieren</h2>
