@@ -63,6 +63,16 @@
 - **Mobile Dashboard** — Touch-optimierte Navigation und Bedienung
 - **Adaptive Headers** — Automatische Anpassung an Bildschirmbreite
 
+### 🚗 Probefahrt-Widget (Embed)
+- **Embeddable Widget** — Probefahrt-Buchung auf externen Websites
+- **Mehrsprachig** — DE/EN/FR/IT Support
+- **Anpassbar** — Farben, Dark Mode, Fahrzeug-Vorauswahl via Query-Parameter
+- **E-Mail Benachrichtigungen** — Automatische Bestätigung an Kunden und Händler
+
+### 🔧 Operations & Maintenance
+- **Sentry Error Monitoring** — Automatische Fehlererfassung in Production
+- **Coming Soon Mode** — Passwortgeschützte Wartungsseite für Launches
+
 ### Mehrsprachigkeit
 - 🇩🇪 Deutsch (Standard)
 - 🇬🇧 English
@@ -88,6 +98,7 @@
 - **Testing:** [Vitest](https://vitest.dev) + [Playwright](https://playwright.dev)
 - **Video:** [Remotion](https://remotion.dev)
 - **AI/ML:** [Replicate](https://replicate.com) (Image Processing)
+- **Monitoring:** [Sentry](https://sentry.io) (Error Tracking)
 - **Hosting:** [Vercel](https://vercel.com)
 
 ## 🚀 Getting Started
@@ -148,6 +159,10 @@ BEXIO_REDIRECT_URI=
 
 # Optional: Photo AI (Replicate)
 REPLICATE_API_TOKEN=
+
+# Optional: Coming Soon Mode
+COMING_SOON_ENABLED=false
+COMING_SOON_PASSWORD=
 ```
 
 ## 📁 Project Structure
@@ -211,6 +226,7 @@ Weitere Dokumentation in `docs/`:
 - [Vehicle Import](docs/VEHICLE_IMPORT.md)
 - [Dashboard Widgets](docs/dashboard-widgets.md)
 - [Photo AI](docs/features/PHOTO-AI.md)
+- [Test Drive Widget](docs/TEST-DRIVE-WIDGET.md)
 
 ## 🚢 Deployment
 

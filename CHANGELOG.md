@@ -10,6 +10,29 @@ _Nächste geplante Features_
 
 ---
 
+## [0.14.0] - 2026-02-25
+
+### Added
+- **🚗 Probefahrt-Widget** — Embeddable Test Drive Booking für externe Websites (ede4e00)
+  - Mehrsprachig (DE/EN/FR/IT)
+  - Anpassbar via Query-Parameter (Farbe, Dark Mode, Fahrzeug-Vorauswahl)
+  - Parent Window Events für Integration
+  - Dokumentation: [docs/TEST-DRIVE-WIDGET.md](docs/TEST-DRIVE-WIDGET.md)
+- **📧 E-Mail Benachrichtigungen für Probefahrten** (d12f6e5)
+  - Händler erhält Benachrichtigung bei neuer Buchung
+  - Kunde erhält Bestätigungs-E-Mail
+  - Mehrsprachige E-Mail-Templates
+- **🛡️ Sentry Error Monitoring** — Automatische Fehlererfassung in Production (54c1dfe)
+  - Client, Server und Edge Configs
+  - Global Error Boundary
+  - Performance Monitoring
+- **🚧 Coming Soon Mode** — Passwortgeschützte Wartungsseite (2832dab)
+  - Aktivierbar via `COMING_SOON_ENABLED=true`
+  - Unlock via Passwort oder direkte URL
+  - 7-Tage Preview-Cookie
+
+---
+
 ## [0.13.0] - 2026-02-21
 
 ### Added
