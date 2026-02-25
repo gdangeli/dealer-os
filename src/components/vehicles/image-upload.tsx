@@ -175,7 +175,7 @@ function SortableImage({
           }}
           className={`absolute top-2 left-2 z-20 flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full transition-colors ${
             showingOriginal
-              ? "bg-orange-500 text-white"
+              ? "bg-blue-500 text-white"
               : "bg-purple-500 text-white"
           }`}
           title={showingOriginal ? "Zeige optimiertes Bild" : "Zeige Original"}

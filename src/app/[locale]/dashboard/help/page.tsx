@@ -149,7 +149,7 @@ export default function HelpPage() {
             </div>
             <Link
               href="mailto:support@dealeros.ch"
-              className="bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               {t("support.button")}
             </Link>

@@ -147,7 +147,7 @@ export function ImageLightbox({
                 className={cn(
                   "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-sm transition-colors",
                   showOriginal 
-                    ? "bg-orange-500 hover:bg-orange-600" 
+                    ? "bg-blue-500 hover:bg-blue-600" 
                     : "bg-purple-500 hover:bg-purple-600"
                 )}
                 title="Original/Optimiert umschalten (O)"
