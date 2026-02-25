@@ -24,6 +24,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Building2,
+  MapPin,
+  User,
+  Users,
+  Bell,
+  Mail,
+  Radio,
+  Globe,
+  CreditCard,
+  AlertTriangle,
+} from "lucide-react";
 import { EmailTemplateManager } from "@/components/email/email-template-manager";
 import { TeamManagement } from "@/components/settings/team-management";
 import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
@@ -102,16 +114,36 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
       <Tabs defaultValue="company" className="space-y-6">
         <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
           <TabsList className="bg-white border inline-flex w-max sm:w-auto sm:flex-wrap h-auto gap-1 p-1">
-            <TabsTrigger value="company" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.company")}</TabsTrigger>
-            <TabsTrigger value="locations" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.locations")}</TabsTrigger>
-            <TabsTrigger value="user" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.user")}</TabsTrigger>
-            <TabsTrigger value="team" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.team")}</TabsTrigger>
-            <TabsTrigger value="notifications" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.notifications")}</TabsTrigger>
-            <TabsTrigger value="email-templates" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.emailTemplates")}</TabsTrigger>
-            <TabsTrigger value="channels" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.channels")}</TabsTrigger>
-            <TabsTrigger value="widget" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.widget")}</TabsTrigger>
-            <TabsTrigger value="billing" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.billing")}</TabsTrigger>
-            <TabsTrigger value="danger" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.danger")}</TabsTrigger>
+            <TabsTrigger value="company" className="whitespace-nowrap text-xs sm:text-sm flex items-center gap-1.5">
+              <Building2 className="w-4 h-4" /><span className="hidden sm:inline">{t("settings.tabs.company")}</span>
+            </TabsTrigger>
+            <TabsTrigger value="locations" className="whitespace-nowrap text-xs sm:text-sm flex items-center gap-1.5">
+              <MapPin className="w-4 h-4" /><span className="hidden sm:inline">{t("settings.tabs.locations")}</span>
+            </TabsTrigger>
+            <TabsTrigger value="user" className="whitespace-nowrap text-xs sm:text-sm flex items-center gap-1.5">
+              <User className="w-4 h-4" /><span className="hidden sm:inline">{t("settings.tabs.user")}</span>
+            </TabsTrigger>
+            <TabsTrigger value="team" className="whitespace-nowrap text-xs sm:text-sm flex items-center gap-1.5">
+              <Users className="w-4 h-4" /><span className="hidden sm:inline">{t("settings.tabs.team")}</span>
+            </TabsTrigger>
+            <TabsTrigger value="notifications" className="whitespace-nowrap text-xs sm:text-sm flex items-center gap-1.5">
+              <Bell className="w-4 h-4" /><span className="hidden sm:inline">{t("settings.tabs.notifications")}</span>
+            </TabsTrigger>
+            <TabsTrigger value="email-templates" className="whitespace-nowrap text-xs sm:text-sm flex items-center gap-1.5">
+              <Mail className="w-4 h-4" /><span className="hidden sm:inline">{t("settings.tabs.emailTemplates")}</span>
+            </TabsTrigger>
+            <TabsTrigger value="channels" className="whitespace-nowrap text-xs sm:text-sm flex items-center gap-1.5">
+              <Radio className="w-4 h-4" /><span className="hidden sm:inline">{t("settings.tabs.channels")}</span>
+            </TabsTrigger>
+            <TabsTrigger value="widget" className="whitespace-nowrap text-xs sm:text-sm flex items-center gap-1.5">
+              <Globe className="w-4 h-4" /><span className="hidden sm:inline">{t("settings.tabs.widget")}</span>
+            </TabsTrigger>
+            <TabsTrigger value="billing" className="whitespace-nowrap text-xs sm:text-sm flex items-center gap-1.5">
+              <CreditCard className="w-4 h-4" /><span className="hidden sm:inline">{t("settings.tabs.billing")}</span>
+            </TabsTrigger>
+            <TabsTrigger value="danger" className="whitespace-nowrap text-xs sm:text-sm flex items-center gap-1.5">
+              <AlertTriangle className="w-4 h-4" /><span className="hidden sm:inline">{t("settings.tabs.danger")}</span>
+            </TabsTrigger>
           </TabsList>
         </div>
 

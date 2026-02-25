@@ -889,16 +889,16 @@
     "title": "Impostazioni",
     "subtitle": "Gestisci il tuo account e le tue preferenze.",
     "tabs": {
-      "company": "🏢 Azienda",
-      "locations": "📍 Sedi",
-      "user": "👤 Utente",
-      "team": "👥 Team",
-      "notifications": "🔔 Avvisi",
-      "emailTemplates": "✉️ E-mail",
-      "channels": "📡 Canali",
-      "widget": "🌐 Widget",
-      "billing": "💳 Abbonamento",
-      "danger": "⚠️ Pericolo"
+      "company": "Azienda",
+      "locations": "Sedi",
+      "user": "Utente",
+      "team": "Team",
+      "notifications": "Avvisi",
+      "emailTemplates": "E-mail",
+      "channels": "Canali",
+      "widget": "Widget",
+      "billing": "Abbonamento",
+      "danger": "Pericolo"
     },
     "companyProfile": {
       "title": "Profilo aziendale",
@@ -1317,6 +1317,90 @@
     "email": "E-mail",
     "phoneLabel": "Telefono",
     "backToLeads": "Torna alle richieste",
-    "noLeads": "Nessuna richiesta"
+    "noLeads": "Nessuna richiesta",
+    "header": {
+      "title": "Richieste clienti",
+      "subtitle": "Tieni sotto controllo tutti i potenziali clienti",
+      "createLead": "Aggiungi richiesta"
+    },
+    "time": {
+      "justNow": "adesso",
+      "minutesAgo": "{count} min fa",
+      "hoursAgo": "{count} ore fa",
+      "dayAgo": "{count} giorno fa",
+      "daysAgo": "{count} giorni fa",
+      "weekAgo": "{count} settimana fa",
+      "weeksAgo": "{count} settimane fa"
+    },
+    "stats": {
+      "newLeads": "Nuove richieste",
+      "today": "oggi",
+      "thisWeek": "questa settimana",
+      "inProgress": "In corso",
+      "won": "Vinte",
+      "lost": "Perse"
+    },
+    "filters": {
+      "source": "Fonte",
+      "status": "Stato",
+      "allStatuses": "Tutti gli stati",
+      "period": "Periodo",
+      "allPeriods": "Tutti i periodi",
+      "today": "Oggi",
+      "thisWeek": "Questa settimana",
+      "thisMonth": "Questo mese",
+      "sort": "Ordina",
+      "byScore": "Per punteggio",
+      "byDate": "Per data",
+      "byName": "Per nome",
+      "byPrice": "Per prezzo"
+    },
+    "sources": {
+      "website": "Sito web proprio",
+      "autoscout24": "AutoScout24",
+      "mobilede": "mobile.de",
+      "walkin": "Di persona",
+      "phone": "Per telefono",
+      "other": "Altro"
+    },
+    "status": {
+      "new": "Aperto",
+      "contacted": "In corso",
+      "qualified": "Caldo 🔥",
+      "won": "Venduto",
+      "lost": "Perso"
+    },
+    "actions": {
+      "action": "Azione",
+      "markInProgress": "In corso",
+      "markHot": "Segna come caldo",
+      "markSold": "Venduto",
+      "markLost": "Perso",
+      "edit": "Modifica",
+      "call": "Chiama",
+      "whatsapp": "WhatsApp",
+      "emailAction": "E-mail"
+    },
+    "views": {
+      "list": "Lista",
+      "kanban": "Kanban"
+    },
+    "kanban": {
+      "new": "Nuovo",
+      "inProgress": "In corso",
+      "qualified": "Qualificato",
+      "closed": "Chiuso",
+      "noLeads": "Nessuna richiesta"
+    },
+    "score": "Punteggio",
+    "newBadge": "NUOVO",
+    "interest": "Interesse",
+    "loading": "Caricamento...",
+    "noLeadsYet": "Nessuna richiesta registrata",
+    "noLeadsFilter": "Nessuna richiesta per questi filtri",
+    "addFirst": "Aggiungi la prima richiesta",
+    "foundCount": "{count} richiesta trovata",
+    "foundCountPlural": "{count} richieste trovate",
+    "searchPlaceholder": "Cerca per nome, e-mail o telefono..."
   }
 }

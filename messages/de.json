@@ -889,16 +889,16 @@
     "title": "Einstellungen",
     "subtitle": "Verwalten Sie Ihr Konto und Ihre Präferenzen.",
     "tabs": {
-      "company": "🏢 Firma",
-      "locations": "📍 Standorte",
-      "user": "👤 Benutzer",
-      "team": "👥 Team",
-      "notifications": "🔔 Alerts",
-      "emailTemplates": "✉️ E-Mails",
-      "channels": "📡 Kanäle",
-      "widget": "🌐 Widget",
-      "billing": "💳 Abo",
-      "danger": "⚠️ Gefahr"
+      "company": "Firma",
+      "locations": "Standorte",
+      "user": "Benutzer",
+      "team": "Team",
+      "notifications": "Alerts",
+      "emailTemplates": "E-Mails",
+      "channels": "Kanäle",
+      "widget": "Widget",
+      "billing": "Abo",
+      "danger": "Gefahr"
     },
     "companyProfile": {
       "title": "Firmenprofil",
@@ -1317,6 +1317,90 @@
     "email": "E-Mail",
     "phoneLabel": "Telefon",
     "backToLeads": "Zurück zu den Anfragen",
-    "noLeads": "Keine Anfragen vorhanden"
+    "noLeads": "Keine Anfragen vorhanden",
+    "header": {
+      "title": "Kundenanfragen",
+      "subtitle": "Behalten Sie den Überblick über alle Interessenten",
+      "createLead": "Anfrage erfassen"
+    },
+    "time": {
+      "justNow": "gerade eben",
+      "minutesAgo": "vor {count} Min.",
+      "hoursAgo": "vor {count} Std.",
+      "dayAgo": "vor {count} Tag",
+      "daysAgo": "vor {count} Tagen",
+      "weekAgo": "vor {count} Woche",
+      "weeksAgo": "vor {count} Wochen"
+    },
+    "stats": {
+      "newLeads": "Neue Anfragen",
+      "today": "heute",
+      "thisWeek": "diese Woche",
+      "inProgress": "In Bearbeitung",
+      "won": "Gewonnen",
+      "lost": "Verloren"
+    },
+    "filters": {
+      "source": "Herkunft",
+      "status": "Status",
+      "allStatuses": "Alle Status",
+      "period": "Zeitraum",
+      "allPeriods": "Alle Zeiten",
+      "today": "Heute",
+      "thisWeek": "Diese Woche",
+      "thisMonth": "Diesen Monat",
+      "sort": "Sortierung",
+      "byScore": "Nach Score",
+      "byDate": "Nach Datum",
+      "byName": "Nach Name",
+      "byPrice": "Nach Preis"
+    },
+    "sources": {
+      "website": "Eigene Website",
+      "autoscout24": "AutoScout24",
+      "mobilede": "mobile.de",
+      "walkin": "Vor Ort",
+      "phone": "Telefonisch",
+      "other": "Andere"
+    },
+    "status": {
+      "new": "Offen",
+      "contacted": "In Bearbeitung",
+      "qualified": "Heiss 🔥",
+      "won": "Verkauft",
+      "lost": "Nicht gekauft"
+    },
+    "actions": {
+      "action": "Aktion",
+      "markInProgress": "In Bearbeitung",
+      "markHot": "Als Heiss markieren",
+      "markSold": "Verkauft",
+      "markLost": "Nicht gekauft",
+      "edit": "Bearbeiten",
+      "call": "Anrufen",
+      "whatsapp": "WhatsApp",
+      "emailAction": "E-Mail"
+    },
+    "views": {
+      "list": "Liste",
+      "kanban": "Kanban"
+    },
+    "kanban": {
+      "new": "Neu",
+      "inProgress": "In Bearbeitung",
+      "qualified": "Qualifiziert",
+      "closed": "Abgeschlossen",
+      "noLeads": "Keine Anfragen"
+    },
+    "score": "Score",
+    "newBadge": "NEU",
+    "interest": "Interesse",
+    "loading": "Wird geladen...",
+    "noLeadsYet": "Noch keine Anfragen erfasst",
+    "noLeadsFilter": "Keine Anfragen für diese Filter gefunden",
+    "addFirst": "Erste Anfrage hinzufügen",
+    "foundCount": "{count} Anfrage gefunden",
+    "foundCountPlural": "{count} Anfragen gefunden",
+    "searchPlaceholder": "Suche nach Name, E-Mail oder Telefon..."
   }
 }

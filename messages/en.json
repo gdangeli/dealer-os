@@ -889,16 +889,16 @@
     "title": "Settings",
     "subtitle": "Manage your account and preferences.",
     "tabs": {
-      "company": "🏢 Company",
-      "locations": "📍 Locations",
-      "user": "👤 User",
-      "team": "👥 Team",
-      "notifications": "🔔 Alerts",
-      "emailTemplates": "✉️ Emails",
-      "channels": "📡 Channels",
-      "widget": "🌐 Widget",
-      "billing": "💳 Subscription",
-      "danger": "⚠️ Danger"
+      "company": "Company",
+      "locations": "Locations",
+      "user": "User",
+      "team": "Team",
+      "notifications": "Alerts",
+      "emailTemplates": "Emails",
+      "channels": "Channels",
+      "widget": "Widget",
+      "billing": "Billing",
+      "danger": "Danger"
     },
     "companyProfile": {
       "title": "Company Profile",
@@ -1317,6 +1317,90 @@
     "email": "Email",
     "phoneLabel": "Phone",
     "backToLeads": "Back to Leads",
-    "noLeads": "No leads yet"
+    "noLeads": "No leads yet",
+    "header": {
+      "title": "Customer Inquiries",
+      "subtitle": "Keep track of all prospects",
+      "createLead": "Add Inquiry"
+    },
+    "time": {
+      "justNow": "just now",
+      "minutesAgo": "{count} min ago",
+      "hoursAgo": "{count} hr ago",
+      "dayAgo": "{count} day ago",
+      "daysAgo": "{count} days ago",
+      "weekAgo": "{count} week ago",
+      "weeksAgo": "{count} weeks ago"
+    },
+    "stats": {
+      "newLeads": "New Inquiries",
+      "today": "today",
+      "thisWeek": "this week",
+      "inProgress": "In Progress",
+      "won": "Won",
+      "lost": "Lost"
+    },
+    "filters": {
+      "source": "Source",
+      "status": "Status",
+      "allStatuses": "All Statuses",
+      "period": "Period",
+      "allPeriods": "All Time",
+      "today": "Today",
+      "thisWeek": "This Week",
+      "thisMonth": "This Month",
+      "sort": "Sort",
+      "byScore": "By Score",
+      "byDate": "By Date",
+      "byName": "By Name",
+      "byPrice": "By Price"
+    },
+    "sources": {
+      "website": "Own Website",
+      "autoscout24": "AutoScout24",
+      "mobilede": "mobile.de",
+      "walkin": "Walk-in",
+      "phone": "Phone",
+      "other": "Other"
+    },
+    "status": {
+      "new": "Open",
+      "contacted": "In Progress",
+      "qualified": "Hot 🔥",
+      "won": "Sold",
+      "lost": "Lost"
+    },
+    "actions": {
+      "action": "Action",
+      "markInProgress": "In Progress",
+      "markHot": "Mark as Hot",
+      "markSold": "Sold",
+      "markLost": "Lost",
+      "edit": "Edit",
+      "call": "Call",
+      "whatsapp": "WhatsApp",
+      "emailAction": "Email"
+    },
+    "views": {
+      "list": "List",
+      "kanban": "Kanban"
+    },
+    "kanban": {
+      "new": "New",
+      "inProgress": "In Progress",
+      "qualified": "Qualified",
+      "closed": "Closed",
+      "noLeads": "No inquiries"
+    },
+    "score": "Score",
+    "newBadge": "NEW",
+    "interest": "Interest",
+    "loading": "Loading...",
+    "noLeadsYet": "No inquiries yet",
+    "noLeadsFilter": "No inquiries found for these filters",
+    "addFirst": "Add your first inquiry",
+    "foundCount": "{count} inquiry found",
+    "foundCountPlural": "{count} inquiries found",
+    "searchPlaceholder": "Search by name, email or phone..."
   }
 }

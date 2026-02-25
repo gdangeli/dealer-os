@@ -3,32 +3,37 @@
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 // API routes are used instead of direct Supabase client for impersonation support
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { LeadStatus, LeadSource, leadStatusLabels, leadStatusColors, leadSourceLabels } from "@/types/leads";
+import { LeadStatus, LeadSource, leadStatusLabels, leadStatusColors } from "@/types/leads";
 import { calculateLeadScore, LeadWithScore, LeadActivity } from "@/lib/leads/scoring";
 import { LeadScoreBadge, LeadScoreCompact } from "@/components/leads/lead-score-badge";
 
-// Relative Zeit formatieren
-function timeAgo(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+// Relative Zeit formatieren (mit Übersetzungen)
+function useTimeAgo() {
+  const t = useTranslations("leads.time");
   
-  if (seconds < 60) return "gerade eben";
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `vor ${minutes} Min.`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `vor ${hours} Std.`;
-  const days = Math.floor(hours / 24);
-  if (days < 7) return `vor ${days} ${days === 1 ? "Tag" : "Tagen"}`;
-  const weeks = Math.floor(days / 7);
-  if (weeks < 4) return `vor ${weeks} ${weeks === 1 ? "Woche" : "Wochen"}`;
-  return new Date(dateString).toLocaleDateString("de-CH");
+  return (dateString: string): string => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    
+    if (seconds < 60) return t("justNow");
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return t("minutesAgo", { count: minutes });
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return t("hoursAgo", { count: hours });
+    const days = Math.floor(hours / 24);
+    if (days < 7) return days === 1 ? t("dayAgo", { count: days }) : t("daysAgo", { count: days });
+    const weeks = Math.floor(days / 7);
+    if (weeks < 4) return weeks === 1 ? t("weekAgo", { count: weeks }) : t("weeksAgo", { count: weeks });
+    return new Date(dateString).toLocaleDateString();
+  };
 }
 
 // Stats Card Component
@@ -61,6 +66,8 @@ function LeadCard({ lead, onStatusChange }: {
   onStatusChange: (id: string, status: LeadStatus) => void;
 }) {
   const [showActions, setShowActions] = useState(false);
+  const t = useTranslations("leads");
+  const timeAgo = useTimeAgo();
 
   function formatPrice(price: number) {
     return new Intl.NumberFormat("de-CH", {
@@ -81,7 +88,7 @@ function LeadCard({ lead, onStatusChange }: {
               breakdown={lead.scoreBreakdown} 
               size="lg"
             />
-            <span className="text-xs text-slate-500 mt-1">Score</span>
+            <span className="text-xs text-slate-500 mt-1">{t("score")}</span>
           </div>
 
           {/* Main Content */}
@@ -91,12 +98,12 @@ function LeadCard({ lead, onStatusChange }: {
                 <h3 className="font-semibold text-lg truncate">
                   {lead.first_name} {lead.last_name}
                   {lead.status === "new" && (
-                    <Badge className="ml-2 bg-blue-600 text-white text-xs">NEU</Badge>
+                    <Badge className="ml-2 bg-blue-600 text-white text-xs">{t("newBadge")}</Badge>
                   )}
                 </h3>
                 {lead.vehicle && (
                   <p className="text-sm text-slate-600">
-                    Interesse: {lead.vehicle.make} {lead.vehicle.model}
+                    {t("interest")}: {lead.vehicle.make} {lead.vehicle.model}
                     {lead.vehicle.asking_price && (
                       <span className="text-green-600 font-medium ml-2">
                         {formatPrice(lead.vehicle.asking_price)}
@@ -106,16 +113,16 @@ function LeadCard({ lead, onStatusChange }: {
                 )}
               </div>
               <Badge className={leadStatusColors[lead.status]}>
-                {leadStatusLabels[lead.status]}
+                {t(`status.${lead.status}`)}
               </Badge>
             </div>
 
             {/* Meta Info */}
             <div className="flex items-center gap-3 mt-2 text-sm text-slate-500">
-              <span title={new Date(lead.created_at).toLocaleString("de-CH")}>
+              <span title={new Date(lead.created_at).toLocaleString()}>
                 ⏰ {timeAgo(lead.created_at)}
               </span>
-              <span>📍 {leadSourceLabels[lead.source]}</span>
+              <span>📍 {t(`sources.${lead.source}`)}</span>
             </div>
 
             {/* Contact Buttons */}
@@ -124,12 +131,12 @@ function LeadCard({ lead, onStatusChange }: {
                 <>
                   <a href={`tel:${lead.phone}`}>
                     <Button variant="outline" size="sm" className="h-8">
-                      📞 Anrufen
+                      📞 {t("actions.call")}
                     </Button>
                   </a>
                   <a href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, "")}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" size="sm" className="h-8 text-green-600 hover:text-green-700">
-                      💬 WhatsApp
+                      💬 {t("actions.whatsapp")}
                     </Button>
                   </a>
                 </>
@@ -137,7 +144,7 @@ function LeadCard({ lead, onStatusChange }: {
               {lead.email && (
                 <a href={`mailto:${lead.email}`}>
                   <Button variant="outline" size="sm" className="h-8">
-                    ✉️ E-Mail
+                    ✉️ {t("actions.emailAction")}
                   </Button>
                 </a>
               )}
@@ -151,7 +158,7 @@ function LeadCard({ lead, onStatusChange }: {
                   className="h-8"
                   onClick={() => setShowActions(!showActions)}
                 >
-                  ⚡ Aktion
+                  ⚡ {t("actions.action")}
                 </Button>
                 {showActions && (
                   <div className="absolute right-0 top-full mt-1 bg-white border rounded-lg shadow-lg z-10 py-1 min-w-[160px]">
@@ -159,29 +166,29 @@ function LeadCard({ lead, onStatusChange }: {
                       className="w-full px-3 py-2 text-left text-sm hover:bg-slate-50"
                       onClick={() => { onStatusChange(lead.id, "contacted"); setShowActions(false); }}
                     >
-                      📞 In Bearbeitung
+                      📞 {t("actions.markInProgress")}
                     </button>
                     <button 
                       className="w-full px-3 py-2 text-left text-sm hover:bg-slate-50"
                       onClick={() => { onStatusChange(lead.id, "qualified"); setShowActions(false); }}
                     >
-                      🔥 Als Heiss markieren
+                      🔥 {t("actions.markHot")}
                     </button>
                     <button 
                       className="w-full px-3 py-2 text-left text-sm hover:bg-slate-50"
                       onClick={() => { onStatusChange(lead.id, "won"); setShowActions(false); }}
                     >
-                      ✅ Verkauft
+                      ✅ {t("actions.markSold")}
                     </button>
                     <button 
                       className="w-full px-3 py-2 text-left text-sm hover:bg-slate-50"
                       onClick={() => { onStatusChange(lead.id, "lost"); setShowActions(false); }}
                     >
-                      ❌ Nicht gekauft
+                      ❌ {t("actions.markLost")}
                     </button>
                     <hr className="my-1" />
                     <Link href={`/dashboard/leads/${lead.id}`} className="block w-full px-3 py-2 text-left text-sm hover:bg-slate-50">
-                      ✏️ Bearbeiten
+                      ✏️ {t("actions.edit")}
                     </Link>
                   </div>
                 )}
@@ -202,13 +209,14 @@ function LeadCard({ lead, onStatusChange }: {
 }
 
 // Kanban Column
-function KanbanColumn({ title, leads, status, color, onStatusChange, onDrop }: {
+function KanbanColumn({ title, leads, status, color, onStatusChange, onDrop, emptyText }: {
   title: string;
   leads: LeadWithScore[];
   status: LeadStatus;
   color: string;
   onStatusChange: (id: string, status: LeadStatus) => void;
   onDrop: (leadId: string, newStatus: LeadStatus) => void;
+  emptyText: string;
 }) {
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -240,7 +248,7 @@ function KanbanColumn({ title, leads, status, color, onStatusChange, onDrop }: {
         ))}
         {leads.length === 0 && (
           <div className="text-center py-8 text-slate-400 text-sm">
-            Keine Anfragen
+            {emptyText}
           </div>
         )}
       </div>
@@ -249,7 +257,10 @@ function KanbanColumn({ title, leads, status, color, onStatusChange, onDrop }: {
 }
 
 // Kanban Card (simplified)
-function KanbanCard({ lead, onStatusChange }: { lead: LeadWithScore; onStatusChange?: (id: string, status: LeadStatus) => void }) {
+function KanbanCard({ lead }: { lead: LeadWithScore; onStatusChange?: (id: string, status: LeadStatus) => void }) {
+  const t = useTranslations("leads");
+  const timeAgo = useTimeAgo();
+  
   const handleDragStart = (e: React.DragEvent) => {
     e.dataTransfer.setData("leadId", lead.id);
   };
@@ -274,7 +285,7 @@ function KanbanCard({ lead, onStatusChange }: { lead: LeadWithScore; onStatusCha
           <div className="flex items-center gap-2 mt-2 text-xs text-slate-400">
             <span>{timeAgo(lead.created_at)}</span>
             <span>•</span>
-            <span>{leadSourceLabels[lead.source]}</span>
+            <span>{t(`sources.${lead.source}`)}</span>
           </div>
         </div>
       </div>
@@ -296,6 +307,7 @@ function KanbanCard({ lead, onStatusChange }: { lead: LeadWithScore; onStatusCha
 type SortOption = "date" | "score" | "name" | "price";
 
 export default function LeadsClient() {
+  const t = useTranslations("leads");
   const searchParams = useSearchParams();
   const locationFilter = searchParams.get("location") || "all";
   
@@ -453,37 +465,37 @@ export default function LeadsClient() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Kundenanfragen</h1>
-          <p className="text-slate-600 text-sm sm:text-base">Behalten Sie den Überblick über alle Interessenten</p>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">{t("header.title")}</h1>
+          <p className="text-slate-600 text-sm sm:text-base">{t("header.subtitle")}</p>
         </div>
         <Link href="/dashboard/leads/new" className="self-start sm:self-auto">
-          <Button size="sm" className="sm:size-default">+ Anfrage erfassen</Button>
+          <Button size="sm" className="sm:size-default">+ {t("header.createLead")}</Button>
         </Link>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <StatCard 
-          title="Neue Anfragen" 
+          title={t("stats.newLeads")} 
           value={stats.total} 
-          subtitle={`${stats.newToday} heute, ${stats.newThisWeek} diese Woche`}
+          subtitle={`${stats.newToday} ${t("stats.today")}, ${stats.newThisWeek} ${t("stats.thisWeek")}`}
           color="text-blue-600"
           icon="📥"
         />
         <StatCard 
-          title="In Bearbeitung" 
+          title={t("stats.inProgress")} 
           value={stats.inProgress} 
           color="text-yellow-600"
           icon="⏳"
         />
         <StatCard 
-          title="Gewonnen" 
+          title={t("stats.won")} 
           value={stats.won} 
           color="text-green-600"
           icon="🏆"
         />
         <StatCard 
-          title="Verloren" 
+          title={t("stats.lost")} 
           value={stats.lost} 
           color="text-red-600"
           icon="📉"
@@ -497,7 +509,7 @@ export default function LeadsClient() {
             {/* Search */}
             <div className="flex-1 min-w-[200px]">
               <Input
-                placeholder="🔍 Suche nach Name, E-Mail oder Telefon..."
+                placeholder={`🔍 ${t("searchPlaceholder")}`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -506,57 +518,57 @@ export default function LeadsClient() {
             {/* Source Filter */}
             <Select value={sourceFilter} onValueChange={(value) => setSourceFilter(value as LeadSource | "all")}>
               <SelectTrigger className="w-[160px]">
-                <SelectValue placeholder="Herkunft" />
+                <SelectValue placeholder={t("filters.source")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Alle Quellen</SelectItem>
-                <SelectItem value="website">Eigene Website</SelectItem>
-                <SelectItem value="autoscout24">AutoScout24</SelectItem>
-                <SelectItem value="mobile.de">mobile.de</SelectItem>
-                <SelectItem value="walkin">Vor Ort</SelectItem>
-                <SelectItem value="phone">Telefonisch</SelectItem>
-                <SelectItem value="other">Andere</SelectItem>
+                <SelectItem value="all">{t("allSources")}</SelectItem>
+                <SelectItem value="website">{t("sources.website")}</SelectItem>
+                <SelectItem value="autoscout24">{t("sources.autoscout24")}</SelectItem>
+                <SelectItem value="mobile.de">{t("sources.mobilede")}</SelectItem>
+                <SelectItem value="walkin">{t("sources.walkin")}</SelectItem>
+                <SelectItem value="phone">{t("sources.phone")}</SelectItem>
+                <SelectItem value="other">{t("sources.other")}</SelectItem>
               </SelectContent>
             </Select>
 
             {/* Status Filter */}
             <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value as LeadStatus | "all")}>
               <SelectTrigger className="w-[160px]">
-                <SelectValue placeholder="Status" />
+                <SelectValue placeholder={t("filters.status")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Alle Status</SelectItem>
-                <SelectItem value="new">Offen</SelectItem>
-                <SelectItem value="contacted">In Bearbeitung</SelectItem>
-                <SelectItem value="qualified">Heiss 🔥</SelectItem>
-                <SelectItem value="won">Verkauft</SelectItem>
-                <SelectItem value="lost">Nicht gekauft</SelectItem>
+                <SelectItem value="all">{t("filters.allStatuses")}</SelectItem>
+                <SelectItem value="new">{t("status.new")}</SelectItem>
+                <SelectItem value="contacted">{t("status.contacted")}</SelectItem>
+                <SelectItem value="qualified">{t("status.qualified")}</SelectItem>
+                <SelectItem value="won">{t("status.won")}</SelectItem>
+                <SelectItem value="lost">{t("status.lost")}</SelectItem>
               </SelectContent>
             </Select>
 
             {/* Date Filter */}
             <Select value={dateFilter} onValueChange={(value) => setDateFilter(value as typeof dateFilter)}>
               <SelectTrigger className="w-[140px]">
-                <SelectValue placeholder="Zeitraum" />
+                <SelectValue placeholder={t("filters.period")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Alle Zeiten</SelectItem>
-                <SelectItem value="today">Heute</SelectItem>
-                <SelectItem value="week">Diese Woche</SelectItem>
-                <SelectItem value="month">Diesen Monat</SelectItem>
+                <SelectItem value="all">{t("filters.allPeriods")}</SelectItem>
+                <SelectItem value="today">{t("filters.today")}</SelectItem>
+                <SelectItem value="week">{t("filters.thisWeek")}</SelectItem>
+                <SelectItem value="month">{t("filters.thisMonth")}</SelectItem>
               </SelectContent>
             </Select>
 
             {/* Sort By */}
             <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}>
               <SelectTrigger className="w-[150px]">
-                <SelectValue placeholder="Sortierung" />
+                <SelectValue placeholder={t("filters.sort")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="score">📊 Nach Score</SelectItem>
-                <SelectItem value="date">📅 Nach Datum</SelectItem>
-                <SelectItem value="name">🔤 Nach Name</SelectItem>
-                <SelectItem value="price">💰 Nach Preis</SelectItem>
+                <SelectItem value="score">📊 {t("filters.byScore")}</SelectItem>
+                <SelectItem value="date">📅 {t("filters.byDate")}</SelectItem>
+                <SelectItem value="name">🔤 {t("filters.byName")}</SelectItem>
+                <SelectItem value="price">💰 {t("filters.byPrice")}</SelectItem>
               </SelectContent>
             </Select>
 
@@ -567,14 +579,14 @@ export default function LeadsClient() {
                 size="sm"
                 onClick={() => setView("list")}
               >
-                📋 Liste
+                📋 {t("views.list")}
               </Button>
               <Button 
                 variant={view === "kanban" ? "default" : "ghost"} 
                 size="sm"
                 onClick={() => setView("kanban")}
               >
-                📊 Kanban
+                📊 {t("views.kanban")}
               </Button>
             </div>
           </div>
@@ -585,19 +597,19 @@ export default function LeadsClient() {
       {loading ? (
         <div className="text-center py-12 text-slate-500">
           <div className="animate-spin text-4xl mb-4">⏳</div>
-          Wird geladen...
+          {t("loading")}
         </div>
       ) : filteredLeads.length === 0 ? (
         <Card>
           <CardContent className="text-center py-12">
             <p className="text-slate-500 mb-4">
               {leads.length === 0 
-                ? "Noch keine Anfragen erfasst" 
-                : "Keine Anfragen für diese Filter gefunden"}
+                ? t("noLeadsYet")
+                : t("noLeadsFilter")}
             </p>
             {leads.length === 0 && (
               <Link href="/dashboard/leads/new">
-                <Button>Erste Anfrage hinzufügen</Button>
+                <Button>{t("addFirst")}</Button>
               </Link>
             )}
           </CardContent>
@@ -606,7 +618,7 @@ export default function LeadsClient() {
         /* List View */
         <div className="space-y-3">
           <p className="text-sm text-slate-500 mb-2">
-            {filteredLeads.length} {filteredLeads.length === 1 ? "Anfrage" : "Anfragen"} gefunden
+            {filteredLeads.length === 1 ? t("foundCount", { count: filteredLeads.length }) : t("foundCountPlural", { count: filteredLeads.length })}
           </p>
           {filteredLeads.map((lead) => (
             <LeadCard 
@@ -620,36 +632,40 @@ export default function LeadsClient() {
         /* Kanban View */
         <div className="flex gap-4 overflow-x-auto pb-4">
           <KanbanColumn 
-            title="📥 Neu" 
+            title={`📥 ${t("kanban.new")}`}
             leads={kanbanGroups.new}
             status="new"
             color="bg-blue-100 text-blue-800"
             onStatusChange={updateLeadStatus}
             onDrop={updateLeadStatus}
+            emptyText={t("kanban.noLeads")}
           />
           <KanbanColumn 
-            title="⏳ In Bearbeitung" 
+            title={`⏳ ${t("kanban.inProgress")}`}
             leads={kanbanGroups.contacted}
             status="contacted"
             color="bg-yellow-100 text-yellow-800"
             onStatusChange={updateLeadStatus}
             onDrop={updateLeadStatus}
+            emptyText={t("kanban.noLeads")}
           />
           <KanbanColumn 
-            title="🔥 Qualifiziert" 
+            title={`🔥 ${t("kanban.qualified")}`}
             leads={kanbanGroups.qualified}
             status="qualified"
             color="bg-purple-100 text-purple-800"
             onStatusChange={updateLeadStatus}
             onDrop={updateLeadStatus}
+            emptyText={t("kanban.noLeads")}
           />
           <KanbanColumn 
-            title="✅ Abgeschlossen" 
+            title={`✅ ${t("kanban.closed")}`}
             leads={kanbanGroups.closed}
             status="won"
             color="bg-green-100 text-green-800"
             onStatusChange={updateLeadStatus}
             onDrop={updateLeadStatus}
+            emptyText={t("kanban.noLeads")}
           />
         </div>
       )}
