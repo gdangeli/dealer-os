@@ -4,8 +4,10 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Car, Users, FileText, TrendingUp, Clock } from "lucide-react";
 import { getCurrentDealer, getImpersonationInfo } from "@/lib/auth/get-current-dealer";
+import { getTranslations } from "next-intl/server";
 
 export default async function DashboardPage() {
+  const t = await getTranslations("dashboard");
   const supabase = await createClient();
   
   // Get current user
@@ -65,36 +67,36 @@ export default async function DashboardPage() {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">
-          Willkommen zurück{dealer?.contact_name ? `, ${dealer.contact_name.split(' ')[0]}` : ''}!
+          {t("welcomeBack")}{dealer?.contact_name ? `, ${dealer.contact_name.split(' ')[0]}` : ''}!
         </h1>
-        <p className="text-gray-600">{dealer?.company_name || 'Ihr Dashboard'}</p>
+        <p className="text-gray-600">{dealer?.company_name || t("yourDashboard")}</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
-          title="Fahrzeuge"
+          title={t("vehicles")}
           value={totalVehicles || 0}
-          subtitle={`${inStockVehicles || 0} an Lager`}
+          subtitle={t("inStock", { count: inStockVehicles || 0 })}
           icon={<Car className="w-6 h-6 text-blue-500" />}
           href="/dashboard/vehicles"
         />
         <StatCard
-          title="Neue Anfragen"
+          title={t("newLeads")}
           value={newLeads || 0}
           icon={<Users className="w-6 h-6 text-green-500" />}
           href="/dashboard/leads"
         />
         <StatCard
-          title="Offene Offerten"
+          title={t("openQuotes")}
           value={openQuotes || 0}
           icon={<FileText className="w-6 h-6 text-purple-500" />}
           href="/dashboard/quotes"
         />
         <StatCard
-          title="Langsteher"
+          title={t("longStanding")}
           value={longStanding?.length || 0}
-          subtitle="> 30 Tage"
+          subtitle={t("moreThan30Days")}
           icon={<Clock className="w-6 h-6 text-orange-500" />}
           href="/dashboard/vehicles?filter=long-standing"
         />
@@ -105,9 +107,9 @@ export default async function DashboardPage() {
         {/* Recent Leads */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Neue Anfragen</h2>
+            <h2 className="text-lg font-semibold text-gray-900">{t("newLeads")}</h2>
             <Link href="/dashboard/leads" className="text-sm text-blue-600 hover:text-blue-700">
-              Alle anzeigen →
+              {t("viewAll")}
             </Link>
           </div>
           {recentLeads && recentLeads.length > 0 ? (
@@ -134,7 +136,7 @@ export default async function DashboardPage() {
                   </div>
                   <div className="text-right">
                     <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
-                      Neu
+                      {t("new")}
                     </span>
                     <p className="text-xs text-gray-500 mt-1">
                       {new Date(lead.created_at).toLocaleDateString('de-CH')}
@@ -145,33 +147,33 @@ export default async function DashboardPage() {
             </div>
           ) : (
             <p className="text-gray-500 text-center py-8">
-              Keine neuen Anfragen
+              {t("noNewLeads")}
             </p>
           )}
         </div>
 
         {/* Quick Actions */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Schnellzugriff</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">{t("quickActions")}</h2>
           <div className="grid grid-cols-2 gap-4">
             <QuickAction
               icon={<Car className="w-5 h-5" />}
-              label="Neues Fahrzeug"
+              label={t("newVehicle")}
               href="/dashboard/vehicles/new"
             />
             <QuickAction
               icon={<Users className="w-5 h-5" />}
-              label="Neuer Kunde"
+              label={t("newCustomer")}
               href="/dashboard/customers/new"
             />
             <QuickAction
               icon={<FileText className="w-5 h-5" />}
-              label="Neue Offerte"
+              label={t("newQuote")}
               href="/dashboard/quotes/new"
             />
             <QuickAction
               icon={<TrendingUp className="w-5 h-5" />}
-              label="Analytics"
+              label={t("analytics")}
               href="/dashboard/analytics"
             />
           </div>
@@ -184,14 +186,14 @@ export default async function DashboardPage() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-orange-500" />
-              <h2 className="text-lg font-semibold text-gray-900">Langsteher-Warnung</h2>
+              <h2 className="text-lg font-semibold text-gray-900">{t("longStandingWarning")}</h2>
             </div>
             <Link href="/dashboard/vehicles?filter=long-standing" className="text-sm text-blue-600 hover:text-blue-700">
-              Alle anzeigen →
+              {t("viewAll")}
             </Link>
           </div>
           <p className="text-sm text-gray-600 mb-4">
-            Diese Fahrzeuge sind seit über 30 Tagen an Lager
+            {t("longStandingDescription")}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {longStanding.slice(0, 3).map((vehicle: {
@@ -218,7 +220,7 @@ export default async function DashboardPage() {
                       CHF {vehicle.price?.toLocaleString('de-CH')}
                     </span>
                     <span className="text-xs text-orange-700 font-medium">
-                      {days} Tage
+                      {days} {t("days")}
                     </span>
                   </div>
                 </Link>
