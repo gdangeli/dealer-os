@@ -3,6 +3,7 @@
 import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 // API routes are used instead of direct Supabase client for impersonation support
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,16 +13,16 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Lead, LeadStatus, leadStatusLabels, leadStatusColors, leadSourceLabels } from "@/types/leads";
+import { Lead, LeadStatus, leadStatusColors } from "@/types/leads";
 import { LeadTimeline } from "@/components/leads/lead-timeline";
 import { calculateLeadScore, LeadScoreBreakdown } from "@/lib/leads/scoring";
 import { LeadScoreDetail } from "@/components/leads/lead-score-badge";
 import { EmailComposer } from "@/components/email/email-composer";
-import { TemplateContext } from "@/types/email-templates";
 
 export default function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const router = useRouter();
+  const t = useTranslations("leads");
   const [lead, setLead] = useState<Lead | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -96,17 +97,17 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
       }
 
       await fetchLead();
-      alert("Gespeichert!");
+      alert(t("detail.saved"));
     } catch (error) {
       console.error("Error updating lead:", error);
-      alert("Speichern fehlgeschlagen. Bitte erneut versuchen.");
+      alert(t("detail.saveFailed"));
     } finally {
       setSaving(false);
     }
   }
 
   async function handleDelete() {
-    if (!confirm("Diese Anfrage endgültig löschen?")) return;
+    if (!confirm(t("detail.deleteConfirm"))) return;
     
     setDeleting(true);
     try {
@@ -121,7 +122,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
       router.push("/dashboard/leads");
     } catch (error) {
       console.error("Error deleting lead:", error);
-      alert("Löschen fehlgeschlagen. Bitte erneut versuchen.");
+      alert(t("detail.deleteFailed"));
       setDeleting(false);
     }
   }
@@ -147,7 +148,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-slate-500">Wird geladen...</div>
+        <div className="text-slate-500">{t("loading")}</div>
       </div>
     );
   }
@@ -155,9 +156,9 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
   if (!lead) {
     return (
       <div className="text-center py-8">
-        <p className="text-slate-500 mb-4">Diese Anfrage wurde nicht gefunden oder gelöscht.</p>
+        <p className="text-slate-500 mb-4">{t("detail.notFound")}</p>
         <Link href="/dashboard/leads">
-          <Button>Zurück zu den Anfragen</Button>
+          <Button>{t("backToLeads")}</Button>
         </Link>
       </div>
     );
@@ -169,18 +170,18 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Link href="/dashboard/leads" className="text-slate-500 hover:text-slate-700 text-sm">
-              ← Zurück
+              ← {t("detail.back")}
             </Link>
           </div>
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
             {lead.first_name} {lead.last_name}
           </h1>
           <p className="text-slate-600 text-sm sm:text-base">
-            Anfrage vom {formatDate(lead.created_at)} • {leadSourceLabels[lead.source]}
+            {t("detail.inquiryFrom", { date: formatDate(lead.created_at) })} • {t(`sources.${lead.source}`)}
           </p>
         </div>
         <Badge className={`${leadStatusColors[lead.status]} text-sm sm:text-lg px-3 sm:px-4 py-1 sm:py-2 self-start`}>
-          {leadStatusLabels[lead.status]}
+          {t(`status.${lead.status}`)}
         </Badge>
       </div>
 
@@ -190,12 +191,12 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {/* Kontaktdaten */}
           <Card>
             <CardHeader>
-              <CardTitle>Kontaktinformationen</CardTitle>
+              <CardTitle>{t("detail.contactInfo")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="firstName">Vorname</Label>
+                  <Label htmlFor="firstName">{t("detail.firstName")}</Label>
                   <Input
                     id="firstName"
                     value={firstName}
@@ -203,7 +204,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                   />
                 </div>
                 <div>
-                  <Label htmlFor="lastName">Nachname</Label>
+                  <Label htmlFor="lastName">{t("detail.lastName")}</Label>
                   <Input
                     id="lastName"
                     value={lastName}
@@ -213,7 +214,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="email">E-Mail</Label>
+                  <Label htmlFor="email">{t("detail.email")}</Label>
                   <Input
                     id="email"
                     type="email"
@@ -222,7 +223,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                   />
                 </div>
                 <div>
-                  <Label htmlFor="phone">Telefon</Label>
+                  <Label htmlFor="phone">{t("detail.phone")}</Label>
                   <Input
                     id="phone"
                     type="tel"
@@ -238,7 +239,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {lead.message && (
             <Card>
               <CardHeader>
-                <CardTitle>Kundenanliegen</CardTitle>
+                <CardTitle>{t("detail.customerMessage")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="bg-slate-50 p-4 rounded-lg whitespace-pre-wrap">
@@ -251,14 +252,14 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {/* Notizen */}
           <Card>
             <CardHeader>
-              <CardTitle>Ihre Notizen</CardTitle>
-              <CardDescription>Nur intern sichtbar – für Ihre Dokumentation</CardDescription>
+              <CardTitle>{t("detail.yourNotes")}</CardTitle>
+              <CardDescription>{t("detail.notesDescription")}</CardDescription>
             </CardHeader>
             <CardContent>
               <Textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="z.B. Probefahrt vereinbart für Samstag 10 Uhr..."
+                placeholder={t("detail.notesPlaceholder")}
                 rows={4}
               />
             </CardContent>
@@ -276,8 +277,8 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {scoreBreakdown && (
             <Card>
               <CardHeader>
-                <CardTitle>📊 Lead Score</CardTitle>
-                <CardDescription>Bewertung basierend auf Aktivität und Profil</CardDescription>
+                <CardTitle>📊 {t("detail.leadScore")}</CardTitle>
+                <CardDescription>{t("detail.scoreDescription")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <LeadScoreDetail score={scoreBreakdown.total} breakdown={scoreBreakdown} />
@@ -288,26 +289,26 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {/* Status & Follow-up */}
           <Card>
             <CardHeader>
-              <CardTitle>Bearbeitung</CardTitle>
+              <CardTitle>{t("detail.processing")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label>Aktueller Status</Label>
+                <Label>{t("detail.currentStatus")}</Label>
                 <Select value={status} onValueChange={(value) => setStatus(value as LeadStatus)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="new">Offen</SelectItem>
-                    <SelectItem value="contacted">In Bearbeitung</SelectItem>
-                    <SelectItem value="qualified">Heiss 🔥</SelectItem>
-                    <SelectItem value="won">Verkauft ✓</SelectItem>
-                    <SelectItem value="lost">Nicht gekauft</SelectItem>
+                    <SelectItem value="new">{t("status.new")}</SelectItem>
+                    <SelectItem value="contacted">{t("status.contacted")}</SelectItem>
+                    <SelectItem value="qualified">{t("status.qualified")}</SelectItem>
+                    <SelectItem value="won">{t("status.won")} ✓</SelectItem>
+                    <SelectItem value="lost">{t("status.lost")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label htmlFor="followup">Nächste Aktion am</Label>
+                <Label htmlFor="followup">{t("detail.nextAction")}</Label>
                 <Input
                   id="followup"
                   type="date"
@@ -322,7 +323,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {lead.vehicle && (
             <Card>
               <CardHeader>
-                <CardTitle>🚗 Interessiert an</CardTitle>
+                <CardTitle>🚗 {t("detail.interestedIn")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
@@ -331,7 +332,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                   </div>
                   {lead.vehicle.first_registration && (
                     <div className="text-slate-600">
-                      Jahrgang {new Date(lead.vehicle.first_registration).getFullYear()}
+                      {t("detail.year")} {new Date(lead.vehicle.first_registration).getFullYear()}
                     </div>
                   )}
                   {lead.vehicle.asking_price && (
@@ -341,7 +342,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                   )}
                   <Link href={`/dashboard/vehicles/${lead.vehicle.id}`}>
                     <Button variant="outline" className="w-full mt-2">
-                      Zum Fahrzeug
+                      {t("detail.toVehicle")}
                     </Button>
                   </Link>
                 </div>
@@ -353,13 +354,13 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
           {email && lead.dealer_id && (
             <Card>
               <CardHeader>
-                <CardTitle>✉️ Kunde kontaktieren</CardTitle>
+                <CardTitle>✉️ {t("detail.contactCustomer")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Dialog open={showEmailComposer} onOpenChange={setShowEmailComposer}>
                   <DialogTrigger asChild>
                     <Button className="w-full" variant="outline">
-                      📧 E-Mail mit Vorlage
+                      📧 {t("detail.emailWithTemplate")}
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
@@ -391,7 +392,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                   className="block mt-2"
                 >
                   <Button variant="ghost" className="w-full text-sm">
-                    Direkt an {email}
+                    {t("detail.directlyTo", { email })}
                   </Button>
                 </a>
               </CardContent>
@@ -406,7 +407,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                 onClick={handleSave}
                 disabled={saving}
               >
-                {saving ? "Wird gespeichert..." : "Speichern"}
+                {saving ? t("detail.saving") : t("detail.save")}
               </Button>
               <Button 
                 variant="destructive" 
@@ -414,7 +415,7 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
                 onClick={handleDelete}
                 disabled={deleting}
               >
-                {deleting ? "Wird gelöscht..." : "Anfrage löschen"}
+                {deleting ? t("detail.deleting") : t("detail.deleteLead")}
               </Button>
             </CardContent>
           </Card>

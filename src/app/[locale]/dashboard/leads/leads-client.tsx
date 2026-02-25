@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { LeadStatus, LeadSource, leadStatusLabels, leadStatusColors } from "@/types/leads";
+import { LeadStatus, LeadSource, leadStatusColors, Lead } from "@/types/leads";
 import { calculateLeadScore, LeadWithScore, LeadActivity } from "@/lib/leads/scoring";
 import { LeadScoreBadge, LeadScoreCompact } from "@/components/leads/lead-score-badge";
 
@@ -198,7 +198,7 @@ function LeadCard({ lead, onStatusChange }: {
             {/* Message Preview */}
             {lead.message && (
               <p className="text-sm text-slate-500 mt-2 line-clamp-1 italic">
-                "{lead.message}"
+                &ldquo;{lead.message}&rdquo;
               </p>
             )}
           </div>
@@ -352,7 +352,7 @@ export default function LeadsClient() {
       });
 
       // Berechne Score für jeden Lead
-      const leadsWithScore: LeadWithScore[] = (leadsData || []).map((lead: any) => {
+      const leadsWithScore: LeadWithScore[] = (leadsData || []).map((lead: Lead) => {
         const activities = activitiesByLead[lead.id] || [];
         const scoreBreakdown = calculateLeadScore(lead, activities);
         return {

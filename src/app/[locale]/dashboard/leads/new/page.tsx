@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 // API routes are used instead of direct Supabase client for impersonation support
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { LeadSource, leadSourceLabels } from "@/types/leads";
+import { LeadSource } from "@/types/leads";
 import { Location } from "@/types/locations";
 import { triggerNewLeadNotification } from "@/lib/notifications/trigger";
 
@@ -24,6 +25,7 @@ interface Vehicle {
 
 export default function NewLeadPage() {
   const router = useRouter();
+  const t = useTranslations("leads");
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(false);
@@ -77,7 +79,6 @@ export default function NewLeadPage() {
     e.preventDefault();
     
     if (!firstName || !lastName) {
-      alert("Bitte Vor- und Nachname eingeben");
       return;
     }
 
@@ -120,7 +121,7 @@ export default function NewLeadPage() {
       router.push(`/dashboard/leads/${data.id}`);
     } catch (error) {
       console.error("Error creating lead:", error);
-      alert("Fehler beim Erstellen der Anfrage");
+      alert(t("new.createFailed"));
     } finally {
       setLoading(false);
     }
@@ -138,10 +139,10 @@ export default function NewLeadPage() {
     <div>
       <div className="mb-8">
         <Link href="/dashboard/leads" className="text-slate-500 hover:text-slate-700">
-          ← Zurück zur Übersicht
+          ← {t("backToLeads")}
         </Link>
-        <h1 className="text-3xl font-bold mt-2">Neue Anfrage erfassen</h1>
-        <p className="text-slate-600">Vor Ort oder Telefonanfrage manuell erfassen</p>
+        <h1 className="text-3xl font-bold mt-2">{t("new.title")}</h1>
+        <p className="text-slate-600">{t("new.subtitle")}</p>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -151,13 +152,13 @@ export default function NewLeadPage() {
             {/* Kontaktdaten */}
             <Card>
               <CardHeader>
-                <CardTitle>Kontaktdaten</CardTitle>
-                <CardDescription>Informationen zum Interessenten</CardDescription>
+                <CardTitle>{t("new.contactData")}</CardTitle>
+                <CardDescription>{t("new.contactDescription")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="firstName">Vorname *</Label>
+                    <Label htmlFor="firstName">{t("new.firstName")} *</Label>
                     <Input
                       id="firstName"
                       value={firstName}
@@ -166,7 +167,7 @@ export default function NewLeadPage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="lastName">Nachname *</Label>
+                    <Label htmlFor="lastName">{t("new.lastName")} *</Label>
                     <Input
                       id="lastName"
                       value={lastName}
@@ -177,23 +178,21 @@ export default function NewLeadPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="email">E-Mail</Label>
+                    <Label htmlFor="email">{t("new.email")}</Label>
                     <Input
                       id="email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="optional"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone">Telefon</Label>
+                    <Label htmlFor="phone">{t("new.phone")}</Label>
                     <Input
                       id="phone"
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="optional"
                     />
                   </div>
                 </div>
@@ -203,14 +202,14 @@ export default function NewLeadPage() {
             {/* Nachricht */}
             <Card>
               <CardHeader>
-                <CardTitle>Anfrage-Details</CardTitle>
-                <CardDescription>Was hat der Kunde gesagt oder gefragt?</CardDescription>
+                <CardTitle>{t("new.inquiry")}</CardTitle>
+                <CardDescription>{t("new.inquiryDescription")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="z.B. 'Kunde interessiert sich für den BMW, möchte Probefahrt machen'"
+                  placeholder={t("new.messagePlaceholder")}
                   rows={4}
                 />
               </CardContent>
@@ -219,14 +218,14 @@ export default function NewLeadPage() {
             {/* Interne Notizen */}
             <Card>
               <CardHeader>
-                <CardTitle>Interne Notizen</CardTitle>
-                <CardDescription>Nur für interne Verwendung</CardDescription>
+                <CardTitle>{t("new.notes")}</CardTitle>
+                <CardDescription>{t("detail.notesDescription")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="z.B. 'Wirkt sehr kaufbereit, Budget ca. 25k'"
+                  placeholder={t("new.notesPlaceholder")}
                   rows={3}
                 />
               </CardContent>
@@ -238,8 +237,8 @@ export default function NewLeadPage() {
             {/* Quelle */}
             <Card>
               <CardHeader>
-                <CardTitle>Quelle</CardTitle>
-                <CardDescription>Woher kam die Anfrage?</CardDescription>
+                <CardTitle>{t("new.source")}</CardTitle>
+                <CardDescription>{t("new.inquiryDescription")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Select value={source} onValueChange={(value) => setSource(value as LeadSource)}>
@@ -247,12 +246,12 @@ export default function NewLeadPage() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="vor-ort">🚶 Vor Ort</SelectItem>
-                    <SelectItem value="phone">📞 Telefon</SelectItem>
-                    <SelectItem value="website">🌐 Website</SelectItem>
-                    <SelectItem value="autoscout24">🚗 AutoScout24</SelectItem>
-                    <SelectItem value="mobile.de">📱 mobile.de</SelectItem>
-                    <SelectItem value="other">📋 Sonstige</SelectItem>
+                    <SelectItem value="walkin">🚶 {t("sources.walkin")}</SelectItem>
+                    <SelectItem value="phone">📞 {t("sources.phone")}</SelectItem>
+                    <SelectItem value="website">🌐 {t("sources.website")}</SelectItem>
+                    <SelectItem value="autoscout24">🚗 {t("sources.autoscout24")}</SelectItem>
+                    <SelectItem value="mobile.de">📱 {t("sources.mobilede")}</SelectItem>
+                    <SelectItem value="other">📋 {t("sources.other")}</SelectItem>
                   </SelectContent>
                 </Select>
               </CardContent>
@@ -288,16 +287,16 @@ export default function NewLeadPage() {
             {/* Fahrzeug */}
             <Card>
               <CardHeader>
-                <CardTitle>Fahrzeug</CardTitle>
-                <CardDescription>Für welches Fahrzeug interessiert sich der Kunde?</CardDescription>
+                <CardTitle>{t("new.vehicle")}</CardTitle>
+                <CardDescription>{t("new.selectVehicle")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Select value={vehicleId || "_none"} onValueChange={(val) => setVehicleId(val === "_none" ? "" : val)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Fahrzeug auswählen (optional)" />
+                    <SelectValue placeholder={t("new.selectVehicle")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="_none">Kein spezifisches Fahrzeug</SelectItem>
+                    <SelectItem value="_none">{t("new.noVehicle")}</SelectItem>
                     {vehicles.map((vehicle) => {
                       const year = vehicle.first_registration 
                         ? new Date(vehicle.first_registration).getFullYear() 
@@ -313,11 +312,6 @@ export default function NewLeadPage() {
                     })}
                   </SelectContent>
                 </Select>
-                {vehicles.length === 0 && (
-                  <p className="text-sm text-slate-500 mt-2">
-                    Noch keine Fahrzeuge erfasst
-                  </p>
-                )}
               </CardContent>
             </Card>
 
@@ -329,11 +323,11 @@ export default function NewLeadPage() {
                   className="w-full" 
                   disabled={loading}
                 >
-                  {loading ? "Erstellen..." : "✅ Anfrage erstellen"}
+                  {loading ? t("new.creating") : `✅ ${t("new.create")}`}
                 </Button>
                 <Link href="/dashboard/leads">
                   <Button variant="outline" className="w-full">
-                    Abbrechen
+                    {t("new.cancel")}
                   </Button>
                 </Link>
               </CardContent>
