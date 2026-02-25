@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { Invoice, InvoiceStatus, PaymentMethod, toCHF } from '@/types/billing';
 import { 
   PaperAirplaneIcon,
@@ -20,6 +21,8 @@ interface InvoiceActionsProps {
 
 export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsProps) {
   const router = useRouter();
+  const t = useTranslations('invoices');
+  const tBilling = useTranslations('billing');
   const [isLoading, setIsLoading] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [paymentAmount, setPaymentAmount] = useState(toCHF(openAmount));
@@ -74,7 +77,7 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
   };
 
   const handleDelete = async () => {
-    if (!confirm('Möchten Sie diese Rechnung wirklich löschen?')) return;
+    if (!confirm(t('confirmDelete'))) return;
     
     setIsLoading(true);
     try {
@@ -103,7 +106,7 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
             className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
           >
             <PaperAirplaneIcon className="w-4 h-4" />
-            Als gesendet markieren
+            {t('send')}
           </button>
         )}
 
@@ -115,7 +118,7 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
             className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
           >
             <CurrencyDollarIcon className="w-4 h-4" />
-            Zahlung erfassen
+            {t('recordPayment')}
           </button>
         )}
 
@@ -127,7 +130,7 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
             className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50"
           >
             <CheckIcon className="w-4 h-4" />
-            Vollständig bezahlt
+            {t('markAsPaid')}
           </button>
         )}
 
@@ -138,7 +141,7 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
             className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
           >
             <BellAlertIcon className="w-4 h-4" />
-            Mahnung senden
+            {t('sendReminder')}
           </button>
         )}
 
@@ -160,7 +163,7 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
             className="inline-flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg disabled:opacity-50"
           >
             <TrashIcon className="w-4 h-4" />
-            Löschen
+            {t('delete')}
           </button>
         )}
       </div>
@@ -169,12 +172,12 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
       {showPaymentModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold mb-4">Zahlung erfassen</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('recordPayment')}</h3>
             
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Betrag (CHF)
+                  {t('paymentAmount')} (CHF)
                 </label>
                 <input
                   type="number"
@@ -186,13 +189,13 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 />
                 <p className="text-sm text-gray-500 mt-1">
-                  Offen: CHF {toCHF(openAmount).toLocaleString('de-CH', { minimumFractionDigits: 2 })}
+                  {t('openAmount')}: CHF {toCHF(openAmount).toLocaleString('de-CH', { minimumFractionDigits: 2 })}
                 </p>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Datum
+                  {t('paymentDate')}
                 </label>
                 <input
                   type="date"
@@ -204,30 +207,29 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Zahlungsart
+                  {t('paymentMethod')}
                 </label>
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 >
-                  <option value="bank_transfer">Banküberweisung</option>
-                  <option value="cash">Barzahlung</option>
-                  <option value="card">Karte</option>
-                  <option value="twint">TWINT</option>
-                  <option value="other">Sonstiges</option>
+                  <option value="bank_transfer">{tBilling('paymentMethods.bank_transfer')}</option>
+                  <option value="cash">{tBilling('paymentMethods.cash')}</option>
+                  <option value="card">{tBilling('paymentMethods.card')}</option>
+                  <option value="twint">{tBilling('paymentMethods.twint')}</option>
+                  <option value="other">{tBilling('paymentMethods.other')}</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Referenz (optional)
+                  {t('reference')}
                 </label>
                 <input
                   type="text"
                   value={paymentReference}
                   onChange={(e) => setPaymentReference(e.target.value)}
-                  placeholder="z.B. Transaktionsnummer"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 />
               </div>
@@ -239,13 +241,13 @@ export function InvoiceActions({ invoice, locale, openAmount }: InvoiceActionsPr
                 disabled={isLoading || paymentAmount <= 0}
                 className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
               >
-                {isLoading ? 'Speichern...' : 'Zahlung speichern'}
+                {t('save')}
               </button>
               <button
                 onClick={() => setShowPaymentModal(false)}
                 className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
               >
-                Abbrechen
+                {t('cancel')}
               </button>
             </div>
           </div>

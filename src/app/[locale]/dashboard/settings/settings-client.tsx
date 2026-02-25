@@ -283,101 +283,124 @@ function CompanyProfileForm({
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("settings.companyProfile.title")}</CardTitle>
-        <CardDescription>
-          {t("settings.companyProfile.description")}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="flex items-center gap-2 mb-4">
+        <Building2 className="w-5 h-5 text-gray-600" />
+        <h2 className="text-lg font-semibold text-gray-900">{t("settings.companyProfile.title")}</h2>
+      </div>
+      <p className="text-sm text-gray-500 mb-6">{t("settings.companyProfile.description")}</p>
+      
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div>
+            <label htmlFor="company_name" className="block text-sm font-medium text-gray-700 mb-1">
+              {t("settings.companyProfile.companyNameRequired")}
+            </label>
+            <input 
+              id="company_name" 
+              {...register("company_name")} 
+              placeholder={t("settings.companyProfile.companyNamePlaceholder")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            {errors.company_name && (
+              <p className="text-sm text-red-500 mt-1">{errors.company_name.message}</p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="contact_name" className="block text-sm font-medium text-gray-700 mb-1">
+              {t("settings.companyProfile.contactPerson")}
+            </label>
+            <input 
+              id="contact_name" 
+              {...register("contact_name")} 
+              placeholder={t("settings.companyProfile.contactPersonPlaceholder")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              {t("settings.companyProfile.emailRequired")}
+            </label>
+            <input 
+              id="email" 
+              type="email"
+              {...register("email")} 
+              placeholder={t("settings.companyProfile.emailPlaceholder")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            {errors.email && (
+              <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+              {t("settings.companyProfile.phone")}
+            </label>
+            <input 
+              id="phone" 
+              type="tel"
+              {...register("phone")} 
+              placeholder={t("settings.companyProfile.phonePlaceholder")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+        </div>
+
+        <div className="border-t pt-4">
+          <h3 className="font-medium text-gray-900 mb-4">{t("settings.companyProfile.address")}</h3>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="company_name">{t("settings.companyProfile.companyNameRequired")}</Label>
-              <Input 
-                id="company_name" 
-                {...register("company_name")} 
-                placeholder={t("settings.companyProfile.companyNamePlaceholder")}
-              />
-              {errors.company_name && (
-                <p className="text-sm text-red-500">{errors.company_name.message}</p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="contact_name">{t("settings.companyProfile.contactPerson")}</Label>
-              <Input 
-                id="contact_name" 
-                {...register("contact_name")} 
-                placeholder={t("settings.companyProfile.contactPersonPlaceholder")}
+            <div className="md:col-span-2">
+              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                {t("settings.companyProfile.street")}
+              </label>
+              <input 
+                id="address" 
+                {...register("address")} 
+                placeholder={t("settings.companyProfile.streetPlaceholder")}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">{t("settings.companyProfile.emailRequired")}</Label>
-              <Input 
-                id="email" 
-                type="email"
-                {...register("email")} 
-                placeholder={t("settings.companyProfile.emailPlaceholder")}
+            <div>
+              <label htmlFor="postal_code" className="block text-sm font-medium text-gray-700 mb-1">
+                {t("settings.companyProfile.postalCode")}
+              </label>
+              <input 
+                id="postal_code" 
+                {...register("postal_code")} 
+                placeholder={t("settings.companyProfile.postalCodePlaceholder")}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
-              {errors.email && (
-                <p className="text-sm text-red-500">{errors.email.message}</p>
-              )}
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="phone">{t("settings.companyProfile.phone")}</Label>
-              <Input 
-                id="phone" 
-                type="tel"
-                {...register("phone")} 
-                placeholder={t("settings.companyProfile.phonePlaceholder")}
+            <div>
+              <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+                {t("settings.companyProfile.city")}
+              </label>
+              <input 
+                id="city" 
+                {...register("city")} 
+                placeholder={t("settings.companyProfile.cityPlaceholder")}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
           </div>
+        </div>
 
-          <div className="border-t pt-4">
-            <h3 className="font-medium mb-4">{t("settings.companyProfile.address")}</h3>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="address">{t("settings.companyProfile.street")}</Label>
-                <Input 
-                  id="address" 
-                  {...register("address")} 
-                  placeholder={t("settings.companyProfile.streetPlaceholder")}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="postal_code">{t("settings.companyProfile.postalCode")}</Label>
-                <Input 
-                  id="postal_code" 
-                  {...register("postal_code")} 
-                  placeholder={t("settings.companyProfile.postalCodePlaceholder")}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="city">{t("settings.companyProfile.city")}</Label>
-                <Input 
-                  id="city" 
-                  {...register("city")} 
-                  placeholder={t("settings.companyProfile.cityPlaceholder")}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="flex justify-end">
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? t("settings.companyProfile.saving") : t("settings.companyProfile.saveChanges")}
-            </Button>
-          </div>
-        </form>
-      </CardContent>
-    </Card>
+        <div className="flex justify-end">
+          <button 
+            type="submit" 
+            disabled={isLoading}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium"
+          >
+            {isLoading ? t("settings.companyProfile.saving") : t("settings.companyProfile.saveChanges")}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 
@@ -458,113 +481,113 @@ function UserSettingsForm({
   return (
     <div className="space-y-6">
       {/* Sprache */}
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("settings.language.title")}</CardTitle>
-          <CardDescription>
-            {t("settings.language.description")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <LanguageSwitcher />
-        </CardContent>
-      </Card>
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Globe className="w-5 h-5 text-gray-600" />
+          <h2 className="text-lg font-semibold text-gray-900">{t("settings.language.title")}</h2>
+        </div>
+        <p className="text-sm text-gray-500 mb-4">{t("settings.language.description")}</p>
+        <LanguageSwitcher />
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("settings.user.title")}</CardTitle>
-          <CardDescription>
-            {t("settings.user.description")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmitUser(onSubmitUser)} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="user_contact_name">{t("settings.user.name")}</Label>
-              <Input 
-                id="user_contact_name" 
-                {...registerUser("contact_name")} 
-                placeholder={t("settings.user.namePlaceholder")}
-              />
-              {userErrors.contact_name && (
-                <p className="text-sm text-red-500">{userErrors.contact_name.message}</p>
-              )}
-            </div>
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <User className="w-5 h-5 text-gray-600" />
+          <h2 className="text-lg font-semibold text-gray-900">{t("settings.user.title")}</h2>
+        </div>
+        <p className="text-sm text-gray-500 mb-6">{t("settings.user.description")}</p>
+        
+        <form onSubmit={handleSubmitUser(onSubmitUser)} className="space-y-4">
+          <div>
+            <label htmlFor="user_contact_name" className="block text-sm font-medium text-gray-700 mb-1">
+              {t("settings.user.name")}
+            </label>
+            <input 
+              id="user_contact_name" 
+              {...registerUser("contact_name")} 
+              placeholder={t("settings.user.namePlaceholder")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            {userErrors.contact_name && (
+              <p className="text-sm text-red-500 mt-1">{userErrors.contact_name.message}</p>
+            )}
+          </div>
 
-            <div className="space-y-2">
-              <Label>{t("settings.user.emailLabel")}</Label>
-              <Input 
-                value={userEmail}
-                disabled
-                className="bg-slate-50"
-              />
-              <p className="text-sm text-slate-500">
-                {t("settings.user.emailNote")}
-              </p>
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t("settings.user.emailLabel")}</label>
+            <input 
+              value={userEmail}
+              disabled
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+            />
+            <p className="text-sm text-gray-500 mt-1">{t("settings.user.emailNote")}</p>
+          </div>
 
-            <div className="flex justify-end">
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? t("settings.user.saving") : t("settings.user.save")}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+          <div className="flex justify-end">
+            <button type="submit" disabled={isLoading} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium">
+              {isLoading ? t("settings.user.saving") : t("settings.user.save")}
+            </button>
+          </div>
+        </form>
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("settings.password.title")}</CardTitle>
-          <CardDescription>
-            {t("settings.password.description")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmitPassword(onSubmitPassword)} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="currentPassword">{t("settings.password.currentPassword")}</Label>
-              <Input 
-                id="currentPassword" 
-                type="password"
-                {...registerPassword("currentPassword")} 
-              />
-              {passwordErrors.currentPassword && (
-                <p className="text-sm text-red-500">{passwordErrors.currentPassword.message}</p>
-              )}
-            </div>
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-2">{t("settings.password.title")}</h2>
+        <p className="text-sm text-gray-500 mb-6">{t("settings.password.description")}</p>
+        
+        <form onSubmit={handleSubmitPassword(onSubmitPassword)} className="space-y-4">
+          <div>
+            <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700 mb-1">
+              {t("settings.password.currentPassword")}
+            </label>
+            <input 
+              id="currentPassword" 
+              type="password"
+              {...registerPassword("currentPassword")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            {passwordErrors.currentPassword && (
+              <p className="text-sm text-red-500 mt-1">{passwordErrors.currentPassword.message}</p>
+            )}
+          </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="newPassword">{t("settings.password.newPassword")}</Label>
-              <Input 
-                id="newPassword" 
-                type="password"
-                {...registerPassword("newPassword")} 
-              />
-              {passwordErrors.newPassword && (
-                <p className="text-sm text-red-500">{passwordErrors.newPassword.message}</p>
-              )}
-            </div>
+          <div>
+            <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
+              {t("settings.password.newPassword")}
+            </label>
+            <input 
+              id="newPassword" 
+              type="password"
+              {...registerPassword("newPassword")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            {passwordErrors.newPassword && (
+              <p className="text-sm text-red-500 mt-1">{passwordErrors.newPassword.message}</p>
+            )}
+          </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">{t("settings.password.confirmPassword")}</Label>
-              <Input 
-                id="confirmPassword" 
-                type="password"
-                {...registerPassword("confirmPassword")} 
-              />
-              {passwordErrors.confirmPassword && (
-                <p className="text-sm text-red-500">{passwordErrors.confirmPassword.message}</p>
-              )}
-            </div>
+          <div>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+              {t("settings.password.confirmPassword")}
+            </label>
+            <input 
+              id="confirmPassword" 
+              type="password"
+              {...registerPassword("confirmPassword")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            {passwordErrors.confirmPassword && (
+              <p className="text-sm text-red-500 mt-1">{passwordErrors.confirmPassword.message}</p>
+            )}
+          </div>
 
-            <div className="flex justify-end">
-              <Button type="submit" disabled={isChangingPassword}>
-                {isChangingPassword ? t("settings.password.changing") : t("settings.password.change")}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+          <div className="flex justify-end">
+            <button type="submit" disabled={isChangingPassword} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium">
+              {isChangingPassword ? t("settings.password.changing") : t("settings.password.change")}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
@@ -622,20 +645,18 @@ function NotificationsForm({
   return (
     <div className="space-y-6">
       {/* Lead Notifications */}
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("settings.notifications.leadsTitle")}</CardTitle>
-          <CardDescription>
-            {t("settings.notifications.leadsDescription")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Bell className="w-5 h-5 text-gray-600" />
+          <h2 className="text-lg font-semibold text-gray-900">{t("settings.notifications.leadsTitle")}</h2>
+        </div>
+        <p className="text-sm text-gray-500 mb-6">{t("settings.notifications.leadsDescription")}</p>
+        
+        <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label>{t("settings.notifications.newLeads")}</Label>
-              <p className="text-sm text-slate-500">
-                {t("settings.notifications.newLeadsDescription")}
-              </p>
+            <div>
+              <p className="font-medium text-gray-900">{t("settings.notifications.newLeads")}</p>
+              <p className="text-sm text-gray-500">{t("settings.notifications.newLeadsDescription")}</p>
             </div>
             <Switch 
               checked={notifyNewLead}
@@ -644,35 +665,28 @@ function NotificationsForm({
           </div>
 
           <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label>{t("settings.notifications.dailySummary")}</Label>
-              <p className="text-sm text-slate-500">
-                {t("settings.notifications.dailySummaryDescription")}
-              </p>
+            <div>
+              <p className="font-medium text-gray-900">{t("settings.notifications.dailySummary")}</p>
+              <p className="text-sm text-gray-500">{t("settings.notifications.dailySummaryDescription")}</p>
             </div>
             <Switch 
               checked={notifyDailySummary}
               onCheckedChange={setNotifyDailySummary}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Quote & Invoice Notifications */}
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("settings.notifications.quotesTitle")}</CardTitle>
-          <CardDescription>
-            {t("settings.notifications.quotesDescription")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-2">{t("settings.notifications.quotesTitle")}</h2>
+        <p className="text-sm text-gray-500 mb-6">{t("settings.notifications.quotesDescription")}</p>
+        
+        <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label>{t("settings.notifications.quoteExpiry")}</Label>
-              <p className="text-sm text-slate-500">
-                {t("settings.notifications.quoteExpiryDescription")}
-              </p>
+            <div>
+              <p className="font-medium text-gray-900">{t("settings.notifications.quoteExpiry")}</p>
+              <p className="text-sm text-gray-500">{t("settings.notifications.quoteExpiryDescription")}</p>
             </div>
             <Switch 
               checked={notifyQuoteExpiry}
@@ -682,73 +696,68 @@ function NotificationsForm({
 
           {notifyQuoteExpiry && (
             <div className="ml-4 pl-4 border-l-2 border-blue-200">
-              <div className="space-y-2">
-                <Label htmlFor="quote_expiry_days">{t("settings.notifications.reminderBefore")}</Label>
+              <div>
+                <label htmlFor="quote_expiry_days" className="block text-sm font-medium text-gray-700 mb-1">
+                  {t("settings.notifications.reminderBefore")}
+                </label>
                 <div className="flex items-center gap-2">
-                  <Input 
+                  <input 
                     id="quote_expiry_days"
                     type="number"
                     min={1}
                     max={14}
                     value={quoteExpiryDays}
                     onChange={(e) => setQuoteExpiryDays(parseInt(e.target.value) || 3)}
-                    className="w-20"
+                    className="w-20 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  <span className="text-slate-600">{t("settings.notifications.daysBefore")}</span>
+                  <span className="text-gray-600">{t("settings.notifications.daysBefore")}</span>
                 </div>
               </div>
             </div>
           )}
 
           <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label>{t("settings.notifications.invoiceOverdue")}</Label>
-              <p className="text-sm text-slate-500">
-                {t("settings.notifications.invoiceOverdueDescription")}
-              </p>
+            <div>
+              <p className="font-medium text-gray-900">{t("settings.notifications.invoiceOverdue")}</p>
+              <p className="text-sm text-gray-500">{t("settings.notifications.invoiceOverdueDescription")}</p>
             </div>
             <Switch 
               checked={notifyInvoiceOverdue}
               onCheckedChange={setNotifyInvoiceOverdue}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Vehicle Notifications */}
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("settings.notifications.vehiclesTitle")}</CardTitle>
-          <CardDescription>
-            {t("settings.notifications.vehiclesDescription")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            <Label htmlFor="longstanding_days">{t("settings.notifications.longstanderWarning")}</Label>
-            <div className="flex items-center gap-2">
-              <Input 
-                id="longstanding_days"
-                type="number"
-                min={1}
-                max={365}
-                value={longstandingDays}
-                onChange={(e) => setLongstandingDays(parseInt(e.target.value) || 30)}
-                className="w-24"
-              />
-              <span className="text-slate-600">{t("settings.notifications.daysInStock")}</span>
-            </div>
-            <p className="text-sm text-slate-500">
-              {t("settings.notifications.longstanderNote")}
-            </p>
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-2">{t("settings.notifications.vehiclesTitle")}</h2>
+        <p className="text-sm text-gray-500 mb-6">{t("settings.notifications.vehiclesDescription")}</p>
+        
+        <div>
+          <label htmlFor="longstanding_days" className="block text-sm font-medium text-gray-700 mb-1">
+            {t("settings.notifications.longstanderWarning")}
+          </label>
+          <div className="flex items-center gap-2">
+            <input 
+              id="longstanding_days"
+              type="number"
+              min={1}
+              max={365}
+              value={longstandingDays}
+              onChange={(e) => setLongstandingDays(parseInt(e.target.value) || 30)}
+              className="w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <span className="text-gray-600">{t("settings.notifications.daysInStock")}</span>
           </div>
-        </CardContent>
-      </Card>
+          <p className="text-sm text-gray-500 mt-2">{t("settings.notifications.longstanderNote")}</p>
+        </div>
+      </div>
 
       <div className="flex justify-end">
-        <Button onClick={handleSave} disabled={isLoading} size="lg">
+        <button onClick={handleSave} disabled={isLoading} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 font-semibold">
           {isLoading ? t("settings.notifications.saving") : t("settings.notifications.saveAll")}
-        </Button>
+        </button>
       </div>
     </div>
   );
@@ -789,99 +798,85 @@ function ChannelsPlaceholder() {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("settings.channels.communicationTitle")}</CardTitle>
-          <CardDescription>
-            {t("settings.channels.communicationDescription")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {communicationChannels.map((channel) => (
-              <div 
-                key={channel.name}
-                className="flex items-center justify-between p-4 border rounded-lg hover:bg-slate-50 transition-colors"
-              >
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Radio className="w-5 h-5 text-gray-600" />
+          <h2 className="text-lg font-semibold text-gray-900">{t("settings.channels.communicationTitle")}</h2>
+        </div>
+        <p className="text-sm text-gray-500 mb-6">{t("settings.channels.communicationDescription")}</p>
+        
+        <div className="space-y-4">
+          {communicationChannels.map((channel) => (
+            <div 
+              key={channel.name}
+              className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            >
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">{channel.icon}</span>
                   <div>
-                    <div className="font-medium">{channel.name}</div>
-                    <div className="text-sm text-slate-500">{channel.description}</div>
+                    <div className="font-medium text-gray-900">{channel.name}</div>
+                    <div className="text-sm text-gray-500">{channel.description}</div>
                   </div>
                 </div>
-                <Button asChild size="sm">
-                  <a href={channel.href}>{t("settings.channels.setup")}</a>
-                </Button>
+                <a href={channel.href} className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 font-medium">
+                  {t("settings.channels.setup")}
+                </a>
               </div>
             ))}
           </div>
-        </CardContent>
-      </Card>
+        </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("settings.channels.integrationsTitle")}</CardTitle>
-          <CardDescription>
-            {t("settings.channels.integrationsDescription")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {integrationChannels.map((channel) => (
-              <div 
-                key={channel.name}
-                className="flex items-center justify-between p-4 border rounded-lg hover:bg-slate-50 transition-colors"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{channel.icon}</span>
-                  <div>
-                    <div className="font-medium">{channel.name}</div>
-                    <div className="text-sm text-slate-500">{channel.description}</div>
-                  </div>
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-2">{t("settings.channels.integrationsTitle")}</h2>
+        <p className="text-sm text-gray-500 mb-6">{t("settings.channels.integrationsDescription")}</p>
+        
+        <div className="space-y-4">
+          {integrationChannels.map((channel) => (
+            <div 
+              key={channel.name}
+              className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{channel.icon}</span>
+                <div>
+                  <div className="font-medium text-gray-900">{channel.name}</div>
+                  <div className="text-sm text-gray-500">{channel.description}</div>
                 </div>
-                <Button asChild size="sm">
-                  <a href={channel.href}>{t("settings.channels.setup")}</a>
-                </Button>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              <a href={channel.href} className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 font-medium">
+                {t("settings.channels.setup")}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("settings.channels.listingTitle")}</CardTitle>
-          <CardDescription>
-            {t("settings.channels.listingDescription")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-            <p className="text-blue-800">
-              {t("settings.channels.comingSoonNote")}
-            </p>
-          </div>
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-2">{t("settings.channels.listingTitle")}</h2>
+        <p className="text-sm text-gray-500 mb-6">{t("settings.channels.listingDescription")}</p>
+        
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <p className="text-blue-800">{t("settings.channels.comingSoonNote")}</p>
+        </div>
 
-          <div className="space-y-4">
-            {channels.map((channel) => (
-              <div 
-                key={channel.name}
-                className="flex items-center justify-between p-4 border rounded-lg bg-slate-50"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{channel.icon}</span>
-                  <div>
-                    <div className="font-medium">{channel.name}</div>
-                    <div className="text-sm text-slate-500">{channel.description}</div>
-                  </div>
+        <div className="space-y-4">
+          {channels.map((channel) => (
+            <div 
+              key={channel.name}
+              className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-gray-50"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{channel.icon}</span>
+                <div>
+                  <div className="font-medium text-gray-900">{channel.name}</div>
+                  <div className="text-sm text-gray-500">{channel.description}</div>
                 </div>
-                <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

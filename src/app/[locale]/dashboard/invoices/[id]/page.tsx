@@ -76,11 +76,11 @@ export default async function InvoiceDetailPage({
               <span className={`px-2 py-1 text-xs font-medium rounded-full ${
                 isOverdue ? 'bg-red-100 text-red-800' : getInvoiceStatusColor(invoice.status)
               }`}>
-                {isOverdue ? 'Überfällig' : getInvoiceStatusLabel(invoice.status)}
+                {isOverdue ? t('overdue') : t(`status${invoice.status.charAt(0).toUpperCase() + invoice.status.slice(1)}`)}
               </span>
             </div>
             <p className="text-gray-600">
-              {invoice.customer ? getCustomerDisplayName(invoice.customer) : 'Kein Kunde'}
+              {invoice.customer ? getCustomerDisplayName(invoice.customer) : t('noCustomer')}
             </p>
           </div>
         </div>
@@ -120,7 +120,7 @@ export default async function InvoiceDetailPage({
         {/* Customer Info */}
         {invoice.customer && (
           <div className="p-4 border-b border-gray-200 bg-gray-50">
-            <h3 className="text-sm font-medium text-gray-500 mb-2">Kunde</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">{t('customer')}</h3>
             <p className="font-medium">{getCustomerDisplayName(invoice.customer)}</p>
             {invoice.customer.street && (
               <p className="text-gray-600">{invoice.customer.street}</p>
@@ -135,15 +135,15 @@ export default async function InvoiceDetailPage({
 
         {/* Items */}
         <div className="p-4">
-          <h3 className="text-sm font-medium text-gray-500 mb-4">Positionen</h3>
+          <h3 className="text-sm font-medium text-gray-500 mb-4">{t('positions')}</h3>
           <table className="w-full">
             <thead>
               <tr className="text-left text-xs text-gray-500 uppercase">
-                <th className="pb-2">Pos</th>
-                <th className="pb-2">Bezeichnung</th>
-                <th className="pb-2 text-right">Menge</th>
-                <th className="pb-2 text-right">Preis</th>
-                <th className="pb-2 text-right">Total</th>
+                <th className="pb-2">{t('pos')}</th>
+                <th className="pb-2">{t('description')}</th>
+                <th className="pb-2 text-right">{t('quantity')}</th>
+                <th className="pb-2 text-right">{t('price')}</th>
+                <th className="pb-2 text-right">{t('total')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -169,27 +169,27 @@ export default async function InvoiceDetailPage({
         <div className="p-4 bg-gray-50 border-t border-gray-200">
           <div className="max-w-xs ml-auto space-y-2 text-sm">
             <div className="flex justify-between">
-              <span>Zwischensumme</span>
+              <span>{t('subtotal')}</span>
               <span>{formatCHF(invoice.subtotal)}</span>
             </div>
             {invoice.discount_amount > 0 && (
               <div className="flex justify-between text-red-600">
-                <span>Rabatt</span>
+                <span>{t('discount')}</span>
                 <span>- {formatCHF(invoice.discount_amount)}</span>
               </div>
             )}
             {invoice.trade_in_value > 0 && (
               <div className="flex justify-between text-green-600">
-                <span>Eintausch</span>
+                <span>{t('tradeIn')}</span>
                 <span>- {formatCHF(invoice.trade_in_value)}</span>
               </div>
             )}
             <div className="flex justify-between text-gray-500">
-              <span>MwSt. ({invoice.vat_rate}%)</span>
+              <span>{t('vat')} ({invoice.vat_rate}%)</span>
               <span>{formatCHF(invoice.vat_amount)}</span>
             </div>
             <div className="flex justify-between font-bold text-lg border-t pt-2">
-              <span>Total</span>
+              <span>{t('total')}</span>
               <span>{formatCHF(invoice.total)}</span>
             </div>
           </div>
@@ -199,7 +199,7 @@ export default async function InvoiceDetailPage({
       {/* Payments History */}
       {payments.length > 0 && (
         <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <h3 className="text-sm font-medium text-gray-500 mb-4">Zahlungen</h3>
+          <h3 className="text-sm font-medium text-gray-500 mb-4">{t('payments')}</h3>
           <div className="space-y-3">
             {payments.map((payment: Payment) => (
               <div key={payment.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
@@ -229,27 +229,27 @@ export default async function InvoiceDetailPage({
           {invoice.due_date && (
             <div className={isOverdue ? 'text-red-600' : ''}>
               <span className="font-medium">{t('dueDate')}:</span>{' '}
-              {new Date(invoice.due_date).toLocaleDateString('de-CH')}
-              {isOverdue && ' (Überfällig!)'}
+              {new Date(invoice.due_date).toLocaleDateString()}
+              {isOverdue && ` (${t('overdue')}!)`}
             </div>
           )}
           {invoice.sent_at && (
             <div>
-              <span className="font-medium">Gesendet:</span>{' '}
-              {new Date(invoice.sent_at).toLocaleString('de-CH')}
+              <span className="font-medium">{t('sent')}:</span>{' '}
+              {new Date(invoice.sent_at).toLocaleString()}
             </div>
           )}
           {invoice.paid_at && (
             <div className="text-green-600">
-              <span className="font-medium">Bezahlt:</span>{' '}
-              {new Date(invoice.paid_at).toLocaleString('de-CH')}
+              <span className="font-medium">{t('paidOn')}:</span>{' '}
+              {new Date(invoice.paid_at).toLocaleString()}
             </div>
           )}
           {invoice.quote_id && (
             <div>
-              <span className="font-medium">Aus Offerte:</span>{' '}
+              <span className="font-medium">{t('fromQuote')}:</span>{' '}
               <Link href={`/${locale}/dashboard/quotes/${invoice.quote_id}`} className="text-blue-600 hover:underline">
-                anzeigen
+                {t('view')}
               </Link>
             </div>
           )}
