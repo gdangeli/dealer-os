@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { withSentryConfig } from '@sentry/nextjs';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
@@ -65,4 +66,20 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default withSentryConfig(withNextIntl(nextConfig), {
+  // Sentry options
+  org: "get-rich-portfolio-ag",
+  project: "dealer-os",
+  
+  // Suppress source map warnings
+  silent: true,
+  
+  // Upload source maps for better stack traces
+  widenClientFileUpload: true,
+  
+  // Hide source maps from client bundles
+  hideSourceMaps: true,
+  
+  // Disable logger to reduce bundle size
+  disableLogger: true,
+});
