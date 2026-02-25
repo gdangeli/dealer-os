@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Globe, Palette, Settings, Code2, Eye, Save } from "lucide-react";
 
 interface WidgetConfig {
   primary_color?: string;
@@ -94,37 +95,37 @@ export function WidgetSettings({ dealerId, initialEnabled, initialConfig }: Widg
   return (
     <div className="space-y-6">
       {/* Enable/Disable */}
-      <Card>
-        <CardHeader>
-          <CardTitle>🌐 Website-Widget</CardTitle>
-          <CardDescription>
-            Betten Sie Ihre Fahrzeuge auf Ihrer eigenen Website ein.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between">
-            <div>
-              <Label>Widget aktivieren</Label>
-              <p className="text-sm text-slate-500">
-                Erlaubt das Einbetten Ihrer Fahrzeuge auf externen Websites.
-              </p>
-            </div>
-            <Switch checked={enabled} onCheckedChange={setEnabled} />
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+            <Globe className="w-5 h-5 text-white" />
           </div>
-        </CardContent>
-      </Card>
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900">Website-Widget</h2>
+            <p className="text-sm text-gray-500">Betten Sie Ihre Fahrzeuge auf Ihrer eigenen Website ein.</p>
+          </div>
+        </div>
+        <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+          <div>
+            <Label className="font-medium text-gray-900">Widget aktivieren</Label>
+            <p className="text-sm text-gray-500">
+              Erlaubt das Einbetten Ihrer Fahrzeuge auf externen Websites.
+            </p>
+          </div>
+          <Switch checked={enabled} onCheckedChange={setEnabled} />
+        </div>
+      </div>
 
       {enabled && (
         <>
           {/* Styling */}
-          <Card>
-            <CardHeader>
-              <CardTitle>🎨 Styling</CardTitle>
-              <CardDescription>
-                Passen Sie das Erscheinungsbild an Ihre Website an.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Palette className="w-5 h-5 text-gray-600" />
+              <h2 className="text-lg font-semibold text-gray-900">Styling</h2>
+            </div>
+            <p className="text-sm text-gray-500 mb-6">Passen Sie das Erscheinungsbild an Ihre Website an.</p>
+            <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="primary_color">Primärfarbe</Label>
@@ -220,15 +221,16 @@ export function WidgetSettings({ dealerId, initialEnabled, initialConfig }: Widg
                   onCheckedChange={(v) => setConfig({ ...config, show_price: v })} 
                 />
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Advanced */}
-          <Card>
-            <CardHeader>
-              <CardTitle>⚙️ Erweitert</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Settings className="w-5 h-5 text-gray-600" />
+              <h2 className="text-lg font-semibold text-gray-900">Erweitert</h2>
+            </div>
+            <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="contact_url">Kontakt-URL (optional)</Label>
                 <Input
@@ -261,57 +263,54 @@ export function WidgetSettings({ dealerId, initialEnabled, initialConfig }: Widg
                   Kommagetrennt. Leer = alle Domains erlaubt.
                 </p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Embed Code */}
-          <Card>
-            <CardHeader>
-              <CardTitle>📋 Embed-Code</CardTitle>
-              <CardDescription>
-                Kopieren Sie diesen Code und fügen Sie ihn auf Ihrer Website ein.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="relative">
-                <Textarea
-                  readOnly
-                  value={embedCode}
-                  className="font-mono text-xs h-48 resize-none"
-                />
-                <Button
-                  onClick={copyEmbedCode}
-                  variant="outline"
-                  size="sm"
-                  className="absolute top-2 right-2"
-                >
-                  {copied ? "✓ Kopiert" : "Kopieren"}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Code2 className="w-5 h-5 text-gray-600" />
+              <h2 className="text-lg font-semibold text-gray-900">Embed-Code</h2>
+            </div>
+            <p className="text-sm text-gray-500 mb-4">Kopieren Sie diesen Code und fügen Sie ihn auf Ihrer Website ein.</p>
+            <div className="relative">
+              <Textarea
+                readOnly
+                value={embedCode}
+                className="font-mono text-xs h-48 resize-none"
+              />
+              <Button
+                onClick={copyEmbedCode}
+                variant="outline"
+                size="sm"
+                className="absolute top-2 right-2"
+              >
+                {copied ? "✓ Kopiert" : "Kopieren"}
+              </Button>
+            </div>
+          </div>
 
           {/* Preview */}
-          <Card>
-            <CardHeader>
-              <CardTitle>👁️ Vorschau</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="border rounded-lg overflow-hidden">
-                <iframe
-                  src={`https://dealeros.ch/embed/${dealerId}?primary=${config.primary_color?.replace('#', '')}&font=${config.font_family}&style=${config.button_style}&dark=${config.dark_mode ? '1' : '0'}&layout=${config.layout}&preview=1`}
-                  className="w-full min-h-[400px] border-0"
-                />
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Eye className="w-5 h-5 text-gray-600" />
+              <h2 className="text-lg font-semibold text-gray-900">Vorschau</h2>
+            </div>
+            <div className="border rounded-lg overflow-hidden">
+              <iframe
+                src={`https://dealeros.ch/embed/${dealerId}?primary=${config.primary_color?.replace('#', '')}&font=${config.font_family}&style=${config.button_style}&dark=${config.dark_mode ? '1' : '0'}&layout=${config.layout}&preview=1`}
+                className="w-full min-h-[400px] border-0"
+              />
+            </div>
+          </div>
         </>
       )}
 
       {/* Save Button */}
       <div className="flex justify-end">
-        <Button onClick={handleSave} disabled={isLoading} size="lg">
-          {isLoading ? "Speichern..." : "💾 Einstellungen speichern"}
+        <Button onClick={handleSave} disabled={isLoading} size="lg" className="gap-2">
+          <Save className="w-4 h-4" />
+          {isLoading ? "Speichern..." : "Einstellungen speichern"}
         </Button>
       </div>
     </div>
