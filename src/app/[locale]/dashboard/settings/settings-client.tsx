@@ -888,24 +888,20 @@ function BillingPlaceholder() {
   const t = useTranslations();
   
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("settings.billing.title")}</CardTitle>
-        <CardDescription>
-          {t("settings.billing.description")}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="text-center py-8">
-        <p className="text-slate-600 mb-4">
-          {t("settings.billing.movedNote")}
-        </p>
-        <Button asChild>
-          <a href="/dashboard/settings/billing">
-            {t("settings.billing.goToBilling")}
-          </a>
-        </Button>
-      </CardContent>
-    </Card>
+    <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="flex items-center gap-2 mb-4">
+        <CreditCard className="w-5 h-5 text-gray-600" />
+        <h2 className="text-lg font-semibold text-gray-900">{t("settings.billing.title")}</h2>
+      </div>
+      <p className="text-sm text-gray-500 mb-6">{t("settings.billing.description")}</p>
+      
+      <div className="text-center py-8">
+        <p className="text-gray-600 mb-4">{t("settings.billing.movedNote")}</p>
+        <a href="/dashboard/settings/billing" className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
+          {t("settings.billing.goToBilling")}
+        </a>
+      </div>
+    </div>
   );
 }
 
@@ -1019,58 +1015,51 @@ function DangerZone({
   };
 
   return (
-    <Card className="border-red-200">
-      <CardHeader>
-        <CardTitle className="text-red-700">{t("settings.danger.title")}</CardTitle>
-        <CardDescription>
-          {t("settings.danger.description")}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
+    <div className="bg-white rounded-xl border border-red-200 p-6">
+      <div className="flex items-center gap-2 mb-4">
+        <AlertTriangle className="w-5 h-5 text-red-600" />
+        <h2 className="text-lg font-semibold text-red-700">{t("settings.danger.title")}</h2>
+      </div>
+      <p className="text-sm text-gray-500 mb-6">{t("settings.danger.description")}</p>
+      
+      <div className="space-y-6">
         {/* Restart Onboarding */}
-        <div className="flex items-center justify-between p-4 border rounded-lg border-blue-200 bg-blue-50">
+        <div className="flex items-center justify-between p-4 border border-blue-200 rounded-lg bg-blue-50">
           <div>
             <h3 className="font-medium text-blue-800">{t("settings.danger.restartOnboarding")}</h3>
-            <p className="text-sm text-blue-600">
-              {t("settings.danger.restartOnboardingDescription")}
-            </p>
+            <p className="text-sm text-blue-600">{t("settings.danger.restartOnboardingDescription")}</p>
           </div>
-          <Button 
-            variant="outline" 
-            className="border-blue-300 text-blue-700 hover:bg-blue-100"
+          <button 
             onClick={handleRestartOnboarding}
             disabled={isResettingOnboarding}
+            className="px-4 py-2 border border-blue-300 text-blue-700 rounded-lg hover:bg-blue-100 disabled:opacity-50 font-medium"
           >
             {isResettingOnboarding ? t("settings.danger.restarting") : t("settings.danger.restart")}
-          </Button>
+          </button>
         </div>
 
         {/* Export Data */}
-        <div className="flex items-center justify-between p-4 border rounded-lg">
+        <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
           <div>
-            <h3 className="font-medium">{t("settings.danger.exportData")}</h3>
-            <p className="text-sm text-slate-500">
-              {t("settings.danger.exportDataDescription")}
-            </p>
+            <h3 className="font-medium text-gray-900">{t("settings.danger.exportData")}</h3>
+            <p className="text-sm text-gray-500">{t("settings.danger.exportDataDescription")}</p>
           </div>
-          <Button variant="outline" onClick={handleExportData}>
+          <button onClick={handleExportData} className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">
             {t("settings.danger.export")}
-          </Button>
+          </button>
         </div>
 
         {/* Delete Account */}
         <div className="flex items-center justify-between p-4 border border-red-200 rounded-lg bg-red-50">
           <div>
             <h3 className="font-medium text-red-700">{t("settings.danger.deleteAccount")}</h3>
-            <p className="text-sm text-red-600">
-              {t("settings.danger.deleteAccountDescription")}
-            </p>
+            <p className="text-sm text-red-600">{t("settings.danger.deleteAccountDescription")}</p>
           </div>
           <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
             <DialogTrigger asChild>
-              <Button variant="outline" className="border-red-300 text-red-700 hover:bg-red-100">
+              <button className="px-4 py-2 border border-red-300 text-red-700 rounded-lg hover:bg-red-100 font-medium">
                 {t("settings.danger.deleteButton")}
-              </Button>
+              </button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
@@ -1120,8 +1109,8 @@ function DangerZone({
             </DialogContent>
           </Dialog>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
@@ -1132,23 +1121,19 @@ function LocationsRedirect() {
   const t = useTranslations();
   
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("settings.locations.title")}</CardTitle>
-        <CardDescription>
-          {t("settings.locations.description")}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="text-center py-8">
-        <p className="text-slate-600 mb-4">
-          {t("settings.locations.movedNote")}
-        </p>
-        <Button asChild>
-          <a href="/dashboard/settings/locations">
-            {t("settings.locations.goToLocations")}
-          </a>
-        </Button>
-      </CardContent>
-    </Card>
+    <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="flex items-center gap-2 mb-4">
+        <MapPin className="w-5 h-5 text-gray-600" />
+        <h2 className="text-lg font-semibold text-gray-900">{t("settings.locations.title")}</h2>
+      </div>
+      <p className="text-sm text-gray-500 mb-6">{t("settings.locations.description")}</p>
+      
+      <div className="text-center py-8">
+        <p className="text-gray-600 mb-4">{t("settings.locations.movedNote")}</p>
+        <a href="/dashboard/settings/locations" className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
+          {t("settings.locations.goToLocations")}
+        </a>
+      </div>
+    </div>
   );
 }
