@@ -6,32 +6,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DemoVideoButton } from "@/components/landing/demo-video-modal";
+import { DashboardPreview } from "@/components/landing/dashboard-preview";
 import { Link } from "@/i18n/navigation";
 import {
   Car,
   BarChart3,
-  Clock,
   Users,
-  TrendingUp,
   Shield,
   Zap,
   Check,
   ArrowRight,
   Star,
-  Sparkles,
   Building2,
   Award,
   Target,
   LineChart,
   Database,
-  FileText,
-  MessageCircle,
-  Mail,
-  MapPin,
-  Link2,
   Receipt,
-  CalendarCheck,
-  ImagePlus,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -68,11 +59,14 @@ function HomePage() {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-16 sm:py-20 lg:py-28">
               {/* Left: Content */}
               <div className="max-w-xl">
-                {/* Badge */}
+                {/* Trust Badge */}
                 <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-sky-200 rounded-full px-4 py-2 shadow-sm mb-8">
-                  <Sparkles className="w-4 h-4 text-sky-600" />
-                  <span className="text-sm font-medium bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">
-                    {t("hero.badge")}
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  </span>
+                  <span className="text-sm font-medium text-slate-700">
+                    {t("hero.trustCount")}
                   </span>
                 </div>
 
@@ -127,41 +121,24 @@ function HomePage() {
                 </div>
               </div>
 
-              {/* Right: Hero Image */}
+              {/* Right: Dashboard Preview */}
               <div className="relative lg:h-[600px] flex items-center justify-center">
-                <div className="relative w-full max-w-2xl">
-                  {/* Floating decoration */}
-                  <div className="absolute -inset-4 bg-gradient-to-r from-sky-500/20 to-indigo-600/20 rounded-3xl blur-3xl" />
-                  
-                  {/* Main Image Container */}
-                  <div className="relative bg-white rounded-2xl shadow-2xl shadow-slate-900/10 overflow-hidden border border-slate-200/50">
-                    <Image
-                      src="https://images.unsplash.com/photo-1562911791-c7a97b729ec5?w=1200&q=80"
-                      alt="Modern Car Dealership Dashboard"
-                      width={1200}
-                      height={800}
-                      className="w-full h-auto"
-                      priority
-                    />
-                    
-                    {/* Overlay Stats Cards */}
-                    <div className="absolute bottom-6 left-6 right-6 flex gap-3">
-                      <div className="flex-1 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/50">
-                        <div className="flex items-center gap-2 mb-1">
-                          <TrendingUp className="w-4 h-4 text-emerald-600" />
-                          <span className="text-xs font-medium text-slate-500">Revenue</span>
-                        </div>
-                        <p className="text-xl font-bold text-slate-900">+32%</p>
-                      </div>
-                      <div className="flex-1 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/50">
-                        <div className="flex items-center gap-2 mb-1">
-                          <Clock className="w-4 h-4 text-sky-600" />
-                          <span className="text-xs font-medium text-slate-500">Avg. Days</span>
-                        </div>
-                        <p className="text-xl font-bold text-slate-900">38</p>
-                      </div>
-                    </div>
-                  </div>
+                <DashboardPreview />
+              </div>
+            </div>
+            
+            {/* Portal Logos */}
+            <div className="flex flex-wrap items-center justify-center gap-6 pb-16 opacity-70">
+              <span className="text-sm text-slate-500 font-medium">Inserieren auf:</span>
+              <div className="flex items-center gap-4">
+                <div className="bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-100">
+                  <span className="font-bold text-orange-500">AutoScout24</span>
+                </div>
+                <div className="bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-100">
+                  <span className="font-bold text-green-600">Autolina</span>
+                </div>
+                <div className="bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-100">
+                  <span className="font-bold text-red-600">CARAUKTION</span>
                 </div>
               </div>
             </div>
@@ -218,97 +195,48 @@ function HomePage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
               <FeatureCard
                 icon={Car}
                 title={t("features.vehicleManagement")}
                 description={t("features.vehicleManagementDesc")}
-                gradient="from-sky-500 to-sky-600"
-                image="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80"
-              />
-              <FeatureCard
-                icon={Clock}
-                title={t("features.standtimeTracking")}
-                description={t("features.standtimeTrackingDesc")}
-                gradient="from-amber-500 to-orange-600"
-                image="https://images.unsplash.com/photo-1508962914676-134849a727f0?w=800&q=80"
+                gradient="from-sky-500 to-indigo-600"
+                bgGradient="from-sky-50 to-indigo-50 border-sky-100"
               />
               <FeatureCard
                 icon={Users}
                 title={t("features.leadManagement")}
                 description={t("features.leadManagementDesc")}
                 gradient="from-emerald-500 to-teal-600"
-                image="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80"
-              />
-              <FeatureCard
-                icon={ImagePlus}
-                title={t("features.photoAI")}
-                description={t("features.photoAIDesc")}
-                gradient="from-fuchsia-500 to-pink-600"
-                image="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"
-              />
-              <FeatureCard
-                icon={CalendarCheck}
-                title={t("features.testDriveBooking")}
-                description={t("features.testDriveBookingDesc")}
-                gradient="from-teal-500 to-cyan-600"
-                image="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80"
-              />
-              <FeatureCard
-                icon={MessageCircle}
-                title={t("features.whatsappIntegration")}
-                description={t("features.whatsappIntegrationDesc")}
-                gradient="from-green-500 to-emerald-600"
-                image="https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=800&q=80"
-              />
-              <FeatureCard
-                icon={Receipt}
-                title={t("features.quotesInvoices")}
-                description={t("features.quotesInvoicesDesc")}
-                gradient="from-violet-500 to-purple-600"
-                image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80"
-              />
-              <FeatureCard
-                icon={BarChart3}
-                title={t("features.realKpis")}
-                description={t("features.realKpisDesc")}
-                gradient="from-indigo-500 to-purple-600"
-                image="https://images.unsplash.com/photo-1543286386-713bdd548da4?w=800&q=80"
-              />
-              <FeatureCard
-                icon={Mail}
-                title={t("features.emailAutomation")}
-                description={t("features.emailAutomationDesc")}
-                gradient="from-blue-500 to-indigo-600"
-                image="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&q=80"
-              />
-              <FeatureCard
-                icon={MapPin}
-                title={t("features.multiLocation")}
-                description={t("features.multiLocationDesc")}
-                gradient="from-rose-500 to-pink-600"
-                image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80"
-              />
-              <FeatureCard
-                icon={Link2}
-                title={t("features.bexioIntegration")}
-                description={t("features.bexioIntegrationDesc")}
-                gradient="from-cyan-500 to-blue-600"
-                image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+                bgGradient="from-emerald-50 to-teal-50 border-emerald-100"
               />
               <FeatureCard
                 icon={Zap}
                 title={t("features.listingExport")}
                 description={t("features.listingExportDesc")}
-                gradient="from-orange-500 to-red-600"
-                image="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80"
+                gradient="from-orange-500 to-amber-600"
+                bgGradient="from-orange-50 to-amber-50 border-orange-100"
+              />
+              <FeatureCard
+                icon={BarChart3}
+                title={t("features.realKpis")}
+                description={t("features.realKpisDesc")}
+                gradient="from-violet-500 to-purple-600"
+                bgGradient="from-violet-50 to-purple-50 border-violet-100"
+              />
+              <FeatureCard
+                icon={Receipt}
+                title={t("features.quotesInvoices")}
+                description={t("features.quotesInvoicesDesc")}
+                gradient="from-rose-500 to-pink-600"
+                bgGradient="from-rose-50 to-pink-50 border-rose-100"
               />
               <FeatureCard
                 icon={Shield}
                 title={t("features.swissHosting")}
                 description={t("features.swissHostingDesc")}
-                gradient="from-red-500 to-rose-600"
-                image="https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=800&q=80"
+                gradient="from-cyan-500 to-sky-600"
+                bgGradient="from-cyan-50 to-sky-50 border-cyan-100"
               />
             </div>
           </div>
@@ -543,35 +471,21 @@ function FeatureCard({
   title,
   description,
   gradient,
-  image,
+  bgGradient,
 }: {
   icon: React.ElementType;
   title: string;
   description: string;
   gradient: string;
-  image: string;
+  bgGradient: string;
 }) {
   return (
-    <Card className="group border-slate-200 bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden rounded-2xl">
-      {/* Clean image without heavy overlay */}
-      <div className="relative h-48 overflow-hidden">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        {/* Subtle gradient at bottom only for depth */}
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/20 to-transparent" />
-      </div>
-      <CardContent className="p-6">
-        {/* Icon next to title */}
-        <div className="flex items-center gap-3 mb-3">
-          <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0`}>
-            <Icon className="h-5 w-5 text-white" />
-          </div>
-          <h3 className="text-xl font-bold text-slate-900">{title}</h3>
+    <Card className={`group border hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden rounded-2xl bg-gradient-to-br ${bgGradient}`}>
+      <CardContent className="p-8">
+        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-6`}>
+          <Icon className="h-7 w-7 text-white" />
         </div>
+        <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
         <p className="text-slate-600 leading-relaxed">{description}</p>
       </CardContent>
     </Card>
