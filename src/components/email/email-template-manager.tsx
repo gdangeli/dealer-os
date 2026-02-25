@@ -2,11 +2,8 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Mail } from "lucide-react";
 import { 
   Select, 
   SelectContent, 
@@ -154,30 +151,29 @@ export function EmailTemplateManager({ dealerId }: EmailTemplateManagerProps) {
 
   if (loading) {
     return (
-      <Card>
-        <CardContent className="py-8 text-center text-slate-500">
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="py-8 text-center text-gray-500">
           Vorlagen werden geladen...
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex justify-between items-start">
-          <div>
-            <CardTitle>✉️ E-Mail-Vorlagen</CardTitle>
-            <CardDescription>
-              Erstellen Sie Vorlagen für häufige Kundenantworten
-            </CardDescription>
+    <div className="bg-white rounded-xl border border-gray-200 p-6">
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Mail className="w-5 h-5 text-gray-600" />
+            <h2 className="text-lg font-semibold text-gray-900">E-Mail-Vorlagen</h2>
           </div>
-          <Button onClick={() => openEditor()}>
-            + Neue Vorlage
-          </Button>
+          <p className="text-sm text-gray-500">Erstellen Sie Vorlagen für häufige Kundenantworten</p>
         </div>
-      </CardHeader>
-      <CardContent>
+        <button onClick={() => openEditor()} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
+          + Neue Vorlage
+        </button>
+      </div>
+      <div>
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded mb-4">
             {error}
@@ -185,11 +181,11 @@ export function EmailTemplateManager({ dealerId }: EmailTemplateManagerProps) {
         )}
 
         {templates.length === 0 ? (
-          <div className="text-center py-8 text-slate-500">
+          <div className="text-center py-8 text-gray-500">
             <p className="mb-4">Noch keine E-Mail-Vorlagen erstellt.</p>
-            <Button onClick={() => openEditor()}>
+            <button onClick={() => openEditor()} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
               Erste Vorlage erstellen
-            </Button>
+            </button>
           </div>
         ) : (
           <Table>
@@ -268,16 +264,17 @@ export function EmailTemplateManager({ dealerId }: EmailTemplateManagerProps) {
             <div className="space-y-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="template-name">Name *</Label>
-                  <Input
+                  <label htmlFor="template-name" className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                  <input
                     id="template-name"
                     value={formName}
                     onChange={(e) => setFormName(e.target.value)}
                     placeholder="z.B. Probefahrt-Bestätigung"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="template-category">Kategorie *</Label>
+                  <label htmlFor="template-category" className="block text-sm font-medium text-gray-700 mb-1">Kategorie *</label>
                   <Select 
                     value={formCategory} 
                     onValueChange={(v) => setFormCategory(v as EmailTemplateCategory)}
@@ -297,49 +294,49 @@ export function EmailTemplateManager({ dealerId }: EmailTemplateManagerProps) {
               </div>
 
               <div>
-                <Label htmlFor="template-description">Beschreibung</Label>
-                <Input
+                <label htmlFor="template-description" className="block text-sm font-medium text-gray-700 mb-1">Beschreibung</label>
+                <input
                   id="template-description"
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
                   placeholder="Kurze Beschreibung wann diese Vorlage verwendet wird..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
               <div>
-                <Label htmlFor="template-subject">Betreff *</Label>
-                <Input
+                <label htmlFor="template-subject" className="block text-sm font-medium text-gray-700 mb-1">Betreff *</label>
+                <input
                   id="template-subject"
                   value={formSubject}
                   onChange={(e) => setFormSubject(e.target.value)}
                   placeholder="z.B. Probefahrt-Termin bestätigt - {{fahrzeug}}"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
               <div>
-                <div className="flex justify-between items-center mb-1">
-                  <Label htmlFor="template-body">Nachricht *</Label>
-                </div>
-                <Textarea
+                <label htmlFor="template-body" className="block text-sm font-medium text-gray-700 mb-1">Nachricht *</label>
+                <textarea
                   id="template-body"
                   value={formBody}
                   onChange={(e) => setFormBody(e.target.value)}
                   placeholder="Guten Tag {{kunde_vorname}} {{kunde_nachname}}..."
                   rows={12}
-                  className="font-mono text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm"
                 />
               </div>
 
               {/* Platzhalter-Übersicht */}
-              <div className="bg-slate-50 rounded-lg p-4">
-                <h4 className="font-medium mb-2 text-sm">Verfügbare Platzhalter</h4>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="font-medium mb-2 text-sm text-gray-900">Verfügbare Platzhalter</h4>
                 <div className="flex flex-wrap gap-2">
                   {availablePlaceholders.map(p => (
                     <button
                       key={p.key}
                       type="button"
                       onClick={() => insertPlaceholder(p.key)}
-                      className="px-2 py-1 bg-white border rounded text-xs font-mono hover:bg-blue-50 hover:border-blue-300"
+                      className="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono hover:bg-blue-50 hover:border-blue-300"
                       title={`${p.label} (z.B. ${p.example})`}
                     >
                       {p.key}
@@ -350,16 +347,16 @@ export function EmailTemplateManager({ dealerId }: EmailTemplateManagerProps) {
             </div>
 
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowEditor(false)}>
+              <button onClick={() => setShowEditor(false)} className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">
                 Abbrechen
-              </Button>
-              <Button onClick={handleSave} disabled={saving}>
+              </button>
+              <button onClick={handleSave} disabled={saving} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium">
                 {saving ? "Wird gespeichert..." : "Speichern"}
-              </Button>
+              </button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
