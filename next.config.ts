@@ -71,15 +71,17 @@ export default withSentryConfig(withNextIntl(nextConfig), {
   org: "get-rich-portfolio-ag",
   project: "dealer-os",
   
-  // Suppress source map warnings
+  // Suppress source map upload logs
   silent: true,
   
   // Upload source maps for better stack traces
   widenClientFileUpload: true,
   
-  // Hide source maps from client bundles
-  hideSourceMaps: true,
-  
-  // Disable logger to reduce bundle size
+  // Automatically tree-shake Sentry logger statements
   disableLogger: true,
+  
+  // Hide source maps in production
+  sourcemaps: {
+    deleteSourcemapsAfterUpload: true,
+  },
 });
