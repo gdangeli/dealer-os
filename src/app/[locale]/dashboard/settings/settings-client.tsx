@@ -40,6 +40,14 @@ import { EmailTemplateManager } from "@/components/email/email-template-manager"
 import { TeamManagement } from "@/components/settings/team-management";
 import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
 import { WidgetSettings } from "@/components/settings/widget-settings";
+import {
+  WhatsAppIcon,
+  FacebookIcon,
+  BexioIcon,
+  AutoScout24Icon,
+  MobileDeIcon,
+  TuttiIcon,
+} from "@/components/icons/brands";
 
 // Types
 interface Dealer {
@@ -769,35 +777,9 @@ function NotificationsForm({
 function ChannelsPlaceholder() {
   const t = useTranslations();
   
-  const channels = [
-    { name: t("settings.channels.autoscout.name"), icon: "🚗", description: t("settings.channels.autoscout.description"), status: "coming_soon" },
-    { name: t("settings.channels.mobile.name"), icon: "🇩🇪", description: t("settings.channels.mobile.description"), status: "coming_soon" },
-    { name: t("settings.channels.tutti.name"), icon: "🏷️", description: t("settings.channels.tutti.description"), status: "coming_soon" },
-    { name: t("settings.channels.facebook.name"), icon: "📘", description: t("settings.channels.facebook.description"), status: "coming_soon" },
-  ];
-
-  const communicationChannels = [
-    { 
-      name: t("settings.channels.whatsapp.name"), 
-      icon: "💬", 
-      description: t("settings.channels.whatsapp.description"),
-      status: "active",
-      href: "/dashboard/settings/whatsapp"
-    },
-  ];
-
-  const integrationChannels = [
-    { 
-      name: t("settings.channels.bexio.name"), 
-      icon: "📊", 
-      description: t("settings.channels.bexio.description"),
-      status: "active",
-      href: "/dashboard/settings/bexio"
-    },
-  ];
-
   return (
     <div className="space-y-6">
+      {/* Communication Channels */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <div className="flex items-center gap-2 mb-4">
           <Radio className="w-5 h-5 text-gray-600" />
@@ -806,75 +788,111 @@ function ChannelsPlaceholder() {
         <p className="text-sm text-gray-500 mb-6">{t("settings.channels.communicationDescription")}</p>
         
         <div className="space-y-4">
-          {communicationChannels.map((channel) => (
-            <div 
-              key={channel.name}
-              className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{channel.icon}</span>
-                  <div>
-                    <div className="font-medium text-gray-900">{channel.name}</div>
-                    <div className="text-sm text-gray-500">{channel.description}</div>
-                  </div>
-                </div>
-                <a href={channel.href} className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 font-medium">
-                  {t("settings.channels.setup")}
-                </a>
+          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#25D366] flex items-center justify-center">
+                <WhatsAppIcon className="w-6 h-6 text-white" />
               </div>
-            ))}
+              <div>
+                <div className="font-medium text-gray-900">{t("settings.channels.whatsapp.name")}</div>
+                <div className="text-sm text-gray-500">{t("settings.channels.whatsapp.description")}</div>
+              </div>
+            </div>
+            <a href="/dashboard/settings/whatsapp" className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 font-medium">
+              {t("settings.channels.setup")}
+            </a>
           </div>
         </div>
+      </div>
 
+      {/* Integrations */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-2">{t("settings.channels.integrationsTitle")}</h2>
         <p className="text-sm text-gray-500 mb-6">{t("settings.channels.integrationsDescription")}</p>
         
         <div className="space-y-4">
-          {integrationChannels.map((channel) => (
-            <div 
-              key={channel.name}
-              className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{channel.icon}</span>
-                <div>
-                  <div className="font-medium text-gray-900">{channel.name}</div>
-                  <div className="text-sm text-gray-500">{channel.description}</div>
-                </div>
+          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#0d6efd] flex items-center justify-center">
+                <BexioIcon className="w-6 h-6 text-white" />
               </div>
-              <a href={channel.href} className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 font-medium">
-                {t("settings.channels.setup")}
-              </a>
+              <div>
+                <div className="font-medium text-gray-900">{t("settings.channels.bexio.name")}</div>
+                <div className="text-sm text-gray-500">{t("settings.channels.bexio.description")}</div>
+              </div>
             </div>
-          ))}
+            <a href="/dashboard/settings/bexio" className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 font-medium">
+              {t("settings.channels.setup")}
+            </a>
+          </div>
         </div>
       </div>
 
+      {/* Listing Channels */}
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-2">{t("settings.channels.listingTitle")}</h2>
         <p className="text-sm text-gray-500 mb-6">{t("settings.channels.listingDescription")}</p>
         
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <p className="text-blue-800">{t("settings.channels.comingSoonNote")}</p>
+          <p className="text-blue-800">🚀 {t("settings.channels.comingSoonNote")}</p>
         </div>
 
         <div className="space-y-4">
-          {channels.map((channel) => (
-            <div 
-              key={channel.name}
-              className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-gray-50"
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{channel.icon}</span>
-                <div>
-                  <div className="font-medium text-gray-900">{channel.name}</div>
-                  <div className="text-sm text-gray-500">{channel.description}</div>
-                </div>
+          {/* AutoScout24 */}
+          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-gray-50">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#ff7500] flex items-center justify-center">
+                <AutoScout24Icon className="w-6 h-6 text-white" />
               </div>
-              <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
+              <div>
+                <div className="font-medium text-gray-900">{t("settings.channels.autoscout.name")}</div>
+                <div className="text-sm text-gray-500">{t("settings.channels.autoscout.description")}</div>
+              </div>
             </div>
-          ))}
+            <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
+          </div>
+
+          {/* mobile.de */}
+          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-gray-50">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#c41838] flex items-center justify-center">
+                <MobileDeIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-900">{t("settings.channels.mobile.name")}</div>
+                <div className="text-sm text-gray-500">{t("settings.channels.mobile.description")}</div>
+              </div>
+            </div>
+            <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
+          </div>
+
+          {/* tutti.ch */}
+          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-gray-50">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#ff6600] flex items-center justify-center">
+                <TuttiIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-900">{t("settings.channels.tutti.name")}</div>
+                <div className="text-sm text-gray-500">{t("settings.channels.tutti.description")}</div>
+              </div>
+            </div>
+            <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
+          </div>
+
+          {/* Facebook Marketplace */}
+          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-gray-50">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#1877f2] flex items-center justify-center">
+                <FacebookIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-900">{t("settings.channels.facebook.name")}</div>
+                <div className="text-sm text-gray-500">{t("settings.channels.facebook.description")}</div>
+              </div>
+            </div>
+            <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
+          </div>
         </div>
       </div>
     </div>
