@@ -8,6 +8,7 @@ import { BottomNav } from "@/components/mobile/bottom-nav";
 import { LocationFilterWrapper } from "@/components/locations/location-filter-wrapper";
 import { getImpersonationInfo } from "@/lib/auth/get-current-dealer";
 import { ImpersonationBanner } from "@/components/admin/impersonation-banner";
+import { getTranslations } from "next-intl/server";
 import { 
   LayoutDashboard, 
   Car, 
@@ -27,6 +28,7 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const t = await getTranslations("sidebar");
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   
@@ -156,28 +158,28 @@ export default async function DashboardLayout({
         {/* Navigation */}
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           <NavLink href="/dashboard" icon={<LayoutDashboard className="w-5 h-5" />}>
-            Dashboard
+            {t("dashboard")}
           </NavLink>
           <NavLink href="/dashboard/vehicles" icon={<Car className="w-5 h-5" />}>
-            Fahrzeuge
+            {t("vehicles")}
           </NavLink>
           <NavLink href="/dashboard/leads" icon={<MessageSquare className="w-5 h-5" />}>
-            Anfragen
+            {t("leads")}
           </NavLink>
           <NavLink href="/dashboard/customers" icon={<Users className="w-5 h-5" />}>
-            Kunden
+            {t("customers")}
           </NavLink>
           <NavLink href="/dashboard/quotes" icon={<FileText className="w-5 h-5" />}>
-            Offerten
+            {t("quotes")}
           </NavLink>
           <NavLink href="/dashboard/invoices" icon={<Receipt className="w-5 h-5" />}>
-            Rechnungen
+            {t("invoices")}
           </NavLink>
           <NavLink href="/dashboard/email-templates" icon={<Mail className="w-5 h-5" />}>
-            E-Mail-Vorlagen
+            {t("emailTemplates")}
           </NavLink>
           <NavLink href="/dashboard/analytics" icon={<BarChart3 className="w-5 h-5" />}>
-            Analytics
+            {t("analytics")}
           </NavLink>
         </nav>
 
@@ -185,14 +187,14 @@ export default async function DashboardLayout({
         <div className="p-4 border-t border-gray-200 space-y-1">
           {isPlatformAdmin && !isImpersonating && (
             <NavLink href="/admin" icon={<Crown className="w-5 h-5" />}>
-              Admin Dashboard
+              {t("adminDashboard")}
             </NavLink>
           )}
           <NavLink href="/dashboard/settings" icon={<Settings className="w-5 h-5" />}>
-            Einstellungen
+            {t("settings")}
           </NavLink>
           <NavLink href="/dashboard/help" icon={<HelpCircle className="w-5 h-5" />}>
-            Hilfe
+            {t("help")}
           </NavLink>
           <LogoutButton />
         </div>

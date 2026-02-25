@@ -1263,5 +1263,19 @@
       "saveSuccess": "🎉 WhatsApp erfolgreich konfiguriert!",
       "saveError": "Fehler beim Speichern der Konfiguration"
     }
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "vehicles": "Fahrzeuge",
+    "leads": "Anfragen",
+    "customers": "Kunden",
+    "quotes": "Offerten",
+    "invoices": "Rechnungen",
+    "emailTemplates": "E-Mail-Vorlagen",
+    "analytics": "Analytics",
+    "adminDashboard": "Admin Dashboard",
+    "settings": "Einstellungen",
+    "help": "Hilfe",
+    "logout": "Abmelden"
   }
 }
