@@ -1034,17 +1034,9 @@
         "name": "AutoScout24",
         "description": "Schweizer Automarktplatz Nr. 1"
       },
-      "mobile": {
-        "name": "mobile.de",
-        "description": "Deutscher Automarktplatz"
-      },
-      "tutti": {
-        "name": "tutti.ch",
-        "description": "Schweizer Kleinanzeigen"
-      },
-      "facebook": {
-        "name": "Facebook Marketplace",
-        "description": "Soziales Netzwerk"
+      "autolina": {
+        "name": "Autolina",
+        "description": "Schweizer Fahrzeugplattform"
       }
     },
     "billing": {

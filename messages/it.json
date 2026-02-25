@@ -1034,17 +1034,9 @@
         "name": "AutoScout24",
         "description": "Il marketplace auto n°1 in Svizzera"
       },
-      "mobile": {
-        "name": "mobile.de",
-        "description": "Marketplace auto tedesco"
-      },
-      "tutti": {
-        "name": "tutti.ch",
-        "description": "Annunci svizzeri"
-      },
-      "facebook": {
-        "name": "Facebook Marketplace",
-        "description": "Social network"
+      "autolina": {
+        "name": "Autolina",
+        "description": "Piattaforma veicoli svizzera"
       }
     },
     "billing": {

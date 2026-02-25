@@ -42,11 +42,9 @@ import { LanguageSwitcher } from "@/components/dashboard/language-switcher";
 import { WidgetSettings } from "@/components/settings/widget-settings";
 import {
   WhatsAppIcon,
-  FacebookIcon,
   BexioIcon,
   AutoScout24Icon,
-  MobileDeIcon,
-  TuttiIcon,
+  AutolinaIcon,
 } from "@/components/icons/brands";
 
 // Types
@@ -852,43 +850,15 @@ function ChannelsPlaceholder() {
             <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
           </div>
 
-          {/* mobile.de */}
+          {/* Autolina */}
           <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-gray-50">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#c41838] flex items-center justify-center">
-                <MobileDeIcon className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 rounded-lg bg-[#00a651] flex items-center justify-center">
+                <AutolinaIcon className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="font-medium text-gray-900">{t("settings.channels.mobile.name")}</div>
-                <div className="text-sm text-gray-500">{t("settings.channels.mobile.description")}</div>
-              </div>
-            </div>
-            <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
-          </div>
-
-          {/* tutti.ch */}
-          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-gray-50">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#ff6600] flex items-center justify-center">
-                <TuttiIcon className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="font-medium text-gray-900">{t("settings.channels.tutti.name")}</div>
-                <div className="text-sm text-gray-500">{t("settings.channels.tutti.description")}</div>
-              </div>
-            </div>
-            <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
-          </div>
-
-          {/* Facebook Marketplace */}
-          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-gray-50">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#1877f2] flex items-center justify-center">
-                <FacebookIcon className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="font-medium text-gray-900">{t("settings.channels.facebook.name")}</div>
-                <div className="text-sm text-gray-500">{t("settings.channels.facebook.description")}</div>
+                <div className="font-medium text-gray-900">{t("settings.channels.autolina.name")}</div>
+                <div className="text-sm text-gray-500">{t("settings.channels.autolina.description")}</div>
               </div>
             </div>
             <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
