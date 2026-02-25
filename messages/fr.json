@@ -1037,6 +1037,10 @@
       "autolina": {
         "name": "Autolina",
         "description": "Plateforme de véhicules suisse"
+      },
+      "carauktion": {
+        "name": "CARAUKTION",
+        "description": "Enchères de véhicules B2B Suisse"
       }
     },
     "billing": {
