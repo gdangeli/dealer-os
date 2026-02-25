@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
+import { useTranslations } from 'next-intl';
 import { Location, LocationFormData, emptyLocationFormData } from '@/types/locations';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -51,6 +52,7 @@ export function LocationsSettingsClient({
   initialLocations,
 }: LocationsSettingsClientProps) {
   const supabase = createClient();
+  const t = useTranslations();
   const [locations, setLocations] = useState<Location[]>(initialLocations);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -109,10 +111,10 @@ export function LocationsSettingsClient({
       if (error) throw error;
 
       setLocations([data, ...locations]);
-      toast.success('Hauptstandort erstellt');
+      toast.success(t('settings.locations.mainCreated'));
     } catch (error) {
       console.error('Error creating location:', error);
-      toast.error('Fehler beim Erstellen des Standorts');
+      toast.error(t('settings.locations.createError'));
     } finally {
       setIsLoading(false);
     }
@@ -121,7 +123,7 @@ export function LocationsSettingsClient({
   // Save (create or update)
   const handleSave = async () => {
     if (!formData.name.trim()) {
-      toast.error('Bitte geben Sie einen Namen ein');
+      toast.error(t('settings.locations.nameError'));
       return;
     }
 
@@ -157,7 +159,7 @@ export function LocationsSettingsClient({
           setLocations(locations.map((loc) => (loc.id === data.id ? data : loc)));
         }
 
-        toast.success('Standort gespeichert');
+        toast.success(t('settings.locations.saved'));
       } else {
         // Create
         const { data, error } = await supabase
@@ -184,13 +186,13 @@ export function LocationsSettingsClient({
           setLocations([data, ...locations]);
         }
 
-        toast.success('Standort erstellt');
+        toast.success(t('settings.locations.created'));
       }
 
       setIsDialogOpen(false);
     } catch (error) {
       console.error('Error saving location:', error);
-      toast.error('Fehler beim Speichern');
+      toast.error(t('settings.locations.saveError'));
     } finally {
       setIsLoading(false);
     }
@@ -210,12 +212,12 @@ export function LocationsSettingsClient({
       if (error) throw error;
 
       setLocations(locations.filter((loc) => loc.id !== deletingLocation.id));
-      toast.success('Standort gelöscht');
+      toast.success(t('settings.locations.deleted'));
       setIsDeleteDialogOpen(false);
       setDeletingLocation(null);
     } catch (error) {
       console.error('Error deleting location:', error);
-      toast.error('Fehler beim Löschen');
+      toast.error(t('settings.locations.deleteError'));
     } finally {
       setIsLoading(false);
     }
@@ -243,10 +245,10 @@ export function LocationsSettingsClient({
         )
       );
 
-      toast.success(`"${location.name}" ist jetzt der Hauptstandort`);
+      toast.success(t('settings.locations.nowMain', { name: location.name }));
     } catch (error) {
       console.error('Error setting main location:', error);
-      toast.error('Fehler beim Setzen des Hauptstandorts');
+      toast.error(t('settings.locations.mainError'));
     } finally {
       setIsLoading(false);
     }
@@ -260,24 +262,23 @@ export function LocationsSettingsClient({
       {!hasLocations && (
         <Card className="border-blue-200 bg-blue-50">
           <CardHeader>
-            <CardTitle className="text-blue-900">🏢 Noch keine Standorte</CardTitle>
+            <CardTitle className="text-blue-900">{t('settings.locations.noLocations')}</CardTitle>
             <CardDescription className="text-blue-700">
-              Erstellen Sie Standorte, um Fahrzeuge, Leads und Kunden verschiedenen Filialen
-              zuzuordnen.
+              {t('settings.locations.noLocationsDescription')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-wrap gap-3">
               <Button onClick={handleCreateFromDealer} disabled={isLoading}>
-                🏠 Hauptstandort aus Firmendaten erstellen
+                {t('settings.locations.createFromDealer')}
               </Button>
               <Button variant="outline" onClick={handleAddLocation}>
-                ➕ Neuen Standort hinzufügen
+                {t('settings.locations.addNew')}
               </Button>
             </div>
             {dealer.street && (
               <p className="text-sm text-blue-600">
-                Aus Firmenprofil: {dealer.street}, {dealer.zip} {dealer.city}
+                {t('settings.locations.fromProfile')} {dealer.street}, {dealer.zip} {dealer.city}
               </p>
             )}
           </CardContent>
@@ -289,13 +290,13 @@ export function LocationsSettingsClient({
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
-              <CardTitle>Ihre Standorte</CardTitle>
+              <CardTitle>{t('settings.locations.yourLocations')}</CardTitle>
               <CardDescription>
-                {locations.length} Standort{locations.length !== 1 ? 'e' : ''} konfiguriert
+                {t('settings.locations.locationsCount', { count: locations.length })}
               </CardDescription>
             </div>
             <Button onClick={handleAddLocation}>
-              ➕ Neuer Standort
+              {t('settings.locations.newLocation')}
             </Button>
           </CardHeader>
           <CardContent>
@@ -311,7 +312,7 @@ export function LocationsSettingsClient({
                     <div className="flex items-center gap-2 mb-1">
                       <span className="font-medium text-lg">{location.name}</span>
                       {location.is_main && (
-                        <Badge className="bg-blue-600">Hauptstandort</Badge>
+                        <Badge className="bg-blue-600">{t('settings.locations.mainLocation')}</Badge>
                       )}
                     </div>
                     <div className="text-sm text-slate-600 space-y-1">
@@ -331,7 +332,7 @@ export function LocationsSettingsClient({
                         size="sm"
                         onClick={() => handleSetMain(location)}
                         disabled={isLoading}
-                        title="Als Hauptstandort setzen"
+                        title={t('settings.locations.setAsMain')}
                       >
                         ⭐
                       </Button>
@@ -362,12 +363,12 @@ export function LocationsSettingsClient({
       {/* Info Box */}
       <Card className="bg-slate-50">
         <CardContent className="pt-6">
-          <h3 className="font-medium mb-2">💡 So funktioniert Multi-Standort</h3>
+          <h3 className="font-medium mb-2">{t('settings.locations.howItWorks')}</h3>
           <ul className="text-sm text-slate-600 space-y-1">
-            <li>• Ordnen Sie Fahrzeuge, Leads und Kunden Standorten zu</li>
-            <li>• Filtern Sie im Dashboard nach Standort</li>
-            <li>• Der Hauptstandort wird bei neuen Einträgen vorgeschlagen</li>
-            <li>• Standorte ohne Zuordnungen können jederzeit gelöscht werden</li>
+            <li>• {t('settings.locations.howItWorksList.assign')}</li>
+            <li>• {t('settings.locations.howItWorksList.filter')}</li>
+            <li>• {t('settings.locations.howItWorksList.default')}</li>
+            <li>• {t('settings.locations.howItWorksList.delete')}</li>
           </ul>
         </CardContent>
       </Card>
@@ -377,84 +378,84 @@ export function LocationsSettingsClient({
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>
-              {editingLocation ? 'Standort bearbeiten' : 'Neuer Standort'}
+              {editingLocation ? t('settings.locations.edit') : t('settings.locations.new')}
             </DialogTitle>
             <DialogDescription>
               {editingLocation
-                ? 'Ändern Sie die Daten dieses Standorts.'
-                : 'Erstellen Sie einen neuen Standort für Ihre Garage.'}
+                ? t('settings.locations.editDescription')
+                : t('settings.locations.newDescription')}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Name *</Label>
+              <Label htmlFor="name">{t('settings.locations.name')}</Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="z.B. Filiale Zürich Nord"
+                placeholder={t('settings.locations.namePlaceholder')}
               />
             </div>
 
             <div className="grid grid-cols-3 gap-3">
               <div className="col-span-3 space-y-2">
-                <Label htmlFor="address">Strasse</Label>
+                <Label htmlFor="address">{t('settings.locations.street')}</Label>
                 <Input
                   id="address"
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  placeholder="Hauptstrasse 1"
+                  placeholder={t('settings.locations.streetPlaceholder')}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="postal_code">PLZ</Label>
+                <Label htmlFor="postal_code">{t('settings.locations.postalCode')}</Label>
                 <Input
                   id="postal_code"
                   value={formData.postal_code}
                   onChange={(e) => setFormData({ ...formData, postal_code: e.target.value })}
-                  placeholder="8000"
+                  placeholder={t('settings.locations.postalCodePlaceholder')}
                 />
               </div>
               <div className="col-span-2 space-y-2">
-                <Label htmlFor="city">Ort</Label>
+                <Label htmlFor="city">{t('settings.locations.city')}</Label>
                 <Input
                   id="city"
                   value={formData.city}
                   onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                  placeholder="Zürich"
+                  placeholder={t('settings.locations.cityPlaceholder')}
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <Label htmlFor="phone">Telefon</Label>
+                <Label htmlFor="phone">{t('settings.locations.phone')}</Label>
                 <Input
                   id="phone"
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+41 44 123 45 67"
+                  placeholder={t('settings.locations.phonePlaceholder')}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">E-Mail</Label>
+                <Label htmlFor="email">{t('settings.locations.email')}</Label>
                 <Input
                   id="email"
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="filiale@garage.ch"
+                  placeholder={t('settings.locations.emailPlaceholder')}
                 />
               </div>
             </div>
 
             <div className="flex items-center justify-between pt-2 border-t">
               <div className="space-y-0.5">
-                <Label htmlFor="is_main">Hauptstandort</Label>
+                <Label htmlFor="is_main">{t('settings.locations.isMain')}</Label>
                 <p className="text-sm text-slate-500">
-                  Der Hauptstandort wird bei neuen Einträgen vorgeschlagen.
+                  {t('settings.locations.isMainDescription')}
                 </p>
               </div>
               <Switch
@@ -467,10 +468,10 @@ export function LocationsSettingsClient({
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-              Abbrechen
+              {t('settings.locations.cancel')}
             </Button>
             <Button onClick={handleSave} disabled={isLoading}>
-              {isLoading ? 'Speichern...' : 'Speichern'}
+              {isLoading ? t('settings.locations.saving') : t('settings.locations.save')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -480,23 +481,19 @@ export function LocationsSettingsClient({
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Standort löschen?</AlertDialogTitle>
+            <AlertDialogTitle>{t('settings.locations.delete')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Möchten Sie &quot;{deletingLocation?.name}&quot; wirklich löschen?
-              <br />
-              <br />
-              Fahrzeuge, Leads und Kunden, die diesem Standort zugeordnet sind, werden nicht
-              gelöscht – ihre Standort-Zuordnung wird entfernt.
+              {t('settings.locations.deleteDescription', { name: deletingLocation?.name || '' })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Abbrechen</AlertDialogCancel>
+            <AlertDialogCancel>{t('settings.locations.cancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
               disabled={isLoading}
               className="bg-red-600 hover:bg-red-700"
             >
-              {isLoading ? 'Löschen...' : 'Löschen'}
+              {isLoading ? t('settings.locations.deleting') : t('common.delete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

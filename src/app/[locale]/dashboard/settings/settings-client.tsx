@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
+import { useTranslations } from "next-intl";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -47,7 +48,7 @@ interface Dealer {
   notification_quote_expiry_days?: number;
   notification_invoice_overdue?: boolean;
   widget_enabled?: boolean;
-  widget_config?: Record<string, any>;
+  widget_config?: Record<string, unknown>;
 }
 
 interface SettingsClientProps {
@@ -55,40 +56,33 @@ interface SettingsClientProps {
   userEmail: string;
 }
 
-// Validation Schemas
-const companyProfileSchema = z.object({
-  company_name: z.string().min(2, "Firmenname muss mindestens 2 Zeichen haben"),
+// Validation Schemas with i18n
+const createCompanyProfileSchema = (t: (key: string) => string) => z.object({
+  company_name: z.string().min(2, t("settings.companyProfile.companyNameError")),
   contact_name: z.string().optional(),
-  email: z.string().email("Ungültige E-Mail-Adresse"),
+  email: z.string().email(t("settings.companyProfile.emailError")),
   phone: z.string().optional(),
   address: z.string().optional(),
   city: z.string().optional(),
   postal_code: z.string().optional(),
 });
 
-const userSettingsSchema = z.object({
-  contact_name: z.string().min(2, "Name muss mindestens 2 Zeichen haben"),
+const createUserSettingsSchema = (t: (key: string) => string) => z.object({
+  contact_name: z.string().min(2, t("settings.user.nameError")),
 });
 
-const passwordSchema = z.object({
-  currentPassword: z.string().min(6, "Mindestens 6 Zeichen"),
-  newPassword: z.string().min(6, "Mindestens 6 Zeichen"),
-  confirmPassword: z.string().min(6, "Mindestens 6 Zeichen"),
+const createPasswordSchema = (t: (key: string) => string) => z.object({
+  currentPassword: z.string().min(6, t("settings.password.minChars")),
+  newPassword: z.string().min(6, t("settings.password.minChars")),
+  confirmPassword: z.string().min(6, t("settings.password.minChars")),
 }).refine((data) => data.newPassword === data.confirmPassword, {
-  message: "Passwörter stimmen nicht überein",
+  message: t("settings.password.noMatch"),
   path: ["confirmPassword"],
 });
 
-const notificationSchema = z.object({
-  notification_new_lead: z.boolean(),
-  notification_daily_summary: z.boolean(),
-  notification_longstanding_days: z.number().min(1).max(365),
-});
-
-type CompanyProfileFormData = z.infer<typeof companyProfileSchema>;
-type UserSettingsFormData = z.infer<typeof userSettingsSchema>;
-type PasswordFormData = z.infer<typeof passwordSchema>;
-type NotificationFormData = z.infer<typeof notificationSchema>;
+type CompanyProfileFormData = z.infer<ReturnType<typeof createCompanyProfileSchema>>;
+type UserSettingsFormData = z.infer<ReturnType<typeof createUserSettingsSchema>>;
+type PasswordFormData = z.infer<ReturnType<typeof createPasswordSchema>>;
 
 export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps) {
   const [dealer, setDealer] = useState(initialDealer);
@@ -96,27 +90,28 @@ export function SettingsClient({ initialDealer, userEmail }: SettingsClientProps
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
   const supabase = createClient();
+  const t = useTranslations();
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">Einstellungen</h1>
-        <p className="text-slate-600">Verwalten Sie Ihr Konto und Ihre Präferenzen.</p>
+        <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">{t("settings.title")}</h1>
+        <p className="text-slate-600">{t("settings.subtitle")}</p>
       </div>
 
       <Tabs defaultValue="company" className="space-y-6">
         <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
           <TabsList className="bg-white border inline-flex w-max sm:w-auto sm:flex-wrap h-auto gap-1 p-1">
-            <TabsTrigger value="company" className="whitespace-nowrap text-xs sm:text-sm">🏢 Firma</TabsTrigger>
-            <TabsTrigger value="locations" className="whitespace-nowrap text-xs sm:text-sm">📍 Standorte</TabsTrigger>
-            <TabsTrigger value="user" className="whitespace-nowrap text-xs sm:text-sm">👤 Benutzer</TabsTrigger>
-            <TabsTrigger value="team" className="whitespace-nowrap text-xs sm:text-sm">👥 Team</TabsTrigger>
-            <TabsTrigger value="notifications" className="whitespace-nowrap text-xs sm:text-sm">🔔 Alerts</TabsTrigger>
-            <TabsTrigger value="email-templates" className="whitespace-nowrap text-xs sm:text-sm">✉️ E-Mails</TabsTrigger>
-            <TabsTrigger value="channels" className="whitespace-nowrap text-xs sm:text-sm">📡 Kanäle</TabsTrigger>
-            <TabsTrigger value="widget" className="whitespace-nowrap text-xs sm:text-sm">🌐 Widget</TabsTrigger>
-            <TabsTrigger value="billing" className="whitespace-nowrap text-xs sm:text-sm">💳 Abo</TabsTrigger>
-            <TabsTrigger value="danger" className="whitespace-nowrap text-xs sm:text-sm">⚠️ Gefahr</TabsTrigger>
+            <TabsTrigger value="company" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.company")}</TabsTrigger>
+            <TabsTrigger value="locations" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.locations")}</TabsTrigger>
+            <TabsTrigger value="user" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.user")}</TabsTrigger>
+            <TabsTrigger value="team" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.team")}</TabsTrigger>
+            <TabsTrigger value="notifications" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.notifications")}</TabsTrigger>
+            <TabsTrigger value="email-templates" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.emailTemplates")}</TabsTrigger>
+            <TabsTrigger value="channels" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.channels")}</TabsTrigger>
+            <TabsTrigger value="widget" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.widget")}</TabsTrigger>
+            <TabsTrigger value="billing" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.billing")}</TabsTrigger>
+            <TabsTrigger value="danger" className="whitespace-nowrap text-xs sm:text-sm">{t("settings.tabs.danger")}</TabsTrigger>
           </TabsList>
         </div>
 
@@ -216,6 +211,9 @@ function CompanyProfileForm({
   supabase: ReturnType<typeof createClient>;
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations();
+  
+  const companyProfileSchema = createCompanyProfileSchema(t);
   
   const { register, handleSubmit, formState: { errors } } = useForm<CompanyProfileFormData>({
     resolver: zodResolver(companyProfileSchema),
@@ -243,10 +241,10 @@ function CompanyProfileForm({
       if (error) throw error;
       
       onUpdate(updated);
-      toast.success("Firmenprofil gespeichert");
+      toast.success(t("settings.companyProfile.saved"));
     } catch (error) {
       console.error(error);
-      toast.error("Fehler beim Speichern");
+      toast.error(t("settings.companyProfile.error"));
     } finally {
       setIsLoading(false);
     }
@@ -255,20 +253,20 @@ function CompanyProfileForm({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Firmenprofil</CardTitle>
+        <CardTitle>{t("settings.companyProfile.title")}</CardTitle>
         <CardDescription>
-          Ihre Firmendaten werden auf Anfrage-E-Mails und in Inseraten angezeigt.
+          {t("settings.companyProfile.description")}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="company_name">Firmenname *</Label>
+              <Label htmlFor="company_name">{t("settings.companyProfile.companyNameRequired")}</Label>
               <Input 
                 id="company_name" 
                 {...register("company_name")} 
-                placeholder="Muster Garage AG"
+                placeholder={t("settings.companyProfile.companyNamePlaceholder")}
               />
               {errors.company_name && (
                 <p className="text-sm text-red-500">{errors.company_name.message}</p>
@@ -276,21 +274,21 @@ function CompanyProfileForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="contact_name">Kontaktperson</Label>
+              <Label htmlFor="contact_name">{t("settings.companyProfile.contactPerson")}</Label>
               <Input 
                 id="contact_name" 
                 {...register("contact_name")} 
-                placeholder="Hans Muster"
+                placeholder={t("settings.companyProfile.contactPersonPlaceholder")}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">E-Mail *</Label>
+              <Label htmlFor="email">{t("settings.companyProfile.emailRequired")}</Label>
               <Input 
                 id="email" 
                 type="email"
                 {...register("email")} 
-                placeholder="info@garage.ch"
+                placeholder={t("settings.companyProfile.emailPlaceholder")}
               />
               {errors.email && (
                 <p className="text-sm text-red-500">{errors.email.message}</p>
@@ -298,43 +296,43 @@ function CompanyProfileForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone">Telefon</Label>
+              <Label htmlFor="phone">{t("settings.companyProfile.phone")}</Label>
               <Input 
                 id="phone" 
                 type="tel"
                 {...register("phone")} 
-                placeholder="+41 44 123 45 67"
+                placeholder={t("settings.companyProfile.phonePlaceholder")}
               />
             </div>
           </div>
 
           <div className="border-t pt-4">
-            <h3 className="font-medium mb-4">Adresse</h3>
+            <h3 className="font-medium mb-4">{t("settings.companyProfile.address")}</h3>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="address">Strasse & Nr.</Label>
+                <Label htmlFor="address">{t("settings.companyProfile.street")}</Label>
                 <Input 
                   id="address" 
                   {...register("address")} 
-                  placeholder="Hauptstrasse 1"
+                  placeholder={t("settings.companyProfile.streetPlaceholder")}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="postal_code">PLZ</Label>
+                <Label htmlFor="postal_code">{t("settings.companyProfile.postalCode")}</Label>
                 <Input 
                   id="postal_code" 
                   {...register("postal_code")} 
-                  placeholder="8000"
+                  placeholder={t("settings.companyProfile.postalCodePlaceholder")}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="city">Ort</Label>
+                <Label htmlFor="city">{t("settings.companyProfile.city")}</Label>
                 <Input 
                   id="city" 
                   {...register("city")} 
-                  placeholder="Zürich"
+                  placeholder={t("settings.companyProfile.cityPlaceholder")}
                 />
               </div>
             </div>
@@ -342,7 +340,7 @@ function CompanyProfileForm({
 
           <div className="flex justify-end">
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Speichern..." : "Änderungen speichern"}
+              {isLoading ? t("settings.companyProfile.saving") : t("settings.companyProfile.saveChanges")}
             </Button>
           </div>
         </form>
@@ -367,6 +365,10 @@ function UserSettingsForm({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const t = useTranslations();
+
+  const userSettingsSchema = createUserSettingsSchema(t);
+  const passwordSchema = createPasswordSchema(t);
 
   const { register: registerUser, handleSubmit: handleSubmitUser, formState: { errors: userErrors } } = useForm<UserSettingsFormData>({
     resolver: zodResolver(userSettingsSchema),
@@ -392,10 +394,10 @@ function UserSettingsForm({
       if (error) throw error;
       
       onUpdate(updated);
-      toast.success("Benutzerdaten gespeichert");
+      toast.success(t("settings.user.saved"));
     } catch (error) {
       console.error(error);
-      toast.error("Fehler beim Speichern");
+      toast.error(t("settings.companyProfile.error"));
     } finally {
       setIsLoading(false);
     }
@@ -410,11 +412,11 @@ function UserSettingsForm({
 
       if (error) throw error;
       
-      toast.success("Passwort wurde geändert");
+      toast.success(t("settings.password.changed"));
       resetPassword();
     } catch (error: unknown) {
       console.error(error);
-      const errorMessage = error instanceof Error ? error.message : "Fehler beim Ändern des Passworts";
+      const errorMessage = error instanceof Error ? error.message : t("settings.password.error");
       toast.error(errorMessage);
     } finally {
       setIsChangingPassword(false);
@@ -426,9 +428,9 @@ function UserSettingsForm({
       {/* Sprache */}
       <Card>
         <CardHeader>
-          <CardTitle>🌐 Sprache</CardTitle>
+          <CardTitle>{t("settings.language.title")}</CardTitle>
           <CardDescription>
-            Wählen Sie Ihre bevorzugte Sprache für die Benutzeroberfläche.
+            {t("settings.language.description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -438,19 +440,19 @@ function UserSettingsForm({
 
       <Card>
         <CardHeader>
-          <CardTitle>Benutzerdaten</CardTitle>
+          <CardTitle>{t("settings.user.title")}</CardTitle>
           <CardDescription>
-            Ihre persönlichen Angaben für Ihr Dealer OS Konto.
+            {t("settings.user.description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmitUser(onSubmitUser)} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="user_contact_name">Name</Label>
+              <Label htmlFor="user_contact_name">{t("settings.user.name")}</Label>
               <Input 
                 id="user_contact_name" 
                 {...registerUser("contact_name")} 
-                placeholder="Ihr Name"
+                placeholder={t("settings.user.namePlaceholder")}
               />
               {userErrors.contact_name && (
                 <p className="text-sm text-red-500">{userErrors.contact_name.message}</p>
@@ -458,20 +460,20 @@ function UserSettingsForm({
             </div>
 
             <div className="space-y-2">
-              <Label>E-Mail-Adresse</Label>
+              <Label>{t("settings.user.emailLabel")}</Label>
               <Input 
                 value={userEmail}
                 disabled
                 className="bg-slate-50"
               />
               <p className="text-sm text-slate-500">
-                E-Mail-Änderung ist momentan nicht verfügbar.
+                {t("settings.user.emailNote")}
               </p>
             </div>
 
             <div className="flex justify-end">
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Speichern..." : "Speichern"}
+                {isLoading ? t("settings.user.saving") : t("settings.user.save")}
               </Button>
             </div>
           </form>
@@ -480,15 +482,15 @@ function UserSettingsForm({
 
       <Card>
         <CardHeader>
-          <CardTitle>Passwort ändern</CardTitle>
+          <CardTitle>{t("settings.password.title")}</CardTitle>
           <CardDescription>
-            Wählen Sie ein sicheres Passwort mit mindestens 6 Zeichen.
+            {t("settings.password.description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmitPassword(onSubmitPassword)} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="currentPassword">Aktuelles Passwort</Label>
+              <Label htmlFor="currentPassword">{t("settings.password.currentPassword")}</Label>
               <Input 
                 id="currentPassword" 
                 type="password"
@@ -500,7 +502,7 @@ function UserSettingsForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="newPassword">Neues Passwort</Label>
+              <Label htmlFor="newPassword">{t("settings.password.newPassword")}</Label>
               <Input 
                 id="newPassword" 
                 type="password"
@@ -512,7 +514,7 @@ function UserSettingsForm({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Passwort bestätigen</Label>
+              <Label htmlFor="confirmPassword">{t("settings.password.confirmPassword")}</Label>
               <Input 
                 id="confirmPassword" 
                 type="password"
@@ -525,7 +527,7 @@ function UserSettingsForm({
 
             <div className="flex justify-end">
               <Button type="submit" disabled={isChangingPassword}>
-                {isChangingPassword ? "Ändern..." : "Passwort ändern"}
+                {isChangingPassword ? t("settings.password.changing") : t("settings.password.change")}
               </Button>
             </div>
           </form>
@@ -554,6 +556,7 @@ function NotificationsForm({
   const [notifyQuoteExpiry, setNotifyQuoteExpiry] = useState(dealer.notification_quote_expiry ?? true);
   const [quoteExpiryDays, setQuoteExpiryDays] = useState(dealer.notification_quote_expiry_days ?? 3);
   const [notifyInvoiceOverdue, setNotifyInvoiceOverdue] = useState(dealer.notification_invoice_overdue ?? true);
+  const t = useTranslations();
 
   const handleSave = async () => {
     setIsLoading(true);
@@ -575,10 +578,10 @@ function NotificationsForm({
       if (error) throw error;
       
       onUpdate(updated);
-      toast.success("Benachrichtigungen gespeichert");
+      toast.success(t("settings.notifications.saved"));
     } catch (error) {
       console.error(error);
-      toast.error("Fehler beim Speichern");
+      toast.error(t("settings.notifications.error"));
     } finally {
       setIsLoading(false);
     }
@@ -589,17 +592,17 @@ function NotificationsForm({
       {/* Lead Notifications */}
       <Card>
         <CardHeader>
-          <CardTitle>🔔 Anfragen & Leads</CardTitle>
+          <CardTitle>{t("settings.notifications.leadsTitle")}</CardTitle>
           <CardDescription>
-            Benachrichtigungen zu Kundenanfragen.
+            {t("settings.notifications.leadsDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label>Neue Anfragen</Label>
+              <Label>{t("settings.notifications.newLeads")}</Label>
               <p className="text-sm text-slate-500">
-                Sofort-E-Mail, wenn ein Kunde eine Anfrage stellt.
+                {t("settings.notifications.newLeadsDescription")}
               </p>
             </div>
             <Switch 
@@ -610,9 +613,9 @@ function NotificationsForm({
 
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label>Tägliche Zusammenfassung</Label>
+              <Label>{t("settings.notifications.dailySummary")}</Label>
               <p className="text-sm text-slate-500">
-                Jeden Morgen um 7:00 Uhr eine Übersicht.
+                {t("settings.notifications.dailySummaryDescription")}
               </p>
             </div>
             <Switch 
@@ -626,17 +629,17 @@ function NotificationsForm({
       {/* Quote & Invoice Notifications */}
       <Card>
         <CardHeader>
-          <CardTitle>📄 Offerten & Rechnungen</CardTitle>
+          <CardTitle>{t("settings.notifications.quotesTitle")}</CardTitle>
           <CardDescription>
-            Erinnerungen für ablaufende Offerten und überfällige Rechnungen.
+            {t("settings.notifications.quotesDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label>Offerten-Erinnerung</Label>
+              <Label>{t("settings.notifications.quoteExpiry")}</Label>
               <p className="text-sm text-slate-500">
-                E-Mail, wenn Offerten bald ablaufen.
+                {t("settings.notifications.quoteExpiryDescription")}
               </p>
             </div>
             <Switch 
@@ -648,7 +651,7 @@ function NotificationsForm({
           {notifyQuoteExpiry && (
             <div className="ml-4 pl-4 border-l-2 border-blue-200">
               <div className="space-y-2">
-                <Label htmlFor="quote_expiry_days">Erinnerung vor Ablauf</Label>
+                <Label htmlFor="quote_expiry_days">{t("settings.notifications.reminderBefore")}</Label>
                 <div className="flex items-center gap-2">
                   <Input 
                     id="quote_expiry_days"
@@ -659,7 +662,7 @@ function NotificationsForm({
                     onChange={(e) => setQuoteExpiryDays(parseInt(e.target.value) || 3)}
                     className="w-20"
                   />
-                  <span className="text-slate-600">Tage vorher</span>
+                  <span className="text-slate-600">{t("settings.notifications.daysBefore")}</span>
                 </div>
               </div>
             </div>
@@ -667,9 +670,9 @@ function NotificationsForm({
 
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label>Überfällige Rechnungen</Label>
+              <Label>{t("settings.notifications.invoiceOverdue")}</Label>
               <p className="text-sm text-slate-500">
-                E-Mail, wenn Rechnungen überfällig sind (wöchentlich).
+                {t("settings.notifications.invoiceOverdueDescription")}
               </p>
             </div>
             <Switch 
@@ -683,14 +686,14 @@ function NotificationsForm({
       {/* Vehicle Notifications */}
       <Card>
         <CardHeader>
-          <CardTitle>🚗 Fahrzeug-Bestand</CardTitle>
+          <CardTitle>{t("settings.notifications.vehiclesTitle")}</CardTitle>
           <CardDescription>
-            Warnungen zu lange im Bestand stehenden Fahrzeugen.
+            {t("settings.notifications.vehiclesDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
-            <Label htmlFor="longstanding_days">Langsteher-Warnung nach</Label>
+            <Label htmlFor="longstanding_days">{t("settings.notifications.longstanderWarning")}</Label>
             <div className="flex items-center gap-2">
               <Input 
                 id="longstanding_days"
@@ -701,10 +704,10 @@ function NotificationsForm({
                 onChange={(e) => setLongstandingDays(parseInt(e.target.value) || 30)}
                 className="w-24"
               />
-              <span className="text-slate-600">Tagen im Bestand</span>
+              <span className="text-slate-600">{t("settings.notifications.daysInStock")}</span>
             </div>
             <p className="text-sm text-slate-500">
-              Wöchentliche E-Mail mit Fahrzeugen, die länger als diese Anzahl Tage im Bestand sind.
+              {t("settings.notifications.longstanderNote")}
             </p>
           </div>
         </CardContent>
@@ -712,7 +715,7 @@ function NotificationsForm({
 
       <div className="flex justify-end">
         <Button onClick={handleSave} disabled={isLoading} size="lg">
-          {isLoading ? "Speichern..." : "💾 Alle Einstellungen speichern"}
+          {isLoading ? t("settings.notifications.saving") : t("settings.notifications.saveAll")}
         </Button>
       </div>
     </div>
@@ -723,18 +726,20 @@ function NotificationsForm({
 // Inserate-Kanäle Placeholder
 // ============================================================================
 function ChannelsPlaceholder() {
+  const t = useTranslations();
+  
   const channels = [
-    { name: "AutoScout24", icon: "🚗", description: "Schweizer Automarktplatz Nr. 1", status: "coming_soon" },
-    { name: "mobile.de", icon: "🇩🇪", description: "Deutscher Automarktplatz", status: "coming_soon" },
-    { name: "tutti.ch", icon: "🏷️", description: "Schweizer Kleinanzeigen", status: "coming_soon" },
-    { name: "Facebook Marketplace", icon: "📘", description: "Soziales Netzwerk", status: "coming_soon" },
+    { name: t("settings.channels.autoscout.name"), icon: "🚗", description: t("settings.channels.autoscout.description"), status: "coming_soon" },
+    { name: t("settings.channels.mobile.name"), icon: "🇩🇪", description: t("settings.channels.mobile.description"), status: "coming_soon" },
+    { name: t("settings.channels.tutti.name"), icon: "🏷️", description: t("settings.channels.tutti.description"), status: "coming_soon" },
+    { name: t("settings.channels.facebook.name"), icon: "📘", description: t("settings.channels.facebook.description"), status: "coming_soon" },
   ];
 
   const communicationChannels = [
     { 
-      name: "WhatsApp Business", 
+      name: t("settings.channels.whatsapp.name"), 
       icon: "💬", 
-      description: "Direkte Kommunikation mit Interessenten",
+      description: t("settings.channels.whatsapp.description"),
       status: "active",
       href: "/dashboard/settings/whatsapp"
     },
@@ -742,9 +747,9 @@ function ChannelsPlaceholder() {
 
   const integrationChannels = [
     { 
-      name: "Bexio", 
+      name: t("settings.channels.bexio.name"), 
       icon: "📊", 
-      description: "Buchhaltung und Rechnungen synchronisieren",
+      description: t("settings.channels.bexio.description"),
       status: "active",
       href: "/dashboard/settings/bexio"
     },
@@ -754,9 +759,9 @@ function ChannelsPlaceholder() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Kommunikations-Kanäle</CardTitle>
+          <CardTitle>{t("settings.channels.communicationTitle")}</CardTitle>
           <CardDescription>
-            Verwalten Sie Ihre Kommunikations-Kanäle für Lead-Interaktionen.
+            {t("settings.channels.communicationDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -774,7 +779,7 @@ function ChannelsPlaceholder() {
                   </div>
                 </div>
                 <Button asChild size="sm">
-                  <a href={channel.href}>Einrichten →</a>
+                  <a href={channel.href}>{t("settings.channels.setup")}</a>
                 </Button>
               </div>
             ))}
@@ -784,9 +789,9 @@ function ChannelsPlaceholder() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Integrationen</CardTitle>
+          <CardTitle>{t("settings.channels.integrationsTitle")}</CardTitle>
           <CardDescription>
-            Verbinden Sie externe Systeme für automatischen Datenaustausch.
+            {t("settings.channels.integrationsDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -804,7 +809,7 @@ function ChannelsPlaceholder() {
                   </div>
                 </div>
                 <Button asChild size="sm">
-                  <a href={channel.href}>Einrichten →</a>
+                  <a href={channel.href}>{t("settings.channels.setup")}</a>
                 </Button>
               </div>
             ))}
@@ -814,16 +819,15 @@ function ChannelsPlaceholder() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Inserate-Kanäle</CardTitle>
+          <CardTitle>{t("settings.channels.listingTitle")}</CardTitle>
           <CardDescription>
-            Verbinden Sie Ihre Plattformen, um Fahrzeuge automatisch zu publizieren.
+            {t("settings.channels.listingDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
             <p className="text-blue-800">
-              🚀 <strong>Coming Soon!</strong> Bald können Sie Ihre Inserate-Kanäle hier verbinden 
-              und Fahrzeuge mit einem Klick auf mehreren Plattformen gleichzeitig publizieren.
+              {t("settings.channels.comingSoonNote")}
             </p>
           </div>
 
@@ -840,7 +844,7 @@ function ChannelsPlaceholder() {
                     <div className="text-sm text-slate-500">{channel.description}</div>
                   </div>
                 </div>
-                <Badge variant="secondary">Coming Soon</Badge>
+                <Badge variant="secondary">{t("settings.channels.comingSoon")}</Badge>
               </div>
             ))}
           </div>
@@ -854,21 +858,23 @@ function ChannelsPlaceholder() {
 // Abo & Rechnung - Redirect to dedicated page
 // ============================================================================
 function BillingPlaceholder() {
+  const t = useTranslations();
+  
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Abo & Rechnung</CardTitle>
+        <CardTitle>{t("settings.billing.title")}</CardTitle>
         <CardDescription>
-          Verwalten Sie Ihr Abonnement und Zahlungsmethoden.
+          {t("settings.billing.description")}
         </CardDescription>
       </CardHeader>
       <CardContent className="text-center py-8">
         <p className="text-slate-600 mb-4">
-          Die Abo-Verwaltung wurde auf eine eigene Seite verschoben.
+          {t("settings.billing.movedNote")}
         </p>
         <Button asChild>
           <a href="/dashboard/settings/billing">
-            Zur Abo-Verwaltung →
+            {t("settings.billing.goToBilling")}
           </a>
         </Button>
       </CardContent>
@@ -898,6 +904,12 @@ function DangerZone({
   setDeleteConfirmText: (v: string) => void;
   supabase: ReturnType<typeof createClient>;
 }) {
+  const t = useTranslations();
+  const [isResettingOnboarding, setIsResettingOnboarding] = useState(false);
+  
+  // Get the delete confirmation word based on locale
+  const deleteWord = t("settings.danger.deleteConfirmPlaceholder");
+
   const handleExportData = async () => {
     toast.info("Export wird vorbereitet...");
     
@@ -931,15 +943,15 @@ function DangerZone({
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      toast.success("Daten exportiert!");
+      toast.success(t("settings.danger.exported"));
     } catch (error) {
       console.error(error);
-      toast.error("Fehler beim Exportieren");
+      toast.error(t("settings.danger.exportError"));
     }
   };
 
   const handleDeleteAccount = async () => {
-    if (deleteConfirmText !== "LÖSCHEN") return;
+    if (deleteConfirmText !== deleteWord) return;
     
     setIsDeleting(true);
     try {
@@ -954,12 +966,10 @@ function DangerZone({
       window.location.href = '/';
     } catch (error) {
       console.error(error);
-      toast.error("Fehler beim Löschen des Kontos");
+      toast.error(t("settings.danger.deleteError"));
       setIsDeleting(false);
     }
   };
-
-  const [isResettingOnboarding, setIsResettingOnboarding] = useState(false);
 
   const handleRestartOnboarding = async () => {
     setIsResettingOnboarding(true);
@@ -971,12 +981,12 @@ function DangerZone({
 
       if (error) throw error;
       
-      toast.success("Onboarding wird neu gestartet...");
+      toast.success(t("settings.danger.onboardingRestarted"));
       // Redirect to onboarding
       window.location.href = '/onboarding';
     } catch (error) {
       console.error(error);
-      toast.error("Fehler beim Zurücksetzen");
+      toast.error(t("settings.companyProfile.error"));
       setIsResettingOnboarding(false);
     }
   };
@@ -984,18 +994,18 @@ function DangerZone({
   return (
     <Card className="border-red-200">
       <CardHeader>
-        <CardTitle className="text-red-700">⚠️ Gefahrenzone</CardTitle>
+        <CardTitle className="text-red-700">{t("settings.danger.title")}</CardTitle>
         <CardDescription>
-          Vorsicht: Aktionen in diesem Bereich können nicht rückgängig gemacht werden.
+          {t("settings.danger.description")}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Restart Onboarding */}
         <div className="flex items-center justify-between p-4 border rounded-lg border-blue-200 bg-blue-50">
           <div>
-            <h3 className="font-medium text-blue-800">🚀 Onboarding wiederholen</h3>
+            <h3 className="font-medium text-blue-800">{t("settings.danger.restartOnboarding")}</h3>
             <p className="text-sm text-blue-600">
-              Gehe den Einrichtungs-Wizard nochmals durch, um Einstellungen zu überprüfen.
+              {t("settings.danger.restartOnboardingDescription")}
             </p>
           </div>
           <Button 
@@ -1004,59 +1014,59 @@ function DangerZone({
             onClick={handleRestartOnboarding}
             disabled={isResettingOnboarding}
           >
-            {isResettingOnboarding ? "Starte..." : "🔄 Wiederholen"}
+            {isResettingOnboarding ? t("settings.danger.restarting") : t("settings.danger.restart")}
           </Button>
         </div>
 
         {/* Export Data */}
         <div className="flex items-center justify-between p-4 border rounded-lg">
           <div>
-            <h3 className="font-medium">Alle Daten exportieren</h3>
+            <h3 className="font-medium">{t("settings.danger.exportData")}</h3>
             <p className="text-sm text-slate-500">
-              Laden Sie alle Ihre Daten als JSON-Datei herunter.
+              {t("settings.danger.exportDataDescription")}
             </p>
           </div>
           <Button variant="outline" onClick={handleExportData}>
-            📥 Daten exportieren
+            {t("settings.danger.export")}
           </Button>
         </div>
 
         {/* Delete Account */}
         <div className="flex items-center justify-between p-4 border border-red-200 rounded-lg bg-red-50">
           <div>
-            <h3 className="font-medium text-red-700">Konto löschen</h3>
+            <h3 className="font-medium text-red-700">{t("settings.danger.deleteAccount")}</h3>
             <p className="text-sm text-red-600">
-              Alle Daten werden unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.
+              {t("settings.danger.deleteAccountDescription")}
             </p>
           </div>
           <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
             <DialogTrigger asChild>
               <Button variant="outline" className="border-red-300 text-red-700 hover:bg-red-100">
-                🗑️ Konto löschen
+                {t("settings.danger.deleteButton")}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle className="text-red-700">Konto wirklich löschen?</DialogTitle>
+                <DialogTitle className="text-red-700">{t("settings.danger.deleteConfirmTitle")}</DialogTitle>
                 <DialogDescription>
-                  Diese Aktion löscht unwiderruflich:
+                  {t("settings.danger.deleteConfirmDescription")}
                   <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li>Ihr Dealer OS Konto</li>
-                    <li>Alle Fahrzeuge und Bilder</li>
-                    <li>Alle Kundenanfragen</li>
-                    <li>Alle Einstellungen</li>
+                    <li>{t("settings.danger.deleteConfirmList.account")}</li>
+                    <li>{t("settings.danger.deleteConfirmList.vehicles")}</li>
+                    <li>{t("settings.danger.deleteConfirmList.leads")}</li>
+                    <li>{t("settings.danger.deleteConfirmList.settings")}</li>
                   </ul>
                 </DialogDescription>
               </DialogHeader>
               
               <div className="space-y-4 py-4">
                 <p className="text-sm">
-                  Geben Sie <strong>LÖSCHEN</strong> ein, um zu bestätigen:
+                  {t("settings.danger.deleteConfirmPrompt")}
                 </p>
                 <Input 
                   value={deleteConfirmText}
                   onChange={(e) => setDeleteConfirmText(e.target.value)}
-                  placeholder="LÖSCHEN"
+                  placeholder={deleteWord}
                   className="border-red-300"
                 />
               </div>
@@ -1069,15 +1079,15 @@ function DangerZone({
                     setDeleteConfirmText("");
                   }}
                 >
-                  Abbrechen
+                  {t("settings.danger.cancel")}
                 </Button>
                 <Button 
                   variant="outline"
                   className="bg-red-600 text-white hover:bg-red-700"
                   onClick={handleDeleteAccount}
-                  disabled={deleteConfirmText !== "LÖSCHEN" || isDeleting}
+                  disabled={deleteConfirmText !== deleteWord || isDeleting}
                 >
-                  {isDeleting ? "Wird gelöscht..." : "Endgültig löschen"}
+                  {isDeleting ? t("settings.danger.deleting") : t("settings.danger.deleteFinal")}
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -1092,21 +1102,23 @@ function DangerZone({
 // Standorte Redirect
 // ============================================================================
 function LocationsRedirect() {
+  const t = useTranslations();
+  
   return (
     <Card>
       <CardHeader>
-        <CardTitle>📍 Standorte verwalten</CardTitle>
+        <CardTitle>{t("settings.locations.title")}</CardTitle>
         <CardDescription>
-          Verwalten Sie Ihre Filialstandorte für Fahrzeuge, Leads und Kunden.
+          {t("settings.locations.description")}
         </CardDescription>
       </CardHeader>
       <CardContent className="text-center py-8">
         <p className="text-slate-600 mb-4">
-          Die Standort-Verwaltung wurde auf eine eigene Seite verschoben.
+          {t("settings.locations.movedNote")}
         </p>
         <Button asChild>
           <a href="/dashboard/settings/locations">
-            Zur Standort-Verwaltung →
+            {t("settings.locations.goToLocations")}
           </a>
         </Button>
       </CardContent>

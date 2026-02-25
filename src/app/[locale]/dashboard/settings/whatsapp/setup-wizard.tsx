@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslations } from 'next-intl';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -55,6 +56,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
   const [copiedWebhook, setCopiedWebhook] = useState(false);
   const [copiedToken, setCopiedToken] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const t = useTranslations();
   
   const supabase = createClient();
   
@@ -88,15 +90,15 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
         setCopiedToken(true);
         setTimeout(() => setCopiedToken(false), 2000);
       }
-      toast.success('In Zwischenablage kopiert');
-    } catch (error) {
-      toast.error('Kopieren fehlgeschlagen');
+      toast.success(t('whatsappSetup.webhook.copied'));
+    } catch {
+      toast.error(t('whatsappSetup.webhook.copyError'));
     }
   };
 
   const testToken = async () => {
     if (!data.accessToken || !data.phoneNumberId) {
-      toast.error('Bitte Access Token und Phone Number ID eingeben');
+      toast.error(t('whatsappSetup.accessToken.missingFields'));
       return;
     }
 
@@ -115,18 +117,18 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
 
       if (result.success) {
         setTestSuccess(true);
-        toast.success('Token erfolgreich getestet! ✅');
+        toast.success(t('whatsappSetup.accessToken.testSuccessToast'));
         
         // Update display name if provided by Meta
         if (result.displayName) {
           setData(prev => ({ ...prev, displayName: result.displayName }));
         }
       } else {
-        toast.error(result.error || 'Token-Test fehlgeschlagen');
+        toast.error(result.error || t('whatsappSetup.accessToken.testError'));
       }
     } catch (error) {
       console.error('Test error:', error);
-      toast.error('Verbindung konnte nicht getestet werden');
+      toast.error(t('whatsappSetup.accessToken.connectionError'));
     } finally {
       setIsLoading(false);
     }
@@ -134,7 +136,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
 
   const sendTestMessage = async () => {
     if (!data.phoneNumber) {
-      toast.error('Bitte eine Test-Telefonnummer eingeben');
+      toast.error(t('whatsappSetup.testMessage.phoneRequired'));
       return;
     }
 
@@ -147,20 +149,20 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
           phoneNumberId: data.phoneNumberId,
           accessToken: data.accessToken,
           to: data.phoneNumber,
-          message: '🎉 Herzlich willkommen bei DealerOS! Ihre WhatsApp Business Integration ist erfolgreich eingerichtet.',
+          message: t('whatsappSetup.testMessage.welcomeMessage'),
         }),
       });
 
       const result = await response.json();
 
       if (result.success) {
-        toast.success('Test-Nachricht erfolgreich gesendet! 📱');
+        toast.success(t('whatsappSetup.testMessage.sendSuccess'));
       } else {
-        toast.error(result.error || 'Nachricht konnte nicht gesendet werden');
+        toast.error(result.error || t('whatsappSetup.testMessage.sendError'));
       }
     } catch (error) {
       console.error('Send error:', error);
-      toast.error('Fehler beim Senden der Nachricht');
+      toast.error(t('whatsappSetup.testMessage.sendError'));
     } finally {
       setIsLoading(false);
     }
@@ -186,14 +188,14 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
 
       if (error) throw error;
 
-      toast.success('🎉 WhatsApp erfolgreich konfiguriert!');
+      toast.success(t('whatsappSetup.complete.saveSuccess'));
       
       if (onComplete) {
         onComplete();
       }
     } catch (error) {
       console.error('Save error:', error);
-      toast.error('Fehler beim Speichern der Konfiguration');
+      toast.error(t('whatsappSetup.complete.saveError'));
     } finally {
       setIsLoading(false);
     }
@@ -244,37 +246,36 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                 </div>
               </div>
               <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                Willkommen beim WhatsApp Setup! 🚀
+                {t('whatsappSetup.welcome.title')}
               </h2>
               <p className="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
-                In den nächsten Schritten richten wir Ihre WhatsApp Business Integration ein.
-                Damit können Sie direkt mit Ihren Kunden über WhatsApp kommunizieren.
+                {t('whatsappSetup.welcome.description')}
               </p>
               
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6 max-w-xl mx-auto">
-                <h3 className="font-semibold text-slate-900 mb-3">Was Sie damit erreichen:</h3>
+                <h3 className="font-semibold text-slate-900 mb-3">{t('whatsappSetup.welcome.benefits.title')}</h3>
                 <ul className="text-left space-y-2 text-slate-700">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span>Direkte Kommunikation mit Leads über WhatsApp</span>
+                    <span>{t('whatsappSetup.welcome.benefits.directCommunication')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span>Automatische Antworten bei neuen Anfragen</span>
+                    <span>{t('whatsappSetup.welcome.benefits.autoReplies')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span>Zentrale Verwaltung aller Konversationen</span>
+                    <span>{t('whatsappSetup.welcome.benefits.centralManagement')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span>Professionelles WhatsApp Business Profil</span>
+                    <span>{t('whatsappSetup.welcome.benefits.professionalProfile')}</span>
                   </li>
                 </ul>
               </div>
 
               <div className="flex items-center justify-center gap-2 text-slate-500">
-                <span className="text-sm">⏱️ Geschätzte Zeit: 15-20 Minuten</span>
+                <span className="text-sm">{t('whatsappSetup.welcome.estimatedTime')}</span>
               </div>
             </div>
           </div>
@@ -288,20 +289,20 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                 <Building2 className="h-6 w-6 text-blue-600" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">Meta Business Account</h2>
-                <p className="text-slate-600">Erstellen Sie einen Meta Business Account</p>
+                <h2 className="text-2xl font-bold text-slate-900">{t('whatsappSetup.metaAccount.title')}</h2>
+                <p className="text-slate-600">{t('whatsappSetup.metaAccount.description')}</p>
               </div>
             </div>
 
             <Alert>
               <AlertDescription>
                 <div className="space-y-3">
-                  <p className="font-medium">Schritt-für-Schritt Anleitung:</p>
+                  <p className="font-medium">{t('whatsappSetup.metaAccount.instructions')}</p>
                   <ol className="list-decimal list-inside space-y-2 text-sm">
-                    <li>Besuchen Sie <strong>business.facebook.com</strong></li>
-                    <li>Klicken Sie auf "Konto erstellen"</li>
-                    <li>Geben Sie Ihre Unternehmensdaten ein</li>
-                    <li>Bestätigen Sie Ihre E-Mail-Adresse</li>
+                    <li>{t('whatsappSetup.metaAccount.steps.1')}</li>
+                    <li>{t('whatsappSetup.metaAccount.steps.2')}</li>
+                    <li>{t('whatsappSetup.metaAccount.steps.3')}</li>
+                    <li>{t('whatsappSetup.metaAccount.steps.4')}</li>
                   </ol>
                 </div>
               </AlertDescription>
@@ -313,7 +314,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
               onClick={() => window.open('https://business.facebook.com', '_blank')}
             >
               <ExternalLink className="mr-2 h-4 w-4" />
-              business.facebook.com öffnen
+              {t('whatsappSetup.metaAccount.openLink')}
             </Button>
 
             <div className="border-t pt-4">
@@ -330,7 +331,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                     htmlFor="hasMetaAccount"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
-                    Ich habe einen Meta Business Account erstellt
+                    {t('whatsappSetup.metaAccount.confirm')}
                   </label>
                 </div>
               </div>
@@ -341,18 +342,16 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
               className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700"
             >
               <HelpCircle className="h-4 w-4" />
-              Was ist ein Meta Business Account?
+              {t('whatsappSetup.metaAccount.helpTitle')}
             </button>
 
             {showHelp && (
               <div className="bg-slate-50 border rounded-lg p-4 text-sm text-slate-700">
                 <p className="mb-2">
-                  <strong>Meta Business Account</strong> ist die zentrale Verwaltungsplattform für
-                  alle geschäftlichen Aktivitäten auf Facebook, Instagram und WhatsApp.
+                  <strong>{t('whatsappSetup.metaAccount.helpText1')}</strong>
                 </p>
                 <p>
-                  Damit können Sie Ihr WhatsApp Business Profil verwalten, Team-Mitglieder hinzufügen
-                  und auf erweiterte Funktionen zugreifen.
+                  {t('whatsappSetup.metaAccount.helpText2')}
                 </p>
               </div>
             )}
@@ -367,22 +366,22 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                 <Code className="h-6 w-6 text-purple-600" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">Developer App erstellen</h2>
-                <p className="text-slate-600">Erstellen Sie eine WhatsApp Business App</p>
+                <h2 className="text-2xl font-bold text-slate-900">{t('whatsappSetup.developerApp.title')}</h2>
+                <p className="text-slate-600">{t('whatsappSetup.developerApp.description')}</p>
               </div>
             </div>
 
             <Alert>
               <AlertDescription>
                 <div className="space-y-3">
-                  <p className="font-medium">So erstellen Sie Ihre App:</p>
+                  <p className="font-medium">{t('whatsappSetup.developerApp.instructions')}</p>
                   <ol className="list-decimal list-inside space-y-2 text-sm">
-                    <li>Gehen Sie zu <strong>developers.facebook.com</strong></li>
-                    <li>Klicken Sie auf "Meine Apps" → "App erstellen"</li>
-                    <li>Wählen Sie <strong>Typ: Business</strong></li>
-                    <li>Geben Sie einen App-Namen ein (z.B. "Autohaus WhatsApp")</li>
-                    <li>Fügen Sie das Produkt <strong>"WhatsApp"</strong> hinzu</li>
-                    <li>Wählen Sie Ihr Meta Business Account aus</li>
+                    <li>{t('whatsappSetup.developerApp.steps.1')}</li>
+                    <li>{t('whatsappSetup.developerApp.steps.2')}</li>
+                    <li><strong>{t('whatsappSetup.developerApp.steps.3')}</strong></li>
+                    <li>{t('whatsappSetup.developerApp.steps.4')}</li>
+                    <li><strong>{t('whatsappSetup.developerApp.steps.5')}</strong></li>
+                    <li>{t('whatsappSetup.developerApp.steps.6')}</li>
                   </ol>
                 </div>
               </AlertDescription>
@@ -394,7 +393,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
               onClick={() => window.open('https://developers.facebook.com/apps', '_blank')}
             >
               <ExternalLink className="mr-2 h-4 w-4" />
-              developers.facebook.com öffnen
+              {t('whatsappSetup.developerApp.openLink')}
             </Button>
 
             <div className="border-t pt-4">
@@ -411,7 +410,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                     htmlFor="hasAppCreated"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
-                    App erstellt und WhatsApp Produkt hinzugefügt
+                    {t('whatsappSetup.developerApp.confirm')}
                   </label>
                 </div>
               </div>
@@ -427,8 +426,8 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                 <Phone className="h-6 w-6 text-green-600" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">Telefonnummer verbinden</h2>
-                <p className="text-slate-600">Wählen Sie eine Nummer für WhatsApp Business</p>
+                <h2 className="text-2xl font-bold text-slate-900">{t('whatsappSetup.phoneNumber.title')}</h2>
+                <p className="text-slate-600">{t('whatsappSetup.phoneNumber.description')}</p>
               </div>
             </div>
 
@@ -451,12 +450,12 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-slate-900 mb-1">
-                      Option A: Test-Nummer verwenden
+                      {t('whatsappSetup.phoneNumber.optionTest.title')}
                     </h3>
                     <p className="text-sm text-slate-600">
-                      Meta stellt eine Test-Nummer zur Verfügung. Ideal für erste Tests und Entwicklung.
+                      {t('whatsappSetup.phoneNumber.optionTest.description')}
                     </p>
-                    <Badge variant="outline" className="mt-2">Empfohlen für Testing</Badge>
+                    <Badge variant="outline" className="mt-2">{t('whatsappSetup.phoneNumber.optionTest.badge')}</Badge>
                   </div>
                 </div>
               </div>
@@ -479,12 +478,12 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-slate-900 mb-1">
-                      Option B: Eigene Nummer verbinden
+                      {t('whatsappSetup.phoneNumber.optionProduction.title')}
                     </h3>
                     <p className="text-sm text-slate-600">
-                      Verwenden Sie Ihre eigene Geschäftsnummer. Erfordert Verifizierung per SMS.
+                      {t('whatsappSetup.phoneNumber.optionProduction.description')}
                     </p>
-                    <Badge variant="outline" className="mt-2">Für Produktion</Badge>
+                    <Badge variant="outline" className="mt-2">{t('whatsappSetup.phoneNumber.optionProduction.badge')}</Badge>
                   </div>
                 </div>
               </div>
@@ -493,25 +492,25 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
             {data.phoneNumberType && (
               <div className="space-y-4 pt-4 border-t">
                 <div>
-                  <Label htmlFor="phoneNumberId">Phone Number ID *</Label>
+                  <Label htmlFor="phoneNumberId">{t('whatsappSetup.phoneNumber.phoneNumberId')}</Label>
                   <Input
                     id="phoneNumberId"
-                    placeholder="123456789012345"
+                    placeholder={t('whatsappSetup.phoneNumber.phoneNumberIdPlaceholder')}
                     value={data.phoneNumberId}
                     onChange={(e) => setData(prev => ({ ...prev, phoneNumberId: e.target.value }))}
                     className="mt-1"
                   />
                   <p className="text-sm text-slate-500 mt-1">
-                    Finden Sie die Phone Number ID in Ihrer WhatsApp App-Konfiguration unter "API Setup"
+                    {t('whatsappSetup.phoneNumber.phoneNumberIdHelp')}
                   </p>
                 </div>
 
                 {data.phoneNumberType === 'production' && (
                   <div>
-                    <Label htmlFor="phoneNumber">Telefonnummer</Label>
+                    <Label htmlFor="phoneNumber">{t('whatsappSetup.phoneNumber.phoneNumber')}</Label>
                     <Input
                       id="phoneNumber"
-                      placeholder="+41791234567"
+                      placeholder={t('whatsappSetup.phoneNumber.phoneNumberPlaceholder')}
                       value={data.phoneNumber}
                       onChange={(e) => setData(prev => ({ ...prev, phoneNumber: e.target.value }))}
                       className="mt-1"
@@ -520,16 +519,16 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                 )}
 
                 <div>
-                  <Label htmlFor="wabaId">WhatsApp Business Account ID (WABA ID) *</Label>
+                  <Label htmlFor="wabaId">{t('whatsappSetup.phoneNumber.wabaId')}</Label>
                   <Input
                     id="wabaId"
-                    placeholder="123456789012345"
+                    placeholder={t('whatsappSetup.phoneNumber.wabaIdPlaceholder')}
                     value={data.wabaId}
                     onChange={(e) => setData(prev => ({ ...prev, wabaId: e.target.value }))}
                     className="mt-1"
                   />
                   <p className="text-sm text-slate-500 mt-1">
-                    Die WABA ID finden Sie in Ihrem Meta Business Manager
+                    {t('whatsappSetup.phoneNumber.wabaIdHelp')}
                   </p>
                 </div>
               </div>
@@ -545,44 +544,44 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                 <Key className="h-6 w-6 text-blue-600" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">Access Token generieren</h2>
-                <p className="text-slate-600">Erstellen Sie einen dauerhaften Access Token</p>
+                <h2 className="text-2xl font-bold text-slate-900">{t('whatsappSetup.accessToken.title')}</h2>
+                <p className="text-slate-600">{t('whatsappSetup.accessToken.description')}</p>
               </div>
             </div>
 
             <Alert>
               <AlertDescription>
                 <div className="space-y-3">
-                  <p className="font-medium">So generieren Sie den Token:</p>
+                  <p className="font-medium">{t('whatsappSetup.accessToken.instructions')}</p>
                   <ol className="list-decimal list-inside space-y-2 text-sm">
-                    <li>Gehen Sie zu Meta Business Settings → System Users</li>
-                    <li>Erstellen Sie einen neuen System User (oder wählen Sie einen bestehenden)</li>
-                    <li>Klicken Sie auf "Token generieren"</li>
-                    <li>Wählen Sie Ihre WhatsApp App aus</li>
-                    <li>Aktivieren Sie diese Permissions:
+                    <li>{t('whatsappSetup.accessToken.steps.1')}</li>
+                    <li>{t('whatsappSetup.accessToken.steps.2')}</li>
+                    <li>{t('whatsappSetup.accessToken.steps.3')}</li>
+                    <li>{t('whatsappSetup.accessToken.steps.4')}</li>
+                    <li>{t('whatsappSetup.accessToken.steps.5')}
                       <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
                         <li><code className="text-xs bg-slate-100 px-1 py-0.5 rounded">whatsapp_business_management</code></li>
                         <li><code className="text-xs bg-slate-100 px-1 py-0.5 rounded">whatsapp_business_messaging</code></li>
                       </ul>
                     </li>
-                    <li>Kopieren Sie den generierten Token (60 Tage oder dauerhaft)</li>
+                    <li>{t('whatsappSetup.accessToken.steps.6')}</li>
                   </ol>
                 </div>
               </AlertDescription>
             </Alert>
 
             <div>
-              <Label htmlFor="accessToken">Access Token *</Label>
+              <Label htmlFor="accessToken">{t('whatsappSetup.accessToken.tokenLabel')}</Label>
               <Input
                 id="accessToken"
                 type="password"
-                placeholder="EAAxxxxxxxxxxxxxxxxx..."
+                placeholder={t('whatsappSetup.accessToken.tokenPlaceholder')}
                 value={data.accessToken}
                 onChange={(e) => setData(prev => ({ ...prev, accessToken: e.target.value }))}
                 className="mt-1 font-mono text-sm"
               />
               <p className="text-sm text-slate-500 mt-1">
-                Der Token beginnt üblicherweise mit "EAA"
+                {t('whatsappSetup.accessToken.tokenHelp')}
               </p>
             </div>
 
@@ -596,15 +595,15 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Teste Verbindung...
+                    {t('whatsappSetup.accessToken.testing')}
                   </>
                 ) : testSuccess ? (
                   <>
                     <CheckCheck className="mr-2 h-4 w-4" />
-                    Token erfolgreich getestet! ✅
+                    {t('whatsappSetup.accessToken.testSuccess')}
                   </>
                 ) : (
-                  'Token jetzt testen'
+                  t('whatsappSetup.accessToken.testConnection')
                 )}
               </Button>
             )}
@@ -613,7 +612,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
               <Alert className="bg-green-50 border-green-200">
                 <CheckCircle2 className="h-4 w-4 text-green-600" />
                 <AlertDescription className="text-green-800">
-                  Verbindung erfolgreich! Sie können zum nächsten Schritt übergehen.
+                  {t('whatsappSetup.accessToken.connectionSuccess')}
                 </AlertDescription>
               </Alert>
             )}
@@ -628,20 +627,20 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                 <Webhook className="h-6 w-6 text-indigo-600" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">Webhook konfigurieren</h2>
-                <p className="text-slate-600">Empfangen Sie Nachrichten in DealerOS</p>
+                <h2 className="text-2xl font-bold text-slate-900">{t('whatsappSetup.webhook.title')}</h2>
+                <p className="text-slate-600">{t('whatsappSetup.webhook.description')}</p>
               </div>
             </div>
 
             <Alert>
               <AlertDescription>
-                <p className="font-medium mb-2">Kopieren Sie die folgenden Werte:</p>
+                <p className="font-medium mb-2">{t('whatsappSetup.webhook.copyValues')}</p>
               </AlertDescription>
             </Alert>
 
             <div className="space-y-4">
               <div>
-                <Label>Webhook URL</Label>
+                <Label>{t('whatsappSetup.webhook.webhookUrl')}</Label>
                 <div className="flex gap-2 mt-1">
                   <Input
                     value={webhookUrl}
@@ -663,7 +662,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
               </div>
 
               <div>
-                <Label>Verify Token</Label>
+                <Label>{t('whatsappSetup.webhook.verifyToken')}</Label>
                 <div className="flex gap-2 mt-1">
                   <Input
                     value={data.verifyToken}
@@ -688,18 +687,18 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
             <Alert>
               <AlertDescription>
                 <div className="space-y-3">
-                  <p className="font-medium">Webhook in Meta konfigurieren:</p>
+                  <p className="font-medium">{t('whatsappSetup.webhook.instructions')}</p>
                   <ol className="list-decimal list-inside space-y-2 text-sm">
-                    <li>Öffnen Sie Ihre WhatsApp App in developers.facebook.com</li>
-                    <li>Gehen Sie zu WhatsApp → Configuration</li>
-                    <li>Klicken Sie bei "Webhook" auf "Edit"</li>
-                    <li>Fügen Sie die <strong>Webhook URL</strong> ein</li>
-                    <li>Fügen Sie den <strong>Verify Token</strong> ein</li>
-                    <li>Klicken Sie auf "Verify and Save"</li>
-                    <li>Aktivieren Sie die Webhook-Felder:
+                    <li>{t('whatsappSetup.webhook.steps.1')}</li>
+                    <li>{t('whatsappSetup.webhook.steps.2')}</li>
+                    <li>{t('whatsappSetup.webhook.steps.3')}</li>
+                    <li><strong>{t('whatsappSetup.webhook.steps.4')}</strong></li>
+                    <li><strong>{t('whatsappSetup.webhook.steps.5')}</strong></li>
+                    <li>{t('whatsappSetup.webhook.steps.6')}</li>
+                    <li>{t('whatsappSetup.webhook.steps.7')}
                       <ul className="list-disc list-inside ml-4 mt-1">
-                        <li>messages</li>
-                        <li>message_status</li>
+                        <li>{t('whatsappSetup.webhook.webhookFields.messages')}</li>
+                        <li>{t('whatsappSetup.webhook.webhookFields.status')}</li>
                       </ul>
                     </li>
                   </ol>
@@ -713,7 +712,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
               onClick={() => window.open('https://developers.facebook.com/apps', '_blank')}
             >
               <ExternalLink className="mr-2 h-4 w-4" />
-              Zur WhatsApp App-Konfiguration
+              {t('whatsappSetup.webhook.openConfig')}
             </Button>
 
             <div className="border-t pt-4">
@@ -730,7 +729,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                     htmlFor="webhookConfigured"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
-                    Webhook erfolgreich konfiguriert und verifiziert
+                    {t('whatsappSetup.webhook.confirm')}
                   </label>
                 </div>
               </div>
@@ -746,29 +745,28 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                 <MessageSquare className="h-6 w-6 text-pink-600" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">Test-Nachricht senden</h2>
-                <p className="text-slate-600">Überprüfen Sie Ihre Konfiguration</p>
+                <h2 className="text-2xl font-bold text-slate-900">{t('whatsappSetup.testMessage.title')}</h2>
+                <p className="text-slate-600">{t('whatsappSetup.testMessage.description')}</p>
               </div>
             </div>
 
             <Alert>
               <AlertDescription>
-                Senden Sie eine Test-Nachricht an Ihre WhatsApp-Nummer, um zu überprüfen,
-                dass alles korrekt eingerichtet ist.
+                {t('whatsappSetup.testMessage.intro')}
               </AlertDescription>
             </Alert>
 
             <div>
-              <Label htmlFor="testPhoneNumber">Test-Telefonnummer</Label>
+              <Label htmlFor="testPhoneNumber">{t('whatsappSetup.testMessage.phoneLabel')}</Label>
               <Input
                 id="testPhoneNumber"
-                placeholder="+41791234567"
+                placeholder={t('whatsappSetup.testMessage.phonePlaceholder')}
                 value={data.phoneNumber}
                 onChange={(e) => setData(prev => ({ ...prev, phoneNumber: e.target.value }))}
                 className="mt-1"
               />
               <p className="text-sm text-slate-500 mt-1">
-                Die Nummer muss im internationalen Format (+41...) angegeben werden
+                {t('whatsappSetup.testMessage.phoneHelp')}
               </p>
             </div>
 
@@ -780,20 +778,19 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sende Nachricht...
+                  {t('whatsappSetup.testMessage.sending')}
                 </>
               ) : (
                 <>
                   <MessageSquare className="mr-2 h-4 w-4" />
-                  Test-Nachricht jetzt senden
+                  {t('whatsappSetup.testMessage.send')}
                 </>
               )}
             </Button>
 
             <div className="bg-slate-50 border rounded-lg p-4">
               <p className="text-sm text-slate-700">
-                <strong>Hinweis:</strong> Wenn Sie die Test-Nachricht erfolgreich empfangen haben,
-                ist Ihre WhatsApp Integration vollständig eingerichtet! 🎉
+                <strong>{t('whatsappSetup.testMessage.successNote')}</strong>
               </p>
             </div>
           </div>
@@ -809,34 +806,34 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                 </div>
               </div>
               <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                Fertig! 🎉
+                {t('whatsappSetup.complete.title')}
               </h2>
               <p className="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
-                Ihre WhatsApp Business Integration ist jetzt vollständig eingerichtet und einsatzbereit!
+                {t('whatsappSetup.complete.description')}
               </p>
 
               <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6 max-w-xl mx-auto text-left">
-                <h3 className="font-semibold text-slate-900 mb-3">Zusammenfassung Ihrer Konfiguration:</h3>
+                <h3 className="font-semibold text-slate-900 mb-3">{t('whatsappSetup.complete.summaryTitle')}</h3>
                 <ul className="space-y-2 text-sm text-slate-700">
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0" />
-                    <span><strong>Telefonnummer:</strong> {data.phoneNumber || 'Test-Nummer'}</span>
+                    <span><strong>{t('whatsappSetup.complete.phoneNumber')}</strong> {data.phoneNumber || t('whatsappSetup.complete.testNumber')}</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0" />
-                    <span><strong>Phone Number ID:</strong> {data.phoneNumberId}</span>
+                    <span><strong>{t('whatsappSetup.complete.phoneNumberId')}</strong> {data.phoneNumberId}</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0" />
-                    <span><strong>WABA ID:</strong> {data.wabaId}</span>
+                    <span><strong>{t('whatsappSetup.complete.wabaId')}</strong> {data.wabaId}</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0" />
-                    <span><strong>Access Token:</strong> Konfiguriert ✅</span>
+                    <span><strong>{t('whatsappSetup.complete.accessToken')}</strong></span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0" />
-                    <span><strong>Webhook:</strong> Konfiguriert ✅</span>
+                    <span><strong>{t('whatsappSetup.complete.webhook')}</strong></span>
                   </li>
                 </ul>
               </div>
@@ -851,15 +848,15 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Speichere Konfiguration...
+                      {t('whatsappSetup.complete.saving')}
                     </>
                   ) : (
-                    'Konfiguration speichern und abschließen'
+                    t('whatsappSetup.complete.saveButton')
                   )}
                 </Button>
 
                 <p className="text-sm text-slate-500">
-                  Nach dem Speichern können Sie Ihre WhatsApp-Konversationen verwalten
+                  {t('whatsappSetup.complete.afterSave')}
                 </p>
               </div>
             </div>
@@ -877,7 +874,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-slate-700">
-            Schritt {currentStep} von {totalSteps}
+            {t('whatsappSetup.step', { current: currentStep, total: totalSteps })}
           </span>
           <span className="text-sm text-slate-500">{Math.round(progress)}%</span>
         </div>
@@ -899,7 +896,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
           disabled={currentStep === 1}
         >
           <ChevronLeft className="mr-2 h-4 w-4" />
-          Zurück
+          {t('whatsappSetup.back')}
         </Button>
 
         {currentStep < totalSteps && (
@@ -907,7 +904,7 @@ export function SetupWizard({ dealerId, onComplete }: SetupWizardProps) {
             onClick={nextStep}
             disabled={!canGoNext()}
           >
-            Weiter
+            {t('whatsappSetup.next')}
             <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
         )}
