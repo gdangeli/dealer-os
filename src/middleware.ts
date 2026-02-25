@@ -5,8 +5,7 @@ import { routing } from './i18n/routing';
 const intlMiddleware = createMiddleware(routing);
 
 // Coming Soon Configuration
-// Temporarily disabled to review new landing page design
-const COMING_SOON_ENABLED = false; // process.env.COMING_SOON_ENABLED === "true";
+const COMING_SOON_ENABLED = process.env.COMING_SOON_ENABLED === "true";
 const PREVIEW_COOKIE = "dealer_os_preview";
 
 // Paths that should always be accessible (even without preview cookie)
