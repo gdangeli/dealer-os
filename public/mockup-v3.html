@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealerOS Landing Page Mockup v3</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .gradient-text { background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-gradient { background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #faf5ff 100%); }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .glow { box-shadow: 0 0 60px rgba(99, 102, 241, 0.15); }
+    .pricing-popular { transform: scale(1.05); }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-lg z-50 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-10 h-10 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center">
+            <span class="text-white font-bold text-lg">D</span>
+          </div>
+          <span class="text-xl font-bold text-gray-900">DealerOS</span>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#features" class="text-gray-600 hover:text-gray-900 font-medium">Features</a>
+          <a href="#pricing" class="text-gray-600 hover:text-gray-900 font-medium">Preise</a>
+          <a href="#" class="text-gray-600 hover:text-gray-900 font-medium">Über uns</a>
+          <a href="#" class="text-gray-600 hover:text-gray-900 font-medium">Kontakt</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="#" class="text-gray-700 font-medium hover:text-gray-900">Anmelden</a>
+          <a href="#" class="bg-gradient-to-r from-sky-500 to-indigo-600 text-white px-5 py-2.5 rounded-xl font-semibold hover:shadow-lg hover:shadow-indigo-500/30 transition-all">
+            Kostenlos testen
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient pt-32 pb-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Left Content -->
+        <div>
+          <!-- Trust Badge -->
+          <div class="inline-flex items-center gap-2 bg-white/80 border border-indigo-100 rounded-full px-4 py-2 mb-8 shadow-sm">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span class="text-sm font-medium text-gray-700">50+ Schweizer Garagen vertrauen uns</span>
+          </div>
+
+          <!-- Headline -->
+          <h1 class="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+            Autohandel-Software,<br>
+            <span class="gradient-text">die wirklich funktioniert.</span>
+          </h1>
+
+          <p class="text-xl text-gray-600 leading-relaxed mb-10 max-w-lg">
+            Occasionen, Standzeiten, Leads – alles im Griff. Entwickelt für Schweizer Autohändler, die wissen wollen, wo ihr Geld liegt.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4 mb-12">
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-sky-500 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl hover:shadow-indigo-500/30 transition-all">
+              14 Tage kostenlos testen
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Demo ansehen
+            </a>
+          </div>
+
+          <!-- Trust Indicators -->
+          <div class="flex flex-wrap items-center gap-6 text-sm text-gray-600 mb-8">
+            <div class="flex items-center gap-2">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <span>Keine Kreditkarte nötig</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <span>In 5 Minuten startklar</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center">
+                <svg class="w-3 h-3 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              </div>
+              <span>Hosting in der Schweiz</span>
+            </div>
+          </div>
+
+          <!-- Social Proof Logos -->
+          <div class="flex items-center gap-6 opacity-70">
+            <span class="text-sm text-gray-500 font-medium">Inserieren auf:</span>
+            <div class="flex items-center gap-4">
+              <div class="bg-white px-3 py-1.5 rounded-lg shadow-sm border border-gray-100">
+                <span class="font-bold text-orange-500">AutoScout24</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg shadow-sm border border-gray-100">
+                <span class="font-bold text-green-600">Autolina</span>
+              </div>
+              <div class="bg-white px-3 py-1.5 rounded-lg shadow-sm border border-gray-100">
+                <span class="font-bold text-red-600">CARAUKTION</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right - Dashboard Preview -->
+        <div class="relative">
+          <div class="absolute inset-0 bg-gradient-to-r from-sky-400/20 to-indigo-400/20 rounded-3xl blur-3xl"></div>
+          <div class="relative bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden glow">
+            <!-- Browser Header -->
+            <div class="bg-gray-100 px-4 py-3 flex items-center gap-2 border-b">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+              </div>
+              <div class="flex-1 bg-white rounded-lg px-3 py-1 text-xs text-gray-400 ml-2">dealeros.ch/dashboard</div>
+            </div>
+            <!-- Dashboard Content Mockup -->
+            <div class="p-6 bg-slate-50">
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                  <div class="text-sm text-gray-500 mb-1">Fahrzeuge</div>
+                  <div class="text-2xl font-bold text-gray-900">47</div>
+                  <div class="text-xs text-green-600 mt-1">↗ 12% diesen Monat</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                  <div class="text-sm text-gray-500 mb-1">Offene Leads</div>
+                  <div class="text-2xl font-bold text-gray-900">23</div>
+                  <div class="text-xs text-amber-600 mt-1">5 brauchen Follow-up</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                  <div class="text-sm text-gray-500 mb-1">Umsatz Feb</div>
+                  <div class="text-2xl font-bold text-gray-900">187k</div>
+                  <div class="text-xs text-green-600 mt-1">↗ CHF vs. Vormonat</div>
+                </div>
+              </div>
+              <div class="bg-white rounded-xl p-4 shadow-sm">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="font-semibold text-gray-800">Neueste Leads</span>
+                  <span class="text-sm text-sky-600">Alle anzeigen →</span>
+                </div>
+                <div class="space-y-3">
+                  <div class="flex items-center gap-3 p-2 bg-green-50 rounded-lg">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <span class="text-green-600 text-sm">🟢</span>
+                    </div>
+                    <div class="flex-1">
+                      <div class="text-sm font-medium text-gray-900">Hans Müller</div>
+                      <div class="text-xs text-gray-500">BMW X5 • AutoScout24</div>
+                    </div>
+                    <span class="text-xs text-green-600 font-medium">Gerade eben</span>
+                  </div>
+                  <div class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg">
+                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                      <span class="text-gray-600 text-sm">📞</span>
+                    </div>
+                    <div class="flex-1">
+                      <div class="text-sm font-medium text-gray-900">Maria Schneider</div>
+                      <div class="text-xs text-gray-500">VW Golf • Telefon</div>
+                    </div>
+                    <span class="text-xs text-gray-500">vor 2 Std</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 bg-sky-50 text-sky-700 rounded-full px-4 py-2 mb-6 font-medium text-sm">
+          <span>⚡</span> Features
+        </div>
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">
+          Alles an einem Ort
+        </h2>
+        <p class="text-xl text-gray-600">
+          Keine Insellösungen mehr. Dealer OS vereint alles, was Sie brauchen.
+        </p>
+      </div>
+
+      <!-- Feature Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="bg-gradient-to-br from-sky-50 to-indigo-50 rounded-2xl p-8 card-hover border border-sky-100">
+          <div class="w-14 h-14 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Fahrzeugverwaltung</h3>
+          <p class="text-gray-600 leading-relaxed">Alle Fahrzeuge zentral verwalten. Mit Fotos, Dokumenten und kompletter Kostenhistorie.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 card-hover border border-emerald-100">
+          <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Lead-Management</h3>
+          <p class="text-gray-600 leading-relaxed">Alle Anfragen an einem Ort. Automatische Erinnerungen, damit nichts verloren geht.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-8 card-hover border border-orange-100">
+          <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Inserate-Export</h3>
+          <p class="text-gray-600 leading-relaxed">Mit einem Klick auf AutoScout24, Autolina, CARAUKTION und Ihre Website veröffentlichen.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-8 card-hover border border-violet-100">
+          <div class="w-14 h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Echte Kennzahlen</h3>
+          <p class="text-gray-600 leading-relaxed">Gewinn pro Fahrzeug, Durchschnitts-Standzeit, Abschlussquote – auf einen Blick.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-8 card-hover border border-rose-100">
+          <div class="w-14 h-14 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Offerten & Rechnungen</h3>
+          <p class="text-gray-600 leading-relaxed">Professionelle Angebote erstellen und direkt in Rechnungen umwandeln. Mit QR-Zahlteil.</p>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="bg-gradient-to-br from-cyan-50 to-sky-50 rounded-2xl p-8 card-hover border border-cyan-100">
+          <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-sky-600 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Schweizer Hosting</h3>
+          <p class="text-gray-600 leading-relaxed">Ihre Daten bleiben in der Schweiz. DSGVO-konform und sicher verschlüsselt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-24 bg-gradient-to-br from-slate-900 to-slate-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 bg-sky-500/20 text-sky-300 rounded-full px-4 py-2 mb-6 font-medium text-sm">
+          Kundenstimmen
+        </div>
+        <h2 class="text-4xl font-bold text-white mb-4">
+          Das sagen Schweizer Garagisten
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 card-hover">
+          <div class="flex items-center gap-1 mb-4">
+            <span class="text-yellow-400">★★★★★</span>
+          </div>
+          <p class="text-white/90 mb-6 leading-relaxed">
+            "Seit wir Dealer OS nutzen, haben wir unsere Standzeiten um 30% reduziert. Endlich sehe ich auf einen Blick, wo mein Geld liegt."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-sky-400 to-indigo-500 rounded-full flex items-center justify-center">
+              <span class="text-white font-bold">MK</span>
+            </div>
+            <div>
+              <div class="text-white font-semibold">Marco Brunner</div>
+              <div class="text-slate-400 text-sm">Inhaber, Auto Brunner AG, Winterthur</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 card-hover">
+          <div class="flex items-center gap-1 mb-4">
+            <span class="text-yellow-400">★★★★★</span>
+          </div>
+          <p class="text-white/90 mb-6 leading-relaxed">
+            "Enfin un logiciel qui comprend notre métier! La gestion des stocks et des leads est devenue un jeu d'enfant."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center">
+              <span class="text-white font-bold">SB</span>
+            </div>
+            <div>
+              <div class="text-white font-semibold">Pierre Dubois</div>
+              <div class="text-slate-400 text-sm">Propriétaire, Garage Dubois, Lausanne</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 card-hover">
+          <div class="flex items-center gap-1 mb-4">
+            <span class="text-yellow-400">★★★★★</span>
+          </div>
+          <p class="text-white/90 mb-6 leading-relaxed">
+            "Finalmente un software che capisce il nostro lavoro. Abbiamo ridotto i tempi di giacenza del 25% in tre mesi."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+              <span class="text-white font-bold">PZ</span>
+            </div>
+            <div>
+              <div class="text-white font-semibold">Marco Bentivoglio</div>
+              <div class="text-slate-400 text-sm">Titolare, AutoBentivoglio, Lugano</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW: Pricing Section -->
+  <section id="pricing" class="py-24 bg-gradient-to-b from-slate-50 to-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 bg-sky-50 text-sky-700 rounded-full px-4 py-2 mb-6 font-medium text-sm">
+          💰 Preise
+        </div>
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">
+          Einfach & günstig
+        </h2>
+        <p class="text-xl text-gray-600">
+          Starten Sie gratis – upgraden Sie, wenn Sie wachsen.
+        </p>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        
+        <!-- Starter - Free -->
+        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border border-emerald-200 card-hover relative">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Starter</h3>
+          <p class="text-sm text-gray-600 mb-6">Gratis für immer</p>
+          <div class="mb-8">
+            <span class="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Gratis</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Bis 10 Fahrzeuge
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              1 Benutzer
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Standzeit-Tracking
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Basis-CRM
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              E-Mail Support
+            </li>
+          </ul>
+          <a href="#" class="block w-full text-center bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white py-3 px-6 rounded-xl font-semibold transition-all shadow-lg shadow-emerald-500/30">
+            Gratis starten
+          </a>
+        </div>
+
+        <!-- Professional - Popular -->
+        <div class="bg-gradient-to-br from-sky-50 to-indigo-50 rounded-2xl p-8 border-2 border-sky-400 card-hover relative pricing-popular shadow-2xl shadow-sky-200">
+          <!-- Popular Badge -->
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+            <span class="bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg">
+              ✨ Beliebt
+            </span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2 mt-2">Professional</h3>
+          <p class="text-sm text-gray-600 mb-6">Für aktive Händler</p>
+          <div class="mb-8">
+            <span class="text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">129</span>
+            <span class="text-gray-500 ml-2">CHF/Mt.</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Unbegrenzte Fahrzeuge
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Alle Inserate-Kanäle
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              AI-Preisempfehlung
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              WhatsApp Integration
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Vollständiges CRM
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Chat + E-Mail Support
+            </li>
+          </ul>
+          <a href="#" class="block w-full text-center bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white py-3 px-6 rounded-xl font-semibold transition-all shadow-lg shadow-sky-500/30">
+            Gratis starten
+          </a>
+        </div>
+
+        <!-- Business -->
+        <div class="bg-white rounded-2xl p-8 border border-gray-200 card-hover relative">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Business</h3>
+          <p class="text-sm text-gray-600 mb-6">Für Teams</p>
+          <div class="mb-8">
+            <span class="text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">229</span>
+            <span class="text-gray-500 ml-2">CHF/Mt.</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Unbegrenzte Fahrzeuge
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              3 Benutzer
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Bexio-Integration
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Multi-Standort
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              API-Zugang
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Priority Support
+            </li>
+          </ul>
+          <a href="#" class="block w-full text-center border border-gray-300 hover:bg-gray-50 text-gray-700 py-3 px-6 rounded-xl font-semibold transition-all">
+            Gratis starten
+          </a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="bg-slate-50 rounded-2xl p-8 border border-slate-300 card-hover relative">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Enterprise</h3>
+          <p class="text-sm text-gray-600 mb-6">Für Händlergruppen</p>
+          <div class="mb-8">
+            <span class="text-2xl font-bold text-gray-900">Auf Anfrage</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Unbegrenzte Fahrzeuge
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Unbegrenzte Benutzer
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Custom Integrationen
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              White-Label Option
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              SLA 99.9% Uptime
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              Dedicated Manager
+            </li>
+          </ul>
+          <a href="#" class="block w-full text-center border border-gray-300 hover:bg-gray-50 text-gray-700 py-3 px-6 rounded-xl font-semibold transition-all">
+            Kontakt
+          </a>
+        </div>
+      </div>
+
+      <!-- Price Note -->
+      <p class="text-center text-sm text-gray-500 mt-8">
+        Alle Preise zzgl. MwSt. · Monatlich kündbar, keine versteckten Kosten.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-24 bg-gradient-to-br from-sky-500 to-indigo-600 relative overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 text-center relative">
+      <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
+        Bereit für mehr Durchblick?
+      </h2>
+      <p class="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+        Testen Sie Dealer OS 14 Tage kostenlos. Keine Kreditkarte, keine Verpflichtung.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#" class="inline-flex items-center justify-center gap-2 bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all shadow-xl">
+          Jetzt kostenlos starten
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="#" class="inline-flex items-center justify-center gap-2 bg-transparent text-white px-8 py-4 rounded-xl font-semibold text-lg border-2 border-white/30 hover:bg-white/10 transition-all">
+          Demo vereinbaren
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-12 mb-12">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-10 h-10 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center">
+              <span class="text-white font-bold text-lg">D</span>
+            </div>
+            <span class="text-xl font-bold text-white">DealerOS</span>
+          </div>
+          <p class="text-slate-400 text-sm">
+            Die Software für Schweizer Autohändler, die ihr Geschäft ernst nehmen.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Produkt</h4>
+          <ul class="space-y-2 text-slate-400 text-sm">
+            <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="#pricing" class="hover:text-white transition-colors">Preise</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Roadmap</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Ressourcen</h4>
+          <ul class="space-y-2 text-slate-400 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Hilfe</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Kontakt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Rechtliches</h4>
+          <ul class="space-y-2 text-slate-400 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Datenschutz</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">AGB</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Impressum</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-slate-400 text-sm">© 2026 DealerOS. Made with ❤️ in Switzerland.</p>
+        <div class="flex items-center gap-2">
+          <span class="text-slate-400 text-sm">🇨🇭</span>
+          <span class="text-slate-400 text-sm">Schweizer Hosting & Support</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
