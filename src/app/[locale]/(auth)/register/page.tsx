@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/i18n/navigation";
-import { Check, Shield, ArrowRight, Sparkles } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -102,15 +102,11 @@ export default function RegisterPage() {
         {/* Logo & Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <span className="text-3xl">🚗</span>
-            <span className="text-2xl font-bold text-gray-900">Dealer OS</span>
+            <div className="w-10 h-10 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center">
+              <span className="text-white font-bold text-lg">D</span>
+            </div>
+            <span className="text-2xl font-bold text-gray-900">DealerOS</span>
           </Link>
-          
-          {/* Beta Badge */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-sky-500 to-indigo-600 text-white rounded-full px-4 py-1.5 mb-4 font-medium text-sm">
-            <Sparkles className="w-4 h-4" />
-            <span>Gratis Beta</span>
-          </div>
           
           <h1 className="text-3xl font-bold text-gray-900 mb-2">{t("title")}</h1>
           <p className="text-gray-600">{t("subtitle")}</p>
@@ -221,23 +217,17 @@ export default function RegisterPage() {
         </div>
 
         {/* Trust Indicators */}
-        <div className="flex flex-wrap justify-center items-center gap-4 mt-8 text-sm text-gray-600">
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center">
-              <Check className="w-3 h-3 text-emerald-600" strokeWidth={3} />
-            </div>
+        <div className="flex justify-center items-center gap-6 mt-8 text-sm text-gray-600">
+          <div className="flex items-center gap-1.5">
+            <Check className="w-4 h-4 text-emerald-500" strokeWidth={2.5} />
             <span>Keine Kreditkarte nötig</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center">
-              <Check className="w-3 h-3 text-emerald-600" strokeWidth={3} />
-            </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-4 h-4 text-emerald-500" strokeWidth={2.5} />
             <span>In 2 Min. startklar</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center">
-              <Shield className="w-3 h-3 text-sky-600" />
-            </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-4 h-4 text-emerald-500" strokeWidth={2.5} />
             <span>Schweizer Hosting</span>
           </div>
         </div>
