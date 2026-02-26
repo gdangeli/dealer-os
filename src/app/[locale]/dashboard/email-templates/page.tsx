@@ -271,11 +271,7 @@ export default function EmailTemplatesPage() {
 
   const supabase = createClient();
 
-  useEffect(() => {
-    fetchTemplates();
-  }, []);
-
-  async function fetchTemplates() {
+  const fetchTemplates = async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from('email_templates')
@@ -289,7 +285,12 @@ export default function EmailTemplatesPage() {
       setTemplates(data || []);
     }
     setLoading(false);
-  }
+  };
+
+  useEffect(() => {
+    fetchTemplates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function saveTemplate(data: Partial<EmailTemplate>) {
     if (data.id) {
