@@ -100,6 +100,7 @@ AI-Features als Differentiator für das gesamte Automotive OS Portfolio.
 | **Predictive Analytics** | L | "Kunde X kauft wahrscheinlich im März" basierend auf Historie |
 | **WhatsApp Bot für Kunden** | XL | Kunden schreiben via WhatsApp, AI antwortet + bucht Termine |
 | **Intelligente Preisempfehlung** | L | Marktbasierte Vorschläge (existiert: docs/features/AI-PRICING.md) |
+| **Kunden-Memory** | M | AI merkt sich Präferenzen pro Kunde ("Herr Müller zahlt immer bar", "Firma Weber will Leasing-Optionen") |
 
 **Marketing-Angle:** *"Die erste Händler-Software mit eingebautem AI-Assistenten."*
 
