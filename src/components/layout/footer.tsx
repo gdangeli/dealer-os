@@ -26,33 +26,33 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-slate-50 border-t border-slate-200">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+    <footer className="bg-slate-900 py-16">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600">
+          <div>
+            <Link href="/" className="flex items-center gap-2 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-lg">D</span>
               </div>
-              <span className="text-xl font-bold text-slate-900">DealerOS</span>
+              <span className="text-xl font-bold text-white">DealerOS</span>
             </Link>
-            <p className="mt-4 text-sm text-slate-600 leading-relaxed">
+            <p className="text-slate-400 text-sm">
               {t("tagline")}
             </p>
           </div>
 
           {/* Product */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-900 mb-4">
+            <h4 className="text-white font-semibold mb-4">
               {t("product")}
-            </h3>
-            <ul className="space-y-3">
+            </h4>
+            <ul className="space-y-2 text-slate-400 text-sm">
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-600 hover:text-slate-900 transition-colors"
+                    className="hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -63,15 +63,15 @@ export function Footer() {
 
           {/* Resources */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-900 mb-4">
+            <h4 className="text-white font-semibold mb-4">
               {t("resources")}
-            </h3>
-            <ul className="space-y-3">
+            </h4>
+            <ul className="space-y-2 text-slate-400 text-sm">
               {footerLinks.resources.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-600 hover:text-slate-900 transition-colors"
+                    className="hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -82,15 +82,15 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-900 mb-4">
+            <h4 className="text-white font-semibold mb-4">
               {t("legal")}
-            </h3>
-            <ul className="space-y-3">
+            </h4>
+            <ul className="space-y-2 text-slate-400 text-sm">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-600 hover:text-slate-900 transition-colors"
+                    className="hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -101,13 +101,13 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-slate-500">
-            {t("copyright", { year: currentYear })}
+        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-slate-400 text-sm">
+            © {currentYear} DealerOS. Made with ❤️ in Switzerland.
           </p>
           <div className="flex items-center gap-2 text-sm">
-            <span className="text-rose-500">●</span>
-            <span className="text-slate-600 font-medium">Schweizer Hosting & Support</span>
+            <span className="text-slate-400">🇨🇭</span>
+            <span className="text-slate-400">Schweizer Hosting & Support</span>
           </div>
         </div>
       </div>
