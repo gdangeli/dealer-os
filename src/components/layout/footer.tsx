@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Car } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 
 export function Footer() {
@@ -33,10 +32,10 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900">
-                <Car className="h-5 w-5 text-white" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600">
+                <span className="text-white font-bold text-lg">D</span>
               </div>
-              <span className="text-xl font-bold text-slate-900">Dealer OS</span>
+              <span className="text-xl font-bold text-slate-900">DealerOS</span>
             </Link>
             <p className="mt-4 text-sm text-slate-600 leading-relaxed">
               {t("tagline")}
@@ -106,7 +105,10 @@ export function Footer() {
           <p className="text-sm text-slate-500">
             {t("copyright", { year: currentYear })}
           </p>
-          <p className="text-sm text-slate-500">{t("madeIn")}</p>
+          <div className="flex items-center gap-2 text-sm">
+            <span className="text-rose-500">●</span>
+            <span className="text-slate-600 font-medium">Schweizer Hosting & Support</span>
+          </div>
         </div>
       </div>
     </footer>
