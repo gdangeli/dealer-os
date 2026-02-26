@@ -80,6 +80,31 @@
 
 ---
 
+## 🤖 AUTOMOTIVE OS AI (Neu geplant)
+
+AI-Features als Differentiator für das gesamte Automotive OS Portfolio.
+
+### Quick Wins
+
+| Feature | Aufwand | Beschreibung |
+|---------|---------|--------------|
+| **Smart Angebote/Offerten** | M | AI schlägt Positionen vor basierend auf Fahrzeug + Beschreibung |
+| **Auto-Texte** | S | Professionelle E-Mails generieren (Angebot, Termin, Mahnung) |
+| **Fahrzeugausweis OCR** | M | Foto hochladen → alle Felder automatisch ausgefüllt |
+
+### Differentiator-Features
+
+| Feature | Aufwand | Beschreibung |
+|---------|---------|--------------|
+| **AI Dashboard-Assistent** | L | Chat: "Zeig mir alle Leads diese Woche" → Instant-Antwort |
+| **Predictive Analytics** | L | "Kunde X kauft wahrscheinlich im März" basierend auf Historie |
+| **WhatsApp Bot für Kunden** | XL | Kunden schreiben via WhatsApp, AI antwortet + bucht Termine |
+| **Intelligente Preisempfehlung** | L | Marktbasierte Vorschläge (existiert: docs/features/AI-PRICING.md) |
+
+**Marketing-Angle:** *"Die erste Händler-Software mit eingebautem AI-Assistenten."*
+
+---
+
 ## 📋 ZURÜCKGESTELLT
 
 Diese Features sind konzeptionell vorbereitet, aber nicht priorisiert:
