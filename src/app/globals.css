@@ -308,7 +308,20 @@
   @apply absolute top-0 right-0 h-full flex items-center;
   transform: translateX(100%);
 }
-/* Custom classes from mockup-v3 */
+/* ============================================
+   MOCKUP-V3 DESIGN SYSTEM
+   ============================================ */
+
+/* Typography - Letter Spacing */
+.tracking-tight-custom {
+  letter-spacing: -0.02em;
+}
+
+.tracking-snug {
+  letter-spacing: -0.01em;
+}
+
+/* Gradient Text */
 .gradient-text {
   background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
   -webkit-background-clip: text;
@@ -316,23 +329,107 @@
   background-clip: text;
 }
 
+/* Hero Background Gradient */
 .hero-gradient {
   background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #faf5ff 100%);
 }
 
+/* Card Hover Effects */
 .card-hover {
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
+/* Feature Card Specific */
+.feature-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card:hover {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Dashboard Preview Glow */
 .glow {
   box-shadow: 0 0 60px rgba(99, 102, 241, 0.15);
 }
 
+/* Pricing Card Popular */
 .pricing-popular {
   transform: scale(1.05);
+  z-index: 10;
+}
+
+@media (max-width: 1024px) {
+  .pricing-popular {
+    transform: scale(1);
+  }
+}
+
+/* Button Shadows */
+.btn-shadow-primary {
+  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+}
+
+.btn-shadow-primary:hover {
+  box-shadow: 0 15px 40px rgba(14, 165, 233, 0.4);
+}
+
+/* Testimonial Card */
+.testimonial-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Icon Container */
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Section Divider */
+.section-divider {
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Badge Styles */
+.badge-gradient {
+  background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+}
+
+/* Smooth Focus States */
+.focus-ring-custom:focus-visible {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
+}
+
+/* Link Hover Animation */
+.link-hover {
+  position: relative;
+}
+
+.link-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.link-hover:hover::after {
+  width: 100%;
 }

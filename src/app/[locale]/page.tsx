@@ -41,7 +41,7 @@ function HomePage() {
                 </div>
 
                 {/* Headline */}
-                <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+                <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-[1.1] tracking-tight-custom mb-6">
                   {t("hero.headline1")}<br />
                   <span className="gradient-text">{t("hero.headline2")}</span>
                 </h1>
@@ -176,7 +176,7 @@ function HomePage() {
               <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 rounded-full px-4 py-2 mb-6 font-medium text-sm">
                 ⚡ {t("features.badge")}
               </div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl font-bold text-gray-900 mb-6 tracking-snug">
                 {t("features.title")}
               </h2>
               <p className="text-xl text-gray-600">
@@ -187,7 +187,7 @@ function HomePage() {
             {/* Feature Cards - WHITE backgrounds with colored icons */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Card 1 - Vehicle Management */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-100">
+              <div className="bg-white rounded-2xl p-8 feature-card border border-gray-100">
                 <div className="w-14 h-14 bg-sky-100 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-7 h-7 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                 </div>
@@ -196,7 +196,7 @@ function HomePage() {
               </div>
 
               {/* Card 2 - Lead Management */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-100">
+              <div className="bg-white rounded-2xl p-8 feature-card border border-gray-100">
                 <div className="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                 </div>
@@ -205,7 +205,7 @@ function HomePage() {
               </div>
 
               {/* Card 3 - Listing Export */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-100">
+              <div className="bg-white rounded-2xl p-8 feature-card border border-gray-100">
                 <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                 </div>
@@ -214,7 +214,7 @@ function HomePage() {
               </div>
 
               {/* Card 4 - Real KPIs */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-100">
+              <div className="bg-white rounded-2xl p-8 feature-card border border-gray-100">
                 <div className="w-14 h-14 bg-violet-100 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-7 h-7 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                 </div>
@@ -223,7 +223,7 @@ function HomePage() {
               </div>
 
               {/* Card 5 - Quotes & Invoices */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-100">
+              <div className="bg-white rounded-2xl p-8 feature-card border border-gray-100">
                 <div className="w-14 h-14 bg-rose-100 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-7 h-7 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
@@ -232,7 +232,7 @@ function HomePage() {
               </div>
 
               {/* Card 6 - Swiss Hosting */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-100">
+              <div className="bg-white rounded-2xl p-8 feature-card border border-gray-100">
                 <div className="w-14 h-14 bg-cyan-100 rounded-xl flex items-center justify-center mb-6">
                   <svg className="w-7 h-7 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
@@ -250,14 +250,14 @@ function HomePage() {
               <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-700 rounded-full px-4 py-2 mb-6 font-medium text-sm">
                 {t("testimonials.badge")}
               </div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4 tracking-snug">
                 {t("testimonials.title")}
               </h2>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {/* Testimonial 1 */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <div className="bg-white rounded-2xl p-8 testimonial-card border border-gray-100">
                 <div className="flex items-center gap-1 mb-4">
                   <span className="text-yellow-400 text-lg">★★★★★</span>
                 </div>
@@ -276,7 +276,7 @@ function HomePage() {
               </div>
 
               {/* Testimonial 2 */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <div className="bg-white rounded-2xl p-8 testimonial-card border border-gray-100">
                 <div className="flex items-center gap-1 mb-4">
                   <span className="text-yellow-400 text-lg">★★★★★</span>
                 </div>
@@ -295,7 +295,7 @@ function HomePage() {
               </div>
 
               {/* Testimonial 3 */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <div className="bg-white rounded-2xl p-8 testimonial-card border border-gray-100">
                 <div className="flex items-center gap-1 mb-4">
                   <span className="text-yellow-400 text-lg">★★★★★</span>
                 </div>
@@ -324,7 +324,7 @@ function HomePage() {
               <div className="inline-flex items-center gap-2 bg-rose-50 text-rose-700 rounded-full px-4 py-2 mb-6 font-medium text-sm">
                 💰 {tPricing("badge")}
               </div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl font-bold text-gray-900 mb-6 tracking-snug">
                 {tPricing("title")}
               </h2>
               <p className="text-xl text-gray-600">
@@ -434,7 +434,7 @@ function HomePage() {
         {/* CTA Section - Blue gradient */}
         <section className="py-24 bg-gradient-to-r from-slate-800 to-slate-900 relative overflow-hidden">
           <div className="max-w-4xl mx-auto px-6 text-center relative">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 tracking-snug">
               {t("cta.title")}
             </h2>
             <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
