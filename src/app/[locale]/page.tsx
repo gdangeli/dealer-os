@@ -31,7 +31,7 @@ function HomePage() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               {/* Left Content */}
               <div>
-                {/* Trust Badge */}
+                {/* Trust Badge - EXACT from mockup: mb-8 */}
                 <div className="inline-flex items-center gap-2 bg-white/80 border border-indigo-100 rounded-full px-4 py-2 mb-8 shadow-sm">
                   <span className="flex h-2 w-2 relative">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -40,17 +40,18 @@ function HomePage() {
                   <span className="text-sm font-medium text-gray-700">{t("hero.trustCount")}</span>
                 </div>
 
-                {/* Headline */}
+                {/* Headline - EXACT from mockup: leading-tight mb-6 */}
                 <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
                   {t("hero.headline1")}<br />
                   <span className="gradient-text">{t("hero.headline2")}</span>
                 </h1>
 
+                {/* Description - EXACT from mockup: text-xl leading-relaxed mb-10 */}
                 <p className="text-xl text-gray-600 leading-relaxed mb-10 max-w-lg">
                   {t("hero.description")}
                 </p>
 
-                {/* CTAs */}
+                {/* CTAs - EXACT from mockup: gap-4 mb-12 */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-12">
                   <Link href="/register" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-sky-500 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl hover:shadow-indigo-500/30 transition-all">
                     {t("hero.cta")}
