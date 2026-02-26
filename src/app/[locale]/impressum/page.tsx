@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
-import { Link } from '@/i18n/navigation';
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -35,90 +36,81 @@ export default async function ImpressumPage({ params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-slate-800">
-            🚗 Dealer<span className="text-blue-600">OS</span>
-          </Link>
-          <Link href="/" className="text-slate-600 hover:text-slate-800">← Zurück</Link>
+    <div className="min-h-screen bg-white flex flex-col">
+      <Header />
+
+      <main className="flex-1 pt-24 pb-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <h1 className="text-4xl font-bold text-slate-900 mb-8">Impressum</h1>
+          
+          <div className="bg-slate-50 rounded-2xl p-8 space-y-8">
+            <section>
+              <h2 className="text-xl font-semibold text-slate-900 mb-3">Kontaktadresse</h2>
+              <p className="text-slate-600">
+                Dealer OS<br />
+                Lochwisstrasse 3<br />
+                CH-8185 Winkel<br />
+                Schweiz
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-slate-900 mb-3">Kontakt</h2>
+              <p className="text-slate-600">
+                E-Mail: <a href="mailto:support@dealeros.ch" className="text-sky-600 hover:underline">support@dealeros.ch</a>
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-slate-900 mb-3">Verantwortliche Person</h2>
+              <p className="text-slate-600">L. D&apos;Angeli</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-slate-900 mb-3">Haftungsausschluss</h2>
+              <p className="text-slate-600 mb-4">
+                Der Autor übernimmt keine Gewähr für die Richtigkeit, Genauigkeit, Aktualität, 
+                Zuverlässigkeit und Vollständigkeit der Informationen.
+              </p>
+              <p className="text-slate-600 mb-4">
+                Haftungsansprüche gegen den Autor wegen Schäden materieller oder immaterieller Art, 
+                die aus dem Zugriff oder der Nutzung bzw. Nichtnutzung der veröffentlichten 
+                Informationen, durch Missbrauch der Verbindung oder durch technische Störungen 
+                entstanden sind, werden ausgeschlossen.
+              </p>
+              <p className="text-slate-600">
+                Alle Angebote sind freibleibend. Der Autor behält es sich ausdrücklich vor, 
+                Teile der Seiten oder das gesamte Angebot ohne gesonderte Ankündigung zu verändern, 
+                zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-slate-900 mb-3">Haftungsausschluss für Links</h2>
+              <p className="text-slate-600">
+                Verweise und Links auf Webseiten Dritter liegen ausserhalb unseres 
+                Verantwortungsbereichs. Es wird jegliche Verantwortung für solche Webseiten 
+                abgelehnt. Der Zugriff und die Nutzung solcher Webseiten erfolgen auf eigene 
+                Gefahr des jeweiligen Nutzers.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-slate-900 mb-3">Urheberrechte</h2>
+              <p className="text-slate-600">
+                Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen 
+                Dateien auf dieser Website gehören ausschliesslich dealeros.ch oder den speziell 
+                genannten Rechteinhabern. Für die Reproduktion jeglicher Elemente ist die 
+                schriftliche Zustimmung des Urheberrechtsträgers im Voraus einzuholen.
+              </p>
+            </section>
+          </div>
+
+          <p className="text-slate-500 text-sm mt-8 text-center">Stand: Februar 2026</p>
         </div>
-      </header>
-
-      <main className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-slate-800 mb-8">Impressum</h1>
-        
-        <div className="bg-white rounded-xl shadow-sm p-8 space-y-6">
-          <section>
-            <h2 className="text-xl font-semibold text-slate-800 mb-3">Kontaktadresse</h2>
-            <p className="text-slate-600">
-              Dealer OS<br />
-              Lochwisstrasse 3<br />
-              CH-8185 Winkel<br />
-              Schweiz
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-slate-800 mb-3">Kontakt</h2>
-            <p className="text-slate-600">
-              E-Mail: <a href="mailto:support@dealeros.ch" className="text-blue-600 hover:underline">support@dealeros.ch</a>
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-slate-800 mb-3">Verantwortliche Person</h2>
-            <p className="text-slate-600">L. D&apos;Angeli</p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-slate-800 mb-3">Haftungsausschluss</h2>
-            <p className="text-slate-600 mb-4">
-              Der Autor übernimmt keine Gewähr für die Richtigkeit, Genauigkeit, Aktualität, 
-              Zuverlässigkeit und Vollständigkeit der Informationen.
-            </p>
-            <p className="text-slate-600 mb-4">
-              Haftungsansprüche gegen den Autor wegen Schäden materieller oder immaterieller Art, 
-              die aus dem Zugriff oder der Nutzung bzw. Nichtnutzung der veröffentlichten 
-              Informationen, durch Missbrauch der Verbindung oder durch technische Störungen 
-              entstanden sind, werden ausgeschlossen.
-            </p>
-            <p className="text-slate-600">
-              Alle Angebote sind freibleibend. Der Autor behält es sich ausdrücklich vor, 
-              Teile der Seiten oder das gesamte Angebot ohne gesonderte Ankündigung zu verändern, 
-              zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-slate-800 mb-3">Haftungsausschluss für Links</h2>
-            <p className="text-slate-600">
-              Verweise und Links auf Webseiten Dritter liegen ausserhalb unseres 
-              Verantwortungsbereichs. Es wird jegliche Verantwortung für solche Webseiten 
-              abgelehnt. Der Zugriff und die Nutzung solcher Webseiten erfolgen auf eigene 
-              Gefahr des jeweiligen Nutzers.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-slate-800 mb-3">Urheberrechte</h2>
-            <p className="text-slate-600">
-              Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen 
-              Dateien auf dieser Website gehören ausschliesslich dealeros.ch oder den speziell 
-              genannten Rechteinhabern. Für die Reproduktion jeglicher Elemente ist die 
-              schriftliche Zustimmung des Urheberrechtsträgers im Voraus einzuholen.
-            </p>
-          </section>
-        </div>
-
-        <p className="text-slate-500 text-sm mt-8 text-center">Stand: Februar 2026</p>
       </main>
 
-      <footer className="bg-slate-800 text-slate-400 py-8 mt-12">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-sm">© 2026 dealeros.ch — Made with ❤️ in Switzerland 🇨🇭</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
