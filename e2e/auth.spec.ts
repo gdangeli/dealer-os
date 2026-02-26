@@ -16,8 +16,8 @@ test.describe('Login Page - UI Elements', () => {
     await expect(page.getByRole('button', { name: /anmelden/i })).toBeVisible();
   });
 
-  test('should display Dealer OS branding', async ({ page }) => {
-    await expect(page.getByText('Dealer OS')).toBeVisible();
+  test('should display DealerOS branding', async ({ page }) => {
+    await expect(page.getByText('DealerOS')).toBeVisible();
   });
 
   test('should have link to register page', async ({ page }) => {
