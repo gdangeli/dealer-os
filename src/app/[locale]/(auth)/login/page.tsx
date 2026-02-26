@@ -45,8 +45,10 @@ export default function LoginPage() {
         {/* Logo & Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <span className="text-3xl">🚗</span>
-            <span className="text-2xl font-bold text-gray-900">Dealer OS</span>
+            <div className="w-10 h-10 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center">
+              <span className="text-white font-bold text-lg">D</span>
+            </div>
+            <span className="text-2xl font-bold text-gray-900">DealerOS</span>
           </Link>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">{t("title")}</h1>
           <p className="text-gray-600">{t("subtitle")}</p>
