@@ -13,6 +13,128 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 43 - 2026-02-26
+  {
+    slug: "fruehlingsgeschaeft-autohandel-saisonstart-vorbereiten",
+    title: "Frühlingsgeschäft im Autohandel: So bereiten Sie sich auf den Saisonstart vor",
+    excerpt: "Der Frühling ist Hochsaison im Autohandel. Wer sich jetzt vorbereitet, startet mit Vorsprung. Die wichtigsten Massnahmen für einen erfolgreichen Saisonstart.",
+    category: "Praxis",
+    readTime: 8,
+    emoji: "🌸",
+    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80",
+    publishedAt: "2026-02-26",
+    author: "Dealer OS Team",
+    keywords: ["Frühlingsgeschäft", "Autohandel Saison", "Occasionen Frühling", "Cabrio Saison", "Autohändler Schweiz", "Saisonvorbereitung"],
+    content: `
+## Warum der Frühling die wichtigste Jahreszeit ist
+
+Fragen Sie jeden erfahrenen Autohändler: Die Monate März bis Juni sind entscheidend. Nach dem winterlichen Rückgang zieht die Nachfrage stark an – und wer vorbereitet ist, profitiert überproportional.
+
+**Die Zahlen sprechen für sich:**
+- **+35% mehr Anfragen** auf AutoScout24 im März vs. Januar
+- **Cabrios und Sportwagen** verkaufen sich im Frühling 3x schneller
+- **Durchschnittliche Standzeit** sinkt um 20-25% in der Hauptsaison
+- **13. Monatslohn** und Steuerrückzahlungen erhöhen die Kaufkraft
+
+Der Frühling ist Ihre Chance – aber nur, wenn Sie vorbereitet sind.
+
+## Die 5-Punkte-Checkliste für den Saisonstart
+
+### 1. Bestand aufbauen und optimieren
+
+Jetzt ist der richtige Zeitpunkt, um Ihren Bestand kritisch zu prüfen.
+
+**Langsteher identifizieren:**
+- Fahrzeuge über 60 Tage? Aggressive Preisreduktion oder Abgabe an Händler
+- Fahrzeuge über 90 Tage? Sofort handeln, bevor die Hochsaison beginnt
+
+**Saisonale Bestseller einkaufen:**
+- Cabrios und Roadster (Saison beginnt im März!)
+- SUVs und Crossover (ganzjährig stark, aber Frühling = Familienentscheidungen)
+- Kleinwagen für Neulenkende (Frühling = Prüfungszeit)
+- Occasionen unter CHF 15'000 (hohe Nachfrage, schneller Umschlag)
+
+**Tipp:** Beobachten Sie die Ankaufspreise auf CARAUKTION. Kurz vor Saisonstart steigen die Preise – kaufen Sie jetzt ein.
+
+### 2. Fahrzeuge frühlingsfähig machen
+
+Ihre Autos haben den Winter überstanden. Jetzt müssen sie glänzen.
+
+**Aussenaufbereitung:**
+- Professionelle Wäsche inklusive Unterboden (Salzrückstände!)
+- Lackpolitur und Versiegelung
+- Felgenreinigung und -aufbereitung
+- Scheibenwischer und Gummidichtungen prüfen
+
+**Innenraumfrische:**
+- Tiefenreinigung Polster und Teppiche
+- Lederaufbereitung
+- Geruchsneutralisation
+- Klimaanlagendesinfektion
+
+**Technik-Check:**
+- Klimaanlage funktionsfähig? (Erste Frage im Frühling!)
+- Reifenwechsel bzw. Sommerreifen-Verfügbarkeit kommunizieren
+- Batterie prüfen (Winterbelastung)
+
+### 3. Online-Präsenz auffrischen
+
+Ihre Inserate brauchen ein Frühlingsupdate.
+
+**Fotos neu machen:**
+- Winterliche Fotos austauschen
+- Bei Sonnenschein fotografieren
+- Grüne Umgebung = positive Assoziationen
+- Cabrios mit offenem Verdeck zeigen
+
+**Inseratetexte optimieren:**
+- "Pünktlich zum Frühling" als Eye-Catcher
+- Bei Cabrios: "Bereit für die erste Ausfahrt"
+- Klimaanlage prominent erwähnen
+- Sommerreifen-Verfügbarkeit angeben
+
+### 4. Team und Prozesse vorbereiten
+
+Die Hochsaison bedeutet mehr Arbeit. Sind Sie bereit?
+
+**Personalplanung:**
+- Ferienplanung März-Juni prüfen
+- Eventuell temporäre Verstärkung organisieren
+- Samstagsöffnungszeiten überdenken
+
+**Prozesse optimieren:**
+- Lead-Bearbeitung beschleunigen (Ziel: unter 1 Stunde)
+- Probefahrt-Termine online buchbar machen
+- MFK-Termine vorbuchen (Wartezeiten im Frühling!)
+
+### 5. Marketing-Offensive starten
+
+Wer wirbt, gewinnt – besonders jetzt.
+
+**Saisonale Aktionen:**
+- "Frühlingsstart-Angebot" mit zeitlicher Begrenzung
+- Gratis-Reifenwechsel beim Kauf
+- Frühlingscheck inklusive
+
+**Digital:**
+- Newsletter an Bestandskunden
+- Google Ads Budget erhöhen
+- Retargeting aktivieren
+
+## Typische Fehler vermeiden
+
+**Zu spät starten:** Wer erst im April aufwacht, hat die erste Welle verpasst.
+
+**Bestand nicht anpassen:** Verstehen Sie die saisonale Nachfrage.
+
+**Langsteher mitschleppen:** Bereinigen Sie Ihren Bestand vor der Hochsaison.
+
+---
+
+**Bereit für den Frühling?** Mit Dealer OS haben Sie alle Fahrzeuge, Anfragen und Kennzahlen im Griff. Jetzt kostenlos testen.
+    `.trim()
+  },
+
   // Artikel 42 - 2026-02-25
   {
     slug: "fahrzeugfotos-die-verkaufen-tipps-fuer-autohaendler",
