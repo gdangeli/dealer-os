@@ -2,8 +2,6 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DemoVideoButton } from "@/components/landing/demo-video-modal";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
@@ -71,16 +69,13 @@ function HomePage() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                  <Button
-                    size="lg"
-                    asChild
-                    className="h-14 px-8 text-lg font-semibold bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 hover:shadow-xl hover:shadow-indigo-500/30 transition-all rounded-xl"
+                  <Link
+                    href="/register"
+                    className="inline-flex items-center justify-center gap-2 h-14 px-8 text-lg font-semibold bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white hover:shadow-xl hover:shadow-indigo-500/30 transition-all rounded-xl"
                   >
-                    <Link href="/register">
-                      {t("hero.cta")}
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
+                    {t("hero.cta")}
+                    <ArrowRight className="h-5 w-5" />
+                  </Link>
                   <DemoVideoButton className="h-14 px-8 text-lg font-semibold border border-gray-200 hover:bg-gray-50 hover:border-gray-300 rounded-xl" />
                 </div>
 
@@ -342,26 +337,19 @@ function HomePage() {
               {t("cta.description")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                asChild
-                className="h-14 px-8 text-lg font-semibold bg-white text-indigo-600 hover:bg-gray-100 shadow-xl rounded-xl"
+              <Link
+                href="/register"
+                className="inline-flex items-center justify-center gap-2 h-14 px-8 text-lg font-semibold bg-white text-indigo-600 hover:bg-gray-100 shadow-xl rounded-xl transition-all"
               >
-                <Link href="/register">
-                  {t("cta.button")}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                asChild
-                className="h-14 px-8 text-lg font-semibold bg-transparent text-white border-2 border-white/30 hover:bg-white/10 rounded-xl"
+                {t("cta.button")}
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link
+                href="/kontakt"
+                className="inline-flex items-center justify-center gap-2 h-14 px-8 text-lg font-semibold bg-transparent text-white border-2 border-white/30 hover:bg-white/10 rounded-xl transition-all"
               >
-                <Link href="/kontakt">
-                  Demo vereinbaren
-                </Link>
-              </Button>
+                Demo vereinbaren
+              </Link>
             </div>
           </div>
         </section>
