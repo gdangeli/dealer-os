@@ -2,20 +2,8 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { Badge } from "@/components/ui/badge";
-import { DemoVideoButton } from "@/components/landing/demo-video-modal";
-import { DashboardPreview } from "@/components/landing/dashboard-preview";
 import { Link } from "@/i18n/navigation";
-import {
-  Car,
-  BarChart3,
-  Users,
-  Shield,
-  Zap,
-  Check,
-  ArrowRight,
-  Receipt,
-} from "lucide-react";
+import { ArrowRight, Check, Shield, Play } from "lucide-react";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -37,71 +25,66 @@ function HomePage() {
       <Header />
 
       <main className="flex-1 pt-16">
-        {/* Hero Section - Matching mockup-v3 exactly */}
-        <section className="pt-32 pb-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #faf5ff 100%)' }}>
+        {/* Hero Section - EXACT copy from mockup-v3 */}
+        <section className="hero-gradient pt-32 pb-20 overflow-hidden">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
-              {/* Left: Content */}
+              {/* Left Content */}
               <div>
                 {/* Trust Badge */}
-                <div className="inline-flex items-center gap-2 bg-white/80 border border-indigo-100 rounded-full px-4 py-2 shadow-sm mb-8">
+                <div className="inline-flex items-center gap-2 bg-white/80 border border-indigo-100 rounded-full px-4 py-2 mb-8 shadow-sm">
                   <span className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
-                  <span className="text-sm font-medium text-gray-700">
-                    {t("hero.trustCount")}
-                  </span>
+                  <span className="text-sm font-medium text-gray-700">{t("hero.trustCount")}</span>
                 </div>
 
                 {/* Headline */}
                 <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
-                  {t("hero.headline1")}
-                  <br />
-                  <span className="bg-gradient-to-r from-sky-500 to-indigo-600 bg-clip-text text-transparent">
-                    {t("hero.headline2")}
-                  </span>
+                  {t("hero.headline1")}<br />
+                  <span className="gradient-text">{t("hero.headline2")}</span>
                 </h1>
 
                 <p className="text-xl text-gray-600 leading-relaxed mb-10 max-w-lg">
                   {t("hero.description")}
                 </p>
 
-                {/* CTA Buttons */}
+                {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                  <Link
-                    href="/register"
-                    className="inline-flex items-center justify-center gap-2 h-14 px-8 text-lg font-semibold bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white hover:shadow-xl hover:shadow-indigo-500/30 transition-all rounded-xl"
-                  >
+                  <Link href="/register" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-sky-500 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl hover:shadow-indigo-500/30 transition-all">
                     {t("hero.cta")}
-                    <ArrowRight className="h-5 w-5" />
+                    <ArrowRight className="w-5 h-5" />
                   </Link>
-                  <DemoVideoButton className="h-14 px-8 text-lg font-semibold border border-gray-200 hover:bg-gray-50 hover:border-gray-300 rounded-xl" />
+                  <button className="inline-flex items-center justify-center gap-2 bg-white text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all">
+                    <Play className="w-5 h-5" fill="currentColor" />
+                    {t("hero.watchDemo")}
+                  </button>
                 </div>
 
                 {/* Trust Indicators */}
                 <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600 mb-8">
                   <div className="flex items-center gap-2">
                     <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center">
-                      <Check className="h-3 w-3 text-emerald-600" />
+                      <Check className="w-3 h-3 text-emerald-600" strokeWidth={3} />
                     </div>
                     <span>{t("hero.noCreditCard")}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center">
-                      <Check className="h-3 w-3 text-emerald-600" />
+                      <Check className="w-3 h-3 text-emerald-600" strokeWidth={3} />
                     </div>
                     <span>{t("hero.quickStart")}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center">
-                      <Shield className="h-3 w-3 text-sky-600" />
+                      <Shield className="w-3 h-3 text-sky-600" />
                     </div>
                     <span>{t("hero.swissHosting")}</span>
                   </div>
                 </div>
 
-                {/* Portal Logos */}
+                {/* Social Proof Logos */}
                 <div className="flex items-center gap-6 opacity-70">
                   <span className="text-sm text-gray-500 font-medium">Inserieren auf:</span>
                   <div className="flex items-center gap-4">
@@ -118,15 +101,74 @@ function HomePage() {
                 </div>
               </div>
 
-              {/* Right: Dashboard Preview */}
+              {/* Right - Dashboard Preview */}
               <div className="relative">
-                <DashboardPreview />
+                <div className="absolute inset-0 bg-gradient-to-r from-sky-400/20 to-indigo-400/20 rounded-3xl blur-3xl"></div>
+                <div className="relative bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden glow">
+                  {/* Browser Header */}
+                  <div className="bg-gray-100 px-4 py-3 flex items-center gap-2 border-b">
+                    <div className="flex gap-1.5">
+                      <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                    </div>
+                    <div className="flex-1 bg-white rounded-lg px-3 py-1 text-xs text-gray-400 ml-2">dealeros.ch/dashboard</div>
+                  </div>
+                  {/* Dashboard Content Mockup */}
+                  <div className="p-6 bg-slate-50">
+                    <div className="grid grid-cols-3 gap-4 mb-4">
+                      <div className="bg-white rounded-xl p-4 shadow-sm">
+                        <div className="text-sm text-gray-500 mb-1">Fahrzeuge</div>
+                        <div className="text-2xl font-bold text-gray-900">47</div>
+                        <div className="text-xs text-green-600 mt-1">↗ 12% diesen Monat</div>
+                      </div>
+                      <div className="bg-white rounded-xl p-4 shadow-sm">
+                        <div className="text-sm text-gray-500 mb-1">Offene Leads</div>
+                        <div className="text-2xl font-bold text-gray-900">23</div>
+                        <div className="text-xs text-amber-600 mt-1">5 brauchen Follow-up</div>
+                      </div>
+                      <div className="bg-white rounded-xl p-4 shadow-sm">
+                        <div className="text-sm text-gray-500 mb-1">Umsatz Feb</div>
+                        <div className="text-2xl font-bold text-gray-900">187k</div>
+                        <div className="text-xs text-green-600 mt-1">↗ CHF vs. Vormonat</div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 shadow-sm">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="font-semibold text-gray-800">Neueste Leads</span>
+                        <span className="text-sm text-sky-600">Alle anzeigen →</span>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3 p-2 bg-green-50 rounded-lg">
+                          <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <span className="text-green-600 text-sm">🟢</span>
+                          </div>
+                          <div className="flex-1">
+                            <div className="text-sm font-medium text-gray-900">Hans Müller</div>
+                            <div className="text-xs text-gray-500">BMW X5 • AutoScout24</div>
+                          </div>
+                          <span className="text-xs text-green-600 font-medium">Gerade eben</span>
+                        </div>
+                        <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg">
+                          <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                            <span className="text-gray-600 text-sm">📞</span>
+                          </div>
+                          <div className="flex-1">
+                            <div className="text-sm font-medium text-gray-900">Maria Schneider</div>
+                            <div className="text-xs text-gray-500">VW Golf • Telefon</div>
+                          </div>
+                          <span className="text-xs text-gray-500">vor 2 Std</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Features Section - Matching mockup-v3 */}
+        {/* Features Section - EXACT copy from mockup-v3 */}
         <section id="features" className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             {/* Section Header */}
@@ -144,59 +186,64 @@ function HomePage() {
 
             {/* Feature Cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <FeatureCard
-                icon={Car}
-                title={t("features.vehicleManagement")}
-                description={t("features.vehicleManagementDesc")}
-                gradient="from-sky-500 to-indigo-600"
-                bgGradient="from-sky-50 to-indigo-50"
-                borderColor="border-sky-100"
-              />
-              <FeatureCard
-                icon={Users}
-                title={t("features.leadManagement")}
-                description={t("features.leadManagementDesc")}
-                gradient="from-emerald-500 to-teal-600"
-                bgGradient="from-emerald-50 to-teal-50"
-                borderColor="border-emerald-100"
-              />
-              <FeatureCard
-                icon={Zap}
-                title={t("features.listingExport")}
-                description={t("features.listingExportDesc")}
-                gradient="from-orange-500 to-amber-600"
-                bgGradient="from-orange-50 to-amber-50"
-                borderColor="border-orange-100"
-              />
-              <FeatureCard
-                icon={BarChart3}
-                title={t("features.realKpis")}
-                description={t("features.realKpisDesc")}
-                gradient="from-violet-500 to-purple-600"
-                bgGradient="from-violet-50 to-purple-50"
-                borderColor="border-violet-100"
-              />
-              <FeatureCard
-                icon={Receipt}
-                title={t("features.quotesInvoices")}
-                description={t("features.quotesInvoicesDesc")}
-                gradient="from-rose-500 to-pink-600"
-                bgGradient="from-rose-50 to-pink-50"
-                borderColor="border-rose-100"
-              />
-              <FeatureCard
-                icon={Shield}
-                title={t("features.swissHosting")}
-                description={t("features.swissHostingDesc")}
-                gradient="from-cyan-500 to-sky-600"
-                bgGradient="from-cyan-50 to-sky-50"
-                borderColor="border-cyan-100"
-              />
+              {/* Card 1 */}
+              <div className="bg-gradient-to-br from-sky-50 to-indigo-50 rounded-2xl p-8 card-hover border border-sky-100">
+                <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6">
+                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{t("features.vehicleManagement")}</h3>
+                <p className="text-gray-600 leading-relaxed">{t("features.vehicleManagementDesc")}</p>
+              </div>
+
+              {/* Card 2 */}
+              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 card-hover border border-emerald-100">
+                <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mb-6">
+                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{t("features.leadManagement")}</h3>
+                <p className="text-gray-600 leading-relaxed">{t("features.leadManagementDesc")}</p>
+              </div>
+
+              {/* Card 3 */}
+              <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-8 card-hover border border-orange-100">
+                <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center mb-6">
+                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{t("features.listingExport")}</h3>
+                <p className="text-gray-600 leading-relaxed">{t("features.listingExportDesc")}</p>
+              </div>
+
+              {/* Card 4 */}
+              <div className="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-8 card-hover border border-violet-100">
+                <div className="w-14 h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
+                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{t("features.realKpis")}</h3>
+                <p className="text-gray-600 leading-relaxed">{t("features.realKpisDesc")}</p>
+              </div>
+
+              {/* Card 5 */}
+              <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-8 card-hover border border-rose-100">
+                <div className="w-14 h-14 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl flex items-center justify-center mb-6">
+                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{t("features.quotesInvoices")}</h3>
+                <p className="text-gray-600 leading-relaxed">{t("features.quotesInvoicesDesc")}</p>
+              </div>
+
+              {/* Card 6 */}
+              <div className="bg-gradient-to-br from-cyan-50 to-sky-50 rounded-2xl p-8 card-hover border border-cyan-100">
+                <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-sky-600 rounded-xl flex items-center justify-center mb-6">
+                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{t("features.swissHosting")}</h3>
+                <p className="text-gray-600 leading-relaxed">{t("features.swissHostingDesc")}</p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Testimonials Section - Matching mockup-v3 */}
+        {/* Testimonials Section - EXACT copy from mockup-v3 */}
         <section className="py-24 bg-gradient-to-br from-slate-900 to-slate-800">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -209,32 +256,67 @@ function HomePage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <TestimonialCard
-                quote={t("testimonials.quote1")}
-                name={t("testimonials.name1")}
-                role={t("testimonials.role1")}
-                initials="MK"
-                gradient="from-sky-400 to-indigo-500"
-              />
-              <TestimonialCard
-                quote={t("testimonials.quote2")}
-                name={t("testimonials.name2")}
-                role={t("testimonials.role2")}
-                initials="SB"
-                gradient="from-emerald-400 to-teal-500"
-              />
-              <TestimonialCard
-                quote={t("testimonials.quote3")}
-                name={t("testimonials.name3")}
-                role={t("testimonials.role3")}
-                initials="PZ"
-                gradient="from-orange-400 to-red-500"
-              />
+              {/* Testimonial 1 */}
+              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 card-hover">
+                <div className="flex items-center gap-1 mb-4">
+                  <span className="text-yellow-400">★★★★★</span>
+                </div>
+                <p className="text-white/90 mb-6 leading-relaxed">
+                  &ldquo;{t("testimonials.quote1")}&rdquo;
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-sky-400 to-indigo-500 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold">MK</span>
+                  </div>
+                  <div>
+                    <div className="text-white font-semibold">{t("testimonials.name1")}</div>
+                    <div className="text-slate-400 text-sm">{t("testimonials.role1")}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Testimonial 2 */}
+              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 card-hover">
+                <div className="flex items-center gap-1 mb-4">
+                  <span className="text-yellow-400">★★★★★</span>
+                </div>
+                <p className="text-white/90 mb-6 leading-relaxed">
+                  &ldquo;{t("testimonials.quote2")}&rdquo;
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold">SB</span>
+                  </div>
+                  <div>
+                    <div className="text-white font-semibold">{t("testimonials.name2")}</div>
+                    <div className="text-slate-400 text-sm">{t("testimonials.role2")}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Testimonial 3 */}
+              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 card-hover">
+                <div className="flex items-center gap-1 mb-4">
+                  <span className="text-yellow-400">★★★★★</span>
+                </div>
+                <p className="text-white/90 mb-6 leading-relaxed">
+                  &ldquo;{t("testimonials.quote3")}&rdquo;
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold">PZ</span>
+                  </div>
+                  <div>
+                    <div className="text-white font-semibold">{t("testimonials.name3")}</div>
+                    <div className="text-slate-400 text-sm">{t("testimonials.role3")}</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Pricing Section - Matching mockup-v3 exactly */}
+        {/* Pricing Section - EXACT copy from mockup-v3 */}
         <section id="pricing" className="py-24 bg-gradient-to-b from-slate-50 to-white">
           <div className="max-w-7xl mx-auto px-6">
             {/* Section Header */}
@@ -252,68 +334,102 @@ function HomePage() {
 
             {/* Pricing Cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-              <PricingCard
-                name={tPricing("starter.name")}
-                description={tPricing("starter.description")}
-                price={tPricing("starter.price")}
-                features={[
-                  tPricing("starter.features.0"),
-                  tPricing("starter.features.1"),
-                  tPricing("starter.features.2"),
-                  tPricing("starter.features.3"),
-                  tPricing("starter.features.4"),
-                ]}
-                ctaText={tPricing("freeTrial")}
-                free
-                freeLabel={tPricing("free")}
-              />
-              <PricingCard
-                name={tPricing("professional.name")}
-                description={tPricing("professional.description")}
-                price={tPricing("professional.price")}
-                perMonth={tPricing("perMonth")}
-                features={[
-                  tPricing("professional.features.0"),
-                  tPricing("professional.features.1"),
-                  tPricing("professional.features.2"),
-                  tPricing("professional.features.3"),
-                  tPricing("professional.features.4"),
-                  tPricing("professional.features.5"),
-                ]}
-                ctaText={tPricing("freeTrial")}
-                popular
-                popularLabel={tPricing("popular")}
-              />
-              <PricingCard
-                name={tPricing("business.name")}
-                description={tPricing("business.description")}
-                price={tPricing("business.price")}
-                perMonth={tPricing("perMonth")}
-                features={[
-                  tPricing("business.features.0"),
-                  tPricing("business.features.1"),
-                  tPricing("business.features.2"),
-                  tPricing("business.features.3"),
-                  tPricing("business.features.4"),
-                  tPricing("business.features.5"),
-                ]}
-                ctaText={tPricing("freeTrial")}
-              />
-              <PricingCard
-                name={tPricing("enterprise.name")}
-                description={tPricing("enterprise.description")}
-                price={tPricing("onRequest")}
-                features={[
-                  tPricing("enterprise.features.0"),
-                  tPricing("enterprise.features.1"),
-                  tPricing("enterprise.features.2"),
-                  tPricing("enterprise.features.3"),
-                  tPricing("enterprise.features.4"),
-                  tPricing("enterprise.features.5"),
-                ]}
-                ctaText={tPricing("contact")}
-                enterprise
-              />
+              
+              {/* Starter - Free */}
+              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border border-emerald-200 card-hover relative">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{tPricing("starter.name")}</h3>
+                <p className="text-sm text-gray-600 mb-6">{tPricing("starter.description")}</p>
+                <div className="mb-8">
+                  <span className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">{tPricing("free")}</span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {[0,1,2,3,4].map((i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                      <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check className="w-3 h-3 text-emerald-600" strokeWidth={3} />
+                      </div>
+                      {tPricing(`starter.features.${i}`)}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/register" className="block w-full text-center bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white py-3 px-6 rounded-xl font-semibold transition-all shadow-lg shadow-emerald-500/30">
+                  {tPricing("freeTrial")}
+                </Link>
+              </div>
+
+              {/* Professional - Popular */}
+              <div className="bg-gradient-to-br from-sky-50 to-indigo-50 rounded-2xl p-8 border-2 border-sky-400 card-hover relative pricing-popular shadow-2xl shadow-sky-200">
+                {/* Popular Badge */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <span className="bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg">
+                    ✨ {tPricing("popular")}
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2 mt-2">{tPricing("professional.name")}</h3>
+                <p className="text-sm text-gray-600 mb-6">{tPricing("professional.description")}</p>
+                <div className="mb-8">
+                  <span className="text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">{tPricing("professional.price")}</span>
+                  <span className="text-gray-500 ml-2">{tPricing("perMonth")}</span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {[0,1,2,3,4,5].map((i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                      <div className="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check className="w-3 h-3 text-sky-600" strokeWidth={3} />
+                      </div>
+                      {tPricing(`professional.features.${i}`)}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/register" className="block w-full text-center bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white py-3 px-6 rounded-xl font-semibold transition-all shadow-lg shadow-sky-500/30">
+                  {tPricing("freeTrial")}
+                </Link>
+              </div>
+
+              {/* Business */}
+              <div className="bg-white rounded-2xl p-8 border border-gray-200 card-hover relative">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{tPricing("business.name")}</h3>
+                <p className="text-sm text-gray-600 mb-6">{tPricing("business.description")}</p>
+                <div className="mb-8">
+                  <span className="text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">{tPricing("business.price")}</span>
+                  <span className="text-gray-500 ml-2">{tPricing("perMonth")}</span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {[0,1,2,3,4,5].map((i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                      <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check className="w-3 h-3 text-emerald-600" strokeWidth={3} />
+                      </div>
+                      {tPricing(`business.features.${i}`)}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/register" className="block w-full text-center border border-gray-300 hover:bg-gray-50 text-gray-700 py-3 px-6 rounded-xl font-semibold transition-all">
+                  {tPricing("freeTrial")}
+                </Link>
+              </div>
+
+              {/* Enterprise */}
+              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-300 card-hover relative">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{tPricing("enterprise.name")}</h3>
+                <p className="text-sm text-gray-600 mb-6">{tPricing("enterprise.description")}</p>
+                <div className="mb-8">
+                  <span className="text-2xl font-bold text-gray-900">{tPricing("onRequest")}</span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {[0,1,2,3,4,5].map((i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                      <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check className="w-3 h-3 text-emerald-600" strokeWidth={3} />
+                      </div>
+                      {tPricing(`enterprise.features.${i}`)}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/kontakt" className="block w-full text-center border border-gray-300 hover:bg-gray-50 text-gray-700 py-3 px-6 rounded-xl font-semibold transition-all">
+                  {tPricing("contact")}
+                </Link>
+              </div>
             </div>
 
             {/* Price Note */}
@@ -323,11 +439,11 @@ function HomePage() {
           </div>
         </section>
 
-        {/* CTA Section - Matching mockup-v3 */}
+        {/* CTA Section - EXACT copy from mockup-v3 */}
         <section className="py-24 bg-gradient-to-br from-sky-500 to-indigo-600 relative overflow-hidden">
           <div className="absolute inset-0">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl"></div>
           </div>
           <div className="max-w-4xl mx-auto px-6 text-center relative">
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
@@ -337,17 +453,11 @@ function HomePage() {
               {t("cta.description")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/register"
-                className="inline-flex items-center justify-center gap-2 h-14 px-8 text-lg font-semibold bg-white text-indigo-600 hover:bg-gray-100 shadow-xl rounded-xl transition-all"
-              >
+              <Link href="/register" className="inline-flex items-center justify-center gap-2 bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all shadow-xl">
                 {t("cta.button")}
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link
-                href="/kontakt"
-                className="inline-flex items-center justify-center gap-2 h-14 px-8 text-lg font-semibold bg-transparent text-white border-2 border-white/30 hover:bg-white/10 rounded-xl transition-all"
-              >
+              <Link href="/kontakt" className="inline-flex items-center justify-center gap-2 bg-transparent text-white px-8 py-4 rounded-xl font-semibold text-lg border-2 border-white/30 hover:bg-white/10 transition-all">
                 Demo vereinbaren
               </Link>
             </div>
@@ -356,184 +466,6 @@ function HomePage() {
       </main>
 
       <Footer />
-    </div>
-  );
-}
-
-// Feature Card Component - Matching mockup-v3
-function FeatureCard({
-  icon: Icon,
-  title,
-  description,
-  gradient,
-  bgGradient,
-  borderColor,
-}: {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  gradient: string;
-  bgGradient: string;
-  borderColor: string;
-}) {
-  return (
-    <div className={`bg-gradient-to-br ${bgGradient} rounded-2xl p-8 border ${borderColor} hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
-      <div className={`w-14 h-14 bg-gradient-to-br ${gradient} rounded-xl flex items-center justify-center mb-6`}>
-        <Icon className="h-7 w-7 text-white" />
-      </div>
-      <h3 className="text-xl font-bold text-gray-900 mb-3">{title}</h3>
-      <p className="text-gray-600 leading-relaxed">{description}</p>
-    </div>
-  );
-}
-
-// Testimonial Card Component - Matching mockup-v3
-function TestimonialCard({
-  quote,
-  name,
-  role,
-  initials,
-  gradient,
-}: {
-  quote: string;
-  name: string;
-  role: string;
-  initials: string;
-  gradient: string;
-}) {
-  return (
-    <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300">
-      <div className="flex items-center gap-1 mb-4">
-        <span className="text-yellow-400">★★★★★</span>
-      </div>
-      <p className="text-white/90 mb-6 leading-relaxed">
-        &ldquo;{quote}&rdquo;
-      </p>
-      <div className="flex items-center gap-4">
-        <div className={`w-12 h-12 bg-gradient-to-br ${gradient} rounded-full flex items-center justify-center`}>
-          <span className="text-white font-bold">{initials}</span>
-        </div>
-        <div>
-          <div className="text-white font-semibold">{name}</div>
-          <div className="text-slate-400 text-sm">{role}</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Pricing Card Component - Matching mockup-v3 exactly
-function PricingCard({
-  name,
-  description,
-  price,
-  perMonth,
-  features,
-  ctaText,
-  popular,
-  popularLabel,
-  enterprise,
-  free,
-  freeLabel,
-}: {
-  name: string;
-  description: string;
-  price: string;
-  perMonth?: string;
-  features: string[];
-  ctaText: string;
-  popular?: boolean;
-  popularLabel?: string;
-  enterprise?: boolean;
-  free?: boolean;
-  freeLabel?: string;
-}) {
-  return (
-    <div
-      className={`relative rounded-2xl p-8 border transition-all duration-300 hover:shadow-xl ${
-        popular
-          ? "bg-gradient-to-br from-sky-50 to-indigo-50 border-2 border-sky-400 shadow-2xl shadow-sky-200 scale-105"
-          : enterprise
-          ? "bg-slate-50 border-slate-300"
-          : free
-          ? "bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200"
-          : "bg-white border-gray-200"
-      }`}
-    >
-      {/* Popular Badge */}
-      {popular && popularLabel && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-          <span className="bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg">
-            ✨ {popularLabel}
-          </span>
-        </div>
-      )}
-
-      <h3 className={`text-xl font-bold text-gray-900 mb-2 ${popular ? 'mt-2' : ''}`}>{name}</h3>
-      <p className="text-sm text-gray-600 mb-6">{description}</p>
-
-      {/* Price */}
-      <div className="mb-8">
-        {free && freeLabel ? (
-          <span className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-            {freeLabel}
-          </span>
-        ) : perMonth ? (
-          <>
-            <span className="text-4xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">
-              {price}
-            </span>
-            <span className="text-gray-500 ml-2">{perMonth}</span>
-          </>
-        ) : (
-          <span className="text-2xl font-bold text-gray-900">{price}</span>
-        )}
-      </div>
-
-      {/* Features */}
-      <ul className="space-y-3 mb-8">
-        {features.map((feature, idx) => (
-          <li key={idx} className="flex items-start gap-3 text-sm text-gray-700">
-            <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-              popular ? "bg-sky-100" : "bg-emerald-100"
-            }`}>
-              <Check className={`h-3 w-3 ${popular ? "text-sky-600" : "text-emerald-600"}`} />
-            </div>
-            {feature}
-          </li>
-        ))}
-      </ul>
-
-      {/* CTA Button */}
-      {popular ? (
-        <Link
-          href="/register"
-          className="block w-full text-center bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white py-3 px-6 rounded-xl font-semibold transition-all shadow-lg shadow-sky-500/30"
-        >
-          {ctaText}
-        </Link>
-      ) : free ? (
-        <Link
-          href="/register"
-          className="block w-full text-center bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white py-3 px-6 rounded-xl font-semibold transition-all shadow-lg shadow-emerald-500/30"
-        >
-          {ctaText}
-        </Link>
-      ) : enterprise ? (
-        <Link
-          href="/kontakt"
-          className="block w-full text-center border border-gray-300 hover:bg-gray-50 text-gray-700 py-3 px-6 rounded-xl font-semibold transition-all"
-        >
-          {ctaText}
-        </Link>
-      ) : (
-        <Link
-          href="/register"
-          className="block w-full text-center border border-gray-300 hover:bg-gray-50 text-gray-700 py-3 px-6 rounded-xl font-semibold transition-all"
-        >
-          {ctaText}
-        </Link>
-      )}
     </div>
   );
 }
