@@ -8,6 +8,8 @@
     "features": "Features",
     "pricing": "Pricing",
     "blog": "Blog",
+    "about": "About Us",
+    "contact": "Contact",
     "login": "Sign In",
     "register": "Start Free",
     "openMenu": "Open menu"
@@ -20,6 +22,8 @@
     "roadmap": "Roadmap",
     "resources": "Resources",
     "blog": "Blog",
+    "about": "About Us",
+    "contact": "Contact",
     "help": "Help",
     "contact": "Contact",
     "legal": "Legal",
