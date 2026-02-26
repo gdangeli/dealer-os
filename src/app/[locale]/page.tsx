@@ -40,14 +40,14 @@ function HomePage() {
                   <span className="text-sm font-medium text-gray-700">{t("hero.trustCount")}</span>
                 </div>
 
-                {/* Headline - EXACT from mockup: leading-tight mb-6 */}
-                <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+                {/* Headline - tighter line-height for compact look */}
+                <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-[1.1] mb-6">
                   {t("hero.headline1")}<br />
                   <span className="gradient-text">{t("hero.headline2")}</span>
                 </h1>
 
-                {/* Description - EXACT from mockup: text-xl leading-relaxed mb-10 */}
-                <p className="text-xl text-gray-600 leading-relaxed mb-10 max-w-lg">
+                {/* Description - slightly tighter */}
+                <p className="text-xl text-gray-600 leading-normal mb-10 max-w-lg">
                   {t("hero.description")}
                 </p>
 
