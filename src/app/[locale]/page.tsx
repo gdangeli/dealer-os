@@ -38,9 +38,9 @@ function HomePage() {
 
       <main className="flex-1 pt-16">
         {/* Hero Section - Matching mockup-v3 exactly */}
-        <section className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #faf5ff 100%)' }}>
-          <div className="max-w-7xl mx-auto px-6 relative">
-            <div className="grid lg:grid-cols-2 gap-16 items-center py-16 lg:py-24">
+        <section className="pt-32 pb-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #faf5ff 100%)' }}>
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
               {/* Left: Content */}
               <div>
                 {/* Trust Badge */}
@@ -68,7 +68,7 @@ function HomePage() {
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 mb-10">
+                <div className="flex flex-col sm:flex-row gap-4 mb-12">
                   <Link
                     href="/register"
                     className="inline-flex items-center justify-center gap-2 h-14 px-8 text-lg font-semibold bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white hover:shadow-xl hover:shadow-indigo-500/30 transition-all rounded-xl"
