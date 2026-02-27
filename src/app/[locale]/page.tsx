@@ -3,7 +3,17 @@ import { setRequestLocale } from "next-intl/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, Check, Shield, Play } from "lucide-react";
+import { ArrowRight, Check, Shield, Sparkles, Users, HeartHandshake, Percent } from "lucide-react";
+
+// ============================================
+// BETA TESTER CONFIGURATION
+// ============================================
+const BETA_SLOTS_TOTAL = 50;
+const BETA_SLOTS_TAKEN = 6;
+// ============================================
+
+const BETA_SLOTS_REMAINING = BETA_SLOTS_TOTAL - BETA_SLOTS_TAKEN;
+const BETA_PROGRESS_PERCENT = (BETA_SLOTS_TAKEN / BETA_SLOTS_TOTAL) * 100;
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -25,42 +35,53 @@ function HomePage() {
       <Header />
 
       <main className="flex-1 pt-16">
-        {/* Hero Section - EXACT from mockup-v3 */}
+        {/* Hero Section - BETA TESTER CAMPAIGN */}
         <section className="hero-gradient pt-24 sm:pt-32 pb-12 sm:pb-20 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               {/* Left Content */}
               <div>
-                {/* Trust Badge - EXACT from mockup: mb-8 */}
-                <div className="inline-flex items-center gap-2 bg-white/80 border border-indigo-100 rounded-full px-4 py-2 mb-8 shadow-sm">
-                  <span className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  <span className="text-sm font-medium text-gray-700">{t("hero.trustCount")}</span>
+                {/* Limited Badge */}
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full px-4 py-2 mb-6 shadow-lg shadow-amber-500/30 animate-pulse">
+                  <span className="text-lg">🔥</span>
+                  <span className="text-sm font-bold">Limitiert auf {BETA_SLOTS_TOTAL} Plätze</span>
                 </div>
 
-                {/* Headline - tighter line-height for compact look */}
+                {/* Headline - Beta Tester Focus */}
                 <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-gray-900 leading-[1.1] mb-4 sm:mb-6">
-                  {t("hero.headline1")}<br />
-                  <span className="gradient-text">{t("hero.headline2")}</span>
+                  Werde einer von {BETA_SLOTS_TOTAL}<br />
+                  <span className="gradient-text">Beta-Testern</span>
                 </h1>
 
-                {/* Description - slightly tighter */}
-                <p className="text-lg sm:text-xl text-gray-600 leading-normal mb-8 sm:mb-10 max-w-lg">
-                  {t("hero.description")}
+                {/* Description - Beta Value Prop */}
+                <p className="text-lg sm:text-xl text-gray-600 leading-normal mb-6 sm:mb-8 max-w-lg">
+                  Hilf uns DealerOS zu verbessern und erhalte <span className="font-bold text-indigo-600">50% Rabatt — für immer.</span>
                 </p>
 
-                {/* CTAs - EXACT from mockup: gap-4 mb-12 */}
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12">
+                {/* Beta Counter - Prominent */}
+                <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 mb-8 max-w-md">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-sm font-medium text-gray-600">Verfügbare Beta-Plätze</span>
+                    <span className="text-sm font-bold text-orange-600">{BETA_SLOTS_REMAINING} von {BETA_SLOTS_TOTAL}</span>
+                  </div>
+                  {/* Progress Bar */}
+                  <div className="w-full h-4 bg-gray-100 rounded-full overflow-hidden mb-3">
+                    <div 
+                      className="h-full bg-gradient-to-r from-orange-500 to-red-500 rounded-full transition-all duration-1000 ease-out"
+                      style={{ width: `${BETA_PROGRESS_PERCENT}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    🔥 Noch <span className="font-bold text-gray-700">{BETA_SLOTS_REMAINING}</span> Plätze verfügbar — diese Aktion endet sobald alle vergeben sind
+                  </p>
+                </div>
+
+                {/* CTA - Beta Focus */}
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-10">
                   <Link href="/register" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-sky-500 to-indigo-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:shadow-xl hover:shadow-indigo-500/30 transition-all">
-                    {t("hero.cta")}
+                    Beta-Platz sichern
                     <ArrowRight className="w-5 h-5" />
                   </Link>
-                  <button className="inline-flex items-center justify-center gap-2 bg-white text-gray-700 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all">
-                    <Play className="w-5 h-5" fill="currentColor" />
-                    {t("hero.watchDemo")}
-                  </button>
                 </div>
 
                 {/* Trust Indicators */}
@@ -85,20 +106,15 @@ function HomePage() {
                   </div>
                 </div>
 
-                {/* Social Proof Logos */}
-                <div className="hidden sm:flex items-center gap-6 opacity-70">
-                  <span className="text-sm text-gray-500 font-medium">Inserieren auf:</span>
-                  <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
-                    <div className="bg-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg shadow-sm border border-gray-100">
-                      <span className="font-bold text-orange-500 text-xs sm:text-sm">AutoScout24</span>
-                    </div>
-                    <div className="bg-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg shadow-sm border border-gray-100">
-                      <span className="font-bold text-green-600 text-xs sm:text-sm">Autolina</span>
-                    </div>
-                    <div className="bg-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg shadow-sm border border-gray-100">
-                      <span className="font-bold text-red-600 text-xs sm:text-sm">CARAUKTION</span>
-                    </div>
-                  </div>
+                {/* Social Proof - Beta Testers */}
+                <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
+                  <span className="flex h-3 w-3 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-sm font-medium text-emerald-800">
+                    Bereits <span className="font-bold">{BETA_SLOTS_TAKEN} Garagisten</span> testen DealerOS
+                  </span>
                 </div>
               </div>
 
@@ -164,6 +180,75 @@ function HomePage() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Beta Benefits Section - NEW */}
+        <section className="py-12 sm:py-20 bg-gradient-to-br from-indigo-50 via-white to-sky-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            {/* Section Header */}
+            <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+              <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 rounded-full px-4 py-2 mb-4 sm:mb-6 font-medium text-sm">
+                <Sparkles className="w-4 h-4" /> Exklusive Beta-Vorteile
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">
+                Was du als Beta-Tester bekommst
+              </h2>
+              <p className="text-base sm:text-xl text-gray-600">
+                Werde Teil der DealerOS-Entwicklung und profitiere von exklusiven Vorteilen
+              </p>
+            </div>
+
+            {/* Benefits Grid */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {/* Benefit 1 - 50% Discount */}
+              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-emerald-200 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-100 rounded-bl-full opacity-50"></div>
+                <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mb-5">
+                  <Percent className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">50% Rabatt — für immer</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Als Dankeschön für dein Feedback erhältst du dauerhaft 50% auf alle Pläne. Keine Tricks, keine Ablaufdaten.
+                </p>
+              </div>
+
+              {/* Benefit 2 - Feature Influence */}
+              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-sky-200 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-sky-100 rounded-bl-full opacity-50"></div>
+                <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center mb-5">
+                  <Sparkles className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Direkter Einfluss</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Deine Wünsche haben Priorität. Du bestimmst mit, welche Features als nächstes entwickelt werden.
+                </p>
+              </div>
+
+              {/* Benefit 3 - Early Adopter */}
+              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-violet-200 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-violet-100 rounded-bl-full opacity-50"></div>
+                <div className="w-14 h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center mb-5">
+                  <Users className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Early Adopter Status</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Exklusives Beta-Badge und Zugang zu neuen Features bevor sie öffentlich werden.
+                </p>
+              </div>
+
+              {/* Benefit 4 - Personal Support */}
+              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-amber-200 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-amber-100 rounded-bl-full opacity-50"></div>
+                <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center mb-5">
+                  <HeartHandshake className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Persönlicher Support</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Direkter Draht zum Entwickler-Team. Keine Ticket-Warteschlangen, echte Menschen.
+                </p>
               </div>
             </div>
           </div>
@@ -440,28 +525,33 @@ function HomePage() {
           </div>
         </section>
 
-        {/* CTA Section - EXACT from mockup-v3 */}
+        {/* CTA Section - BETA FOCUS */}
         <section className="py-12 sm:py-24 bg-gradient-to-br from-sky-500 to-indigo-600 relative overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute top-0 right-0 w-48 sm:w-96 h-48 sm:h-96 bg-white/10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-48 sm:w-96 h-48 sm:h-96 bg-indigo-400/20 rounded-full blur-3xl"></div>
           </div>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative">
+            {/* Urgency Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/20 text-white rounded-full px-4 py-2 mb-6 font-medium text-sm backdrop-blur-sm">
+              🔥 Nur noch {BETA_SLOTS_REMAINING} von {BETA_SLOTS_TOTAL} Beta-Plätzen verfügbar
+            </div>
+            
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
-              {t("cta.title")}
+              Sichere dir deinen Beta-Platz
             </h2>
             <p className="text-base sm:text-xl text-white/80 mb-6 sm:mb-10 max-w-2xl mx-auto">
-              {t("cta.description")}
+              50% Rabatt für immer. Direkter Einfluss auf die Entwicklung. Persönlicher Support. Diese Chance gibt es nur einmal.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Link href="/register" className="inline-flex items-center justify-center gap-2 bg-white text-indigo-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-gray-100 transition-all shadow-xl">
-                {t("cta.button")}
+                Beta-Platz sichern
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link href="/kontakt" className="inline-flex items-center justify-center gap-2 bg-transparent text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg border-2 border-white/30 hover:bg-white/10 transition-all">
-                Demo vereinbaren
-              </Link>
             </div>
+            <p className="text-white/60 text-sm mt-6">
+              Diese Aktion endet sobald alle {BETA_SLOTS_TOTAL} Plätze vergeben sind
+            </p>
           </div>
         </section>
       </main>
