@@ -225,20 +225,6 @@ export default async function KontaktPage({ params }: Props) {
           </div>
         </section>
 
-        {/* Map Section (Placeholder) */}
-        <section className="py-16 bg-slate-50">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-slate-200 rounded-2xl h-64 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="h-12 w-12 text-slate-400 mx-auto mb-3" />
-                  <p className="text-slate-600">Karte: Zürich, Schweiz</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Alternative Contact */}
         <section className="py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
