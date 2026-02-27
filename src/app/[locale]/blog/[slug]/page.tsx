@@ -256,36 +256,38 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <Header />
 
       <main className="flex-1 pt-16">
-        <section className="bg-gradient-to-b from-slate-50 to-white py-12 sm:py-16">
+        <section className="hero-gradient py-12 sm:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
               <Link
                 href="/blog"
-                className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900 mb-6 transition-colors"
+                className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-8 transition-colors duration-200 group"
               >
-                <ArrowLeft className="mr-2 h-4 w-4" />
+                <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                 Zurück zum Blog
               </Link>
 
               <div className="flex items-center gap-4 mb-6">
                 <span className="text-5xl">{post.emoji}</span>
-                <Badge variant="secondary" className="text-sm px-3 py-1">
+                <Badge className="bg-sky-100 text-sky-700 hover:bg-sky-200 border-0 text-sm px-3 py-1.5">
                   {post.category}
                 </Badge>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-[1.1]">
                 {post.title}
               </h1>
 
-              <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
                 {post.excerpt}
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 pb-8 border-b border-slate-200">
-                <span className="flex items-center gap-1.5">
-                  <User className="h-4 w-4" />
-                  {post.author}
+              <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500 pb-8 border-b border-gray-200/60">
+                <span className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center">
+                    <User className="h-4 w-4 text-white" />
+                  </div>
+                  <span className="font-medium text-gray-700">{post.author}</span>
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Calendar className="h-4 w-4" />
@@ -304,9 +306,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </section>
 
-        <article className="py-12">
+        <article className="py-12 sm:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto prose prose-slate prose-lg">
+            <div className="max-w-3xl mx-auto prose prose-gray prose-lg prose-headings:text-gray-900 prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-sky-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900">
               {renderContent(post.content)}
             </div>
           </div>
@@ -315,12 +317,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <section className="pb-12">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
-              <div className="flex flex-wrap gap-2 pt-8 border-t border-slate-200">
+              <div className="flex flex-wrap gap-2 pt-8 border-t border-gray-200">
                 {post.keywords.map((keyword) => (
                   <Badge
                     key={keyword}
                     variant="outline"
-                    className="text-xs px-3 py-1 text-slate-600"
+                    className="text-xs px-3 py-1.5 text-gray-600 border-gray-200 hover:border-sky-300 hover:bg-sky-50 transition-colors duration-200"
                   >
                     {keyword}
                   </Badge>
@@ -330,41 +332,43 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </section>
 
-        <section className="py-8 bg-slate-50 border-y border-slate-200">
+        <section className="py-8 bg-gradient-to-br from-sky-50 to-indigo-50 border-y border-sky-100">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <Share2 className="h-5 w-5 text-slate-400" />
-                <span className="text-slate-600">Artikel teilen</span>
+                <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center">
+                  <Share2 className="h-5 w-5 text-sky-600" />
+                </div>
+                <span className="text-gray-700 font-medium">Artikel teilen</span>
               </div>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm">LinkedIn</Button>
-                <Button variant="outline" size="sm">Twitter</Button>
-                <Button variant="outline" size="sm">E-Mail</Button>
+                <Button variant="outline" size="sm" className="hover:bg-sky-50 hover:border-sky-300 hover:text-sky-700 transition-colors">LinkedIn</Button>
+                <Button variant="outline" size="sm" className="hover:bg-sky-50 hover:border-sky-300 hover:text-sky-700 transition-colors">Twitter</Button>
+                <Button variant="outline" size="sm" className="hover:bg-sky-50 hover:border-sky-300 hover:text-sky-700 transition-colors">E-Mail</Button>
               </div>
             </div>
           </div>
         </section>
 
         {relatedPosts.length > 0 && (
-          <section className="py-16">
+          <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="max-w-5xl mx-auto">
-                <h2 className="text-2xl font-bold text-slate-900 mb-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-8">
                   Weitere Artikel in {post.category}
                 </h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {relatedPosts.map((relatedPost) => (
-                    <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
-                      <Card className="h-full border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 group">
-                        <CardContent className="p-5">
-                          <span className="text-3xl mb-4 block group-hover:scale-110 transition-transform">
+                    <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`} className="group">
+                      <Card className="h-full bg-white border-gray-100 hover:border-sky-200 card-hover">
+                        <CardContent className="p-6">
+                          <span className="text-3xl mb-4 block group-hover:scale-110 transition-transform duration-200">
                             {relatedPost.emoji}
                           </span>
-                          <h3 className="font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+                          <h3 className="font-bold text-gray-900 mb-2 group-hover:text-sky-600 transition-colors duration-200 line-clamp-2">
                             {relatedPost.title}
                           </h3>
-                          <p className="text-sm text-slate-600 line-clamp-2">
+                          <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
                             {relatedPost.excerpt}
                           </p>
                         </CardContent>
@@ -377,21 +381,27 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </section>
         )}
 
-        <section className="py-16 bg-slate-900">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* CTA Section - Matching Landing Page */}
+        <section className="py-16 sm:py-24 bg-gradient-to-br from-sky-500 to-indigo-600 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-0 right-0 w-48 sm:w-96 h-48 sm:h-96 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-48 sm:w-96 h-48 sm:h-96 bg-indigo-400/20 rounded-full blur-3xl"></div>
+          </div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div className="text-center max-w-2xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">
                 Bereit, Ihre Garage zu digitalisieren?
               </h2>
-              <p className="text-slate-300 mb-8">
+              <p className="text-lg text-white/80 mb-8 sm:mb-10">
                 Dealer OS wurde speziell für Schweizer Autohändler entwickelt. Testen Sie jetzt kostenlos.
               </p>
-              <Button size="lg" asChild className="bg-white text-slate-900 hover:bg-slate-100">
-                <Link href="/register">
-                  Kostenlos testen
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+              <Link 
+                href="/register"
+                className="inline-flex items-center gap-2 bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-200 shadow-xl hover:shadow-2xl"
+              >
+                Kostenlos testen
+                <ArrowRight className="h-5 w-5" />
+              </Link>
             </div>
           </div>
         </section>

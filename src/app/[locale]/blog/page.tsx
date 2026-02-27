@@ -71,18 +71,21 @@ export default async function BlogPage({ params }: Props) {
       <Header />
       
       <main className="flex-1 pt-16">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-b from-slate-50 to-white py-16 sm:py-20">
+        {/* Hero Section - Matching Landing Page Style */}
+        <section className="hero-gradient py-16 sm:py-24">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <Badge variant="outline" className="mb-4">Blog</Badge>
-              <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
+              <div className="inline-flex items-center gap-2 bg-white/80 border border-indigo-100 rounded-full px-4 py-2 mb-6 shadow-sm">
+                <span>📚</span>
+                <span className="text-sm font-medium text-gray-700">Wissen & Insights</span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 leading-[1.1]">
                 Wissen für den{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">
+                <span className="gradient-text">
                   Autohandel
                 </span>
               </h1>
-              <p className="text-lg text-slate-600 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
                 Praxisnahe Tipps, Branchenwissen und Strategien für Ihren Erfolg 
                 als Schweizer Autohändler oder Garagist.
               </p>
