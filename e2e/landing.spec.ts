@@ -104,7 +104,8 @@ test.describe('Landing Page', () => {
     await expect(page).toHaveURL(/\/de\/datenschutz/);
   });
 
-  test('should have demo video button', async ({ page }) => {
+  // Skipped: Demo button removed for Beta Landing Page
+  test.skip('should have demo video button', async ({ page }) => {
     const demoButton = page.getByRole('button', { name: /demo|video/i });
     await expect(demoButton).toBeVisible();
   });
