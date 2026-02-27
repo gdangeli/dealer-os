@@ -25,7 +25,7 @@ test.describe('Landing Page', () => {
 
   test('should have working register CTA button', async ({ page }) => {
     // Look for any register/trial CTA
-    const ctaButton = page.getByRole('link', { name: /kostenlos|testen|registrieren|starten|jetzt/i }).first();
+    const ctaButton = page.getByRole('link', { name: /kostenlos|testen|registrieren|starten|jetzt|beta/i }).first();
     await expect(ctaButton).toBeVisible();
     
     await ctaButton.click();
