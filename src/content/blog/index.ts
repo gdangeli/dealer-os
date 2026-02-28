@@ -13,6 +13,564 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 49 - 2026-02-28
+  {
+    slug: "fahrzeuguebergabe-checkliste-professionalitaet",
+    title: "Die perfekte Fahrzeugübergabe: Checkliste für Professionalität",
+    excerpt: "Der letzte Eindruck zählt genauso wie der erste. Eine professionelle Fahrzeugübergabe schafft Vertrauen, verhindert Reklamationen und bringt Weiterempfehlungen.",
+    category: "Praxis",
+    readTime: 8,
+    emoji: "🤝",
+    image: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=800&q=80",
+    publishedAt: "2026-02-28",
+    author: "Dealer OS Team",
+    keywords: ["Fahrzeugübergabe", "Übergabeprotokoll", "Kundenservice Autohandel", "Autohändler Schweiz", "Fahrzeugverkauf Abschluss"],
+    content: `
+Letzte Woche rief mich ein Kollege an. Er hatte einen BMW X3 verkauft, alles lief glatt – bis der Kunde drei Tage später anrief. "Der Kratzer an der Stossstange war bei der Besichtigung nicht da!" Ein Streit, der sich über zwei Wochen hinzog. Am Ende: CHF 400 Kulanz-Reparatur und ein verärgerter Kunde.
+
+Das Problem? Keine dokumentierte Übergabe. Wort gegen Wort.
+
+Eine professionelle Fahrzeugübergabe ist mehr als nur Schlüssel über den Tisch schieben. Sie ist der Abschluss eines Verkaufs – und der Beginn einer (hoffentlich) langfristigen Kundenbeziehung.
+
+## Warum die Übergabe so wichtig ist
+
+### 1. Der letzte Eindruck bleibt
+
+Psychologen nennen es den "Recency Effect": Das Letzte, was wir erleben, bleibt am stärksten in Erinnerung. Ein chaotischer Abschluss kann einen perfekten Verkaufsprozess ruinieren.
+
+Umgekehrt: Eine würdige, professionelle Übergabe hinterlässt einen bleibenden positiven Eindruck – auch wenn im Verkaufsprozess mal etwas holprig lief.
+
+### 2. Rechtliche Absicherung
+
+Im Occasionshandel gilt: Was nicht dokumentiert ist, hat nicht stattgefunden. Ein sauberes Übergabeprotokoll schützt Sie vor:
+- Streitigkeiten über den Zustand bei Übergabe
+- Nachträglichen Schadensmeldungen
+- Unklaren Vereinbarungen
+
+### 3. Weiterempfehlungen entstehen hier
+
+Fragen Sie Ihre besten Kunden: Warum empfehlen sie Sie weiter? Selten ist es der Preis. Fast immer ist es das Gefühl, gut behandelt worden zu sein. Die Übergabe ist Ihr letzter Moment, dieses Gefühl zu verstärken.
+
+## Die Vorbereitung: Bevor der Kunde kommt
+
+### Die Fahrzeug-Checkliste
+
+Mindestens 24 Stunden vor der Übergabe:
+
+**Aussenprüfung:**
+- [ ] Fahrzeug gewaschen und poliert
+- [ ] Felgen sauber
+- [ ] Scheiben innen und aussen streifenfrei
+- [ ] Typenschild lesbar
+- [ ] Alle Lichter funktionsfähig
+- [ ] Reifendruck korrekt
+- [ ] Kein Vogelkot oder Harz auf dem Lack
+
+**Innenprüfung:**
+- [ ] Innenraum gereinigt und entstaubt
+- [ ] Keine Gerüche (besonders wichtig!)
+- [ ] Alle Fächer leer (Handschuhfach, Türablagen)
+- [ ] Fussmatten sauber
+- [ ] Aschenbecher leer (falls vorhanden)
+- [ ] Keine persönlichen Gegenstände des Vorbesitzers
+
+**Technik-Check:**
+- [ ] Tank mindestens 1/4 voll (besser: halbvoll)
+- [ ] Batterie geladen
+- [ ] Klimaanlage funktioniert
+- [ ] Alle elektrischen Funktionen geprüft
+- [ ] Serviceanzeige zurückgesetzt (falls nötig)
+- [ ] Radio auf Werkseinstellungen
+
+**Dokumente bereit:**
+- [ ] Fahrzeugausweis (Form 13.20A)
+- [ ] Serviceheft (falls vorhanden)
+- [ ] Bedienungsanleitung
+- [ ] Rechnungskopie MFK (falls durchgeführt)
+- [ ] Alle Schlüssel (Anzahl notieren!)
+- [ ] COC-Papiere (falls vorhanden)
+- [ ] Kaufvertrag in doppelter Ausführung
+
+### Das Übergabeprotokoll vorbereiten
+
+Ein gutes Übergabeprotokoll enthält:
+
+1. **Fahrzeugdaten:** Marke, Modell, VIN, Kennzeichen, Kilometerstand
+2. **Zustandsbeschreibung:** Bekannte Mängel, Schäden, Besonderheiten
+3. **Zubehör:** Anzahl Schlüssel, Felgen, Zubehör
+4. **Vereinbarungen:** Was wurde zugesagt? (Reparaturen, Garantie, etc.)
+5. **Unterschriften:** Käufer und Verkäufer mit Datum
+
+**Tipp:** Fotografieren Sie das Fahrzeug am Übergabetag nochmals – Tachostand, Gesamtzustand, eventuelle Mängel. Diese Fotos sind im Streitfall Gold wert.
+
+## Die Übergabe selbst: Der Ablauf
+
+### Phase 1: Empfang (5-10 Minuten)
+
+Der Kunde kommt – jetzt zählt Ihre Körpersprache.
+
+**Do:**
+- Freundlich begrüssen, Händedruck
+- Für die Anreise danken
+- Getränk anbieten (Kaffee, Wasser)
+- Entspannte Atmosphäre schaffen
+
+**Don't:**
+- Gehetzt wirken
+- Sofort mit Papierkram anfangen
+- Auf die Uhr schauen
+- Das Fahrzeug "zwischen Tür und Angel" übergeben
+
+### Phase 2: Gemeinsamer Rundgang (10-15 Minuten)
+
+Gehen Sie MIT dem Kunden ums Fahrzeug. Das ist keine Inspektion – das ist ein Ritual.
+
+**Aussen:**
+- Zeigen Sie das Fahrzeug in seiner ganzen Pracht
+- Weisen Sie auf bereits besprochene Mängel hin ("Der kleine Kratzer hier, den wir besprochen haben")
+- Demonstrieren Sie Funktionen (Kofferraum, Tank, Felgen)
+
+**Innen:**
+- Setzen Sie sich gemeinsam rein
+- Erklären Sie die wichtigsten Funktionen (besonders bei Modellwechsel)
+- Passen Sie Sitz und Spiegel an
+- Zeigen Sie versteckte Features ("Das wissen viele nicht: Hier ist die Handyablage mit Induktionsladung")
+
+**Besonders wichtig bei:**
+- Elektro-/Hybridfahrzeugen: Ladefunktion erklären
+- Komplexen Infotainment-Systemen: Grundfunktionen zeigen
+- Modellen mit vielen Assistenzsystemen: Deaktivierung erklären
+
+### Phase 3: Dokumentation (10-15 Minuten)
+
+Jetzt wird es formell – aber nicht bürokratisch.
+
+**Der Kaufvertrag:**
+- Nochmals gemeinsam durchgehen
+- Alle Zusatzvereinbarungen überprüfen
+- Zahlungseingang bestätigen
+- Unterschriften auf beiden Exemplaren
+
+**Das Übergabeprotokoll:**
+- Kilometerstand gemeinsam ablesen und eintragen
+- Zustand bestätigen lassen
+- Schlüsselanzahl notieren
+- Unterschriften
+
+**Die Übergabequittung:**
+- Kurze Bestätigung: "Fahrzeug in vereinbartem Zustand übernommen"
+- Datum, Unterschrift
+
+### Phase 4: Die letzten Details (5 Minuten)
+
+**Übergeben Sie:**
+- Alle Schlüssel (einzeln übergeben und zählen)
+- Fahrzeugausweis
+- Serviceheft und Anleitungen
+- Ihre Visitenkarte
+- Eventuell: Willkommenspaket (siehe unten)
+
+**Informieren Sie:**
+- Nächster Serviceintervall
+- Wie der Kunde Sie bei Fragen erreicht
+- Öffnungszeiten der Werkstatt
+- Pannendienst-Informationen (bei Garantiefahrzeugen)
+
+### Phase 5: Der Abschied (3 Minuten)
+
+**Machen Sie es besonders:**
+- Begleiten Sie den Kunden zum Fahrzeug
+- Halten Sie die Tür auf
+- Wünschen Sie gute Fahrt
+- Winken Sie zum Abschied (ja, wirklich!)
+
+Das mag altmodisch klingen. Aber genau diese kleinen Gesten machen den Unterschied.
+
+## Das Übergabe-Kit: Was der Kunde mitnimmt
+
+Bereiten Sie eine kleine Mappe oder Tasche vor:
+
+**Standard-Inhalt:**
+- Kopie Kaufvertrag
+- Kopie Übergabeprotokoll
+- Ihre Visitenkarte
+- Kontaktdaten Werkstatt
+- Informationen zur Garantie
+
+**Deluxe-Ergänzungen:**
+- Kleines Willkommensgeschenk (Schlüsselanhänger, Duftbaum, etc.)
+- Gutschein für den ersten Ölwechsel
+- Handgeschriebene Dankeskarte
+- Information zu Ihrem Treueprogramm (falls vorhanden)
+
+**Kosten:** CHF 10-30 pro Übergabe
+**Wirkung:** Unbezahlbar für Weiterempfehlungen
+
+## Sonderfälle meistern
+
+### Übergabe bei Mängeln
+
+Manchmal hat das Fahrzeug bekannte Mängel – das ist bei Occasionen normal.
+
+**So gehen Sie vor:**
+1. Mängel VOR der Übergabe nochmals ansprechen
+2. Im Protokoll schriftlich festhalten
+3. Gegebenenfalls Fotos machen
+4. Käufer unterschreiben lassen: "Mängel bekannt und akzeptiert"
+
+### Übergabe mit offenen Arbeiten
+
+Manchmal ist noch etwas zu erledigen (Delle ausbessern, Servicearbeiten, etc.)
+
+**Dokumentieren Sie:**
+- Was genau noch gemacht wird
+- Bis wann es erledigt sein wird
+- Wer den Kunden kontaktiert
+- Ob ein Ersatzfahrzeug bereitsteht
+
+### Übergabe per Versand
+
+Bei Fernverkäufen ohne persönliche Übergabe:
+
+**Zusätzliche Massnahmen:**
+- Video-Rundgang vor dem Versand
+- Professionelle Fotos mit Zeitstempel
+- Detailliertes Protokoll mit Unterschrift
+- Spedition wählen, die Zustandsprüfung dokumentiert
+
+## Nach der Übergabe: Der Follow-up
+
+Die Beziehung endet nicht mit der Übergabe – sie beginnt.
+
+### Tag 3-5: Der Zufriedenheits-Anruf
+
+"Guten Tag Herr Müller, hier ist Marco von Autohaus Schneider. Ich wollte kurz fragen, wie es Ihnen mit dem neuen Auto geht?"
+
+**Dieser Anruf ist Gold wert:**
+- Zeigt Interesse über den Verkauf hinaus
+- Fängt kleine Probleme ab, bevor sie gross werden
+- Öffnet die Tür für Weiterempfehlungen
+- Hinterlässt einen bleibenden positiven Eindruck
+
+### Nach 1 Monat: Die Bewertungs-Bitte
+
+"Wenn Sie zufrieden waren, würden wir uns über eine Google-Bewertung freuen. Das hilft uns und anderen Kunden, uns zu finden."
+
+**Timing ist wichtig:**
+- Nicht bei der Übergabe fragen (zu früh, wirkt verkäuferisch)
+- Nicht nach 6 Monaten (zu spät, Erinnerung verblasst)
+- Nach 1 Monat: Der Kunde hat das Auto erlebt und ist (hoffentlich) noch begeistert
+
+### Vor dem nächsten Service
+
+Wenn Sie auch eine Werkstatt betreiben, erinnern Sie proaktiv an den anstehenden Service. Das zeigt Fürsorge und bringt den Kunden zurück.
+
+## Checkliste zum Ausdrucken
+
+### Vorbereitung (24h vorher)
+- [ ] Fahrzeug gewaschen und aufbereitet
+- [ ] Innenraum gereinigt und geruchsfrei
+- [ ] Tank mindestens ¼ voll
+- [ ] Alle Funktionen geprüft
+- [ ] Dokumente vollständig bereitgelegt
+- [ ] Übergabeprotokoll vorbereitet
+- [ ] Fotos des aktuellen Zustands gemacht
+
+### Übergabe (am Tag)
+- [ ] Kunde freundlich empfangen
+- [ ] Getränk angeboten
+- [ ] Gemeinsamer Rundgang durchgeführt
+- [ ] Bekannte Mängel nochmals gezeigt
+- [ ] Wichtige Funktionen erklärt
+- [ ] Kaufvertrag unterschrieben
+- [ ] Übergabeprotokoll unterschrieben
+- [ ] Kilometerstand dokumentiert
+- [ ] Schlüssel übergeben (Anzahl bestätigt)
+- [ ] Dokumente übergeben
+- [ ] Visitenkarte mitgegeben
+- [ ] Verabschiedung mit Stil
+
+### Nach der Übergabe
+- [ ] Daten im CRM aktualisiert
+- [ ] Zufriedenheits-Anruf geplant (Tag 3-5)
+- [ ] Bewertungs-Anfrage geplant (nach 1 Monat)
+- [ ] Service-Erinnerung eingestellt
+
+## Fazit: Zeit gut investiert
+
+Eine professionelle Fahrzeugübergabe dauert 30-45 Minuten statt 10 Minuten "Schlüssel rüber". Diese zusätzliche Zeit bringt:
+
+- **Weniger Reklamationen** durch klare Dokumentation
+- **Mehr Weiterempfehlungen** durch positives Erlebnis
+- **Bessere Bewertungen** durch bleibenden Eindruck
+- **Mehr Werkstatt-Kunden** durch Bindung
+
+Mein Kollege mit dem BMW-Streit? Er hat jetzt ein standardisiertes Übergabeprotokoll. Seitdem: null Diskussionen über den Zustand bei Übergabe. Manchmal sind es die kleinen Prozesse, die den grössten Unterschied machen.
+
+---
+
+**Übergaben professionell dokumentieren?** Mit Dealer OS erstellen Sie Übergabeprotokolle mit einem Klick, inklusive Fotodokumentation und digitaler Unterschrift. Jetzt kostenlos testen.
+    `.trim()
+  },
+  // Artikel 48 - 2026-02-28
+  {
+    slug: "elektro-occasionen-2026-chancen-risiken-haendler",
+    title: "Elektro-Occasionen 2026: Chancen und Risiken für Händler",
+    excerpt: "Der Gebrauchtwagenmarkt für E-Autos wächst rasant. Doch Batterie-Garantien, Restwerte und Kundenängste machen das Geschäft komplex. Ein Leitfaden für Schweizer Händler.",
+    category: "Trends",
+    readTime: 10,
+    emoji: "⚡",
+    image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80",
+    publishedAt: "2026-02-28",
+    author: "Dealer OS Team",
+    keywords: ["Elektroauto Occasion", "E-Auto gebraucht", "Batterie Garantie", "Elektrofahrzeug Händler", "E-Mobilität Schweiz"],
+    content: `
+Ein Händlerkollege aus dem Aargau erzählte mir letztens: "Ich hab einen Tesla Model 3 mit 45'000 Kilometern im Bestand. Steht seit 67 Tagen. Mein Golf mit gleichem Kilometerstand war nach 12 Tagen weg."
+
+Elektro-Occasionen sind ein Wachstumsmarkt – keine Frage. Aber sie sind auch ein anderes Spiel. Wer die Spielregeln nicht kennt, verbrennt Geld.
+
+## Der Markt 2026: Zahlen und Fakten
+
+**Die Ausgangslage in der Schweiz:**
+- Neuwagenanteil E-Autos 2025: 27.3% (Tendenz steigend)
+- E-Occasionen auf dem Markt: Schätzungsweise 35'000-45'000 Fahrzeuge
+- Durchschnittliche Standzeit E-Occasionen: 52 Tage (vs. 41 Tage bei Verbrennern)
+- Preisverfall im ersten Jahr: 30-40% (vs. 20-25% bei Verbrennern)
+
+Diese Zahlen zeigen: Der Markt ist da, aber er funktioniert anders.
+
+**Wer kauft gebrauchte Elektroautos?**
+- Zweitwagen-Käufer (für Pendeln und Kurzstrecken)
+- Umweltbewusste mit begrenztem Budget
+- Technik-Affine, die "mal ausprobieren" wollen
+- Unternehmen für Flottenergänzung
+- Erstfahrer, die keine Berührungsängste haben
+
+**Wer kauft NICHT:**
+- Klassische Occasion-Käufer über 55 (Skepsis gegenüber Technik)
+- Wenigfahrer auf dem Land (Infrastruktur-Ängste)
+- Handwerker und Gewerbetreibende (Reichweite/Ladevolumen)
+
+## Die Chancen: Warum Sie jetzt einsteigen sollten
+
+### 1. Wachsender Markt mit wenig Konkurrenz
+
+Viele traditionelle Händler scheuen E-Occasionen. Das bedeutet für Sie: weniger Wettbewerb, mehr Marge – wenn Sie es richtig machen.
+
+### 2. Attraktive Einkaufspreise
+
+Der schnelle Wertverlust von E-Autos ist schlecht für Erstbesitzer – aber gut für Sie. Ein Tesla Model 3 Long Range, 2022, mit 50'000 km gibt es heute für CHF 28'000-32'000. Neupreis damals: CHF 55'000+.
+
+### 3. Jüngere, kaufkräftige Zielgruppe
+
+E-Auto-Käufer sind im Schnitt jünger, urban und verdienen überdurchschnittlich. Sie recherchieren online, reagieren auf gute Inserate und entscheiden schneller.
+
+### 4. Zusatzgeschäft: Ladeinfrastruktur
+
+Wer ein E-Auto kauft, braucht oft auch eine Wallbox. Eine Partnerschaft mit einem Elektroinstallateur kann zusätzlichen Ertrag bringen.
+
+## Die Risiken: Was schiefgehen kann
+
+### 1. Das Batterie-Dilemma
+
+Die Batterie ist das Herz eines E-Autos – und das teuerste Bauteil. Ein Batterietausch kann CHF 15'000-25'000 kosten. Als Händler müssen Sie wissen, was Sie verkaufen.
+
+**Die wichtigsten Fragen:**
+- Wie hoch ist der State of Health (SoH) der Batterie?
+- Gibt es noch Herstellergarantie auf die Batterie?
+- Welche Ladegewohnheiten hatte der Vorbesitzer?
+
+**Das Problem:** Viele Fahrzeuge zeigen den SoH nicht direkt an. Sie brauchen Diagnose-Tools wie Aviloo, ADAC-Check oder herstellerspezifische Software.
+
+### 2. Rasanter Technologiewandel
+
+Was 2022 State of the Art war, ist 2026 überholt. Ein Renault Zoe von 2019 mit 40 kWh Batterie konkurriert heute mit dem Dacia Spring – und verliert.
+
+**Die Folge:** Ältere E-Modelle verlieren überproportional an Wert. Ein Nissan Leaf der ersten Generation ist heute praktisch unverkäuflich.
+
+### 3. Käufer-Ängste
+
+Viele potenzielle Käufer haben Vorbehalte:
+- "Was wenn die Batterie kaputt geht?"
+- "Kann ich damit wirklich in die Ferien fahren?"
+- "Wie finde ich Ladestationen?"
+- "Was ist das Auto in 3 Jahren noch wert?"
+
+Diese Ängste zu adressieren ist Teil Ihres Jobs – und eine Chance, sich zu differenzieren.
+
+### 4. Ladeinfrastruktur verstehen
+
+Sie müssen nicht Elektriker werden. Aber Sie sollten erklären können:
+- Unterschied Wechselstrom (AC) vs. Gleichstrom (DC)
+- Was bedeuten kW beim Laden?
+- Welche Ladekarten gibt es in der Schweiz?
+- Wie funktioniert das Laden zu Hause?
+
+Ein Verkäufer, der hier stottert, verliert Vertrauen.
+
+## Welche E-Occasionen funktionieren?
+
+### Die Bestseller
+
+**Tesla Model 3 / Model Y:**
+- Hohe Nachfrage, schneller Umschlag
+- Tesla-Fans kennen ihre Preise (wenig Verhandlungsspielraum)
+- Gute Verfügbarkeit, aber auch viel Konkurrenz
+- Achtung: Fehlende Tesla-Supercharger-Freischaltung bei Occasionen prüfen
+
+**VW ID.3 / ID.4:**
+- Vertraute Marke für VW-Kunden
+- Solide Technik, gute Ausstattung
+- Software-Updates haben Anfangsprobleme behoben
+- Guter Einstieg für E-Skeptiker
+
+**Hyundai Ioniq 5 / Kia EV6:**
+- Exzellentes Preis-Leistungs-Verhältnis
+- 800V-Architektur (schnelles Laden!)
+- Attraktives Design, positive Testberichte
+- Noch relativ neu auf dem Occasionsmarkt
+
+**BMW i3 / i4:**
+- Premiumkäufer mit entsprechender Zahlungsbereitschaft
+- i3: Speziell, aber treue Fangemeinde
+- i4: Starke Performance, gute Reichweite
+
+### Die Ladenhüter
+
+**Nissan Leaf (vor 2018):**
+- Veraltete Technik, geringe Reichweite
+- Keine aktive Batteriekühlung (Degradation!)
+- Schwer verkäuflich unter CHF 10'000
+
+**Renault Zoe (vor 2020):**
+- Batteriemiete-Modelle sind toxisch für den Wiederverkauf
+- Neue Modelle mit Kaufbatterie: besser, aber Dacia-Konkurrenz
+
+**Smart EQ:**
+- Mikrofahrzeug mit Mikro-Nachfrage
+- Nur für Stadtbewohner relevant
+- Sehr enger Kundenkreis
+
+## Praktische Tipps für den Handel
+
+### Beim Einkauf
+
+**1. Batteriezustand prüfen (IMMER!)**
+
+Investieren Sie in ein Batterie-Diagnose-Tool oder nutzen Sie einen Dienstleister wie Aviloo. Die CHF 150-200 pro Prüfung sind gut investiert.
+
+**Was Sie erfahren wollen:**
+- State of Health (SoH): Über 85% ist gut, unter 75% problematisch
+- State of Charge (SoC): Wurde die Batterie richtig gepflegt?
+- Degradationsmuster: Gleichmässig oder auffällig?
+
+**2. Garantie prüfen**
+
+Die meisten Hersteller geben 8 Jahre / 160'000 km auf die Batterie. Aber: Die Garantie gilt oft nur für den Erstbesitzer oder ist an Servicehistorie gebunden. Klären Sie vor dem Kauf:
+- Ist die Garantie übertragbar?
+- Gibt es Ausschlüsse?
+- Was genau ist gedeckt?
+
+**3. Servicehistorie wichtig**
+
+E-Autos brauchen weniger Wartung – aber nicht keine. Prüfen Sie:
+- Software-Updates durchgeführt?
+- Bremsen geprüft (bei E-Autos oft vernachlässigt wegen Rekuperation)?
+- Kühlsystem in Ordnung?
+
+### Bei der Präsentation
+
+**1. Reichweite realistisch kommunizieren**
+
+WLTP-Reichweite ist Theorie. Seien Sie ehrlich: "Die WLTP-Reichweite ist 420 km. Im Alltag, mit Heizung im Winter, sind es realistisch 320-350 km. Für den täglichen Arbeitsweg von 80 km reicht das locker."
+
+**2. Laden demonstrieren**
+
+Haben Sie eine Lademöglichkeit auf dem Hof? Zeigen Sie dem Kunden, wie es funktioniert. Entmystifizieren Sie das Laden.
+
+**3. Total Cost of Ownership zeigen**
+
+E-Autos sind im Betrieb günstiger:
+- Strom vs. Benzin: ca. CHF 3/100 km vs. CHF 12/100 km
+- Steuern: Viele Kantone mit Vergünstigungen
+- Service: Weniger Verschleissteile
+- Wertverlust: Das Hauptproblem – aber als Occasion bereits abgefangen
+
+**Rechenbeispiel für den Kunden:**
+
+| Kostenpunkt | Verbrenner | E-Auto |
+|-------------|------------|--------|
+| Anschaffung (3-jährig) | CHF 28'000 | CHF 30'000 |
+| Energie/Jahr (15'000 km) | CHF 1'800 | CHF 450 |
+| Service/Jahr | CHF 800 | CHF 300 |
+| Steuern/Jahr | CHF 400 | CHF 100 |
+| **Total 3 Jahre** | CHF 37'000 | CHF 32'550 |
+
+### Bei der Preisgestaltung
+
+**1. Marktbeobachtung ist kritisch**
+
+Der E-Auto-Markt bewegt sich schneller als der Verbrenner-Markt. Was heute CHF 35'000 wert ist, kann nächsten Monat CHF 32'000 wert sein – wenn Tesla die Preise senkt.
+
+**Tools:** AutoScout24-Preisbewertung, Eurotax, aber auch Tesla-Website (setzt den Preis für alle anderen)
+
+**2. Batteriezertifikat als Verkaufsargument**
+
+Haben Sie einen Batterie-Check machen lassen? Nutzen Sie das Ergebnis:
+"Die Batterie hat noch 91% Kapazität – das ist überdurchschnittlich gut für dieses Alter. Hier ist das Zertifikat."
+
+Das rechtfertigt einen höheren Preis und baut Vertrauen auf.
+
+**3. Garantie-Restlaufzeit einpreisen**
+
+Ein E-Auto mit noch 5 Jahren Batteriegarantie ist mehr wert als eines ohne. Kommunizieren Sie das.
+
+## Häufige Kundenfragen – und Ihre Antworten
+
+**"Wie lange hält die Batterie?"**
+"Die meisten Batterien halten 200'000-300'000 Kilometer, bevor sie unter 80% Kapazität fallen. Bei diesem Fahrzeug haben wir einen Batteriecheck gemacht: 89% Kapazität bei 45'000 km – das ist sehr gut."
+
+**"Was kostet ein Batterietausch?"**
+"Ein kompletter Tausch kostet CHF 15'000-25'000. Aber: Das ist selten nötig. Meistens werden einzelne Zellen getauscht, was deutlich günstiger ist. Und bei diesem Fahrzeug ist die Batterie noch 5 Jahre garantiert."
+
+**"Komme ich damit nach Italien?"**
+"Absolut. Mit den 400 km Reichweite und dem Schnelllade-Netzwerk machen Sie einen Stopp von 30 Minuten – perfekt für einen Kaffee. Apps wie A Better Route Planner zeigen Ihnen genau, wo Sie laden."
+
+**"Was ist das Auto in 3 Jahren wert?"**
+"Der stärkste Wertverlust ist bereits passiert – das ist der Vorteil einer Occasion. Die Preise stabilisieren sich ab dem dritten Jahr. Und mit der wachsenden E-Mobilität steigt auch die Nachfrage nach gebrauchten E-Autos."
+
+## Die Zukunft: Was kommt auf Sie zu?
+
+### Kurzfristig (2026-2027)
+- Mehr E-Occasionen auf dem Markt (Leasingrückläufer 2023/2024)
+- Preisdruck durch neue günstige Modelle (BYD, etc.)
+- Wichtigkeit von Batteriezertifikaten steigt
+
+### Mittelfristig (2028-2030)
+- E-Occasionen werden "normal"
+- Batterie-Recycling und Second-Life-Konzepte entwickeln sich
+- Ladeinfrastruktur in der Schweiz flächendeckend
+- Verbrenner-Occasionen verlieren an Attraktivität (Fahrverbote in EU-Städten)
+
+### Was Sie JETZT tun sollten
+1. **Know-how aufbauen:** Schulungen für Ihr Team, Diagnose-Tools anschaffen
+2. **Klein anfangen:** Mit 2-3 E-Autos starten, Erfahrungen sammeln
+3. **Netzwerk aufbauen:** Partner für Ladeinfrastruktur und Batterieprüfung
+4. **Marketing anpassen:** E-Auto-Kompetenz kommunizieren
+
+## Fazit: Bereit für die Zukunft?
+
+Elektro-Occasionen sind kein vorübergehender Trend – sie sind die Zukunft des Occasionsmarkts. In 5 Jahren wird jeder dritte Gebrauchtwagen ein E-Auto sein.
+
+Die Händler, die sich jetzt vorbereiten, werden profitieren. Die Händler, die warten, werden aufholen müssen.
+
+Mein Kollege mit dem Tesla? Er hat inzwischen gelernt. Sein Inserat enthält jetzt Batterie-Zertifikat, Reichweiten-Infos und Ladekosten-Vergleich. Der nächste Tesla war nach 23 Tagen verkauft.
+
+---
+
+**Elektro-Occasionen effizient managen?** Mit Dealer OS behalten Sie Batteriezustand, Garantielaufzeiten und Standzeiten im Blick. Spezialisierte Felder für E-Fahrzeuge inklusive. Jetzt kostenlos testen.
+    `.trim()
+  },
   // Artikel 47 - 2026-02-27
   {
     slug: "autoscout24-vs-autolina-vs-facebook-marketplace-vergleich",
