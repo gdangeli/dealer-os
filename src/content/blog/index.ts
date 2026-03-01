@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-03-02",
     author: "Dealer OS Team",
     keywords: ["Gewährleistung Autoverkauf Schweiz", "Occasionsrecht", "Mängelrechte Auto", "Sachmängelhaftung", "Autohändler Recht"],
-    content: \`
+    content: `
 Letzten Monat rief ein Kollege an, ziemlich aufgelöst: "Der Kunde will sein Geld zurück. Das Getriebe hat nach sechs Wochen Probleme gemacht." Ein Opel Insignia, verkauft für CHF 14'900, jetzt droht eine Reparatur von CHF 4'500. Der Kaufvertrag? "Verkauf unter Ausschluss jeglicher Gewährleistung." Also alles klar?
 
 Nicht ganz.
