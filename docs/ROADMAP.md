@@ -1,7 +1,7 @@
 # DealerOS Roadmap
 
-> **Stand:** 20. Februar 2026  
-> **Version:** 0.11.0  
+> **Stand:** 1. März 2026  
+> **Version:** 0.15.0  
 > **Live:** https://dealeros.ch
 
 ---
@@ -147,6 +147,10 @@ Ideen für zukünftige Versionen — noch nicht geplant:
 
 | Version | Datum | Highlights |
 |---------|-------|------------|
+| v0.15.0 | 01.03.2026 | Beta Landing, Blog-System, GarageOS Design, i18n |
+| v0.14.0 | 25.02.2026 | Probefahrt-Widget, Sentry Monitoring, Coming Soon |
+| v0.13.0 | 21.02.2026 | Photo AI / Image Optimizer |
+| v0.12.0 | 20.02.2026 | Website Widget, Mobile Experience |
 | v0.11.0 | 20.02.2026 | Admin Dashboard, Impersonate, M&A Doku |
 | v0.10.0 | 19.02.2026 | Multi-User/Teams, RLS Policies |
 | v0.9.0 | 18.02.2026 | E2E Tests, Pricing Update, Onboarding |
@@ -172,4 +176,4 @@ Ideen für zukünftige Versionen — noch nicht geplant:
 
 ---
 
-*Letzte Aktualisierung: 20. Februar 2026*
+*Letzte Aktualisierung: 1. März 2026*

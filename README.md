@@ -69,6 +69,16 @@
 - **Anpassbar** — Farben, Dark Mode, Fahrzeug-Vorauswahl via Query-Parameter
 - **E-Mail Benachrichtigungen** — Automatische Bestätigung an Kunden und Händler
 
+### 📝 Blog & Content Marketing
+- **SEO-optimierter Blog** — Artikel zu Branchenthemen für organischen Traffic
+- **Content-Kategorien** — Verkaufstipps, Marktplatz-Guides, Branchentrends
+- **Mehrsprachig** — Artikel in DE (weitere Sprachen geplant)
+
+### 🎯 Beta-Tester Programm
+- **Landing Page mit Countdown** — Ansprechendes Design für Early Adopters
+- **Feature-Highlights** — Übersicht aller Kernfunktionen
+- **Call-to-Action** — Direkte Registrierung für Beta-Tester
+
 ### 🔧 Operations & Maintenance
 - **Sentry Error Monitoring** — Automatische Fehlererfassung in Production
 - **Coming Soon Mode** — Passwortgeschützte Wartungsseite für Launches

@@ -10,6 +10,59 @@ _Nächste geplante Features_
 
 ---
 
+## [0.15.0] - 2026-03-01
+
+### Added
+- **🎯 Beta-Tester Landing Page** — Neue Landing mit Countdown für Beta-Launch (c30be40)
+  - Ansprechendes Design mit Feature-Highlights
+  - Countdown-Timer bis Launch
+  - Call-to-Action für Early Adopters
+- **📝 Blog-System** — SEO-optimierte Blog-Artikel für Content Marketing (fd5bbae)
+  - Blog-Link in Header-Navigation
+  - 8+ Artikel zu Themen wie Lead Response Zeit, Fahrzeugbeschreibungen, Preisverhandlungen
+  - Mehrsprachige Inhalte (DE)
+- **🇨🇭 Schweizer Marktplätze Fokus** — AutoScout24, Autolina & CARAUKTION als Kernplattformen (b1a9ace, 9002fc9)
+  - Echte Brand-Icons für Kanal-Integrationen
+  - Entfernung nicht-relevanter Kanäle (mobile.de, car4you)
+- **🎨 GarageOS Design System** — Konsistentes UI-Design über alle Bereiche (2f69550)
+  - Dashboard komplett redesigned
+  - Sidebar mit neuem Look & Feel
+  - Settings-Page mit Lucide Icons
+  - Login/Register Pages im neuen Stil
+- **🌐 Erweiterte Internationalisierung** — Vollständige i18n-Abdeckung (d1bf2f2 ff.)
+  - Dashboard-Seiten (DE/EN/FR/IT)
+  - Sidebar-Navigation
+  - Leads-Bereich
+  - Rechnungs-Bereich
+  - Settings-Tabs
+- **🚫 Custom 404 Pages** — Moderne Fehlerseiten mit DealerOS Branding (efef5ff)
+  - Root-Level 404 für globales Handling
+  - Dashboard-spezifische 404 im Applikationsstil
+  - Catch-all Routes für konsistente UX
+
+### Changed
+- **Landing Page Design** — Mehrere Iterationen basierend auf Mockup v2/v3 (bbdec57, 13629fa)
+  - Font gewechselt von Plus Jakarta Sans zu Inter
+  - Optimierte Typography und Hero-Section
+  - Tighter Line-Heights für bessere Lesbarkeit
+- **Farbschema** — Primary Color zu Blau aktualisiert (254c380)
+- **Logo** — Gradient-Logo aus Header in Login/Register übernommen (d720be2)
+- **Shared Layout** — Header/Footer auf Impressum, AGB, Datenschutz erweitert (2a7238d)
+
+### Fixed
+- Mobile Responsive Landing Page verbessert (60dee2d)
+- Sentry Instrumentation für Server-Side Monitoring (09de11b)
+- fetchTemplates Deklaration vor useEffect (f8816cd)
+- Placeholder Map von Kontaktseite entfernt (d10494c)
+
+### Tests
+- E2E Tests für Catch-all Dashboard Route (53a71b5)
+- Demo-Button Test übersprungen (entfernt in Beta Landing) (8802d3d)
+- CTA-Selector Update für Beta (fbaeec1)
+- Auth-Test für DealerOS Branding angepasst (26dfe8b)
+
+---
+
 ## [0.14.0] - 2026-02-25
 
 ### Added
