@@ -379,7 +379,7 @@ Die beste Versicherung ist und bleibt: Sauber dokumentieren, offen kommunizieren
     publishedAt: "2026-03-02",
     author: "Dealer OS Team",
     keywords: ["Google Bewertungen Autohaus", "Online Reputation Autohandel", "Google My Business", "Kundenbewertungen", "Autohändler Marketing"],
-    content: \`
+    content: `
 Letzte Woche habe ich ein Experiment gemacht. Ich habe "Autohändler Zürich" gegoogelt und mir die ersten zehn Ergebnisse angeschaut. Dann habe ich fünf Bekannte gefragt, welchen Händler sie kontaktieren würden – nur basierend auf den Google-Einträgen.
 
 Das Ergebnis war eindeutig: Vier von fünf wählten den Händler mit 4.8 Sternen und 127 Bewertungen – nicht den mit mehr Inseraten oder der schöneren Website.
