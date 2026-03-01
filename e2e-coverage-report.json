@@ -1,14 +1,17 @@
 {
-  "timestamp": "2026-02-26T10:00:12.846Z",
+  "timestamp": "2026-03-01T07:11:13.499Z",
   "coverage": {
     "total": 12,
     "covered": 11,
-    "partial": 0,
-    "missing": 1,
+    "partial": 1,
+    "missing": 0,
     "percent": 92
   },
-  "missingModules": [
-    "[...rest]"
-  ],
-  "partialModules": []
+  "missingModules": [],
+  "partialModules": [
+    {
+      "name": "[...rest]",
+      "testCount": 3
+    }
+  ]
 }
