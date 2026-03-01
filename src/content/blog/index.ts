@@ -365,7 +365,7 @@ Die beste Versicherung ist und bleibt: Sauber dokumentieren, offen kommunizieren
 ---
 
 **Kaufverträge und Übergabeprotokolle standardisieren?** Mit Dealer OS generieren Sie rechtssichere Dokumente mit einem Klick – inklusive automatischer Mängelauflistung und digitaler Unterschrift. Jetzt kostenlos testen.
-    \`.trim()
+    `.trim()
   },
   // Artikel 51 - 2026-03-02
   {
@@ -690,7 +690,7 @@ Keine Raketenwissenschaft. Einfach konsequent gute Arbeit – und die Bitte, das
 ---
 
 **Bewertungen systematisch sammeln?** Mit Dealer OS senden Sie automatisch personalisierte Bewertungs-Anfragen nach jeder Fahrzeugübergabe – zum optimalen Zeitpunkt. Jetzt kostenlos testen.
-    \`.trim()
+    `.trim()
   },
   // Artikel 50 - 2026-03-01
   {
