@@ -344,7 +344,7 @@ Starten Sie heute. Richten Sie WhatsApp Business ein. Schreiben Sie Ihre ersten 
 ---
 
 **Alle Kundenanfragen an einem Ort?** Mit Dealer OS integrieren Sie WhatsApp, E-Mail und Plattform-Anfragen in einer Inbox. Kein Wechseln zwischen Apps, keine verlorenen Nachrichten. Jetzt kostenlos testen.
-    \`.trim()
+    `.trim()
   },
   // Artikel 53 - 2026-03-03
   {
@@ -618,7 +618,7 @@ Also: Kaffee in die Hand, auf den Platz gehen, und ehrlich hinschauen. Der März
 ---
 
 **Standzeiten im Blick behalten?** Mit Dealer OS sehen Sie auf einen Blick, welche Fahrzeuge zu lange stehen – inklusive automatischer Alerts und Handlungsempfehlungen. Jetzt kostenlos testen.
-    \`.trim()
+    `.trim()
   },
   // Artikel 52 - 2026-03-02
   {
