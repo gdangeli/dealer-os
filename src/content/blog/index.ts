@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-03-03",
     author: "Dealer OS Team",
     keywords: ["WhatsApp Autohändler", "Messenger Marketing Auto", "Kundenkommunikation", "WhatsApp Business Schweiz", "Autohandel digital"],
-    content: \`
+    content: `
 Letzte Woche habe ich einen kleinen Test gemacht. Ich habe bei fünf Autohändlern in der Region Zürich eine Anfrage gestellt – per E-Mail. Bei drei bekam ich innerhalb von 24 Stunden eine Antwort. Bei zweien dauerte es über 48 Stunden.
 
 Dann habe ich dasselbe bei fünf anderen Händlern gemacht, aber diesmal über WhatsApp (wo eine Nummer angegeben war). Ergebnis: Vier von fünf haben innerhalb von zwei Stunden geantwortet. Einer sogar in 8 Minuten.
@@ -358,7 +358,7 @@ Starten Sie heute. Richten Sie WhatsApp Business ein. Schreiben Sie Ihre ersten 
     publishedAt: "2026-03-03",
     author: "Dealer OS Team",
     keywords: ["Bestand optimieren", "Langsteher verkaufen", "Frühjahr Autohandel", "Standzeit reduzieren", "Occasionen schneller verkaufen"],
-    content: \`
+    content: `
 Gestern bin ich über den Platz eines befreundeten Händlers gelaufen. Da stand ein grauer Peugeot 308, leicht verstaubt, hinten in der Ecke. "Wie lange steht der schon?", habe ich gefragt. Er zuckte mit den Schultern: "Keine Ahnung, ein paar Monate?" Ich hab nachgeschaut: 127 Tage. Seit Oktober. Der Wagen hat ihn inzwischen mehr gekostet, als er beim Verkauf verdienen wird.
 
 Das Frühjahr ist der ideale Zeitpunkt für einen ehrlichen Blick auf den Bestand. Die Nachfrage steigt, die Leute wollen raus, neue Autos werden gesucht. Aber nur, wenn Sie Platz haben für frische Ware – und nicht auf Altlasten sitzenbleiben.
