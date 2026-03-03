@@ -84,6 +84,29 @@
 
 AI-Features als Differentiator für das gesamte Automotive OS Portfolio.
 
+### 🚀 AfterSales AI — Premium-Modul (Q2 2026)
+
+**Automatisierte Kunden-Nachbetreuung für maximalen Lifetime Value.**
+
+| Feature | Status | Beschreibung |
+|---------|--------|--------------|
+| **3-Monats Follow-up** | 📋 Q2 2026 | "Wie geht's mit Ihrem [Auto]?" — Kundenzufriedenheit + Bewertung |
+| **6-Monats Service-Reminder** | 📋 Q2 2026 | Service-Erinnerung → Lead an eigene oder Partner-Werkstatt |
+| **12-Monats Zubehör-Upsell** | 📋 Q2 2026 | Winterreifen, Pflegeprodukte, Zubehör |
+| **AI-Personalisierung** | 📋 Q2 2026 | Claude generiert personalisierte Nachrichtentexte |
+| **Analytics Dashboard** | 📋 Q2 2026 | Öffnungsrate, Antwortrate, Upsell-Tracking |
+
+**Technische Abhängigkeiten:**
+- ✅ WhatsApp Business API (bereits integriert)
+- 📋 Supabase CRON für automatische Trigger
+- 📋 Edge Functions für Nachrichtenversand
+
+**Pricing:** CHF 99/Mo als Premium-Modul (zusätzlich zum Basis-Plan)
+
+**ROI-Versprechen:** "Zahlt sich selbst zurück mit dem ersten Upsell."
+
+---
+
 ### Quick Wins
 
 | Feature | Aufwand | Beschreibung |
