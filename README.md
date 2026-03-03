@@ -237,6 +237,7 @@ Weitere Dokumentation in `docs/`:
 - [Dashboard Widgets](docs/dashboard-widgets.md)
 - [Photo AI](docs/features/PHOTO-AI.md)
 - [Test Drive Widget](docs/TEST-DRIVE-WIDGET.md)
+- [Roadmap](docs/ROADMAP.md)
 
 ## 🚢 Deployment
 

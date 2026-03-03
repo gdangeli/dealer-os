@@ -1,6 +1,6 @@
 # DealerOS Roadmap
 
-> **Stand:** 1. März 2026  
+> **Stand:** 3. März 2026  
 > **Version:** 0.15.0  
 > **Live:** https://dealeros.ch
 
@@ -199,4 +199,4 @@ Ideen für zukünftige Versionen — noch nicht geplant:
 
 ---
 
-*Letzte Aktualisierung: 1. März 2026*
+*Letzte Aktualisierung: 3. März 2026*

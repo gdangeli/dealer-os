@@ -6,7 +6,15 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ## [Unreleased]
 
-_Nächste geplante Features_
+### Added
+- **🤖 AfterSales AI Roadmap** — Neues Premium-Modul für Q2 2026 geplant (3f33d30)
+  - 3/6/12-Monats Follow-ups für automatisierte Kundennachbetreuung
+  - AI-personalisierte Nachrichten via WhatsApp
+  - Upsell-Tracking und Analytics Dashboard
+  - Pricing: CHF 99/Mo als Add-on
+
+### Fixed
+- Escaped Backticks in Blog-Artikeln entfernt (93994e8, 6407d42, 417e3c9, 09c05bb, 3ada209)
 
 ---
 
