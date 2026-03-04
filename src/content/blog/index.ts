@@ -13,6 +13,373 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 56 - 2026-03-04
+  {
+    slug: "fahrzeugfotos-verkaufen-10-tipps",
+    title: "Fahrzeugfotos, die verkaufen: Die 10 wichtigsten Tipps",
+    excerpt: "80% der Kaufentscheidung fallen online. Gute Fotos sind Pflicht, schlechte Fotos Gift. So fotografieren Sie Occasionen richtig.",
+    category: "Praxis",
+    readTime: 11,
+    emoji: "📸",
+    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80",
+    publishedAt: "2026-03-04",
+    author: "Dealer OS Team",
+    keywords: ["Fahrzeugfotos", "Auto fotografieren", "Inserat Bilder", "Autofotos Tipps", "Online Verkauf"],
+    content: `Ein VW Golf 2.0 TDI von 2018. Gepflegt, 95'000 km, Vollausstattung, CHF 18'500. Sollte eigentlich in zwei Wochen verkauft sein. Steht jetzt seit fünf Wochen im Bestand. Warum? Die Fotos.
+
+Verwackelt, zu dunkel, falscher Winkel. Im Hintergrund ein Müllcontainer. Das Interieur wirkt dreckig, obwohl es frisch gereinigt ist. Die Detail-Aufnahmen zeigen jeden Kratzer, aber keine Highlights. Kein Wunder, dass niemand anruft.
+
+Der gleiche Golf mit professionellen Fotos? Verkauft in zehn Tagen. Für CHF 19'200. Weil die Bilder den ersten Eindruck machen — und oft auch den letzten.
+
+## Warum Fotos wichtiger sind als technische Daten
+
+Die Realität des Online-Autoverkaufs: 80 Prozent der Kaufentscheidung fallen, bevor der Kunde Ihr Autohaus betritt. Auf AutoScout24, Autolina, Ihrer Website. Und da zählen Fotos mehr als PS, Verbrauch oder Kilometerstand.
+
+Ein Beispiel aus der Praxis: Zwei identische Audi A4 Avant, gleiches Baujahr, ähnliche Laufleistung, gleicher Preis. Einer mit durchschnittlichen Smartphone-Fotos, einer mit professionellen Aufnahmen. Der mit den guten Fotos bekam 28 Anfragen in drei Wochen. Der andere gerade mal 7.
+
+Die Psychologie dahinter ist simpel: Menschen kaufen mit den Augen. Ein gutes Foto löst Emotionen aus. Es vermittelt Qualität, Vertrauen, Sorgfalt. Ein schlechtes Foto weckt Zweifel. Ist das Auto wirklich gepflegt? Versteckt der Händler etwas? Lohnt sich überhaupt ein Besuch?
+
+Sie können das beste Fahrzeug der Welt haben — wenn die Fotos schlecht sind, werden Sie es schwer verkaufen.
+
+## Regel Nr. 1: Licht ist alles
+
+Der grösste Fehler, den Händler machen: Fotos in der Halle oder bei Bewölkung aufnehmen. Das Ergebnis ist grau, flach, leblos. Occasionen sehen aus wie Gebrauchtwaren, nicht wie Traumautos.
+
+Die Lösung: Fotografieren Sie bei diffusem Tageslicht. Am besten an einem leicht bewölkten Tag zwischen 10 und 15 Uhr. Oder am frühen Morgen bzw. späten Nachmittag bei klarem Himmel. Direktes Sonnenlicht um die Mittagszeit ist problematisch — zu harte Schatten, zu viele Reflexionen.
+
+Wenn Sie drinnen fotografieren müssen (zum Beispiel im Winter), brauchen Sie gutes Kunstlicht. Nicht die Neonröhren der Werkstatt, sondern professionelle LED-Panels oder Softboxen. Kosten: ab CHF 300. Lohnt sich, wenn Sie regelmässig Fahrzeuge drinnen fotografieren.
+
+**Praxis-Tipp:** Machen Sie den "Handy-Test". Schauen Sie sich Ihre Fotos auf Ihrem Smartphone an, nicht auf dem Computer. 90 Prozent Ihrer potenziellen Käufer sehen die Bilder zuerst auf dem Handy. Wenn's da nicht gut aussieht, ist's nicht gut genug.
+
+## Regel Nr. 2: Der Hintergrund entscheidet mit
+
+Ein Fahrzeug vor einem Altglascontainer? Nein. Vor einer Graffiti-Wand? Nein. Vor einem halb verrosteten Lieferwagen? Definitiv nein.
+
+Der Hintergrund muss neutral, sauber und aufgeräumt sein. Idealerweise eine einfarbige Wand (weiss, grau, dunkelgrau), ein gepflegter Vorplatz oder eine ruhige Strassenumgebung. Nichts, was vom Fahrzeug ablenkt.
+
+In der Stadt schwierig? Suchen Sie sich einen Spot. Eine Seitenstrasse mit moderner Architektur. Ein Parkhaus mit sauberen Linien. Ein ruhiger Platz mit Bäumen (aber ohne parkende Autos im Hintergrund).
+
+Manche Händler mieten sich für einen Tag einen Fotoplatz bei einem Autofotografen. CHF 500 pro Tag, dafür perfekter Hintergrund und professionelles Setup. Wenn Sie zehn Fahrzeuge an einem Tag durchschleusen, sind das CHF 50 pro Auto. Gut investiertes Geld.
+
+**Praxis-Tipp:** Wenn Sie keinen perfekten Hintergrund haben, nutzen Sie die Unschärfe. Fotografieren Sie mit einer Kamera (oder einem Smartphone im Portrait-Modus), die den Hintergrund weichzeichnet. Das Fahrzeug bleibt scharf, der Hintergrund verschwimmt. Nicht perfekt, aber besser als ein ablenkender Hintergrund.
+
+## Regel Nr. 3: Perspektive und Winkel
+
+Die meisten Händler fotografieren auf Augenhöhe. Das ist der Standardwinkel — und genau deshalb langweilig.
+
+Bessere Winkel:
+
+**Leicht von unten:** Das Fahrzeug wirkt mächtiger, imposanter. Besonders gut bei SUVs und Sportwagen. Gehen Sie in die Knie, fotografieren Sie aus etwa 80 cm Höhe.
+
+**Dreiviertel-Ansicht:** Die Klassiker-Perspektive. Das Fahrzeug von vorne-seitlich, sodass man Front und Flanke sieht. Wirkt dynamisch, zeigt viel vom Auto. Die meisten Käufer erwarten diesen Winkel — also liefern Sie ihn.
+
+**Aus der Vogelperspektive:** Für das Interieur extrem wirkungsvoll. Steigen Sie auf eine Leiter, fotografieren Sie von oben ins Auto. Zeigt die gesamte Ausstattung, wirkt ordentlich und hochwertig.
+
+**Niemals:** Von zu weit weg. Ein Golf, der im Bild nur 30 Prozent einnimmt, weil rundherum Parkplatz ist? Unverkäuflich. Füllen Sie das Bild mit dem Auto. Das ist der Star, nicht der Hintergrund.
+
+## Regel Nr. 4: Welche Fotos sind Pflicht?
+
+Manche Händler laden sechs Fotos hoch. Andere 40. Beides ist falsch.
+
+Die ideale Anzahl: 20 bis 25 Fotos. Genug, um alles Wichtige zu zeigen. Nicht so viele, dass der Käufer die Übersicht verliert.
+
+**Die Pflicht-Aufnahmen:**
+
+1. **Dreiviertel vorne links** – Der Opener. Das Bild, das in der Liste auf AutoScout24 angezeigt wird.
+2. **Dreiviertel vorne rechts** – Die zweite Hauptansicht.
+3. **Dreiviertel hinten links** – Zeigt das Heck und die Seite.
+4. **Dreiviertel hinten rechts** – Komplettiert die Aussenansichten.
+5. **Direktansicht vorne** – Zeigt die Front gerade.
+6. **Direktansicht hinten** – Zeigt das Heck gerade.
+7. **Seitenansicht links** – Die gesamte Flanke.
+8. **Seitenansicht rechts** – Die andere Flanke.
+9. **Innenraum Gesamtansicht** – Von der Türe aus, zeigt das gesamte Cockpit.
+10. **Lenkrad und Armaturenbrett** – Detailansicht.
+11. **Mittelkonsole** – Zeigt das Infotainment, Schalthebel, Bedienelemente.
+12. **Rücksitz** – Wichtig bei Limousinen und Kombis.
+13. **Kofferraum** – Zeigt das Ladevolumen.
+14. **Motorraum** – Muss sein. Zeigt Sauberkeit und Zustand.
+15. **Felgen/Reifen Detail** – Profil, Marke, Zustand.
+16. **Tachostand** – Beweisf foto für die Laufleistung.
+17-20. **Extras und Highlights** – Panoramadach, Sportsitze, LED-Scheinwerfer, etc.
+21-25. **Optionale Details** – Zusätzliche Highlights, Ausstattungsmerkmale, besondere Features.
+
+**Was Sie nicht fotografieren:** Kratzer, Dellen, Steinschläge in Grossaufnahme. Ja, Sie müssen transparent sein. Aber ein 10-cm-Foto eines winzigen Kratzers ist kontraproduktiv. Erwähnen Sie Mängel im Text, zeigen Sie sie bei der Besichtigung — aber machen Sie sie nicht zum Hauptdarsteller der Bildergalerie.
+
+## Regel Nr. 5: Innenraum richtig inszenieren
+
+Der Innenraum ist der Deal-Maker oder Deal-Breaker. Ein verdrecktes Cockpit? Weg ist der Kunde. Ein perfekt aufgeräumtes, sauberes Interieur? Vertrauen gewonnen.
+
+**Vor dem Fotografieren:**
+
+- Vollständige Innenreinigung. Nicht nur saugen, sondern auch alle Oberflächen wischen.
+- Alle persönlichen Gegenstände entfernen. Keine Sonnenbrille auf dem Armaturenbrett, keine Parkuhr, keine Bonbonverpackung.
+- Fussmatten perfekt ausrichten.
+- Lenkrad gerade stellen.
+- Lüftungsdüsen alle in die gleiche Richtung drehen (sieht ordentlicher aus).
+- Bei Automatik: Schalthebel in "P" stellen. Wirkt aufgeräumt.
+
+**Beim Fotografieren:**
+
+- Türen weit öffnen, damit genug Licht reinkommt.
+- Aus mehreren Winkeln fotografieren: Von der Fahrertür, von der Beifahrertür, von hinten.
+- Details zeigen: Lenkrad mit Logo, Schalthebel, Infotainment-Screen (eingeschaltet!), Sportsitze.
+- Bei Leder: So fotografieren, dass man die Struktur sieht. Leder lebt von der Haptik — Fotos müssen das transportieren.
+
+**Praxis-Tipp:** Schalten Sie das Auto ein (Motor muss nicht laufen), sodass das Infotainment-Display leuchtet. Ein schwarzer Bildschirm sieht tot aus. Ein leuchtender Screen wirkt modern und einladend. Zeigen Sie die Startseite oder die Navigationsansicht — nicht die Fehlermeldungen.
+
+## Regel Nr. 6: Details machen den Unterschied
+
+Zwei Inserate, gleiches Auto. Einer zeigt 20 generische Fotos. Der andere zeigt 20 Fotos plus fünf gezielte Detail-Shots. Raten Sie mal, welcher mehr Anfragen bekommt.
+
+Details sind Verkaufsargumente. Sie zeigen, dass Sie sich Mühe geben. Und sie geben dem Käufer das Gefühl, alles zu sehen — keine Überraschungen bei der Besichtigung.
+
+**Welche Details Sie zeigen sollten:**
+
+- **LED-Scheinwerfer:** Close-up der Scheinwerfereinheit, idealerweise eingeschaltet.
+- **Panoramadach:** Von innen nach oben fotografiert, sodass man den Himmel sieht.
+- **Sportsitze:** Seitliche Wangen, Logo, Lederstruktur.
+- **Felgen:** Nahaufnahme der Felge, sauber, ohne Bremsstaub.
+- **Auspuffendrohre:** Poliert, von hinten fotografiert. Sportauspuff? Unbedingt zeigen.
+- **Schlüssel:** Fahrzeugschlüssel neben dem Logo. Zeigt Vollständigkeit.
+- **Servicehistorie:** Das Serviceheft, aufgeschlagen bei den Stempeln. Vertrauensbildende Massnahme.
+
+Übertreiben Sie's nicht. Fünf bis sieben Detail-Shots reichen. Mehr wirkt zwanghaft.
+
+## Regel Nr. 7: Bearbeitung ja, Fälschung nein
+
+Sollten Sie Ihre Fotos bearbeiten? Ja. Sollten Sie Photoshop-Magie betreiben? Nein.
+
+**Erlaubte Bearbeitungen:**
+
+- Helligkeit und Kontrast anpassen.
+- Farben leicht verstärken (aber nicht übertreiben).
+- Schärfe erhöhen.
+- Hintergrund abdunkeln oder aufhellen, um das Fahrzeug hervorzuheben.
+- Kleine Objekte im Hintergrund entfernen (z. B. ein Mülleimer am Rand).
+
+**Verbotene Bearbeitungen:**
+
+- Kratzer oder Dellen wegretuschieren.
+- Fahrzeugfarbe ändern.
+- Felgen oder Ausstattung hinzufügen, die das Auto nicht hat.
+- Den Tachostand manipulieren.
+
+Die Grenze ist einfach: Bearbeiten Sie, um das Foto besser zu machen. Nicht, um das Auto zu verändern. Wenn der Kunde bei der Besichtigung sagt "Das sieht ja ganz anders aus als auf den Fotos", haben Sie verloren.
+
+**Tools:** Sie brauchen kein Photoshop. Lightroom (CHF 12/Monat) reicht völlig. Oder kostenlose Alternativen wie GIMP oder Darktable. Für schnelle Smartphone-Bearbeitung: Snapseed oder VSCO.
+
+## Regel Nr. 8: Konsistenz ist König
+
+Nichts wirkt unprofessioneller als ein Inserat mit Fotos aus drei verschiedenen Jahreszeiten, von zwei verschiedenen Standorten, mit unterschiedlichen Lichtverhältnissen.
+
+Fotografieren Sie alle Autos nach dem gleichen Schema. Gleiche Winkel, gleicher Hintergrund, gleiche Lichtverhältnisse. Das zeigt Professionalität. Käufer erkennen das — bewusst oder unbewusst.
+
+Wenn Sie zehn Fahrzeuge im Bestand haben und alle mit dem gleichen Setup fotografiert sind, wirkt Ihr Online-Auftritt wie eine Premium-Marke. Wenn jedes Auto anders fotografiert ist, wirkt's wie ein Flohmarkt.
+
+**Praxis-Tipp:** Erstellen Sie eine Checkliste. Welche Fotos in welcher Reihenfolge? Welche Einstellungen? Welcher Standort? So stellen Sie sicher, dass jedes Fahrzeug den gleichen Standard erfüllt. DealerOS kann solche Checklisten direkt im System speichern — praktisch, wenn mehrere Mitarbeiter fotografieren.
+
+## Regel Nr. 9: Smartphone oder Kamera?
+
+Die gute Nachricht: Moderne Smartphones machen hervorragende Fotos. Ein iPhone 15 Pro oder ein Samsung Galaxy S24 Ultra reicht völlig für professionelle Fahrzeugfotos.
+
+Die schlechte Nachricht: Die meisten Händler nutzen das Potential nicht. Sie machen Schnappschüsse, keine durchdachten Aufnahmen.
+
+**Wenn Sie mit dem Smartphone fotografieren:**
+
+- Nutzen Sie den Pro-Modus (falls verfügbar). Manuelle Einstellungen geben Ihnen mehr Kontrolle.
+- Fotografieren Sie im RAW-Format. Mehr Spielraum bei der Nachbearbeitung.
+- Nutzen Sie ein Stativ oder stabilisieren Sie das Handy. Verwackelte Fotos sind No-Gos.
+- Reinigen Sie die Linse. Klingt banal, wird aber ständig vergessen.
+
+**Wann lohnt sich eine richtige Kamera?**
+
+Wenn Sie mehr als 20 Fahrzeuge pro Monat verkaufen, lohnt sich eine Systemkamera. Nicht weil Smartphones schlecht sind, sondern weil Kameras mehr Flexibilität bieten: Wechselobjektive, bessere Low-Light-Performance, professionellere Bedienung.
+
+Empfehlung: Eine Sony Alpha 6400 mit Kit-Objektiv (ca. CHF 1'000) oder eine Canon EOS M50 Mark II (ca. CHF 900). Beide sind perfekt für Fahrzeugfotografie, einfach zu bedienen, und liefern Top-Qualität.
+
+## Regel Nr. 10: Investieren Sie in Professionalität
+
+Sie haben zwei Möglichkeiten: Selber machen oder einen Profi engagieren.
+
+**Selber machen:** Zeitaufwand pro Fahrzeug: 30 bis 45 Minuten (inkl. Vorbereitung, Fotografie, Bearbeitung, Upload). Kosten: Ihre Zeit. Qualität: Hängt von Ihrer Erfahrung ab.
+
+**Profi engagieren:** Kosten: CHF 150 bis 300 pro Fahrzeug (je nach Region und Umfang). Zeitaufwand: Fahrzeug vorbereiten, Termin vereinbaren. Qualität: Durchgehend hoch.
+
+Wann lohnt sich der Profi? Bei Premium-Fahrzeugen ab CHF 40'000. Bei schwer verkäuflichen Modellen. Bei Fahrzeugen, die Sie besonders schnell loswerden wollen.
+
+Für den täglichen Bestand? Lernen Sie es selber. Es ist keine Raketenwissenschaft. Mit ein bisschen Übung fotografieren Sie in einer halben Stunde besser als 80 Prozent der Konkurrenz.
+
+## DealerOS-Tipp: Fotos direkt im System verwalten
+
+Wenn Sie DealerOS nutzen, können Sie Fotos direkt beim Fahrzeug hinterlegen. Das System erkennt automatisch, welches Bild das Hauptbild ist (basierend auf Dateiname oder Reihenfolge). Sie können Fotos taggen ("Exterieur", "Interieur", "Details"), sodass Sie bei der Inserat-Erstellung sofort die richtigen Bilder finden.
+
+Ausserdem: DealerOS kann Fotos automatisch auf die richtige Grösse skalieren und komprimieren. AutoScout24 will Bilder unter 5 MB? DealerOS erledigt das im Hintergrund. Sie laden die Originalbilder hoch, das System kümmert sich um den Rest.
+
+## Bonus-Tipp: Video schlägt Fotos
+
+Ein gut gemachtes Video ist Gold wert. 30 Sekunden Rundgang ums Fahrzeug, 30 Sekunden Innenraum, 15 Sekunden Details. Kurz, knackig, ohne Gelaber.
+
+Videos erhöhen die Anfragen um durchschnittlich 40 Prozent. Warum? Weil sie mehr zeigen als Fotos. Der Käufer bekommt ein Gefühl für das Auto. Ist der Lack wirklich so glänzend? Sieht der Innenraum auch in Bewegung gut aus? Ein Video beantwortet diese Fragen.
+
+**Praxis-Tipp:** Filmen Sie mit dem Smartphone im Querformat, stabilisiert (mit Gimbal oder zumindest ruhiger Hand). Keine Musik, kein Kommentar — einfach nur das Auto. Upload auf YouTube (unlisted), Link im Inserat. Fertig.
+
+## Fazit: Fotos sind Ihre stärkste Waffe
+
+Sie können den besten Service, die fairsten Preise und das gepflegteste Lager haben — wenn die Fotos schlecht sind, kommen die Kunden nicht. Gute Fotos sind kein Nice-to-have, sie sind Pflicht.
+
+Die gute Nachricht: Es ist lernbar. Sie brauchen keine teure Ausrüstung, kein Fotografiestudium. Nur ein bisschen Zeit, Geduld und die Bereitschaft, es richtig zu machen.
+
+Fangen Sie heute an. Nehmen Sie das nächste Fahrzeug, das Sie online stellen. Fotografieren Sie es nach diesen Regeln. Vergleichen Sie die Ergebnisse mit Ihren bisherigen Fotos. Sie werden den Unterschied sehen — und Ihre Kunden auch.`
+  },
+  // Artikel 55 - 2026-03-04
+  {
+    slug: "cabrio-saison-2026-jetzt-einkaufen-bald-verkaufen",
+    title: "Cabrio-Saison 2026: Jetzt einkaufen, bald verkaufen",
+    excerpt: "Die Cabrio-Saison naht. Wer jetzt clever einkauft, profitiert von März-Preisen und verkauft ab April mit Gewinn. Welche Modelle sich lohnen.",
+    category: "Trends",
+    readTime: 9,
+    emoji: "🌞",
+    image: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80",
+    publishedAt: "2026-03-04",
+    author: "Dealer OS Team",
+    keywords: ["Cabrio Occasion", "Roadster gebraucht", "Frühlingsautos", "Saisongeschäft Autohandel", "Cabrio kaufen"],
+    content: `Mitte Februar in der Schweiz. Die Temperaturen kratzen kaum an der Null-Grad-Marke, die Strassen sind salzverkrustet, und der Himmel ist grau. Niemand denkt ans Cabrio. Genau der richtige Zeitpunkt, um welche zu kaufen.
+
+Jedes Jahr das gleiche Spiel: Im März sind Cabriolets noch Ladenhüter. Im April beginnt die Nachfrage zu steigen. Im Mai und Juni herrscht Hochsaison. Wer jetzt einsteigt, kann innerhalb von sechs bis acht Wochen 2'000 bis 4'000 Franken pro Fahrzeug verdienen — wenn er die richtigen Modelle wählt.
+
+## Die Psychologie des Cabrio-Marktes
+
+Der Schweizer Occasionsmarkt ist stark saisonabhängig. Besonders bei Lifestyle-Fahrzeugen wie Cabriolets zeigt sich das deutlich. Von November bis Februar interessiert sich kaum jemand für offene Autos. Die wenigen Anfragen kommen von Profis, die genau wissen, was sie tun — oder von Schnäppchenjägern mit unrealistischen Vorstellungen.
+
+Für Sie als Händler bedeutet das: Jetzt liegen die Preise 10 bis 15 Prozent unter dem Jahresdurchschnitt. Nicht weil die Fahrzeuge schlechter sind, sondern weil die Nachfrage fehlt. Wer im März kauft, zahlt Winterpreise. Wer im Mai verkauft, kassiert Sommerprämien.
+
+Das Risiko? Gering. Cabriolets sind keine Exoten mehr. Die meisten Modelle haben einen stabilen Markt. Und selbst wenn das Wetter im April bescheiden bleibt — spätestens im Mai kommt der Run.
+
+## Welche Cabrios sich 2026 lohnen
+
+Nicht jedes offene Auto ist gleich viel wert. Manche Modelle verkaufen sich quasi von selbst, andere verstauben monatelang im Bestand. Hier die Kategorien, auf die Sie setzen sollten:
+
+### Die Allrounder: Golf, Mini, Audi A3
+
+Das sind die Brot-und-Butter-Cabriolets. Golf Cabrio (vor allem die Generation VI und VII), Mini Cabrio und Audi A3 Cabrio verkaufen sich das ganze Jahr über solide. Im Frühling werden sie zur sicheren Bank.
+
+**Golf Cabrio:** Ein VW Golf 2.0 TSI Cabrio von 2014 mit 110'000 km kostet Sie jetzt etwa CHF 12'000. Im Mai kriegen Sie 14'500 bis 15'000 dafür. Die Nachfrage ist breit: von jungen Paaren bis zur Generation 50+.
+
+**Mini Cabrio:** Hier zahlt die Marke. Ein Mini Cooper Cabrio von 2016 mit 80'000 km liegt aktuell bei CHF 17'000. Ab April sind CHF 19'500 realistisch. Wichtig: Nur die Benziner. Diesel-Cabrios sind ein Nischenprodukt.
+
+**Audi A3 Cabrio:** Etwas gehobener, aber immer noch massentauglich. Ein A3 1.8 TFSI Cabrio von 2015 mit 95'000 km kostet Sie CHF 18'000. Im Frühling gehen die für CHF 20'500 weg. Achten Sie auf Quattro-Modelle — die sind beliebter als Fronttriebler.
+
+### Die Sportlichen: MX-5, Z4, TT
+
+Hier wird's interessanter. Roadster mit Charakter ziehen eine spezifische Käuferschicht an. Wer einen Mazda MX-5 sucht, will genau das. Keine Kompromisse. Das macht den Verkauf einfacher — wenn Sie das richtige Fahrzeug haben.
+
+**Mazda MX-5:** Der ND (aktuelle Generation) ist zu teuer für schnelle Gewinne. Aber ein NC (Baujahr 2009–2015) mit 120'000 km für CHF 11'000? Der ist im Mai CHF 13'500 wert. Der MX-5 ist ein Kultobjekt. Die Käufer wissen, was sie wollen, und zahlen im Frühling gerne mehr.
+
+**BMW Z4:** Hier müssen Sie aufpassen. Der E89 (2009–2016) läuft gut, besonders als sDrive28i oder sDrive35i. Ein Z4 sDrive28i von 2012 mit 110'000 km kostet jetzt CHF 16'000. Im April sind CHF 18'500 drin. Aber: Lassen Sie die Finger von Fahrzeugen mit unklarer Historie oder bekannten Problemen (Hardtop-Mechanik!).
+
+**Audi TT Roadster:** Polarisiert, aber verkauft sich gut. Ein TT 2.0 TFSI Roadster von 2013 mit 100'000 km liegt bei CHF 19'000. Im Mai gehen die für CHF 21'500 bis 22'000 weg. Die Quattro-Varianten sind schneller verkauft als die Fronttriebler.
+
+### Die Luxus-Klasse: SLK, Boxster, Maserati
+
+Hier trennt sich die Spreu vom Weizen. Luxus-Cabriolets sind riskanter, weil die Käuferbasis kleiner ist. Aber die Margen sind deutlich höher.
+
+**Mercedes SLK:** Der R172 (2011–2016) ist ein sicherer Wert. Ein SLK 200 von 2014 mit 90'000 km kostet Sie CHF 21'000. Im Frühling kriegen Sie CHF 24'000 bis 25'000 dafür. Wichtig: Das Vario-Dach muss einwandfrei funktionieren. Käufer dieser Klasse dulden keine Macken.
+
+**Porsche Boxster:** Der 981 (2012–2016) ist ein Traum für jeden Händler. Ein Boxster 2.7 von 2013 mit 85'000 km liegt bei CHF 35'000. Im Mai sind CHF 39'000 bis 40'000 realistisch. Die Nachfrage ist stabil, die Käufer zahlungskräftig. Aber: Nur mit Servicehistorie. Bei Porsche zählt jeder Stempel.
+
+**Maserati GranCabrio:** Risiko und Rendite. Ein GranCabrio von 2012 mit 75'000 km kostet CHF 38'000. Im Frühling können Sie CHF 43'000 bis 45'000 verlangen. Aber: Nur für erfahrene Händler. Maserati-Käufer sind anspruchsvoll. Wenn etwas nicht stimmt, sind sie weg.
+
+## Einkaufsstrategie: Wo finden Sie jetzt Cabriolets?
+
+Die besten Quellen im März:
+
+**1. B2B-Auktionen:** Carauktion.ch ist Ihr erster Anlaufpunkt. Im Winter landen viele Cabriolets bei den Auktionen, weil Händler Platz schaffen wollen. Die Preise sind tief, die Konkurrenz überschaubar. Setzen Sie Alerts für die Modelle, die Sie suchen.
+
+**2. Privatankäufe:** Viele Privatpersonen wollen ihr Cabrio loswerden, bevor die Saison beginnt. Entweder weil sie ein neues gekauft haben, oder weil sie Platz brauchen. Schalten Sie jetzt Ankauf-Inserate auf AutoScout24 und Autolina. Bieten Sie faire Preise — aber nicht Hochsaison-Preise.
+
+**3. Leasingrückläufer:** Leasing-Gesellschaften haben im Frühjahr oft Cabriolets im Bestand, die im Herbst zurückgekommen sind. Die wollen die bis April verkauft haben. Rufen Sie Ihre Kontakte an. Oft gibt es Paketangebote.
+
+**4. Andere Händler:** Kollegen mit zu vielen Cabrios im Bestand sind dankbare Verkäufer. Besonders kleinere Garagen ohne Platz für saisonale Lagerung. Bieten Sie Barzahlung und schnelle Abwicklung.
+
+## Aufbereitung: Cabrios brauchen Glanz
+
+Ein Cabrio muss perfekt aussehen. Niemand kauft im Mai ein verstaubtes, verdrecktes Cabrio — egal wie günstig es ist. Investieren Sie in die Aufbereitung:
+
+**Lack:** Polieren, versiegeln, zum Glänzen bringen. Ein Cabrio ist ein Emotionskauf. Wenn der Lack matt ist, ist der Kunde weg.
+
+**Verdeck:** Stoffverdecke reinigen und imprägnieren. Hardtops auf Funktion prüfen. Jeder Käufer testet das Dach. Wenn's klemmt oder Geräusche macht, war's das.
+
+**Innenraum:** Sitze reinigen, Leder pflegen, Kunststoffe auffrischen. Cabriolets haben oft Gebrauchsspuren, weil sie viel in der Sonne stehen. Machen Sie das unsichtbar.
+
+**Technik:** Service machen lassen. Ein Cabrio ohne aktuellen Service ist unverkäuflich. Die Käufer sind sensibel. Ein fehlender Stempel kann den Deal kosten.
+
+Rechnen Sie mit CHF 800 bis 1'200 für eine gründliche Aufbereitung. Das ist gut investiertes Geld. Der Unterschied zwischen einem "ok" aufbereiteten und einem "wow" aufbereiteten Cabrio sind locker CHF 2'000 im Verkaufspreis.
+
+## Verkaufsstrategie: Timing ist alles
+
+Sie haben eingekauft, aufbereitet — jetzt geht's ums Timing. Zu früh online, und Sie stehen im Wettbewerb mit Winterpreisen. Zu spät, und Sie verpassen die erste Welle.
+
+**Die ideale Timeline:**
+
+- **Anfang März:** Einkaufen
+- **Mitte März:** Aufbereiten
+- **Ende März:** Online stellen (AutoScout24, Autolina, eigene Website)
+- **Anfang April:** Erste Anfragen, erste Verkäufe
+- **Mai/Juni:** Hochsaison
+
+Wichtig: Stellen Sie die Fahrzeuge Ende März online, auch wenn das Wetter noch bescheiden ist. Die ersten Käufer planen voraus. Wer jetzt inseriert, hat im April bereits Verkaufstermine.
+
+## Preisgestaltung: Nicht zu gierig werden
+
+Hier der häufigste Fehler: Händler kaufen im März günstig ein, rechnen die Hochsaison-Preise vom Vorjahr hoch — und bleiben auf den Fahrzeugen sitzen, weil sie zu teuer sind.
+
+Die Faustregel: Kalkulieren Sie mit 15 bis 20 Prozent Marge auf den Einkaufspreis. Nicht mehr. Ein Golf Cabrio für CHF 12'000 eingekauft sollte für CHF 14'500 verkauft werden. Nicht für CHF 16'000.
+
+Warum? Weil Ihre Konkurrenz das gleiche macht. Im April kommen hunderte Cabriolets auf den Markt. Wer zu teuer ist, bleibt liegen. Wer realistisch kalkuliert, verkauft schnell und macht Platz für das nächste Fahrzeug.
+
+## Risiken und wie Sie die vermeiden
+
+**Risiko 1: Wetterkapriolen**
+
+Was, wenn der April und Mai verregnet sind? Dann verschiebt sich die Nachfrage in den Juni. Nicht dramatisch, aber Sie verlieren Zeit. Dagegen gibt es keine Versicherung. Aber: Cabrio-Käufer kaufen auch bei Regen. Sie kaufen nicht für heute, sondern für den ganzen Sommer.
+
+**Risiko 2: Technische Probleme**
+
+Ein Verdeck, das klemmt. Eine Zylinderkopfdichtung, die undicht ist. Solche Überraschungen können ein Geschäft ruinieren. Lösung: Gründliche Prüfung vor dem Ankauf. Investieren Sie in eine Expertise bei einem Spezialisten, wenn Sie unsicher sind.
+
+**Risiko 3: Überkauft**
+
+Zu viele Cabriolets im Bestand binden Kapital und Platz. Kaufen Sie nur so viele, wie Sie im April/Mai verkaufen können. Faustregel: Maximal 20 Prozent des Bestands sollten Cabriolets sein.
+
+## Welche Cabrios Sie meiden sollten
+
+Nicht jedes offene Auto ist ein Goldgrube. Diese Modelle sind Ladenhüter:
+
+**Diesel-Cabriolets:** Mini Cooper D Cabrio, Audi A3 2.0 TDI Cabrio — vergessen Sie's. Niemand will ein Diesel-Cabrio. Die Käuferschaft ist minimal.
+
+**Exoten:** Renault Mégane Cabrio, Opel Cascada, Peugeot 308 CC — schwierig zu verkaufen. Zu wenig Nachfrage, zu viele Fragezeichen bei der Zuverlässigkeit.
+
+**Alte Luxus-Cabrios:** Mercedes SL R230 (Baujahr vor 2006), BMW 6er E64 (vor 2008) — Risiko zu hoch. Technisch komplex, hohe Reparaturkosten, anspruchsvolle Käufer.
+
+**Billig-Cabrios unter CHF 5'000:** Peugeot 206 CC, Renault Wind — Zeitverschwendung. Zu geringe Margen, zu viele Probleme.
+
+## DealerOS-Tipp: Automatisierung nutzen
+
+Wenn Sie DealerOS nutzen, können Sie jetzt schon die Verkaufstermine im April/Mai blockieren. Legen Sie die Fahrzeuge im System an, auch wenn sie erst Ende März online gehen. So behalten Sie den Überblick.
+
+Nutzen Sie die automatische Preis-Tracking-Funktion: Lassen Sie DealerOS die Marktpreise überwachen. Wenn die Konkurrenz im April die Preise senkt, bekommen Sie einen Alert. So können Sie reagieren, bevor Ihre Fahrzeuge zu teuer sind.
+
+Und: Setzen Sie Erinnerungen für die Aufbereitung. Ein Cabrio muss perfekt sein. DealerOS kann Sie drei Wochen vor dem geplanten Online-Termin erinnern, die Aufbereitung zu starten.
+
+## Fazit: März ist Einkaufsmonat
+
+Die Cabrio-Saison ist planbar. Wer jetzt einkauft, clever aufbereitet und realistisch kalkuliert, macht bis Juni gutes Geld. Die Nachfrage ist da. Die Preise steigen. Sie müssen nur zum richtigen Zeitpunkt am richtigen Ort sein.
+
+Mein Rat: Starten Sie jetzt. Kaufen Sie zwei bis drei Cabriolets ein. Testen Sie das Geschäft. Wenn's klappt, skalieren Sie nächstes Jahr. Cabrios sind kein Hexenwerk — nur eine Frage des Timings.
+
+Und vergessen Sie nicht: Im September geht das Spiel in die andere Richtung. Dann kaufen Sie die Hochsaison-Reste günstig und lagern sie über den Winter. Aber das ist ein Thema für einen anderen Artikel.`
+  },
   // Artikel 54 - 2026-03-03
   {
     slug: "whatsapp-business-autohaendler-richtig-einsetzen",
