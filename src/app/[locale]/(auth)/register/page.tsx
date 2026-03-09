@@ -8,6 +8,8 @@ import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/i18n/navigation";
 import { Check, ArrowRight } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
     companyName: "",
