@@ -50,7 +50,7 @@ export function CustomerForm({ customer, onSuccess, onCancel }: CustomerFormProp
         setLocations(data);
         // Set default location to main location for new customers
         if (!customer && data.length > 0 && !formData.location_id) {
-          const mainLocation = data.find(l => l.is_main) || data[0];
+          const mainLocation = data.find((l: Location) => l.is_main) || data[0];
           setFormData(prev => ({ ...prev, location_id: mainLocation.id }));
         }
       }

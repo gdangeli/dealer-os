@@ -109,7 +109,7 @@ export function VehicleForm({ vehicle, dealerId, initialImages = [] }: VehicleFo
         setLocations(data);
         // Set default location to main location for new vehicles
         if (!vehicle && data.length > 0) {
-          const mainLocation = data.find(l => l.is_main) || data[0];
+          const mainLocation = data.find((l: any) => l.is_main) || data[0];
           setFormData(prev => ({ ...prev, location_id: mainLocation.id }));
         }
       }

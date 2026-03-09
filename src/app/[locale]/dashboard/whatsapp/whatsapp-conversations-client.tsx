@@ -53,7 +53,7 @@ export function WhatsAppConversationsClient({ dealerId }: WhatsAppConversationsC
           table: 'whatsapp_messages',
           filter: `dealer_id=eq.${dealerId}`,
         },
-        (payload) => {
+        (payload: any) => {
           console.log('New message received:', payload);
           loadConversations();
           if (selectedConversation) {
