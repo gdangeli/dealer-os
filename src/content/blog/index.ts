@@ -1,3 +1,6 @@
+import { artikel67 } from './artikel-67-ankauf-profis';
+import { artikel68 } from './artikel-68-mitarbeiter-autohandel';
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -13,6 +16,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 67 & 68 - 2026-03-09
+  artikel67,
+  artikel68,
+
   // Artikel 65 & 66 - 2026-03-08
   {
     slug: "occasionen-leasingruecklaufer-chancen-nutzen",
