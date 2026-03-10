@@ -1,3 +1,6 @@
+import { artikel69 } from './artikel-69-digitale-fahrzeugakte';
+import { artikel70 } from './artikel-70-crm-autohaendler-excel';
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -13,6 +16,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 69 & 70 - 2026-03-11
+  artikel69,
+  artikel70,
+
   // Artikel 67 & 68 - 2026-03-10
   {
     slug: "plugin-hybride-autohandel-2026-unterschaetzte-chance",
