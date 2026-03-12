@@ -1,5 +1,7 @@
 import { artikel69 } from './artikel-69-digitale-fahrzeugakte';
 import { artikel70 } from './artikel-70-crm-autohaendler-excel';
+import { artikel71 } from './artikel-71-kundenbindung-stammkunden';
+import { artikel72 } from './artikel-72-digitaler-verkaufsprozess';
 
 export interface BlogPost {
   slug: string;
@@ -16,6 +18,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 71 & 72 - 2026-03-12
+  artikel71,
+  artikel72,
+
   // Artikel 69 & 70 - 2026-03-11
   artikel69,
   artikel70,
