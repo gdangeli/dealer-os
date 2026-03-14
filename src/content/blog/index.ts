@@ -4,6 +4,8 @@ import { artikel71 } from './artikel-71-kundenbindung-stammkunden';
 import { artikel72 } from './artikel-72-digitaler-verkaufsprozess';
 import { artikel73 } from './artikel-73-crm-leads-verwalten';
 import { artikel74 } from './artikel-74-rechtliche-updates-2026';
+import { artikel75 } from './artikel-75-fruehjahrsmarketing-digital';
+import { artikel76 } from './artikel-76-follow-up-system';
 
 export interface BlogPost {
   slug: string;
@@ -20,6 +22,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 75 & 76 - 2026-03-14
+  artikel75,
+  artikel76,
+
   // Artikel 73 & 74 - 2026-03-13
   artikel73,
   artikel74,
