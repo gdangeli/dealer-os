@@ -6,6 +6,8 @@ import { artikel73 } from './artikel-73-crm-leads-verwalten';
 import { artikel74 } from './artikel-74-rechtliche-updates-2026';
 import { artikel75 } from './artikel-75-fruehjahrsmarketing-digital';
 import { artikel76 } from './artikel-76-follow-up-system';
+import { artikel77 } from './artikel-77-liquiditaetsplanung-autohandel';
+import { artikel78 } from './artikel-78-digital-leadership-autohandel';
 
 export interface BlogPost {
   slug: string;
@@ -22,6 +24,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 77 & 78 - 2026-03-15
+  artikel77,
+  artikel78,
+
   // Artikel 75 & 76 - 2026-03-14
   artikel75,
   artikel76,
