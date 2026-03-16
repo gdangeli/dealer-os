@@ -18,6 +18,14 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ---
 
+## [2026-03-16] - Blog Articles
+
+### Added
+- Blog: artikel-81 "Social Media für Autohändler: Kosten-Nutzen-Vergleich" (commit 6525848)
+- Blog: artikel-82 "Händlerschilder Schweiz: Regelungen & Gestaltung" (commit 6525848)
+
+---
+
 ## [0.15.0] - 2026-03-01
 
 ### Added
