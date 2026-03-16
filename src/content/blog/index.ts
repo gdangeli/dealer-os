@@ -8,6 +8,8 @@ import { artikel75 } from './artikel-75-fruehjahrsmarketing-digital';
 import { artikel76 } from './artikel-76-follow-up-system';
 import { artikel77 } from './artikel-77-liquiditaetsplanung-autohandel';
 import { artikel78 } from './artikel-78-digital-leadership-autohandel';
+import { artikel79 } from './artikel-79-prozessoptimierung-zeitfresser';
+import { artikel80 } from './artikel-80-online-reputation-bewertungen';
 
 export interface BlogPost {
   slug: string;
@@ -24,6 +26,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 79 & 80 - 2026-03-16
+  artikel79,
+  artikel80,
+
   // Artikel 77 & 78 - 2026-03-15
   artikel77,
   artikel78,
