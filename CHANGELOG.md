@@ -342,3 +342,12 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 - **Removed** — Entfernte Features
 - **Fixed** — Bugfixes
 - **Security** — Sicherheits-relevante Änderungen
+
+---
+
+## [2026-03-17] - Blog Articles
+
+### Added
+- Blog: artikel-83 "XXX" (commit b445a5e)
+- Blog: artikel-84 "XXX" (commit b445a5e)
+
