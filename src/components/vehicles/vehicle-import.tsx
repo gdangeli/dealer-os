@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/client";
-import * as XLSX from "xlsx";
+import * as ExcelJS from "exceljs";
 import Papa from "papaparse";
 import { Upload, FileSpreadsheet, AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 import { ColumnMapper } from "./column-mapper";
@@ -119,42 +119,56 @@ export function VehicleImport({ dealerId }: VehicleImportProps) {
           },
         });
       } else {
-        // Excel Parsing mit XLSX
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          try {
-            const data = e.target?.result;
-            const workbook = XLSX.read(data, { type: "binary" });
-            const sheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[sheetName];
-            const jsonData = XLSX.utils.sheet_to_json(worksheet, {
-              raw: false,
-              defval: null,
-            }) as ParsedRow[];
-
-            if (jsonData.length === 0) {
-              setError("Die Excel-Datei enthält keine Daten.");
-              setLoading(false);
-              return;
-            }
-
-            const fileHeaders = Object.keys(jsonData[0] || {});
-            
-            setParsedData(jsonData);
-            setHeaders(fileHeaders);
-            autoMapColumns(fileHeaders);
-            setStep("preview");
+        // Excel Parsing mit ExcelJS
+        const arrayBuffer = await file.arrayBuffer();
+        try {
+          const workbook = new ExcelJS.Workbook();
+          await workbook.xlsx.load(arrayBuffer);
+          
+          const worksheet = workbook.worksheets[0];
+          if (!worksheet) {
+            setError("Die Excel-Datei enthält keine Arbeitsblätter.");
             setLoading(false);
-          } catch (err) {
-            setError(`Excel-Fehler: ${err instanceof Error ? err.message : "Unbekannter Fehler"}`);
-            setLoading(false);
+            return;
           }
-        };
-        reader.onerror = () => {
-          setError("Fehler beim Lesen der Datei.");
+
+          const jsonData: ParsedRow[] = [];
+          let fileHeaders: string[] = [];
+
+          worksheet.eachRow((row, rowNumber) => {
+            const rowValues = row.values as any[];
+            // Skip the first element (index 0) as ExcelJS includes it as undefined
+            const cleanValues = rowValues.slice(1);
+            
+            if (rowNumber === 1) {
+              // First row contains headers
+              fileHeaders = cleanValues.map(val => String(val || ""));
+            } else {
+              // Data rows
+              const rowObj: ParsedRow = {};
+              fileHeaders.forEach((header, index) => {
+                const value = cleanValues[index];
+                rowObj[header] = value !== undefined && value !== null ? String(value) : null;
+              });
+              jsonData.push(rowObj);
+            }
+          });
+
+          if (jsonData.length === 0) {
+            setError("Die Excel-Datei enthält keine Daten.");
+            setLoading(false);
+            return;
+          }
+          
+          setParsedData(jsonData);
+          setHeaders(fileHeaders);
+          autoMapColumns(fileHeaders);
+          setStep("preview");
           setLoading(false);
-        };
-        reader.readAsBinaryString(file);
+        } catch (err) {
+          setError(`Excel-Fehler: ${err instanceof Error ? err.message : "Unbekannter Fehler"}`);
+          setLoading(false);
+        }
       }
     } catch (err) {
       setError(`Fehler beim Parsen: ${err instanceof Error ? err.message : "Unbekannter Fehler"}`);
