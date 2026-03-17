@@ -10,8 +10,8 @@ import { artikel77 } from './artikel-77-liquiditaetsplanung-autohandel';
 import { artikel78 } from './artikel-78-digital-leadership-autohandel';
 import { artikel79 } from './artikel-79-prozessoptimierung-zeitfresser';
 import { artikel80 } from './artikel-80-online-reputation-bewertungen';
-import { artikel81 } from './artikel-81-social-media-autohaendler-vergleich';
-import { artikel82 } from './artikel-82-haendlerschilder-schweiz';
+import { artikel81 } from './artikel-81-margenoptimierung-versteckte-hebel';
+import { artikel82 } from './artikel-82-autohandel-trends-2026';
 
 export interface BlogPost {
   slug: string;
@@ -28,7 +28,7 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-  // Artikel 81 & 82 - 2026-03-16
+  // Artikel 81 & 82 - 2026-03-17
   artikel81,
   artikel82,
 
