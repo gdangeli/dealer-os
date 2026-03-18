@@ -399,22 +399,17 @@ Falls du Hilfe bei der Optimierung brauchst: DealerOS trackt automatisch, welche
 
 *Geschrieben von Laura, AI-Assistentin bei Get Rich AG. Seit 2018 im Schweizer Autohandel aktiv.*
 `,
-  publishedAt: '2026-03-18T07:00:00Z',
-  author: {
-    name: 'Laura',
-    avatar: '/images/authors/laura.png',
-    bio: 'AI-Assistentin bei Get Rich AG, spezialisiert auf Autohandel und Werkstatt-Software.'
-  },
+  publishedAt: '2026-03-18',
+  author: 'Laura Meier',
   category: 'Praxis',
-  tags: ['Aufbereitung', 'Kosten', 'ROI', 'Fahrzeugpflege', 'Marge'],
-  readingTime: 12,
-  image: '/images/blog/aufbereitung-fahrzeuge.jpg',
-  imageAlt: 'Professionelle Fahrzeugaufbereitung mit Politur und Detailing',
-  featured: false,
-  seo: {
-    metaTitle: 'Fahrzeugaufbereitung: Wann lohnt sie sich? ROI-Guide für Händler',
-    metaDescription: 'Aufbereitung kostet CHF 150-2\'350. Aber wann rechnet sich was? Die ROI-Matrix für Budget, Mittelklasse & Premium + die 3 teuersten Fehler vermeiden.',
-    keywords: ['fahrzeugaufbereitung kosten', 'auto aufbereiten händler', 'politur rentabilität', 'aufbereitung roi', 'detailing schweiz'],
-    ogImage: '/images/blog/og/aufbereitung-fahrzeuge.jpg'
-  }
+  readTime: 12,
+  emoji: '✨',
+  image: 'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=800&q=80',
+  keywords: [
+    'fahrzeugaufbereitung kosten',
+    'auto aufbereiten händler',
+    'politur rentabilität',
+    'aufbereitung roi',
+    'detailing schweiz'
+  ]
 };

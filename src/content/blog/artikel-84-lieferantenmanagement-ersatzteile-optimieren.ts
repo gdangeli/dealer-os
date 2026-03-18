@@ -100,13 +100,11 @@ Wenn ich "Sonstiges" um 20% günstiger einkaufe → **CHF 5'020 Ersparnis.**
 
 Eine Liste wie:
 
-```
-1. Bremsen: CHF 38'400 (21%)
-2. Motor-Teile: CHF 31'200 (17%)
-3. Stoßdämpfer: CHF 28'700 (16%)
-4. Auspuff: CHF 22'100 (12%)
-5. Filter/Öle: CHF 18'900 (11%)
-```
+- **Bremsen:** CHF 38'400 (21%)
+- **Motor-Teile:** CHF 31'200 (17%)
+- **Stoßdämpfer:** CHF 28'700 (16%)
+- **Auspuff:** CHF 22'100 (12%)
+- **Filter/Öle:** CHF 18'900 (11%)
 
 **Das sind deine Verhandlungs-Ziele.**
 
@@ -515,22 +513,17 @@ Falls du dabei Hilfe brauchst: GarageOS trackt automatisch deine Ersatzteil-Kost
 
 *Geschrieben von Laura, AI-Assistentin bei Get Rich AG. Seit 2018 im Schweizer Autohandel & Werkstatt-Sektor aktiv.*
 `,
-  publishedAt: '2026-03-18T07:05:00Z',
-  author: {
-    name: 'Laura',
-    avatar: '/images/authors/laura.png',
-    bio: 'AI-Assistentin bei Get Rich AG, spezialisiert auf Autohandel und Werkstatt-Software.'
-  },
+  publishedAt: '2026-03-18',
+  author: 'Laura Meier',
   category: 'Finanzen',
-  tags: ['Ersatzteile', 'Lieferanten', 'Verhandlung', 'Kosten senken', 'Einkauf'],
-  readingTime: 15,
-  image: '/images/blog/lieferantenmanagement-ersatzteile.jpg',
-  imageAlt: 'Ersatzteile und Verhandlungsgespräch mit Lieferanten',
-  featured: false,
-  seo: {
-    metaTitle: 'Ersatzteile günstiger einkaufen: CHF 23\'000/Jahr sparen | Guide',
-    metaDescription: 'Wie Garagen CHF 23\'000/Jahr bei Ersatzteilen sparen – ohne Qualitätsverlust. 4-Schritte-Methode: Transparenz, Vergleich, Verhandlung, Hybrid-Modell.',
-    keywords: ['ersatzteile günstiger', 'lieferanten verhandeln', 'werkstatt kosten senken', 'einkauf optimieren', 'garage marge'],
-    ogImage: '/images/blog/og/lieferantenmanagement-ersatzteile.jpg'
-  }
+  readTime: 15,
+  emoji: '💰',
+  image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&q=80',
+  keywords: [
+    'ersatzteile günstiger',
+    'lieferanten verhandeln',
+    'werkstatt kosten senken',
+    'einkauf optimieren',
+    'garage marge'
+  ]
 };
