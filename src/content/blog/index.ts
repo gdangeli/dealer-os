@@ -14,6 +14,8 @@ import { artikel81 } from './artikel-81-margenoptimierung-versteckte-hebel';
 import { artikel82 } from './artikel-82-autohandel-trends-2026';
 import { artikel83 } from './artikel-83-aufbereitung-fahrzeuge-kosten-nutzen';
 import { artikel84 } from './artikel-84-lieferantenmanagement-ersatzteile-optimieren';
+import { artikel87 } from './artikel-87-werkstattauslastung-maximieren-strategie';
+import { artikel88 } from './artikel-88-winterreifen-geschaeft-timing-marge';
 
 export interface BlogPost {
   slug: string;
@@ -30,6 +32,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 87 & 88 - 2026-03-21
+  artikel87,
+  artikel88,
+
   // Artikel 85 & 86 - 2026-03-19
   {
     slug: "hybrid-elektro-occasionen-markt-schweiz-2026",
