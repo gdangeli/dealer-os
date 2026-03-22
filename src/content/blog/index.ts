@@ -16,6 +16,8 @@ import { artikel83 } from './artikel-83-aufbereitung-fahrzeuge-kosten-nutzen';
 import { artikel84 } from './artikel-84-lieferantenmanagement-ersatzteile-optimieren';
 import { artikel87 } from './artikel-87-werkstattauslastung-maximieren-strategie';
 import { artikel88 } from './artikel-88-winterreifen-geschaeft-timing-marge';
+import { artikel89 } from './artikel-89-video-marketing-fahrzeuge-verkaufen';
+import { artikel90 } from './artikel-90-kundentypen-verkaufspsychologie-autohandel';
 
 export interface BlogPost {
   slug: string;
@@ -32,6 +34,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 89 & 90 - 2026-03-22
+  artikel89,
+  artikel90,
+
   // Artikel 87 & 88 - 2026-03-21
   artikel87,
   artikel88,
