@@ -18,6 +18,8 @@ import { artikel87 } from './artikel-87-werkstattauslastung-maximieren-strategie
 import { artikel88 } from './artikel-88-winterreifen-geschaeft-timing-marge';
 import { artikel89 } from './artikel-89-video-marketing-fahrzeuge-verkaufen';
 import { artikel90 } from './artikel-90-kundentypen-verkaufspsychologie-autohandel';
+import { artikel91 } from './artikel-91-preispolitik-autohandel-strategie-2026';
+import { artikel92 } from './artikel-92-q2-bestandsplanung-autohandel-2026';
 
 export interface BlogPost {
   slug: string;
@@ -34,6 +36,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 91 & 92 - 2026-03-23
+  artikel91,
+  artikel92,
+
   // Artikel 89 & 90 - 2026-03-22
   artikel89,
   artikel90,
