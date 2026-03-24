@@ -20,6 +20,8 @@ import { artikel89 } from './artikel-89-video-marketing-fahrzeuge-verkaufen';
 import { artikel90 } from './artikel-90-kundentypen-verkaufspsychologie-autohandel';
 import { artikel91 } from './artikel-91-preispolitik-autohandel-strategie-2026';
 import { artikel92 } from './artikel-92-q2-bestandsplanung-autohandel-2026';
+import { artikel93 } from './artikel-93-lead-generation-autohaendler-online';
+import { artikel94 } from './artikel-94-einwandbehandlung-autoverkauf';
 
 export interface BlogPost {
   slug: string;
@@ -36,6 +38,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 93 & 94 - 2026-03-24
+  artikel93,
+  artikel94,
+
   // Artikel 91 & 92 - 2026-03-23
   artikel91,
   artikel92,
