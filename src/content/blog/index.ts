@@ -24,6 +24,8 @@ import { artikel93 } from './artikel-93-lead-generation-autohaendler-online';
 import { artikel94 } from './artikel-94-einwandbehandlung-autoverkauf';
 import { artikel95 } from './artikel-95-wasserstoff-occasion-alternative-elektro';
 import { artikel96 } from './artikel-96-export-geschaeft-occasionen-schweiz';
+import { artikel97 } from './artikel-97-langsteher-kosten';
+import { artikel98 } from './artikel-98-plattformen-vergleich';
 
 export interface BlogPost {
   slug: string;
@@ -40,6 +42,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 97 & 98 - 2026-02-27
+  artikel97,
+  artikel98,
+
   // Artikel 95 & 96 - 2026-03-25
   artikel95,
   artikel96,
