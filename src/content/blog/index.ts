@@ -26,6 +26,8 @@ import { artikel95 } from './artikel-95-wasserstoff-occasion-alternative-elektro
 import { artikel96 } from './artikel-96-export-geschaeft-occasionen-schweiz';
 import { artikel97 } from './artikel-97-langsteher-kosten';
 import { artikel98 } from './artikel-98-plattformen-vergleich';
+import { artikel99 } from './artikel-99-versicherungen-autohaendler-optimieren';
+import { artikel100 } from './artikel-100-elektroauto-batterie-pruefen-occasion';
 
 export interface BlogPost {
   slug: string;
@@ -42,6 +44,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 99 & 100 - 2026-03-28
+  artikel99,
+  artikel100,
+
   // Artikel 97 & 98 - 2026-02-27
   artikel97,
   artikel98,

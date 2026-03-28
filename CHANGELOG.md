@@ -18,6 +18,44 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ---
 
+## [2026-03-28] - Blog Articles 99-100
+
+### Added
+- Blog: artikel-100 "E-Auto Batteriecheck: So prüfst du gebrauchte Elektroautos richtig"
+- Blog: artikel-99 "Versicherungen für Autohändler: Was du wirklich brauchst (und was nicht)"
+
+### Changed
+- Updated blog-state.json to calendar index 100
+- Total articles: 100 (milestone reached!)
+
+---
+
+## [2026-03-27] - Blog Articles & Security Updates
+
+### Added
+- Blog: artikel-96 "Langsteher-Kosten & Plattformen-Vergleich" (commit b2e28c8)
+- Blog: artikel-95 "Wasserstoff-Occasion & Export-Geschäft" (commit 53b7122)
+- Blog: artikel-94 "Lead-Gen & Einwandbehandlung" (commit f851932)
+- Blog: artikel-93 "Lead-Gen & Einwandbehandlung" (commit f851932)
+- Blog: artikel-92 "Preispolitik & Q2-Bestandsplanung" (commit b1f303a)
+- Blog: artikel-91 "Preispolitik & Q2-Bestandsplanung" (commit b1f303a)
+- Blog: artikel-90 "Video Marketing & Kundentypen" (commit ce2d6e9)
+- Blog: artikel-89 "Video Marketing & Kundentypen" (commit ce2d6e9)
+- Blog: artikel-88 "Werkstattauslastung + Winterreifen" (commit 43d52bc)
+- Blog: artikel-87 "Werkstattauslastung + Winterreifen" (commit 43d52bc)
+- Blog: artikel-86 "Hybrid/Electric Occasions + Sales Automation" (commit 125247b)
+- Blog: artikel-85 "Hybrid/Electric Occasions + Sales Automation" (commit 125247b)
+- Blog: artikel-84 "Aufbereitung + Lieferantenmanagement" (commit e1accf1)
+- Blog: artikel-83 "Aufbereitung + Lieferantenmanagement" (commit e1accf1)
+
+### Security
+- **HIGH vulnerability fixed** — Replaced xlsx with exceljs to resolve security issues (commit a548abb)
+
+### Changed
+- Updated blog-state.json to index 96 (current)
+
+---
+
 ## [2026-03-16] - Blog Articles
 
 ### Added
