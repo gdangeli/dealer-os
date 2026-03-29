@@ -28,6 +28,8 @@ import { artikel97 } from './artikel-97-langsteher-kosten';
 import { artikel98 } from './artikel-98-plattformen-vergleich';
 import { artikel99 } from './artikel-99-versicherungen-autohaendler-optimieren';
 import { artikel100 } from './artikel-100-elektroauto-batterie-pruefen-occasion';
+import { artikel101 } from './artikel-101-cashflow-management-autohandel';
+import { artikel102 } from './artikel-102-mitarbeiterfuehrung-kleiner-autohandel';
 
 export interface BlogPost {
   slug: string;
@@ -44,6 +46,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 101 & 102 - 2026-03-29
+  artikel101,
+  artikel102,
+
   // Artikel 99 & 100 - 2026-03-28
   artikel99,
   artikel100,
