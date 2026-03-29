@@ -3184,15 +3184,15 @@ Strafe: CHF 5'000 + Reputationsschaden (Kunde ging an die Medien).
 ### 4. Vorlagen
 
 **Probefahrt-Formular mit Datenschutz:**
-\`\`\`
+```
 [ ] Ich bestätige, dass meine Daten (Name, Adresse, Telefon) für die Probefahrt und Kontaktaufnahme verwendet werden dürfen.
 [ ] Ich möchte künftig Angebote per E-Mail erhalten (jederzeit widerrufbar).
 
 Datum, Unterschrift
-\`\`\`
+```
 
 **Auskunftsbegehren-Antwort:**
-\`\`\`
+```
 Sehr geehrte/r [Name],
 
 vielen Dank für Ihre Anfrage. Folgende Daten haben wir von Ihnen gespeichert:
@@ -3208,7 +3208,7 @@ Diese Daten werden gespeichert für: [Zweck, z.B. Garantieabwicklung].
 
 Mit freundlichen Grüssen,
 [Dein Name]
-\`\`\`
+```
 
 ## Zusammenfassung: Deine 10-Punkte-Checkliste
 
@@ -9454,7 +9454,7 @@ Erstellen Sie einen kurzen Link zu Ihrer Google-Bewertungsseite:
 3. Kopieren Sie die URL
 4. Kürzen Sie sie mit bit.ly oder ähnlichem
 
-**Beispiel:** \`bit.ly/garage-mueller-bewertung\`
+**Beispiel:** `bit.ly/garage-mueller-bewertung`
 
 ### 4. Mehrere Kanäle nutzen
 
@@ -10759,9 +10759,9 @@ WhatsApp Business hat eine Katalog-Funktion – perfekt für Ihre Fahrzeuge:
 
 Fügen Sie auf jeder Fahrzeugseite einen WhatsApp-Button hinzu:
 
-\`\`\`
+```
 https://wa.me/41441234567?text=Ich%20interessiere%20mich%20für%20den%20[FAHRZEUG]
-\`\`\`
+```
 
 So startet der Kunde den Chat mit einer vorausgefüllten Nachricht.
 
@@ -11004,7 +11004,7 @@ Die gründliche Fahrzeugprüfung ist Ihr wichtigstes Werkzeug:
 
 ### Der Händler-Rechner
 
-\`\`\`
+```
 Erwarteter Verkaufspreis (VK)         CHF 25'000
 - Gewünschte Marge (15-20%)           CHF  4'000
 - Aufbereitung                        CHF    500
@@ -11013,7 +11013,7 @@ Erwarteter Verkaufspreis (VK)         CHF 25'000
 - Bekannte Mängel/Reparaturen         CHF  1'500
 - Risikopuffer (unentdeckte Mängel)   CHF    500
 = Maximaler Ankaufspreis              CHF 18'150
-\`\`\`
+```
 
 ### Inzahlungnahme-Kalkulation
 
@@ -11025,13 +11025,13 @@ Bei einer Inzahlungnahme haben Sie zwei Geschäfte:
 
 ### Typische Inzahlungnahme-Formel
 
-\`\`\`
+```
 Marktpreis (Händler-VK)               CHF 20'000
 - Händlermarge (ca. 15%)              CHF  3'000
 = Fairer Eintauschpreis               CHF 17'000
 - Verhandlungsspielraum               CHF  1'000
 = Ihr erstes Angebot                  CHF 16'000
-\`\`\`
+```
 
 ## Häufige Fehler vermeiden
 
