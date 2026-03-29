@@ -11,7 +11,7 @@ export const artikel102: BlogPost = {
   publishedAt: "2026-03-29",
   author: "DealerOS Team",
   keywords: ["Mitarbeiterführung", "Teamaufbau", "Autohandel Personal", "Delegation", "Führung KMU"],
-  content: \`Ein Händler aus Winterthur hat mir letztes Jahr geschrieben. Frustriert. "Ich arbeite 60 Stunden die Woche. Habe zwei Mitarbeiter eingestellt. Und arbeite immer noch 60 Stunden. Nur jetzt habe ich auch noch Personalstress."
+  content: `Ein Händler aus Winterthur hat mir letztes Jahr geschrieben. Frustriert. "Ich arbeite 60 Stunden die Woche. Habe zwei Mitarbeiter eingestellt. Und arbeite immer noch 60 Stunden. Nur jetzt habe ich auch noch Personalstress."
 
 Das Gespräch kenne ich. Viele Händler erleben genau das: Sie stellen Leute ein, um Entlastung zu bekommen – und das Gegenteil passiert.
 
@@ -456,5 +456,5 @@ Und du? Du kannst dich endlich auf das konzentrieren, was dir Spass macht – un
 
 ---
 
-**Wie führst du dein Team?** Was funktioniert, was nicht? Teile deine Erfahrungen in den Kommentaren!\`
+**Wie führst du dein Team?** Was funktioniert, was nicht? Teile deine Erfahrungen in den Kommentaren!`
 };

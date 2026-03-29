@@ -11,7 +11,7 @@ export const artikel101: BlogPost = {
   publishedAt: "2026-03-29",
   author: "DealerOS Team",
   keywords: ["Cashflow Autohandel", "Liquidität", "Finanzplanung", "Zahlungsziele", "Working Capital"],
-  content: \`Letzten November hatte ein Händler aus dem Mittelland seinen besten Monat überhaupt. 14 Fahrzeuge verkauft, CHF 38'000 Bruttomarge. Auf dem Papier ein Traummonat.
+  content: `Letzten November hatte ein Händler aus dem Mittelland seinen besten Monat überhaupt. 14 Fahrzeuge verkauft, CHF 38'000 Bruttomarge. Auf dem Papier ein Traummonat.
 
 Das Problem: Drei Wochen später konnte er seine MFK-Rechnungen nicht bezahlen. Konto im Minus, Kreditlinie ausgeschöpft, Lieferant droht mit Inkasso.
 
@@ -415,5 +415,5 @@ Dein nächster Schritt: Erstelle heute noch deinen 12-Wochen-Cashflow-Plan. Es d
 
 ---
 
-**Wie managst du deinen Cashflow?** Hast du schon mal einen Engpass erlebt? Teile deine Erfahrungen in den Kommentaren!\`
+**Wie managst du deinen Cashflow?** Hast du schon mal einen Engpass erlebt? Teile deine Erfahrungen in den Kommentaren!`
 };
