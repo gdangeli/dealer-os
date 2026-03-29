@@ -9454,7 +9454,7 @@ Erstellen Sie einen kurzen Link zu Ihrer Google-Bewertungsseite:
 3. Kopieren Sie die URL
 4. Kürzen Sie sie mit bit.ly oder ähnlichem
 
-**Beispiel:** `bit.ly/garage-mueller-bewertung`
+**Beispiel:** \`bit.ly/garage-mueller-bewertung\`
 
 ### 4. Mehrere Kanäle nutzen
 
