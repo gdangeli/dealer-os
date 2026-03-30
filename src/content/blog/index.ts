@@ -30,6 +30,8 @@ import { artikel99 } from './artikel-99-versicherungen-autohaendler-optimieren';
 import { artikel100 } from './artikel-100-elektroauto-batterie-pruefen-occasion';
 import { artikel101 } from './artikel-101-cashflow-management-autohandel';
 import { artikel102 } from './artikel-102-mitarbeiterfuehrung-kleiner-autohandel';
+import { artikel103 } from './artikel-103-social-media-autohaendler-strategie';
+import { artikel104 } from './artikel-104-jahresabschluss-vorbereitung-autohandel';
 
 export interface BlogPost {
   slug: string;
@@ -46,6 +48,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 103 & 104 - 2026-03-30
+  artikel103,
+  artikel104,
+
   // Artikel 101 & 102 - 2026-03-29
   artikel101,
   artikel102,
