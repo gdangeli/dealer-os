@@ -34,6 +34,8 @@ import { artikel103 } from './artikel-103-social-media-autohaendler-strategie';
 import { artikel104 } from './artikel-104-jahresabschluss-vorbereitung-autohandel';
 import { artikel105 } from './artikel-105-garantie-gewaehrleistung-autohaendler-pflichten';
 import { artikel106 } from './artikel-106-fahrzeug-fotografie-online-inserate-verkaufen';
+import { artikel107 } from './artikel-107-fruehlings-check-fahrzeugaufbereitung-nach-winter';
+import { artikel108 } from './artikel-108-google-business-profile-autohaendler-optimieren';
 
 export interface BlogPost {
   slug: string;
@@ -50,6 +52,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 107 & 108 - 2026-04-02
+  artikel107,
+  artikel108,
+
   // Artikel 105 & 106 - 2026-03-31
   artikel105,
   artikel106,
