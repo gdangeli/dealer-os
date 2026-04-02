@@ -18,6 +18,57 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ---
 
+## [2026-04-02] - Blog Articles 107-108
+
+### Added
+- Blog: artikel-108 "Google Business Profile für Autohändler optimieren" (commit c7328ed)
+- Blog: artikel-107 "Frühlings-Check: Fahrzeugaufbereitung nach dem Winter" (commit c7328ed)
+
+### Changed
+- Updated blog-state.json to calendar index 108
+- Total articles: 108
+
+---
+
+## [2026-03-31] - Blog Articles 105-106
+
+### Added
+- Blog: artikel-106 "Fahrzeug-Fotografie für Online-Inserate: So verkaufst du 30% schneller" (commit c01d3a0)
+- Blog: artikel-105 "Garantie & Gewährleistung: Was du als Autohändler wirklich zahlen musst" (commit c01d3a0)
+
+### Changed
+- Updated blog-state.json to calendar index 106
+- Total articles: 106
+
+---
+
+## [2026-03-30] - Blog Articles 103-104
+
+### Added
+- Blog: artikel-104 "Jahresabschluss-Vorbereitung im Autohandel: Die Checkliste für Q4" (commit a660c8a)
+- Blog: artikel-103 "Social Media für Autohändler: Instagram, TikTok & Facebook richtig nutzen" (commit a660c8a)
+
+### Changed
+- Updated blog-state.json to calendar index 104
+- Total articles: 104
+
+---
+
+## [2026-03-29] - Blog Articles 101-102
+
+### Added
+- Blog: artikel-102 "Mitarbeiterführung im kleinen Autohandel: So baust du ein loyales Team" (commit 3809f42)
+- Blog: artikel-101 "Cashflow-Management für Autohändler: Liquidität sichern ohne Bank" (commit 3809f42)
+
+### Fixed
+- Removed escaped backticks in articles 101-102 for Turbopack compatibility (commit abdbddd)
+
+### Changed
+- Updated blog-state.json to calendar index 102
+- Total articles: 102
+
+---
+
 ## [2026-03-28] - Blog Articles 99-100
 
 ### Added
