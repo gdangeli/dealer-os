@@ -1,12 +1,12 @@
 {
-  "lastCalendarIndex": 104,
-  "lastPublishedDate": "2026-03-30",
-  "totalArticles": 104,
-  "articlesThisMonth": 34,
-  "nextScheduled": [105, 106],
+  "lastCalendarIndex": 108,
+  "lastPublishedDate": "2026-04-02",
+  "totalArticles": 108,
+  "articlesThisMonth": 2,
+  "nextScheduled": [109, 110],
   "meta": {
     "strategy": "BLOG-STRATEGY.md",
-    "updated": "2026-03-30T12:00:00Z",
+    "updated": "2026-04-02T07:20:00Z",
     "repository": "dealer-os",
     "deployTarget": "dealer-os-opal.vercel.app"
   }
