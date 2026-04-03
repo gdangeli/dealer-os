@@ -36,6 +36,8 @@ import { artikel105 } from './artikel-105-garantie-gewaehrleistung-autohaendler-
 import { artikel106 } from './artikel-106-fahrzeug-fotografie-online-inserate-verkaufen';
 import { artikel107 } from './artikel-107-fruehlings-check-fahrzeugaufbereitung-nach-winter';
 import { artikel108 } from './artikel-108-google-business-profile-autohaendler-optimieren';
+import { artikel109 } from './artikel-109-fruehjahr-2026-occasion-einkauf-strategie';
+import { artikel110 } from './artikel-110-zeitfresser-eliminieren-autohandel-effizienz';
 
 export interface BlogPost {
   slug: string;
@@ -52,6 +54,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 109 & 110 - 2026-04-03
+  artikel109,
+  artikel110,
+
   // Artikel 107 & 108 - 2026-04-02
   artikel107,
   artikel108,
