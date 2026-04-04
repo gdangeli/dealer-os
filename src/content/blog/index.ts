@@ -38,6 +38,8 @@ import { artikel107 } from './artikel-107-fruehlings-check-fahrzeugaufbereitung-
 import { artikel108 } from './artikel-108-google-business-profile-autohaendler-optimieren';
 import { artikel109 } from './artikel-109-fruehjahr-2026-occasion-einkauf-strategie';
 import { artikel110 } from './artikel-110-zeitfresser-eliminieren-autohandel-effizienz';
+import { artikel111 } from './artikel-111-fruehlingsgeschaeft-2026-occasionsverkauf-strategien';
+import { artikel112 } from './artikel-112-autoscout24-reichweite-april-optimierung';
 
 export interface BlogPost {
   slug: string;
@@ -54,6 +56,10 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  // Artikel 111 & 112 - 2026-04-22
+  artikel111,
+  artikel112,
+
   // Artikel 109 & 110 - 2026-04-03
   artikel109,
   artikel110,
