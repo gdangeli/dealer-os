@@ -40,6 +40,8 @@ import { artikel109 } from './artikel-109-fruehjahr-2026-occasion-einkauf-strate
 import { artikel110 } from './artikel-110-zeitfresser-eliminieren-autohandel-effizienz';
 import { artikel111 } from './artikel-111-fruehlingsgeschaeft-2026-occasionsverkauf-strategien';
 import { artikel112 } from './artikel-112-autoscout24-reichweite-april-optimierung';
+import { artikel113 } from './artikel-113-occasion-finanzierung-leasing-kredit-haendler';
+import { artikel114 } from './artikel-114-elektroauto-occasion-markt-2026-strategien';
 
 export interface BlogPost {
   slug: string;
@@ -59,6 +61,8 @@ export const blogPosts: BlogPost[] = [
   // Artikel 111 & 112 - 2026-04-22
   artikel111,
   artikel112,
+  artikel113,
+  artikel114,
 
   // Artikel 109 & 110 - 2026-04-03
   artikel109,
