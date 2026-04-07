@@ -42,6 +42,8 @@ import { artikel111 } from './artikel-111-fruehlingsgeschaeft-2026-occasionsverk
 import { artikel112 } from './artikel-112-autoscout24-reichweite-april-optimierung';
 import { artikel113 } from './artikel-113-occasion-finanzierung-leasing-kredit-haendler';
 import { artikel114 } from './artikel-114-elektroauto-occasion-markt-2026-strategien';
+import { artikel115 } from './artikel-115-kundenservice-exzellenz-autohandel-stammkunden';
+import { artikel116 } from './artikel-116-occasionsbewertung-eurotax-marktpreis-guide';
 
 export interface BlogPost {
   slug: string;
@@ -58,11 +60,17 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-  // Artikel 111 & 112 - 2026-04-22
-  artikel111,
-  artikel112,
+  // Artikel 115 & 116 - 2026-04-07
+  artikel115,
+  artikel116,
+
+  // Artikel 113 & 114 - 2026-04-05
   artikel113,
   artikel114,
+
+  // Artikel 111 & 112 - 2026-04-04
+  artikel111,
+  artikel112,
 
   // Artikel 109 & 110 - 2026-04-03
   artikel109,
