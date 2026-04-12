@@ -93,7 +93,7 @@ Systeme wie **AutoManager24**, **CarSync** oder **DealerOS** erlauben:
 Wenn du noch kein DMS willst:
 
 1. **Erstelle eine Master-Vorlage in Word/Notion:**
-   ```
+   \`\`\`
    [MARKE] [MODELL] [MOTORISIERUNG]
    
    Erstzulassung: [DATUM]
@@ -107,7 +107,7 @@ Wenn du noch kein DMS willst:
    ...
    
    Preis: CHF [PREIS]
-   ```
+   \`\`\`
 
 2. **Fülle einmal aus**
 3. **Copy-Paste auf alle Plattformen**
@@ -211,7 +211,7 @@ Wenn kein CRM:
 
 **Erstelle Vorlagen:**
 
-```
+\`\`\`
 Vorlage "Verfügbar":
 Guten Tag [NAME],
 
@@ -221,7 +221,7 @@ Wann hätten Sie Zeit?
 
 Freundliche Grüsse,
 [DEIN NAME]
-```
+\`\`\`
 
 **WhatsApp Business:** Speichere diese als "Schnellantworten"
 
@@ -288,7 +288,7 @@ Wenn du keine Tech-Lösung willst:
 
 **Erstelle eine Checkliste (digital oder Papier):**
 
-```
+\`\`\`
 [ ] Fahrgestellnummer: _______________
 [ ] Erstzulassung: __________
 [ ] Kilometerstand: __________
@@ -299,7 +299,7 @@ Wenn du keine Tech-Lösung willst:
 [ ] Serviceheft: Ja / Nein
 [ ] Vorschäden: Ja (notieren) / Nein
 [ ] Reifen Zustand: 1 2 3 4 5 (Schulnoten)
-```
+\`\`\`
 
 **Vorteil:** Nichts vergessen. Immer vollständig.
 
@@ -390,7 +390,7 @@ Aber:
 
 **Schritt 1: Foto-Checkliste (immer gleich)**
 
-```
+\`\`\`
 Standard-Fotoliste (15 Bilder):
 1. Vorne schräg links
 2. Vorne schräg rechts
@@ -407,7 +407,7 @@ Standard-Fotoliste (15 Bilder):
 13. Kofferraum
 14. Motor
 15. Reifen/Felgen
-```
+\`\`\`
 
 **Vorteil:** Routine = Geschwindigkeit. Du vergisst nichts.
 
@@ -540,7 +540,7 @@ Viele kleine Händler nutzen:
 
 **Antwort-Template:**
 
-```
+\`\`\`
 Guten Tag [NAME],
 
 vielen Dank für Ihr Interesse am [MARKE] [MODELL].
@@ -554,7 +554,7 @@ Passt Ihnen der Termin?
 
 Freundliche Grüsse,
 [DEIN NAME]
-```
+\`\`\`
 
 **Wenn keine Antwort:** Nicht nachhaken. Nächster Lead.
 
