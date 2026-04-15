@@ -18,6 +18,71 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ---
 
+## [2026-04-15] - Blog Articles 117-120 🎉
+
+### Added
+- Blog: artikel-120 "Fahrzeugaufbereitung: Profi-Tipps für mehr Verkaufspreis im Autohandel" (commit 9036f03)
+- Blog: artikel-119 "Einwandbehandlung: Preis zu hoch? So meisterst du Preisdiskussionen beim Autoverkauf" (commit 9036f03)
+- Blog: artikel-118 "Liquiditätsplanung: Cash Flow Management für Autohändler" (commit 9036f03)
+- Blog: artikel-117 "Online Bewertungen: Google Reviews strategisch nutzen im Autohandel" (commit 9036f03)
+
+### Changed
+- Updated blog-state.json to calendar index 120
+- Total articles: **120** 🎉 **(Milestone reached!)**
+
+---
+
+## [2026-04-07] - Blog Articles 115-116
+
+### Added
+- Blog: artikel-116 "Occasionsbewertung Guide: Eurotax Marktpreis richtig einschätzen" (commit 214bbb3)
+- Blog: artikel-115 "Kundenservice-Exzellenz: Stammkunden gewinnen im Autohandel" (commit 214bbb3)
+
+### Changed
+- Updated blog-state.json to calendar index 116
+- Total articles: 116
+
+---
+
+## [2026-04-05] - Blog Articles 113-114
+
+### Added
+- Blog: artikel-114 "Elektroauto-Occasion Markt 2026: Trends und Chancen" (commit 5b583b2)
+- Blog: artikel-113 "Occasion-Finanzierung: Leasing vs. Kredit - Der ultimative Vergleich" (commit 5b583b2)
+
+### Changed
+- Updated blog-state.json to calendar index 114
+- Total articles: 114
+
+---
+
+## [2026-04-04] - Blog Articles 111-112
+
+### Added
+- Blog: artikel-112 "AutoScout24 Reichweite April: Optimierung für maximale Sichtbarkeit" (commit 6b39ca0)
+- Blog: artikel-111 "Frühlingsgeschäft 2026: Occasionsverkauf-Strategien für Q2" (commit 7650d2c)
+
+### Changed
+- Updated blog-state.json to calendar index 112
+- Total articles: 112
+
+---
+
+## [2026-04-03] - Blog Articles 109-110
+
+### Added
+- Blog: artikel-110 "Zeitfresser eliminieren: Produktivität im Autohandel steigern" (commit b5cf7d5)
+- Blog: artikel-109 "Frühjahr Einkaufsstrategie: Die besten Occasions für Q2 sichern" (commit b5cf7d5)
+
+### Fixed
+- Escaped backticks in artikel-110 code blocks (commit 29e0107)
+
+### Changed
+- Updated blog-state.json to calendar index 110
+- Total articles: 110 **(Milestone reached!)**
+
+---
+
 ## [2026-04-02] - Blog Articles 107-108
 
 ### Added
