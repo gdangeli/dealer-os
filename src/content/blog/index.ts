@@ -44,6 +44,10 @@ import { artikel113 } from './artikel-113-occasion-finanzierung-leasing-kredit-h
 import { artikel114 } from './artikel-114-elektroauto-occasion-markt-2026-strategien';
 import { artikel115 } from './artikel-115-kundenservice-exzellenz-autohandel-stammkunden';
 import { artikel116 } from './artikel-116-occasionsbewertung-eurotax-marktpreis-guide';
+import { artikel117 } from './artikel-117-online-bewertungen-google-reviews-autohandel';
+import { artikel118 } from './artikel-118-liquiditaetsplanung-cash-flow-autohandel';
+import { artikel119 } from './artikel-119-einwandbehandlung-preis-zu-hoch-autoverkauf';
+import { artikel120 } from './artikel-120-fahrzeugaufbereitung-profi-tipps-autohandel';
 
 export interface BlogPost {
   slug: string;
@@ -63,6 +67,10 @@ export const blogPosts: BlogPost[] = [
   // Artikel 115 & 116 - 2026-04-07
   artikel115,
   artikel116,
+  artikel120,
+  artikel119,
+  artikel118,
+  artikel117,
 
   // Artikel 113 & 114 - 2026-04-05
   artikel113,
